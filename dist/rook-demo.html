@@ -1,0 +1,1450 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rook — AI Growth Team · Demo</title>
+<style>
+/* Rook demo — owner console. Token-driven, light/dark. */
+:root {
+  --bg: #f5f4ef;
+  --surface: #ffffff;
+  --surface-2: #faf9f6;
+  --ink: #171f1b;
+  --ink-2: #56605a;
+  --muted: #879088;
+  --line: #e4e3da;
+  --line-strong: #cfcec4;
+  --accent: #1a6353;
+  --accent-hover: #14503f;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5efe9;
+  --accent-soft-ink: #14503f;
+  --good: #0ca30c; --good-text: #006300;
+  --warn: #fab219; --serious: #ec835a; --crit: #d03b3b;
+  --chart-1: #2a78d6;
+  --chart-grid: #e1e0d9;
+  --chart-axis: #c3c2b7;
+  --funnel-1: #86b6ef; --funnel-2: #5598e7; --funnel-3: #2a78d6; --funnel-4: #1c5cab; --funnel-5: #104281;
+  --bubble-cust: #ecebe4;
+  --shadow: 0 1px 2px rgba(23, 31, 27, 0.05);
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101413;
+    --surface: #1a201d;
+    --surface-2: #161c19;
+    --ink: #eef1ee;
+    --ink-2: #b4beb7;
+    --muted: #7f8983;
+    --line: #2a322e;
+    --line-strong: #3a443f;
+    --accent: #4fae95;
+    --accent-hover: #66c0a8;
+    --accent-ink: #0c1512;
+    --accent-soft: #1e2f29;
+    --accent-soft-ink: #8fd0bc;
+    --good: #0ca30c; --good-text: #35b435;
+    --chart-1: #3987e5;
+    --chart-grid: #2c2c2a;
+    --chart-axis: #383835;
+    --funnel-1: #86b6ef; --funnel-2: #5598e7; --funnel-3: #3987e5; --funnel-4: #2a78d6; --funnel-5: #184f95;
+    --bubble-cust: #262e2a;
+    --shadow: none;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f5f4ef; --surface: #ffffff; --surface-2: #faf9f6;
+  --ink: #171f1b; --ink-2: #56605a; --muted: #879088;
+  --line: #e4e3da; --line-strong: #cfcec4;
+  --accent: #1a6353; --accent-hover: #14503f; --accent-ink: #ffffff;
+  --accent-soft: #e5efe9; --accent-soft-ink: #14503f;
+  --good: #0ca30c; --good-text: #006300;
+  --chart-1: #2a78d6; --chart-grid: #e1e0d9; --chart-axis: #c3c2b7;
+  --funnel-1: #86b6ef; --funnel-2: #5598e7; --funnel-3: #2a78d6; --funnel-4: #1c5cab; --funnel-5: #104281;
+  --bubble-cust: #ecebe4; --shadow: 0 1px 2px rgba(23,31,27,0.05);
+}
+:root[data-theme="dark"] {
+  --bg: #101413; --surface: #1a201d; --surface-2: #161c19;
+  --ink: #eef1ee; --ink-2: #b4beb7; --muted: #7f8983;
+  --line: #2a322e; --line-strong: #3a443f;
+  --accent: #4fae95; --accent-hover: #66c0a8; --accent-ink: #0c1512;
+  --accent-soft: #1e2f29; --accent-soft-ink: #8fd0bc;
+  --good: #0ca30c; --good-text: #35b435;
+  --chart-1: #3987e5; --chart-grid: #2c2c2a; --chart-axis: #383835;
+  --funnel-1: #86b6ef; --funnel-2: #5598e7; --funnel-3: #3987e5; --funnel-4: #2a78d6; --funnel-5: #184f95;
+  --bubble-cust: #262e2a; --shadow: none;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; cursor: pointer; }
+a { color: var(--accent); }
+
+.shell { display: grid; grid-template-columns: 218px 1fr; min-height: 100vh; }
+
+/* ---- sidebar ---- */
+.side {
+  border-right: 1px solid var(--line);
+  padding: 18px 12px;
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column; gap: 4px;
+  background: var(--surface-2);
+}
+.logo { display: flex; align-items: baseline; gap: 8px; padding: 4px 10px 14px; }
+.logo b { font-size: 19px; letter-spacing: -0.02em; }
+.logo span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.nav-btn {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; text-align: left;
+  padding: 8px 10px; border: 0; border-radius: 8px;
+  background: transparent; color: var(--ink-2);
+}
+.nav-btn svg { flex: none; opacity: 0.75; }
+.nav-btn:hover { background: var(--accent-soft); color: var(--accent-soft-ink); }
+.nav-btn.on { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.nav-btn.on svg { opacity: 1; }
+.nav-btn .bdg { margin-left: auto; font-size: 11px; background: var(--crit); color: #fff; border-radius: 99px; padding: 0 6px; line-height: 17px; }
+.nav-btn.on .bdg { background: var(--accent-ink); color: var(--accent); }
+.side-foot { margin-top: auto; padding: 10px; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+/* ---- main ---- */
+.main { min-width: 0; padding: 0 26px 90px; }
+.topbar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 16px 0 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+.topbar h1 { font-size: 16px; margin: 0; font-weight: 650; }
+.topbar .sub { color: var(--muted); font-size: 12.5px; }
+.chip {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
+  padding: 3px 9px; border-radius: 99px; font-weight: 600;
+}
+.chip.sim { background: var(--warn); color: #402b00; }
+.chip.time { background: var(--accent-soft); color: var(--accent-soft-ink); }
+.spacer { flex: 1; }
+
+h2.sec { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 26px 0 10px; font-weight: 650; }
+h2.sec:first-child { margin-top: 0; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 16px 18px;
+}
+.grid { display: grid; gap: 12px; }
+.grid.c2 { grid-template-columns: 1fr 1fr; }
+.grid.c3 { grid-template-columns: repeat(3, 1fr); }
+
+/* ---- today ---- */
+.brief { border-left: 3px solid var(--accent); }
+.brief h3 { margin: 0 0 6px; font-size: 15.5px; }
+.brief p { margin: 0; color: var(--ink-2); max-width: 62ch; }
+.stat-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.stat b { display: block; font-size: 22px; font-weight: 650; letter-spacing: -0.01em; }
+.stat span { font-size: 12px; color: var(--muted); }
+.opp { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.opp + .opp { margin-top: 8px; }
+.opp .stripe { flex: none; width: 4px; align-self: stretch; border-radius: 2px; }
+.opp.critical .stripe { background: var(--crit); }
+.opp.decision .stripe { background: var(--warn); }
+.opp.watch .stripe { background: var(--chart-1); }
+.opp.suggestion .stripe { background: var(--good); }
+.opp .who { font-weight: 650; }
+.opp .why { color: var(--ink-2); font-size: 13px; max-width: 68ch; }
+.opp .val { margin-left: auto; flex: none; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+.opp .go { flex: none; align-self: center; }
+
+.appr { display: flex; gap: 12px; align-items: center; padding: 11px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.appr + .appr { margin-top: 8px; }
+.appr .k { flex: none; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; color: var(--accent-soft-ink); background: var(--accent-soft); border-radius: 5px; padding: 3px 7px; }
+.appr .t b { font-weight: 650; display: block; }
+.appr .t span { font-size: 12.5px; color: var(--ink-2); }
+.appr .act { margin-left: auto; flex: none; display: flex; gap: 6px; }
+
+.btn {
+  border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+  border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 550;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.pri:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--accent-ink); }
+.btn.sm { padding: 4px 10px; font-size: 12.5px; }
+.btn[disabled] { opacity: 0.55; cursor: default; }
+
+/* ---- inbox ---- */
+.inbox { display: grid; grid-template-columns: 290px minmax(0, 1fr) 265px; gap: 14px; align-items: start; }
+.convo-list { display: flex; flex-direction: column; gap: 6px; }
+.convo {
+  text-align: left; border: 1px solid var(--line); background: var(--surface);
+  border-radius: var(--radius); padding: 10px 12px; width: 100%;
+  display: block; color: inherit;
+}
+.convo:hover { border-color: var(--accent); }
+.convo.on { border-color: var(--accent); background: var(--accent-soft); }
+.convo .r1 { display: flex; gap: 8px; align-items: baseline; }
+.convo .r1 b { font-weight: 650; font-size: 13.5px; }
+.convo .r1 time { margin-left: auto; font-size: 11px; color: var(--muted); flex: none; }
+.convo .pv { font-size: 12.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.convo .r2 { display: flex; gap: 6px; margin-top: 6px; align-items: center; }
+.dot { width: 7px; height: 7px; border-radius: 99px; display: inline-block; }
+.tagchip { font-size: 10.5px; padding: 1px 7px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+.tagchip.ai { background: var(--accent-soft); border-color: transparent; color: var(--accent-soft-ink); font-weight: 600; }
+.tagchip.human { background: var(--warn); border-color: transparent; color: #402b00; font-weight: 600; }
+.tagchip.esc { background: var(--crit); border-color: transparent; color: #fff; font-weight: 600; }
+
+.thread { display: flex; flex-direction: column; min-height: 480px; }
+.thread-head { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.thread-head b { font-size: 15px; }
+.thread-head .sub { color: var(--muted); font-size: 12px; }
+.msgs { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 16px 2px; }
+.msg { max-width: 78%; padding: 8px 12px; border-radius: 14px; position: relative; }
+.msg.cust { align-self: flex-start; background: var(--bubble-cust); border-bottom-left-radius: 4px; }
+.msg.ai, .msg.staff { align-self: flex-end; background: var(--accent-soft); color: var(--ink); border-bottom-right-radius: 4px; }
+.msg .meta { display: block; font-size: 10.5px; color: var(--muted); margin-top: 4px; }
+.msg .cite { display: inline-block; font-size: 10.5px; margin-top: 6px; padding: 2px 8px; border-radius: 99px; border: 1px dashed var(--accent); color: var(--accent-soft-ink); }
+.msg.sys { align-self: center; max-width: 92%; background: transparent; border: 1px dashed var(--line-strong); color: var(--muted); font-size: 11.5px; text-align: center; border-radius: 8px; }
+.typing { align-self: flex-end; background: var(--accent-soft); border-radius: 14px; padding: 10px 14px; }
+.typing i { display: inline-block; width: 5px; height: 5px; margin: 0 1.5px; background: var(--accent); border-radius: 99px; animation: blink 1s infinite; }
+.typing i:nth-child(2) { animation-delay: 0.18s; } .typing i:nth-child(3) { animation-delay: 0.36s; }
+@keyframes blink { 0%, 70%, 100% { opacity: 0.25; } 35% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .typing i { animation: none; } }
+
+.ctx .card + .card { margin-top: 10px; }
+.ctx h4 { margin: 0 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 12.5px; }
+.kv dt { color: var(--muted); margin: 0; }
+.kv dd { margin: 0; font-weight: 550; }
+.score-pill { font-size: 20px; font-weight: 650; }
+.handoff { border-left: 3px solid var(--warn); }
+.handoff p { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+.nextact { border-left: 3px solid var(--accent); }
+.nextact p { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+
+/* ---- customers ---- */
+.filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.fbtn { border: 1px solid var(--line-strong); background: var(--surface); border-radius: 99px; padding: 4px 12px; font-size: 12.5px; color: var(--ink-2); }
+.fbtn.on { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 600; }
+table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 650; padding: 8px 10px; border-bottom: 1px solid var(--line-strong); }
+.tbl td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl tr.rowbtn { cursor: pointer; }
+.tbl tr.rowbtn:hover td { background: var(--surface-2); }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl-wrap { overflow-x: auto; }
+.lc { font-size: 11px; font-weight: 650; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+.lc.Active { background: var(--accent-soft); color: var(--accent-soft-ink); }
+.lc.VIP { background: var(--funnel-4); color: #fff; }
+.lc.Dormant { background: var(--surface-2); border: 1px solid var(--line-strong); color: var(--muted); }
+.lc.Converted { background: var(--accent-soft); color: var(--accent-soft-ink); }
+.lc.Evaluating { background: var(--warn); color: #402b00; }
+.lc.churn { background: var(--crit); color: #fff; }
+.lc.lead { background: var(--surface-2); border: 1px solid var(--line-strong); color: var(--ink-2); }
+.cust-detail .timeline { list-style: none; margin: 8px 0 0; padding: 0; }
+.cust-detail .timeline li { position: relative; padding: 0 0 14px 22px; border-left: 2px solid var(--line); margin-left: 6px; }
+.cust-detail .timeline li::before { content: ""; position: absolute; left: -6px; top: 3px; width: 10px; height: 10px; border-radius: 99px; background: var(--accent); border: 2px solid var(--surface); }
+.cust-detail .timeline time { font-size: 11px; color: var(--muted); display: block; }
+
+/* ---- marketing ---- */
+.camp { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 16px 18px; }
+.camp + .camp { margin-top: 10px; }
+.camp .head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.camp .head b { font-size: 14.5px; font-weight: 650; }
+.camp .status { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 9px; border-radius: 99px; }
+.status.pending { background: var(--warn); color: #402b00; }
+.status.scheduled { background: var(--accent-soft); color: var(--accent-soft-ink); }
+.status.completed { background: var(--surface-2); border: 1px solid var(--line-strong); color: var(--muted); }
+.status.approved { background: var(--good); color: #fff; }
+.camp .row { display: grid; grid-template-columns: 110px 1fr; gap: 3px 14px; font-size: 13px; margin-top: 10px; }
+.camp .row dt { color: var(--muted); }
+.camp .row dd { margin: 0; color: var(--ink-2); }
+.camp .copy { font-style: italic; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 13px; color: var(--ink-2); max-width: 68ch; }
+.camp .est { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; }
+.camp .est div b { display: block; font-size: 16px; font-variant-numeric: tabular-nums; }
+.camp .est div span { font-size: 11.5px; color: var(--muted); }
+.camp .actions { margin-top: 12px; display: flex; gap: 8px; }
+
+/* ---- reputation ---- */
+.rev { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 14px 16px; }
+.rev + .rev { margin-top: 10px; }
+.rev .head { display: flex; gap: 10px; align-items: baseline; }
+.rev .stars { color: var(--warn); letter-spacing: 2px; font-size: 13px; }
+.rev.neg .stars { color: var(--crit); }
+.rev p.txt { margin: 8px 0; color: var(--ink-2); max-width: 68ch; }
+.rev .reply { border-left: 3px solid var(--accent); padding: 8px 12px; background: var(--surface-2); border-radius: 0 8px 8px 0; font-size: 13px; color: var(--ink-2); max-width: 66ch; }
+.rev .reply .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 3px; font-weight: 700; }
+.theme-row { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.theme-row:last-child { border-bottom: 0; }
+.theme-row .bar { height: 8px; border-radius: 4px; background: var(--chart-1); }
+.theme-row.warn .bar { background: var(--warn); }
+.theme-row.bad .bar { background: var(--crit); }
+.theme-row .n { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---- brain ---- */
+.kb { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 13px 16px; }
+.kb + .kb { margin-top: 8px; }
+.kb .head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.kb .head b { font-weight: 650; }
+.kb .head .cat { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.kb .head .cites { margin-left: auto; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; flex: none; }
+.kb p { margin: 6px 0 0; font-size: 13px; color: var(--ink-2); max-width: 72ch; }
+.kb .meta { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+.lock { font-size: 10.5px; font-weight: 700; color: var(--serious); text-transform: uppercase; letter-spacing: 0.05em; }
+.gap { border-left: 3px solid var(--warn); }
+.gap b { font-weight: 650; }
+.gap p { margin: 3px 0 0; font-size: 12.5px; color: var(--ink-2); }
+
+/* ---- insights / charts ---- */
+.chart-card h3 { margin: 0 0 2px; font-size: 13.5px; font-weight: 650; }
+.chart-card .sub { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.viz { width: 100%; height: auto; display: block; }
+.viz text { font: 10.5px system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--muted); }
+.viz .val { fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.viz .grid-line { stroke: var(--chart-grid); stroke-width: 1; }
+.viz .axis { stroke: var(--chart-axis); stroke-width: 1; }
+.tooltip {
+  position: fixed; z-index: 30; pointer-events: none;
+  background: var(--ink); color: var(--bg);
+  font-size: 12px; padding: 5px 9px; border-radius: 7px;
+  transform: translate(-50%, calc(-100% - 10px));
+  white-space: nowrap; display: none;
+}
+.strategy li { margin-bottom: 8px; color: var(--ink-2); max-width: 72ch; }
+.strategy li::marker { color: var(--accent); }
+.kpi-delta { font-size: 11.5px; color: var(--good-text); }
+
+/* ---- toast ---- */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 550; z-index: 50; box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+  opacity: 0; transition: opacity 0.25s, translate 0.25s;
+}
+.toast.show { opacity: 1; }
+
+/* ---- tabbar (mobile) ---- */
+.tabbar { display: none; }
+
+button:focus-visible, .convo:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1080px) {
+  .inbox { grid-template-columns: 250px minmax(0, 1fr); }
+  .inbox .ctx { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .ctx .card + .card { margin-top: 0; }
+  .stat-row { grid-template-columns: repeat(3, 1fr); }
+  .grid.c3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .shell { grid-template-columns: 1fr; }
+  .side { display: none; }
+  .main { padding: 0 14px 96px; }
+  .grid.c2, .grid.c3 { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .inbox { grid-template-columns: 1fr; }
+  .inbox .list-pane.hidden-m, .inbox .thread-pane.hidden-m { display: none; }
+  .opp .val { display: none; }
+  .appr { flex-wrap: wrap; }
+  .appr .act { margin-left: 0; width: 100%; }
+  .tabbar {
+    display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    background: var(--surface); border-top: 1px solid var(--line);
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+  }
+  .tabbar button {
+    flex: 1; border: 0; background: none; color: var(--muted);
+    font-size: 10px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0;
+  }
+  .tabbar button.on { color: var(--accent); font-weight: 650; }
+}
+
+</style>
+
+<div class="shell">
+  <aside class="side" id="side"></aside>
+  <main class="main">
+    <div class="topbar" id="topbar"></div>
+    <div id="view"></div>
+  </main>
+</div>
+<nav class="tabbar" id="tabbar"></nav>
+<div class="tooltip" id="tooltip"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* Rook demo — simulated data for Glow Theory Studio (Tanjong Pagar, Singapore).
+   Deterministic: fixed "now" + seeded PRNG. No network, no real customer data. */
+window.DEMO = (() => {
+  const NOW = new Date('2026-07-10T08:05:00+08:00'); // Friday morning
+  const MS_H = 3600e3, MS_D = 24 * MS_H;
+  const at = (ms) => new Date(ms).toISOString();
+  const hoursAgo = (h) => at(NOW - h * MS_H);
+  const daysAgo = (d, hh = 14, mm = 0) => {
+    const dt = new Date(NOW - d * MS_D);
+    dt.setHours(hh, mm, 0, 0);
+    return dt.toISOString();
+  };
+  const daysAhead = (d) => at(+NOW + d * MS_D);
+
+  // ---- seeded PRNG (mulberry32) for the generated tail ----
+  const rng = (() => {
+    let s = 20260710;
+    return () => {
+      s |= 0; s = (s + 0x6D2B79F5) | 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  })();
+  const pick = (arr) => arr[Math.floor(rng() * arr.length)];
+  const ri = (lo, hi) => lo + Math.floor(rng() * (hi - lo + 1));
+
+  const merchant = {
+    product: 'Rook',
+    name: 'Glow Theory Studio',
+    tagline: 'Nails · Lashes · Facials',
+    address: '27 Duxton Road, Tanjong Pagar',
+    owner: 'Rachel Tan',
+    hours: 'Tue–Sun 10:30–20:30, closed Mon',
+    languages: ['English', '中文'],
+    now: NOW.toISOString(),
+    nowLabel: 'Fri 10 Jul 2026 · 8:05 AM',
+  };
+
+  const services = [
+    { id: 'gel-mani', name: 'Classic Gel Manicure', price: 68, mins: 75, cycle: '3 weeks' },
+    { id: 'biab', name: 'BIAB Structured Manicure', price: 88, mins: 90, cycle: '3–4 weeks' },
+    { id: 'gel-ext', name: 'Gel Extensions', price: 118, mins: 120, cycle: '3–4 weeks' },
+    { id: 'lash-classic', name: 'Classic Lash Extensions', price: 128, mins: 90, cycle: '2–3 weeks (fill)' },
+    { id: 'lash-volume', name: 'Volume Lash Extensions', price: 158, mins: 110, cycle: '2–3 weeks (fill)' },
+    { id: 'lash-fill', name: 'Lash Fill', price: 68, mins: 60, cycle: '2–3 weeks' },
+    { id: 'facial-sig', name: 'Hydrating Signature Facial', price: 148, mins: 60, cycle: '4–6 weeks' },
+    { id: 'facial-deep', name: 'Deep Cleanse Facial', price: 128, mins: 60, cycle: '4–6 weeks' },
+    { id: 'brow-lam', name: 'Brow Lamination', price: 88, mins: 45, cycle: '6–8 weeks' },
+    { id: 'facial-5pk', name: 'Facial Package (5 sessions)', price: 628, mins: 60, cycle: 'membership' },
+  ];
+
+  // ---- hero customers (referenced by conversations & story beats) ----
+  const heroCustomers = [
+    { id: 'c-priya', name: 'Priya Nair', phone: '+65 9127 4482', lang: 'EN', channel: 'WhatsApp', lifecycle: 'New lead', tags: ['High intent', 'Bridal', 'Group booking'], ltv: 0, visits: 0, lastVisit: null, nextDue: null, consent: false, pref: 'Volume Lash + Gel Mani' },
+    { id: 'c-meiling', name: '陈美玲 Chen Meiling', phone: '+65 8830 1276', lang: 'ZH', channel: 'WhatsApp', lifecycle: 'Converted', tags: ['Price-sensitive', 'First visit booked'], ltv: 0, visits: 0, lastVisit: null, nextDue: null, consent: true, pref: 'BIAB Manicure' },
+    { id: 'c-siti', name: 'Siti Rahayu (@sitiblooms)', phone: '+65 9648 2210', lang: 'EN', channel: 'Instagram', lifecycle: 'Evaluating', tags: ['Social lead', 'Lashes'], ltv: 0, visits: 0, lastVisit: null, nextDue: null, consent: false, pref: 'Volume Lash' },
+    { id: 'c-dana', name: 'Dana Lim', phone: '+65 9077 5531', lang: 'EN', channel: 'WhatsApp', lifecycle: 'Churn risk', tags: ['Complaint open', 'VIP'], ltv: 1462, visits: 14, lastVisit: daysAgo(3, 18, 30), nextDue: null, consent: true, pref: 'Gel Extensions' },
+    { id: 'c-marcus', name: 'Marcus Wee', phone: '+65 8211 9034', lang: 'EN', channel: 'Google', lifecycle: 'New lead', tags: ['FAQ', 'Men’s grooming'], ltv: 0, visits: 0, lastVisit: null, nextDue: null, consent: false, pref: 'Classic Gel Manicure' },
+    { id: 'c-aisha', name: 'Aisha Binte Rahman', phone: '+65 9350 8817', lang: 'EN', channel: 'WhatsApp', lifecycle: 'Converted', tags: ['Recovered by follow-up'], ltv: 148, visits: 1, lastVisit: null, nextDue: daysAhead(2), consent: true, pref: 'Signature Facial' },
+    { id: 'c-farah', name: 'Farah Osman', phone: '+65 9683 2145', lang: 'EN', channel: 'WhatsApp', lifecycle: 'Dormant', tags: ['VIP', 'Lapsed 9 weeks'], ltv: 2210, visits: 19, lastVisit: daysAgo(63), nextDue: daysAgo(21), consent: true, pref: 'Volume Lash + Facial' },
+    { id: 'c-jasmine', name: 'Jasmine Koh', phone: '+65 9012 7754', lang: 'EN', channel: 'Instagram', lifecycle: 'Active', tags: ['Merge suggested: @jasmineeats'], ltv: 826, visits: 8, lastVisit: daysAgo(11), nextDue: daysAhead(10), consent: true, pref: 'BIAB Manicure' },
+    { id: 'c-grace', name: 'Grace Fu Wenli', phone: '+65 8477 3392', lang: 'ZH', channel: 'Referral', lifecycle: 'VIP', tags: ['Birthday 14 Jul', 'Membership'], ltv: 3184, visits: 26, lastVisit: daysAgo(9), nextDue: daysAhead(12), consent: true, pref: 'Facial Package' },
+    { id: 'c-nurul', name: 'Nurul Huda', phone: '+65 9922 0518', lang: 'EN', channel: 'QR code', lifecycle: 'Active', tags: ['Deposit unpaid'], ltv: 264, visits: 3, lastVisit: daysAgo(24), nextDue: daysAhead(1), consent: true, pref: 'Lash Fill' },
+    { id: 'c-devi', name: 'Devi Chandran', phone: '+65 8164 7830', lang: 'EN', channel: 'WhatsApp', lifecycle: 'Active', tags: ['Deposit unpaid'], ltv: 396, visits: 4, lastVisit: daysAgo(19), nextDue: daysAhead(3), consent: true, pref: 'Gel Extensions' },
+    { id: 'c-liwei', name: 'Ong Li Wei', phone: '+65 9744 6120', lang: 'ZH', channel: 'Google', lifecycle: 'Active', tags: ['Prefers weekday AM'], ltv: 544, visits: 6, lastVisit: daysAgo(16), nextDue: daysAhead(5), consent: true, pref: 'Deep Cleanse Facial' },
+  ];
+
+  // ---- generated tail of the customer base ----
+  const firstNames = ['Wei Ting', 'Hui Min', 'Xin Yi', 'Jia Hui', 'Kai Xin', 'Shu Fen', 'Mei Qi', 'Yan Ling', 'Siti Aisyah', 'Nur Alia', 'Fatimah', 'Zulaikha', 'Priyanka', 'Lakshmi', 'Anjali', 'Kavitha', 'Chloe', 'Vanessa', 'Rachel', 'Samantha', 'Fiona', 'Gwen', 'Elaine', 'Denise'];
+  const lastNames = ['Tan', 'Lim', 'Lee', 'Ng', 'Wong', 'Goh', 'Chua', 'Teo', 'Ho', 'Low', 'Binte Ismail', 'Binte Yusof', 'Nair', 'Pillai', 'Menon', 'Chen', 'Koh', 'Ang', 'Sim', 'Yeo'];
+  const lifecyclePool = ['Active', 'Active', 'Active', 'Active', 'Converted', 'Evaluating', 'Dormant', 'Dormant', 'VIP', 'New lead', 'Churn risk'];
+  const channelPool = ['WhatsApp', 'WhatsApp', 'WhatsApp', 'Instagram', 'Instagram', 'Google', 'QR code', 'Referral'];
+  const tagPool = ['Prefers weekends', 'Sensitive skin', 'Regular 3-week cycle', 'Responds to promos', 'Quiet hours only', 'Brings a friend', 'Prefers Joanne', 'Prefers Ms Lee', 'Cash payer', 'PayNow'];
+  const customers = [...heroCustomers];
+  const usedNames = new Set(heroCustomers.map((c) => c.name));
+  while (customers.length < 55) {
+    const name = `${pick(firstNames)} ${pick(lastNames)}`;
+    if (usedNames.has(name)) continue;
+    usedNames.add(name);
+    const lifecycle = pick(lifecyclePool);
+    const visits = lifecycle === 'New lead' ? 0 : lifecycle === 'VIP' ? ri(12, 30) : lifecycle === 'Dormant' ? ri(2, 9) : ri(1, 11);
+    const svc = pick(services.slice(0, 9));
+    customers.push({
+      id: `c-${customers.length}`,
+      name,
+      phone: `+65 ${ri(8, 9)}${ri(100, 999)} ${ri(1000, 9999)}`,
+      lang: rng() < 0.28 ? 'ZH' : 'EN',
+      channel: pick(channelPool),
+      lifecycle,
+      tags: rng() < 0.6 ? [pick(tagPool)] : [pick(tagPool), pick(tagPool)],
+      ltv: visits === 0 ? 0 : visits * ri(68, 158),
+      visits,
+      lastVisit: visits === 0 ? null : daysAgo(lifecycle === 'Dormant' ? ri(50, 120) : ri(2, 28)),
+      nextDue: lifecycle === 'Dormant' || lifecycle === 'New lead' ? null : daysAhead(ri(1, 24)),
+      consent: rng() < 0.82,
+      pref: svc.name,
+    });
+  }
+
+  // ---- scripted conversations (the demo's core) ----
+  const conversations = [
+    {
+      id: 'v-priya', customerId: 'c-priya', name: 'Priya Nair', channel: 'WhatsApp',
+      preview: 'Bridal party of 5 — lashes + nails, 22 Aug', time: hoursAgo(6.85), unread: true,
+      aiStatus: 'escalated', score: 92, intent: 'Group booking',
+      fields: { Service: 'Volume lash ×5, gel mani ×5', 'Date needed': 'Sat 22 Aug, before 1 PM', 'Party size': '5 pax', Budget: '“around $1k”', Language: 'English', Urgency: 'High — wedding' },
+      handoff: 'Group booking over 4 pax requires staff confirmation of stylist availability (Rules Centre R-07).',
+      nextAction: 'Confirm 2 stylists for 22 Aug morning, then send group quote $1,130 (bridal bundle −10%).',
+      messages: [
+        { from: 'cust', time: hoursAgo(6.85), text: 'Hi! Sorry for the late msg 😅 I’m getting married 22 Aug. Do you do lashes + nails for a bridal party? 5 of us incl me' },
+        { from: 'ai', time: hoursAgo(6.84), text: 'Congratulations, Priya! 🎉 Yes we do — volume lashes and gel manicures are our most popular bridal combo. For 5 pax we’d book two stylists in parallel. May I ask what time you’d need everyone done by on the 22nd?' },
+        { from: 'cust', time: hoursAgo(6.8), text: 'Photographer comes 1pm so ideally all done by then. What would it cost roughly?' },
+        { from: 'ai', time: hoursAgo(6.79), text: 'Based on our current price list: volume lashes ($158) + gel manicure ($68) is $226/pax, so about $1,130 for 5 — and bridal groups of 4+ get 10% off, bringing it to ~$1,017. To be done by 1 PM we’d start at 9:00 AM with two stylists.', cite: 'Price list v12 · Rules Centre R-07' },
+        { from: 'cust', time: hoursAgo(6.74), text: 'That works with our budget! Can we lock it in?' },
+        { from: 'ai', time: hoursAgo(6.73), text: 'Wonderful! Because this is a group booking, I’ve flagged it for Rachel to confirm both stylists for that morning — she’ll confirm with you by 10 AM today. I’ve pencilled 22 Aug, 9 AM for 5 pax so the slot is held. 💐' },
+        { from: 'sys', time: hoursAgo(6.73), text: 'Escalated to owner — group booking >4 pax (R-07). Slot held. Task created for Rachel.' },
+      ],
+    },
+    {
+      id: 'v-meiling', customerId: 'c-meiling', name: '陈美玲 Chen Meiling', channel: 'WhatsApp',
+      preview: '已确认：周二 2:00 PM BIAB 美甲', time: hoursAgo(14.2), unread: false,
+      aiStatus: 'ai', score: 78, intent: 'Price inquiry → booked',
+      fields: { Service: 'BIAB Structured Manicure', 'Date needed': 'Tue 14 Jul, 2:00 PM', Budget: '≤ $80', Language: '中文', Urgency: 'Normal' },
+      handoff: null,
+      nextAction: 'Send Tue 10 AM reminder with parking directions (automated).',
+      messages: [
+        { from: 'cust', time: hoursAgo(14.6), text: '你好，请问光疗美甲多少钱？' },
+        { from: 'ai', time: hoursAgo(14.59), text: '您好！我们的经典光疗美甲是 $68（约75分钟），BIAB 结构美甲是 $88（更耐用，约3–4周）。请问您比较想做哪一种呢？😊', cite: 'Price list v12' },
+        { from: 'cust', time: hoursAgo(14.5), text: '有点贵哦，别家才50多' },
+        { from: 'ai', time: hoursAgo(14.49), text: '理解您的想法！我们使用日本品牌胶，含修甲和基础护理，卸甲免费。另外首次到店的客人可享 15% 优惠——经典光疗只需 $57.80。要不要帮您预约试一次？', cite: 'Rules Centre R-03 · first-visit 15%' },
+        { from: 'cust', time: hoursAgo(14.35), text: '那BIAB打折后多少？周二下午有位吗？' },
+        { from: 'ai', time: hoursAgo(14.34), text: 'BIAB 首次优惠后是 $74.80。周二（7月14日）下午有 2:00 和 4:30 两个时段，您方便哪个？' },
+        { from: 'cust', time: hoursAgo(14.25), text: '2点吧' },
+        { from: 'ai', time: hoursAgo(14.2), text: '好的！已为您预约：周二 7月14日 2:00 PM，BIAB 结构美甲（首次优惠 $74.80）。地址：27 Duxton Road。期待见到您！🌸' },
+        { from: 'sys', time: hoursAgo(14.2), text: 'Booking created · first-visit discount applied per R-03 · customer profile created (ZH).' },
+      ],
+    },
+    {
+      id: 'v-siti', customerId: 'c-siti', name: '@sitiblooms', channel: 'Instagram',
+      preview: 'how much for volume lashes? 🥺', time: hoursAgo(11.3), unread: true,
+      aiStatus: 'ai', score: 64, intent: 'Price inquiry',
+      fields: { Service: 'Volume Lash Extensions', 'Date needed': '—', Budget: '—', Language: 'English', Urgency: 'Browsing' },
+      handoff: null,
+      nextAction: 'If no reply by 6 PM, send one gentle follow-up with this month’s lash portfolio (max 1 nudge — IG policy).',
+      messages: [
+        { from: 'cust', time: hoursAgo(11.3), text: 'hiii saw your reel 😍 how much for volume lashes? 🥺' },
+        { from: 'ai', time: hoursAgo(11.29), text: 'Hi Siti! Thank you 🥰 Volume lash extensions are $158 (about 1h50m), and fills after are $68. First visit gets 15% off — $134.30. Want me to check slots for you? Easiest is on WhatsApp — tap here: wa.me/6588884321', cite: 'Price list v12' },
+        { from: 'sys', time: hoursAgo(11.29), text: 'Social lead created from IG DM · high-intent keyword “how much” · guided to WhatsApp.' },
+      ],
+    },
+    {
+      id: 'v-dana', customerId: 'c-dana', name: 'Dana Lim', channel: 'WhatsApp',
+      preview: 'Honestly quite disappointed… gel chipped in 3 days', time: hoursAgo(15.75), unread: false,
+      aiStatus: 'human', score: null, intent: 'Complaint · refund risk',
+      fields: { Service: 'Gel Extensions (visit Mon 7 Jul)', Sentiment: 'Negative — refund intent', 'Customer tier': 'VIP · 14 visits', Language: 'English', Urgency: 'High' },
+      handoff: 'Complaint with refund intent — AI paused itself per hand-off policy. Recovery ticket RT-114 created; owner notified before customer posts a public review.',
+      nextAction: 'Rachel to call Dana before noon; offer free re-do with senior stylist (drafted below). Do not send automated marketing until resolved.',
+      messages: [
+        { from: 'cust', time: hoursAgo(15.8), text: 'Hi. Honestly quite disappointed — the gel extensions from Monday chipped in 3 days. Two nails. For $118 I expect better. Can I get a refund?' },
+        { from: 'ai', time: hoursAgo(15.79), text: 'Dana, I’m really sorry to hear that — that’s not the experience we want for you, especially after 14 visits with us. I’m passing this straight to Rachel, our owner, who will personally contact you this morning. Thank you for telling us first. 🙏' },
+        { from: 'sys', time: hoursAgo(15.79), text: 'AI paused (complaint + refund intent). Recovery ticket RT-114 → owner. Suggested remedy: free re-do w/ senior stylist + $20 credit (within R-09 limits). Marketing suppressed for this customer.' },
+      ],
+    },
+    {
+      id: 'v-marcus', customerId: 'c-marcus', name: 'Marcus Wee', channel: 'Google',
+      preview: 'Do you do men’s manicures? Open Sunday?', time: hoursAgo(20.1), unread: false,
+      aiStatus: 'ai', score: 41, intent: 'FAQ',
+      fields: { Service: 'Classic Gel Manicure', 'Date needed': 'Sunday (browsing)', Budget: '—', Language: 'English', Urgency: 'Low' },
+      handoff: null,
+      nextAction: 'None — answered from knowledge base. Auto-close if no reply in 48h.',
+      messages: [
+        { from: 'cust', time: hoursAgo(20.1), text: 'Do you do men’s manicures? And are you open Sunday?' },
+        { from: 'ai', time: hoursAgo(20.09), text: 'Hi Marcus! Yes — about a fifth of our manicure clients are men; the Classic Gel Manicure ($68) includes cuticle care and buffing, polish optional. We’re open Sundays 10:30 AM–8:30 PM (closed Mondays). Want me to hold a Sunday slot?', cite: 'FAQ-04 · Opening hours' },
+      ],
+    },
+    {
+      id: 'v-aisha', customerId: 'c-aisha', name: 'Aisha Binte Rahman', channel: 'WhatsApp',
+      preview: 'Ok let’s do Sunday 11am then!', time: hoursAgo(18.5), unread: false,
+      aiStatus: 'ai', score: 71, intent: 'Follow-up recovered',
+      fields: { Service: 'Hydrating Signature Facial', 'Date needed': 'Sun 12 Jul, 11:00 AM', Budget: '$148', Language: 'English', Urgency: 'Normal' },
+      handoff: null,
+      nextAction: 'Reminder + pre-facial skincare note scheduled for Sat 6 PM (automated).',
+      messages: [
+        { from: 'sys', time: daysAgo(2, 15, 10), text: 'Quote sent 2 days ago, no reply — Follow-up Agent triggered cadence step 1.' },
+        { from: 'ai', time: hoursAgo(19.2), text: 'Hi Aisha! Just checking in on the Signature Facial you asked about 😊 Weekends fill fast — this Sunday I still have 11 AM or 4:30 PM. Off-peak weekday slots are also 10% quieter if you prefer. No rush either way!' },
+        { from: 'cust', time: hoursAgo(18.55), text: 'Ok let’s do Sunday 11am then!' },
+        { from: 'ai', time: hoursAgo(18.5), text: 'Booked! Sunday 12 Jul, 11:00 AM — Hydrating Signature Facial with Joanne. See you at 27 Duxton Road ✨' },
+        { from: 'sys', time: hoursAgo(18.5), text: 'Conversion recovered by follow-up cadence (would otherwise have lapsed). Attributed: Follow-up Agent.' },
+      ],
+    },
+  ];
+
+  // ---- live-simulation script (played when user clicks "Simulate new inquiry") ----
+  const simulation = {
+    name: 'Hannah Teo', channel: 'WhatsApp', customerLine: 'New number · +65 9611 2087',
+    steps: [
+      { from: 'cust', delay: 600, text: 'hi do u have any slots for brow lamination this weekend?' },
+      { from: 'typing', delay: 900 },
+      { from: 'ai', delay: 0, text: 'Hi! 👋 Yes — brow lamination is $88 (about 45 min). This weekend I have Sat 3:30 PM and Sun 12:00 PM or 5:15 PM. Would any of those work?', cite: 'Price list v12' },
+      { from: 'cust', delay: 2200, text: 'sun 12pm! do i need to prep anything' },
+      { from: 'typing', delay: 900 },
+      { from: 'ai', delay: 0, text: 'Booked — Sun 12 Jul, 12:00 PM ✅ No prep needed; just come with clean brows (no makeup on them if possible) and avoid retinol around the brow area for 48h before. See you Sunday, Hannah!', cite: 'SOP-11 · Brow aftercare' },
+      { from: 'sys', delay: 400, text: 'Lead created → qualified → booked in 41 seconds. Customer profile created. Reminder scheduled Sat 6 PM.' },
+    ],
+  };
+
+  // ---- Today view ----
+  const opportunities = [
+    { convId: 'v-priya', who: 'Priya Nair', why: 'Bridal party ×5 — $1,017 quote held, needs your stylist confirmation by 10 AM', kind: 'decision', value: '$1,017' },
+    { convId: 'v-dana', who: 'Dana Lim', why: 'VIP complaint (chipped gel, refund intent). Call before noon — recovery script ready', kind: 'critical', value: 'LTV $1,462' },
+    { convId: 'v-siti', who: '@sitiblooms', why: 'IG lead asked volume lash price 11h ago, no reply yet — 1 nudge queued for 6 PM', kind: 'watch', value: '$134' },
+    { convId: null, who: 'Nurul Huda · Devi Chandran', why: '2 deposits unpaid for bookings tomorrow/Mon — reminders sent, will auto-release slots at 8 PM', kind: 'watch', value: '2 slots' },
+    { convId: null, who: 'Farah Osman', why: 'VIP dormant 9 weeks (usual cycle 3). Suggested: personal win-back with lash-fill offer', kind: 'suggestion', value: 'LTV $2,210' },
+  ];
+
+  const aiActivity = [
+    { n: 9, label: 'inquiries answered overnight' },
+    { n: 12, label: 'follow-ups sent' },
+    { n: 5, label: 'bookings confirmed' },
+    { n: 6, label: 'review invites sent' },
+    { n: 4, label: 'tasks created for staff' },
+  ];
+
+  const approvals = [
+    { id: 'ap-campaign', type: 'Campaign', title: 'Rainy-week off-peak facials', detail: 'Send to 84 consented customers · est. 6–9 bookings ($780–$1,170)', ref: 'mk-rain' },
+    { id: 'ap-review', type: 'Review reply', title: 'Reply to Dana L. (2★ Google review)', detail: 'Apology + invitation to re-do drafted; posting is held for your approval', ref: 'rv-dana' },
+    { id: 'ap-price', type: 'Knowledge', title: 'Price list v13 (lash fill $68 → $72)', detail: 'Uploaded by Joanne yesterday — goes live only after owner review', ref: 'kb-price' },
+    { id: 'ap-merge', type: 'Identity', title: 'Merge @jasmineeats → Jasmine Koh', detail: 'Same phone on IG profile and CRM record — confirm to merge', ref: null },
+  ];
+
+  const brief = {
+    headline: 'Good morning, Rachel — 3 decisions need you; the rest is handled.',
+    body: 'Overnight the AI answered 9 inquiries (one at 1:14 AM became your biggest lead this week — Priya’s bridal party, ~$1,017). Tuesday afternoons are still 40% empty next week, so a rainy-week facial campaign is drafted and waiting for your approval. One VIP complaint needs a personal call before noon — script is ready.',
+  };
+
+  // ---- CRM extras ----
+  const timelineJasmine = [
+    { time: daysAgo(11, 18, 0), kind: 'visit', text: 'BIAB manicure with Joanne — $88 · left 5★ review' },
+    { time: daysAgo(11, 19, 30), kind: 'ai', text: 'Review invite sent · review received 40 min later' },
+    { time: daysAgo(32, 13, 0), kind: 'visit', text: 'BIAB manicure — $88' },
+    { time: daysAgo(41, 10, 0), kind: 'campaign', text: 'Clicked “Bring a friend” campaign · friend booked (referral credited)' },
+    { time: daysAgo(53, 15, 0), kind: 'visit', text: 'Gel manicure — $68 · noted: sensitive cuticles, use gentler remover' },
+  ];
+
+  // ---- marketing ----
+  const campaigns = [
+    {
+      id: 'mk-rain', name: 'Rainy-week off-peak facials', status: 'pending',
+      trigger: 'Demand forecast: NEA forecasts monsoon surge Mon–Wed · Tue 2–6 PM only 60% booked',
+      audience: '84 consented customers, facial buyers or facial-curious, no visit in 3+ weeks. Excludes: open complaints, unsubscribed, contacted <14 days ago.',
+      channel: 'WhatsApp template', schedule: 'Sat 10:00 AM',
+      copy: 'Rainy week ahead ☔ — perfect excuse for a facial. 20% off Signature & Deep Cleanse, Tue–Thu 2–6 PM next week only. Reply YES and we’ll sort your slot.',
+      estimate: { reach: 84, bookings: '6–9', revenue: '$780–$1,170', cost: '$9.20 (WhatsApp fees)' },
+    },
+    {
+      id: 'mk-bday', name: 'July birthdays', status: 'scheduled',
+      trigger: 'Lifecycle: birthday within 7 days · runs monthly',
+      audience: '6 customers with July birthdays (incl. Grace Fu, 14 Jul)',
+      channel: 'WhatsApp template', schedule: 'Each customer, 3 days before birthday, 11 AM',
+      copy: 'Happy almost-birthday, {name}! 🎂 Your treat from us: a complimentary brow shape with any service this month.',
+      estimate: { reach: 6, bookings: '3–4', revenue: '$280–$420', cost: '$0.66' },
+    },
+    {
+      id: 'mk-winback', name: 'Dormant win-back (June)', status: 'completed', ended: daysAgo(12),
+      trigger: 'Lifecycle: no visit in 8+ weeks, LTV > $200',
+      audience: '62 dormant customers', channel: 'WhatsApp template', schedule: 'Sent 24 Jun, 11 AM',
+      copy: '“We miss you” + 15% off next visit, valid 3 weeks.',
+      results: { sent: 62, replies: 11, bookings: 7, revenue: 924, cost: 75, roi: '12.3×', unsubs: 1 },
+    },
+    {
+      id: 'mk-offpeak', name: 'Off-peak Tuesdays (June)', status: 'completed', ended: daysAgo(19),
+      trigger: 'Capacity: Tue 2–6 PM under 65% booked',
+      audience: '48 flexible-schedule customers', channel: 'WhatsApp template', schedule: 'Sent 17 Jun',
+      copy: '10% off weekday-afternoon slots.',
+      results: { sent: 48, replies: 9, bookings: 6, revenue: 512, cost: 41, roi: '12.5×', unsubs: 0 },
+    },
+    {
+      id: 'mk-lashcare', name: 'Lash-fill cycle reminders (rolling)', status: 'completed', ended: daysAgo(2),
+      trigger: 'Lifecycle: 17 days since last lash appointment (individual)',
+      audience: 'Rolling — 31 sends in June', channel: 'WhatsApp template', schedule: 'Automated, per customer',
+      copy: 'Time for your fill, {name}? Your usual slot with {stylist} is open {day}.',
+      results: { sent: 31, replies: 22, bookings: 19, revenue: 1292, cost: 28, roi: '46×', unsubs: 0 },
+    },
+  ];
+
+  // ---- reputation ----
+  const reviews = [
+    { id: 'rv-dana', name: 'Dana L.', rating: 2, time: hoursAgo(13.4), source: 'Google', text: 'Gel extensions chipped within 3 days. Staff are lovely but for the price I expected the set to last. Disappointed this time.', replyStatus: 'pending', reply: 'Dana, thank you for telling us — this isn’t the standard we hold ourselves to, and I’m sorry. I’ve reached out personally: we’d love to re-do the set with our senior stylist at no charge. — Rachel, owner', linked: 'Recovery ticket RT-114 · same customer as open complaint' },
+    { id: 'rv-1', name: 'Jasmine K.', rating: 5, time: daysAgo(11, 19, 40), source: 'Google', text: 'Joanne did my BIAB perfectly again. Booking over WhatsApp took literally 30 seconds.', replyStatus: 'posted', reply: 'Thank you Jasmine! Joanne will be so happy to hear this 💛' },
+    { id: 'rv-2', name: 'Wei Ting T.', rating: 5, time: daysAgo(4, 12, 15), source: 'Google', text: 'Replied to my message at 11pm and got me a slot the next morning. The facial was amazing too.', replyStatus: 'posted', reply: 'That’s exactly what we’re here for — day or night! See you at your next glow-up ✨' },
+    { id: 'rv-3', name: 'Farhana M.', rating: 4, time: daysAgo(7, 17, 0), source: 'Google', text: 'Great lashes, cosy studio. Parking around Duxton is a pain though.', replyStatus: 'posted', reply: 'Thank you Farhana! Tip for next time: Tanjong Pagar Plaza carpark is 4 min away and much easier 🚗' },
+    { id: 'rv-4', name: 'Anjali P.', rating: 5, time: daysAgo(15, 14, 0), source: 'Google', text: 'The birthday brow treat was such a nice surprise. Feels like they actually remember you.', replyStatus: 'posted', reply: 'Happy birthday again, Anjali! 🎂' },
+  ];
+  const cxSummary = {
+    rating: 4.8, count: 187, invited30d: 41, received30d: 17,
+    themes: [
+      { theme: 'Fast replies / easy booking', n: 9, tone: 'good' },
+      { theme: 'Lash quality', n: 6, tone: 'good' },
+      { theme: 'Parking difficulty', n: 3, tone: 'warn' },
+      { theme: 'Gel durability', n: 2, tone: 'bad' },
+    ],
+  };
+
+  // ---- business brain ----
+  const knowledge = [
+    { id: 'kb-price', title: 'Price list', category: 'Services & pricing', version: 'v12 live · v13 pending approval', updated: daysAgo(1, 17, 20), owner: 'Joanne', sensitive: true, cites30d: 214, excerpt: 'All service prices, durations, add-ons. v13 changes: Lash Fill $68 → $72. Sensitive — owner approval required before AI can quote new prices.' },
+    { id: 'kb-r03', title: 'R-03 · First-visit discount', category: 'Rules centre', version: 'v4', updated: daysAgo(22), owner: 'Rachel', sensitive: true, cites30d: 38, excerpt: '15% off first visit, any service, not stackable. AI may offer proactively on price objections.' },
+    { id: 'kb-r07', title: 'R-07 · Group bookings', category: 'Rules centre', version: 'v2', updated: daysAgo(40), owner: 'Rachel', sensitive: true, cites30d: 3, excerpt: 'Groups of 4+ : AI may quote and hold a slot but staff must confirm stylist availability before final confirmation. Bridal 4+ gets 10% off.' },
+    { id: 'kb-r09', title: 'R-09 · Service recovery limits', category: 'Rules centre', version: 'v3', updated: daysAgo(31), owner: 'Rachel', sensitive: true, cites30d: 2, excerpt: 'AI may suggest (never promise): free re-do within 7 days, credit up to $20. Refunds are owner-only decisions.' },
+    { id: 'kb-faq04', title: 'FAQ-04 · Opening hours & men’s services', category: 'FAQ', version: 'v6', updated: daysAgo(8), owner: 'AI (approved by Rachel)', sensitive: false, cites30d: 57, excerpt: 'Tue–Sun 10:30–20:30, closed Mondays. Yes to men’s manicures/facials — mention ~20% of mani clients are men.' },
+    { id: 'kb-sop11', title: 'SOP-11 · Brow lamination aftercare', category: 'SOP', version: 'v2', updated: daysAgo(19), owner: 'Joanne', sensitive: false, cites30d: 12, excerpt: 'Pre: no retinol near brows 48h. Post: keep dry 24h, no makeup on brows 24h.' },
+    { id: 'kb-preg', title: 'Pregnancy-safe treatments', category: 'Safety', version: 'v3', updated: daysAgo(27), owner: 'Rachel', sensitive: true, cites30d: 6, excerpt: 'Lash/brow OK with patch test; avoid certain facial acids. AI must recommend checking with doctor — never give medical assurances (hands off if pressed).' },
+    { id: 'kb-voice', title: 'Brand voice', category: 'Brand', version: 'v5', updated: daysAgo(45), owner: 'Rachel', sensitive: false, cites30d: 0, excerpt: 'Warm, unhurried, a little playful. EN: light emoji. ZH: 亲切、不过度促销. Never pushy; one nudge max on follow-ups. Banned: “cheapest”, “guaranteed results”.' },
+    { id: 'kb-obj', title: 'Objection scripts · “too expensive”', category: 'Sales scripts', version: 'v4', updated: daysAgo(14), owner: 'AI (approved by Rachel)', sensitive: false, cites30d: 21, excerpt: 'Acknowledge → explain value (Japanese gel, free removal) → offer R-03 first-visit 15% → never discount beyond rules.' },
+  ];
+  const knowledgeGaps = [
+    { q: 'Do you do bridal home visits?', asked: 4, last: hoursAgo(6.8), note: 'AI declined to guess; suggest adding a policy (Priya asked too)' },
+    { q: 'Is lash glue safe for sensitive eyes / can I get a patch test?', asked: 3, last: daysAgo(2, 16, 0), note: 'Partially covered by Safety doc — needs an FAQ-level answer' },
+    { q: 'Do you sell gift cards?', asked: 2, last: daysAgo(5, 12, 0), note: 'No knowledge item exists' },
+  ];
+
+  // ---- insights ----
+  // 30-day daily leads/bookings with weekly rhythm (Sat/Sun peaks, Mon closed).
+  const metrics = [];
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(NOW - i * MS_D);
+    const dow = (5 - (i % 7) + 7) % 7; // NOW is a Friday in SGT; keep the weekly rhythm viewer-TZ-independent
+    const closed = dow === 1;
+    const wk = [0.9, 0, 0.75, 0.8, 0.95, 1.15, 1.45][dow]; // Sun..Sat
+    const leads = closed ? ri(0, 2) : Math.round(4.2 * wk + rng() * 3);
+    const bookings = closed ? 0 : Math.max(0, Math.round(leads * (0.42 + rng() * 0.18)));
+    metrics.push({ date: d.toISOString().slice(0, 10), leads, bookings });
+  }
+  const funnel = [
+    { stage: 'Leads', n: 128 },
+    { stage: 'Qualified', n: 96 },
+    { stage: 'Booked', n: 61 },
+    { stage: 'Showed', n: 54 },
+    { stage: 'Rebooked', n: 23 },
+  ];
+  const channels = [
+    { name: 'WhatsApp', leads: 59, booked: 31 },
+    { name: 'Instagram', leads: 31, booked: 12 },
+    { name: 'Google', leads: 22, booked: 9 },
+    { name: 'QR / walk-in', leads: 10, booked: 6 },
+    { name: 'Referral', leads: 6, booked: 3 },
+  ];
+  const topServices = [
+    { name: 'BIAB Manicure', bookings: 21, revenue: 1848 },
+    { name: 'Volume Lash', bookings: 14, revenue: 2212 },
+    { name: 'Signature Facial', bookings: 12, revenue: 1776 },
+    { name: 'Lash Fill', bookings: 19, revenue: 1292 },
+    { name: 'Gel Extensions', bookings: 9, revenue: 1062 },
+  ];
+  const forecast = [
+    { day: 'Sat 11', lo: 9, mid: 11, hi: 13 },
+    { day: 'Sun 12', lo: 8, mid: 10, hi: 12 },
+    { day: 'Mon 13', lo: 0, mid: 0, hi: 0 },
+    { day: 'Tue 14', lo: 3, mid: 4, hi: 6 },
+    { day: 'Wed 15', lo: 4, mid: 5, hi: 7 },
+    { day: 'Thu 16', lo: 4, mid: 6, hi: 8 },
+    { day: 'Fri 17', lo: 6, mid: 8, hi: 10 },
+  ];
+  const strategy = {
+    title: 'This week: fill Tuesday–Wednesday afternoons before the monsoon surge',
+    points: [
+      'Tue/Wed 2–6 PM next week are 40% empty while weekend slots are nearly full — approve the rainy-week facial campaign (est. $780–$1,170) to shift demand.',
+      'Lash-fill cycle reminders are your highest-ROI automation (46×) — 8 more customers hit their 17-day mark this week; keep it running.',
+      'Instagram converts at 39% vs WhatsApp’s 53% — leads answered within 5 minutes book 2.1× more often. The 6 PM auto-nudge for @sitiblooms is queued.',
+      'Basis: last 30 days of bookings, June campaign results, NEA 7-day outlook. Forecast confidence: ±20%.',
+    ],
+  };
+  const kpis = [
+    { label: 'First response', value: '28 sec', delta: 'was 3.5 h before Rook', dir: 'good' },
+    { label: 'Inquiries handled by AI', value: '72%', delta: '28% handed to staff', dir: 'good' },
+    { label: 'Lead → booking', value: '48%', delta: '+11 pts vs May', dir: 'good' },
+    { label: 'Un-followed-up leads', value: '2', delta: 'was ~15/wk before', dir: 'good' },
+    { label: 'Repeat-purchase rate', value: '61%', delta: '+7 pts vs May', dir: 'good' },
+    { label: 'Campaign revenue (30d)', value: '$2,728', delta: '$153 message cost', dir: 'good' },
+  ];
+
+  return {
+    merchant, services, customers, conversations, simulation, opportunities,
+    aiActivity, approvals, brief, timelineJasmine, campaigns, reviews,
+    cxSummary, knowledge, knowledgeGaps, metrics, funnel, channels,
+    topServices, forecast, strategy, kpis,
+  };
+})();
+
+</script>
+<script>
+/* Rook demo — owner console app. No dependencies; all data from data.js. */
+(() => {
+  const D = window.DEMO;
+  const NOW = new Date(D.merchant.now);
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  const state = {
+    view: 'today',
+    convId: 'v-priya',
+    mobilePane: 'list',
+    custFilter: 'All',
+    custId: null,
+    aiPaused: {},
+    done: {},          // approval ids that were actioned
+    campaign: {},      // campaign id -> new status
+    reviewPosted: {},
+    simConvo: null,
+    simRunning: false,
+  };
+
+  // ---------- formatting ----------
+  // All clock times shown in the merchant's timezone (SGT), whoever views the demo.
+  const fmtClock = (iso) => new Date(iso)
+    .toLocaleTimeString('en-SG', { hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Singapore' })
+    .toUpperCase();
+  const fmtRel = (iso) => {
+    if (!iso) return '—';
+    const ms = NOW - new Date(iso);
+    const h = ms / 36e5;
+    if (h < -0.01) {
+      const dAhead = Math.round(-h / 24);
+      return dAhead <= 1 ? 'tomorrow' : `in ${dAhead}d`;
+    }
+    if (h < 1) return `${Math.max(1, Math.round(ms / 6e4))}m ago`;
+    if (h < 22) return `${Math.round(h)}h ago`;
+    const days = Math.round(h / 24);
+    if (days <= 1) return 'yesterday';
+    if (days < 7) return `${days}d ago`;
+    if (days < 30) return `${Math.round(days / 7)}w ago`;
+    return `${Math.round(days / 30)}mo ago`;
+  };
+  const money = (n) => '$' + Number(n).toLocaleString('en-SG');
+
+  // ---------- icons ----------
+  const IC = {
+    today: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.2v1.8M8 13v1.8M1.2 8H3M13 8h1.8M3.2 3.2l1.3 1.3M11.5 11.5l1.3 1.3M12.8 3.2l-1.3 1.3M4.5 11.5l-1.3 1.3"/></svg>',
+    inbox: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3.5h12v7H8.5L5.5 13v-2.5H2z" stroke-linejoin="round"/></svg>',
+    customers: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5.5" cy="5.5" r="2.3"/><path d="M1.5 13.5c0-2.2 1.8-4 4-4s4 1.8 4 4"/><circle cx="11.5" cy="5" r="1.8"/><path d="M10.8 9.3c2 .2 3.7 1.9 3.7 4.2"/></svg>',
+    marketing: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6.5v3l8 3v-9zM10 5.5c2 .5 3 1.4 3 2.5s-1 2-3 2.5M4 9.8V13" stroke-linejoin="round"/></svg>',
+    reputation: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6z" stroke-linejoin="round"/></svg>',
+    brain: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3c-1-1.2-3-1.5-4.5-.5S2 5.5 2.5 7c-1 .8-1 2.5 0 3.5S5 12 6 11.3M8 3c1-1.2 3-1.5 4.5-.5S14 5.5 13.5 7c1 .8 1 2.5 0 3.5S11 12 10 11.3M8 3v10.5"/></svg>',
+    insights: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13.5h12M3.5 13V9M7 13V5.5M10.5 13V7.5M14 13V3.5"/></svg>',
+  };
+  const NAV = [
+    ['today', 'Today'], ['inbox', 'Inbox'], ['customers', 'Customers'],
+    ['marketing', 'Marketing'], ['reputation', 'Reputation'],
+    ['brain', 'Brain'], ['insights', 'Insights'],
+  ];
+  const TITLES = {
+    today: 'Today', inbox: 'Inbox — all channels', customers: 'Customers',
+    marketing: 'Marketing automation', reputation: 'Reputation & experience',
+    brain: 'Business brain', insights: 'Business insight',
+  };
+
+  // ---------- shared bits ----------
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._h);
+    t._h = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+  const statusChip = (c) => {
+    if (state.aiPaused[c.id]) return '<span class="tagchip human">Staff (you)</span>';
+    if (c.aiStatus === 'ai') return '<span class="tagchip ai">AI handling</span>';
+    if (c.aiStatus === 'human') return '<span class="tagchip human">With staff</span>';
+    return '<span class="tagchip esc">Needs you</span>';
+  };
+  const chIcon = { WhatsApp: 'WA', Instagram: 'IG', Google: 'G', 'QR code': 'QR', Referral: 'REF' };
+
+  // ---------- Today ----------
+  function vToday() {
+    const pending = D.approvals.filter((a) => !state.done[a.id]);
+    return `
+      <div class="card brief">
+        <h3>${esc(D.brief.headline)}</h3>
+        <p>${esc(D.brief.body)}</p>
+      </div>
+      <h2 class="sec">While you slept — since 8:30 PM yesterday</h2>
+      <div class="stat-row">
+        ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(a.label)}</span></div>`).join('')}
+      </div>
+      <h2 class="sec">Today's opportunities</h2>
+      ${D.opportunities.map((o) => `
+        <div class="opp ${o.kind}">
+          <span class="stripe"></span>
+          <div><div class="who">${esc(o.who)}</div><div class="why">${esc(o.why)}</div></div>
+          <div class="val">${esc(o.value)}</div>
+          ${o.convId ? `<button class="btn sm go" data-open-conv="${o.convId}">Open</button>` : ''}
+        </div>`).join('')}
+      <h2 class="sec">Waiting for your approval (${pending.length})</h2>
+      ${pending.length === 0 ? '<div class="card"><p style="margin:0;color:var(--muted)">All clear — nothing needs your sign-off.</p></div>' : pending.map((a) => `
+        <div class="appr">
+          <span class="k">${esc(a.type)}</span>
+          <div class="t"><b>${esc(a.title)}</b><span>${esc(a.detail)}</span></div>
+          <div class="act">
+            <button class="btn sm pri" data-approve="${a.id}">Approve</button>
+            <button class="btn sm" data-hold="${a.id}">Hold</button>
+          </div>
+        </div>`).join('')}`;
+  }
+
+  // ---------- Inbox ----------
+  function convoList() {
+    const list = [];
+    if (state.simConvo) list.push(state.simConvo);
+    list.push(...D.conversations);
+    return list;
+  }
+  function getConv(id) { return convoList().find((c) => c.id === id); }
+
+  function vInbox() {
+    const conv = getConv(state.convId) || convoList()[0];
+    const listHtml = convoList().map((c) => `
+      <button class="convo ${c.id === conv.id ? 'on' : ''}" data-conv="${c.id}">
+        <span class="r1"><b>${esc(c.name)}</b><time>${fmtRel(c.time)}</time></span>
+        <span class="pv">${esc(c.preview)}</span>
+        <span class="r2">
+          <span class="tagchip">${chIcon[c.channel] || c.channel}</span>
+          ${statusChip(c)}
+          ${c.score != null ? `<span class="tagchip">Score ${c.score}</span>` : ''}
+        </span>
+      </button>`).join('');
+
+    const msgs = conv.messages.map(msgHtml).join('');
+    const paused = state.aiPaused[conv.id];
+    const listHide = state.mobilePane === 'thread' ? 'hidden-m' : '';
+    const threadHide = state.mobilePane === 'list' ? 'hidden-m' : '';
+
+    return `
+      <div class="inbox">
+        <div class="list-pane ${listHide}">
+          <button class="btn pri" style="width:100%;margin-bottom:10px" data-simulate ${state.simRunning ? 'disabled' : ''}>
+            ${state.simConvo ? '↻ Replay' : '▶ Simulate'} a live inquiry
+          </button>
+          <div class="convo-list">${listHtml}</div>
+        </div>
+        <div class="card thread thread-pane ${threadHide}">
+          <div class="thread-head">
+            <button class="btn sm only-m" data-back style="display:none">←</button>
+            <div><b>${esc(conv.name)}</b><div class="sub">${esc(conv.channel)} · ${esc(conv.customerLine || conv.intent || '')}</div></div>
+            <div class="spacer"></div>
+            ${statusChip(conv)}
+            <button class="btn sm" data-takeover="${conv.id}">${paused ? 'Hand back to AI' : 'Take over'}</button>
+          </div>
+          <div class="msgs" id="msgs">${msgs}</div>
+        </div>
+        <div class="ctx ${threadHide}">
+          ${conv.score != null ? `<div class="card"><h4>Lead score</h4><span class="score-pill">${conv.score}</span><span style="color:var(--muted)"> / 100 · ${esc(conv.intent)}</span></div>` : ''}
+          ${conv.fields ? `<div class="card"><h4>Extracted by AI</h4><dl class="kv">${Object.entries(conv.fields).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>` : ''}
+          ${conv.handoff ? `<div class="card handoff"><h4>Why the AI stopped</h4><p>${esc(conv.handoff)}</p></div>` : ''}
+          ${conv.nextAction ? `<div class="card nextact"><h4>Suggested next step</h4><p>${esc(conv.nextAction)}</p></div>` : ''}
+        </div>
+      </div>`;
+  }
+  function msgHtml(m) {
+    if (m.from === 'sys') return `<div class="msg sys">${esc(m.text)}</div>`;
+    if (m.from === 'typing') return '<div class="typing" aria-label="AI is typing"><i></i><i></i><i></i></div>';
+    const who = m.from === 'cust' ? 'cust' : m.from;
+    const label = m.from === 'cust' ? '' : m.from === 'ai' ? 'Rook AI · ' : 'Staff · ';
+    return `<div class="msg ${who}">${esc(m.text)}
+      ${m.cite ? `<br><span class="cite">📎 ${esc(m.cite)}</span>` : ''}
+      <span class="meta">${label}${m.time ? fmtClock(m.time) : ''}</span></div>`;
+  }
+
+  // ---------- simulation ----------
+  function runSimulation() {
+    if (state.simRunning) return;
+    state.simRunning = true;
+    const sim = D.simulation;
+    state.simConvo = {
+      id: 'v-sim', name: sim.name, channel: sim.channel, customerLine: sim.customerLine,
+      preview: 'Live — playing now…', time: D.merchant.now, unread: true,
+      aiStatus: 'ai', score: 58, intent: 'Booking inquiry',
+      fields: { Service: 'Brow Lamination', 'Date needed': 'Sun 12 Jul, 12:00 PM', Budget: '$88', Language: 'English', Urgency: 'Normal' },
+      handoff: null,
+      nextAction: 'None — booked automatically. Reminder scheduled Sat 6 PM.',
+      messages: [],
+    };
+    state.convId = 'v-sim';
+    state.mobilePane = 'thread';
+    render();
+    let i = 0;
+    const step = () => {
+      const s = sim.steps[i];
+      if (!s) {
+        state.simRunning = false;
+        state.simConvo.preview = 'Booked · Sun 12 PM Brow Lamination';
+        state.simConvo.score = 74;
+        render();
+        toast('Lead → booking in 41 seconds, fully automated');
+        return;
+      }
+      i++;
+      if (s.from === 'typing') {
+        state.simConvo.messages.push({ from: 'typing' });
+        render();
+        setTimeout(() => {
+          state.simConvo.messages = state.simConvo.messages.filter((m) => m.from !== 'typing');
+          step();
+        }, 1100);
+        return;
+      }
+      setTimeout(() => {
+        state.simConvo.messages.push({ from: s.from, text: s.text, cite: s.cite, time: D.merchant.now });
+        render();
+        step();
+      }, s.delay);
+    };
+    step();
+  }
+
+  // ---------- Customers ----------
+  const LIFECYCLES = ['All', 'New lead', 'Evaluating', 'Converted', 'Active', 'VIP', 'Dormant', 'Churn risk'];
+  const lcClass = (lc) => ({ 'Churn risk': 'churn', 'New lead': 'lead' }[lc] || lc);
+  function vCustomers() {
+    if (state.custId) return vCustomerDetail(D.customers.find((c) => c.id === state.custId));
+    const rows = D.customers
+      .filter((c) => state.custFilter === 'All' || c.lifecycle === state.custFilter)
+      .sort((a, b) => b.ltv - a.ltv);
+    return `
+      <div class="filters">${LIFECYCLES.map((f) => {
+        const n = f === 'All' ? D.customers.length : D.customers.filter((c) => c.lifecycle === f).length;
+        return `<button class="fbtn ${state.custFilter === f ? 'on' : ''}" data-filter="${f}">${f} · ${n}</button>`;
+      }).join('')}</div>
+      <div class="card tbl-wrap" style="padding:6px 10px">
+      <table class="tbl">
+        <thead><tr><th>Customer</th><th>Stage</th><th>Tags</th><th>Source</th><th class="num">Visits</th><th class="num">Lifetime value</th><th>Last visit</th><th>Next due</th></tr></thead>
+        <tbody>
+        ${rows.map((c) => `
+          <tr class="rowbtn" data-cust="${c.id}">
+            <td><b>${esc(c.name)}</b><br><span style="color:var(--muted);font-size:12px">${esc(c.phone)} · ${c.lang}</span></td>
+            <td><span class="lc ${lcClass(c.lifecycle)}">${esc(c.lifecycle)}</span></td>
+            <td>${c.tags.map((t) => `<span class="tagchip">${esc(t)}</span>`).join(' ')}</td>
+            <td>${esc(c.channel)}</td>
+            <td class="num">${c.visits}</td>
+            <td class="num">${c.ltv ? money(c.ltv) : '—'}</td>
+            <td>${fmtRel(c.lastVisit)}</td>
+            <td>${c.nextDue ? fmtRel(c.nextDue) : '—'}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>`;
+  }
+  function vCustomerDetail(c) {
+    const timeline = c.id === 'c-jasmine' ? D.timelineJasmine : [
+      { time: c.lastVisit || daysAgoIso(30), kind: 'visit', text: `${esc(c.pref)} — most recent visit` },
+      { time: daysAgoIso(45), kind: 'ai', text: 'Cycle reminder sent · customer rebooked same day' },
+      { time: daysAgoIso(70), kind: 'campaign', text: 'Received June win-back campaign' },
+    ];
+    return `
+      <button class="btn sm" data-back-cust>← All customers</button>
+      <div class="grid c2 cust-detail" style="margin-top:12px">
+        <div class="card">
+          <h4 style="margin:0 0 2px;font-size:16px">${esc(c.name)} <span class="lc ${lcClass(c.lifecycle)}">${esc(c.lifecycle)}</span></h4>
+          <div style="color:var(--muted);font-size:12.5px;margin-bottom:12px">${esc(c.phone)} · prefers ${c.lang === 'ZH' ? '中文' : 'English'} · via ${esc(c.channel)}</div>
+          <dl class="kv">
+            <dt>Lifetime value</dt><dd>${c.ltv ? money(c.ltv) : '—'}</dd>
+            <dt>Visits</dt><dd>${c.visits}</dd>
+            <dt>Usual service</dt><dd>${esc(c.pref)}</dd>
+            <dt>Last visit</dt><dd>${fmtRel(c.lastVisit)}</dd>
+            <dt>Next due</dt><dd>${c.nextDue ? fmtRel(c.nextDue) : '—'}</dd>
+            <dt>Marketing consent</dt><dd>${c.consent ? 'Yes — WhatsApp OK' : 'No — service messages only'}</dd>
+            <dt>Tags</dt><dd>${c.tags.map((t) => `<span class="tagchip">${esc(t)}</span>`).join(' ')}</dd>
+          </dl>
+        </div>
+        <div class="card">
+          <h4 style="margin:0 0 6px">Timeline</h4>
+          <ul class="timeline">
+            ${timeline.map((t) => `<li><time>${fmtRel(t.time)} · ${esc(t.kind)}</time>${t.text}</li>`).join('')}
+          </ul>
+        </div>
+      </div>`;
+  }
+  const daysAgoIso = (d) => new Date(NOW - d * 864e5).toISOString();
+
+  // ---------- Marketing ----------
+  function vMarketing() {
+    const st = (c) => state.campaign[c.id] || c.status;
+    const active = D.campaigns.filter((c) => st(c) !== 'completed');
+    const past = D.campaigns.filter((c) => st(c) === 'completed');
+    return `
+      <h2 class="sec">Needs a decision / upcoming</h2>
+      ${active.map((c) => campHtml(c, st(c))).join('')}
+      <h2 class="sec">Recently completed</h2>
+      ${past.map((c) => campHtml(c, 'completed')).join('')}`;
+  }
+  function campHtml(c, status) {
+    const est = c.estimate ? `
+      <div class="est">
+        <div><b>${c.estimate.reach}</b><span>reach (consented)</span></div>
+        <div><b>${c.estimate.bookings}</b><span>est. bookings</span></div>
+        <div><b>${c.estimate.revenue}</b><span>est. revenue</span></div>
+        <div><b>${c.estimate.cost}</b><span>send cost</span></div>
+      </div>` : '';
+    const res = c.results ? `
+      <div class="est">
+        <div><b>${c.results.sent}</b><span>sent</span></div>
+        <div><b>${c.results.replies}</b><span>replies</span></div>
+        <div><b>${c.results.bookings}</b><span>bookings</span></div>
+        <div><b>${money(c.results.revenue)}</b><span>revenue</span></div>
+        <div><b>${c.results.roi}</b><span>ROI</span></div>
+        <div><b>${c.results.unsubs}</b><span>unsubscribes</span></div>
+      </div>` : '';
+    return `
+      <div class="camp">
+        <div class="head"><b>${esc(c.name)}</b><span class="status ${status}">${status}</span></div>
+        <dl class="row">
+          <dt>Trigger</dt><dd>${esc(c.trigger)}</dd>
+          <dt>Audience</dt><dd>${esc(c.audience)}</dd>
+          <dt>Schedule</dt><dd>${esc(c.schedule)} · ${esc(c.channel)}</dd>
+        </dl>
+        <div class="copy">“${esc(c.copy)}”</div>
+        ${est}${res}
+        ${status === 'pending' ? `
+          <div class="actions">
+            <button class="btn pri" data-approve-camp="${c.id}">Approve &amp; schedule</button>
+            <button class="btn">Edit audience</button>
+            <button class="btn">Skip this week</button>
+          </div>` : ''}
+      </div>`;
+  }
+
+  // ---------- Reputation ----------
+  function vReputation() {
+    const cx = D.cxSummary;
+    return `
+      <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat"><b>${cx.rating} ★</b><span>Google rating · ${cx.count} reviews</span></div>
+        <div class="stat"><b>${cx.invited30d}</b><span>review invites sent (30d)</span></div>
+        <div class="stat"><b>${cx.received30d}</b><span>new reviews (30d)</span></div>
+        <div class="stat"><b>1</b><span>open recovery ticket</span></div>
+      </div>
+      <div class="grid c2" style="margin-top:14px;align-items:start">
+        <div>
+          <h2 class="sec">Latest reviews</h2>
+          ${D.reviews.map(revHtml).join('')}
+        </div>
+        <div>
+          <h2 class="sec">What customers talk about (30 days)</h2>
+          <div class="card">
+            ${cx.themes.map((t) => `
+              <div class="theme-row ${t.tone === 'warn' ? 'warn' : t.tone === 'bad' ? 'bad' : ''}">
+                <span style="min-width:180px">${esc(t.theme)}</span>
+                <span class="bar" style="width:${t.n * 16}px"></span>
+                <span class="n">${t.n}</span>
+              </div>`).join('')}
+            <p style="font-size:12px;color:var(--muted);margin:10px 0 0">Themes are extracted from review text and post-service surveys. “Gel durability” created recovery ticket RT-114 and a staff-training suggestion.</p>
+          </div>
+        </div>
+      </div>`;
+  }
+  function revHtml(r) {
+    const posted = r.replyStatus === 'posted' || state.reviewPosted[r.id];
+    return `
+      <div class="rev ${r.rating <= 3 ? 'neg' : ''}">
+        <div class="head"><b>${esc(r.name)}</b>
+          <span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+          <span style="color:var(--muted);font-size:12px">${esc(r.source)} · ${fmtRel(r.time)}</span>
+        </div>
+        <p class="txt">${esc(r.text)}</p>
+        ${r.linked ? `<p style="font-size:12px;color:var(--serious);margin:0 0 8px">⚠ ${esc(r.linked)}</p>` : ''}
+        <div class="reply"><span class="lbl">${posted ? 'Reply posted' : 'AI-drafted reply — awaiting your approval'}</span>${esc(r.reply)}</div>
+        ${posted ? '' : `<div style="margin-top:10px;display:flex;gap:8px">
+          <button class="btn sm pri" data-post-reply="${r.id}">Approve &amp; post</button>
+          <button class="btn sm">Edit</button>
+        </div>`}
+      </div>`;
+  }
+
+  // ---------- Brain ----------
+  function vBrain() {
+    const priceApproved = state.done['ap-price'];
+    return `
+      <div class="grid c2" style="align-items:start">
+        <div>
+          <h2 class="sec">Knowledge the AI can use</h2>
+          ${D.knowledge.map((k) => `
+            <div class="kb">
+              <div class="head">
+                <b>${esc(k.title)}</b>
+                <span class="cat">${esc(k.category)}</span>
+                ${k.sensitive ? '<span class="lock">🔒 owner-gated</span>' : ''}
+                <span class="cites">cited ${k.cites30d}× / 30d</span>
+              </div>
+              <p>${esc(k.excerpt)}</p>
+              <div class="meta">${esc(k.id === 'kb-price' && priceApproved ? 'v13 live' : k.version)} · updated ${fmtRel(k.updated)} by ${esc(k.owner)}</div>
+            </div>`).join('')}
+        </div>
+        <div>
+          <h2 class="sec">Knowledge gaps the AI found</h2>
+          ${D.knowledgeGaps.map((g) => `
+            <div class="kb gap">
+              <b>“${esc(g.q)}”</b>
+              <p>Asked ${g.asked}× · last ${fmtRel(g.last)} — ${esc(g.note)}</p>
+              <div style="margin-top:8px"><button class="btn sm" data-toast="Draft answer created — review it under FAQ">Draft an answer</button></div>
+            </div>`).join('')}
+          <h2 class="sec">How grounding works</h2>
+          <div class="card">
+            <p style="margin:0;font-size:13px;color:var(--ink-2);max-width:60ch">Every price, policy or promise the AI sends cites a knowledge item (the 📎 chips in the Inbox). If no reliable item exists, the AI says so and hands the thread to staff — it never guesses. Sensitive items (prices, refunds, safety) only go live after owner approval.</p>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ---------- Insights (charts) ----------
+  function vInsights() {
+    return `
+      <div class="stat-row" style="grid-template-columns:repeat(3,1fr)">
+        ${D.kpis.map((k) => `<div class="stat"><b>${esc(k.value)}</b><span>${esc(k.label)}</span><div class="kpi-delta">${esc(k.delta)}</div></div>`).join('')}
+      </div>
+      <div class="grid c2" style="margin-top:14px;align-items:start">
+        <div class="card chart-card">
+          <h3>Leads &amp; bookings — last 30 days</h3>
+          <div class="sub">Daily counts across all channels · closed Mondays</div>
+          ${lineChart()}
+        </div>
+        <div class="card chart-card">
+          <h3>Sales funnel — last 30 days</h3>
+          <div class="sub">From first contact to repeat booking</div>
+          ${funnelChart()}
+        </div>
+        <div class="card chart-card">
+          <h3>Leads by channel — last 30 days</h3>
+          <div class="sub">Full bar = leads · dark segment = became bookings</div>
+          ${channelChart()}
+        </div>
+        <div class="card chart-card">
+          <h3>Next 7 days — booking forecast</h3>
+          <div class="sub">Band = ±20% confidence · basis: 30-day history, June campaigns, NEA outlook</div>
+          ${forecastChart()}
+        </div>
+        <div class="card chart-card">
+          <h3>Top services by revenue — last 30 days</h3>
+          <div class="sub">Bookings shown at right</div>
+          ${servicesChart()}
+        </div>
+        <div class="card strategy">
+          <h3 style="margin:0 0 8px;font-size:13.5px">${esc(D.strategy.title)}</h3>
+          <ul style="margin:0;padding-left:18px">${D.strategy.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+        </div>
+      </div>`;
+  }
+
+  function lineChart() {
+    const W = 460, H = 190, L = 26, R = 8, T = 26, B = 22;
+    const data = D.metrics;
+    const maxY = Math.max(...data.map((d) => d.leads)) + 1;
+    const x = (i) => L + (i / (data.length - 1)) * (W - L - R);
+    const y = (v) => T + (1 - v / maxY) * (H - T - B);
+    const path = (key) => data.map((d, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join('');
+    const grid = [0, Math.round(maxY / 2), maxY].map((v) => `
+      <line class="grid-line" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>
+      <text x="${L - 5}" y="${y(v) + 3.5}" text-anchor="end">${v}</text>`).join('');
+    const last = data[data.length - 1];
+    const ticks = [0, 9, 19, 29].map((i) => `<text x="${x(i)}" y="${H - 6}" text-anchor="middle">${data[i].date.slice(5).replace('-', '/')}</text>`).join('');
+    return `
+      <svg class="viz" viewBox="0 0 ${W} ${H}" id="linechart" data-max="${maxY}">
+        ${grid}
+        <line class="axis" x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}"/>
+        ${ticks}
+        <path d="${path('leads')}" fill="none" stroke="var(--chart-1)" stroke-width="2"/>
+        <path d="${path('bookings')}" fill="none" stroke="#1baf7a" stroke-width="2"/>
+        <circle cx="${x(data.length - 1)}" cy="${y(last.leads)}" r="3.5" fill="var(--chart-1)"/>
+        <circle cx="${x(data.length - 1)}" cy="${y(last.bookings)}" r="3.5" fill="#1baf7a"/>
+        <text class="val" x="${x(data.length - 1) - 8}" y="${y(last.leads) - 8}" text-anchor="end" fill="var(--chart-1)">Leads</text>
+        <text class="val" x="${x(data.length - 1) - 8}" y="${y(last.bookings) + 14}" text-anchor="end" fill="#1baf7a">Bookings</text>
+        <line id="xhair" x1="0" x2="0" y1="${T}" y2="${H - B}" stroke="var(--chart-axis)" stroke-width="1" style="display:none"/>
+        <rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent" id="linehit"/>
+      </svg>
+      <div style="display:flex;gap:14px;font-size:11.5px;color:var(--muted)">
+        <span><span class="dot" style="background:var(--chart-1)"></span> Leads</span>
+        <span><span class="dot" style="background:#1baf7a"></span> Bookings</span>
+      </div>`;
+  }
+
+  function funnelChart() {
+    const W = 460, rowH = 30, gap = 6, L = 78, R = 46;
+    const max = D.funnel[0].n;
+    const colors = ['var(--funnel-1)', 'var(--funnel-2)', 'var(--funnel-3)', 'var(--funnel-4)', 'var(--funnel-5)'];
+    const H = D.funnel.length * (rowH + gap) + 4;
+    return `<svg class="viz" viewBox="0 0 ${W} ${H}">
+      ${D.funnel.map((f, i) => {
+        const w = Math.max(6, (f.n / max) * (W - L - R));
+        const yy = i * (rowH + gap);
+        const conv = i > 0 ? Math.round((f.n / D.funnel[i - 1].n) * 100) + '%' : '';
+        return `
+          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${f.stage}</text>
+          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="${colors[i]}" data-tip="${f.stage}: ${f.n}${conv ? ' · ' + conv + ' of previous' : ''}"/>
+          <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 - 1}">${f.n}</text>
+          ${conv ? `<text x="${L + w + 7}" y="${yy + rowH / 2 + 11}" font-size="9.5">${conv} →</text>` : ''}`;
+      }).join('')}
+    </svg>`;
+  }
+
+  function channelChart() {
+    const W = 460, rowH = 30, gap = 6, L = 88, R = 92;
+    const max = Math.max(...D.channels.map((c) => c.leads));
+    const H = D.channels.length * (rowH + gap) + 4;
+    return `<svg class="viz" viewBox="0 0 ${W} ${H}">
+      ${D.channels.map((c, i) => {
+        const yy = i * (rowH + gap);
+        const wAll = (c.leads / max) * (W - L - R);
+        const wBook = (c.booked / max) * (W - L - R);
+        const rate = Math.round((c.booked / c.leads) * 100);
+        return `
+          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${c.name}</text>
+          <rect x="${L}" y="${yy}" width="${wAll}" height="${rowH - 8}" rx="4" fill="var(--funnel-1)" data-tip="${c.name}: ${c.leads} leads"/>
+          <rect x="${L}" y="${yy}" width="${wBook}" height="${rowH - 8}" rx="4" fill="var(--funnel-4)" data-tip="${c.name}: ${c.booked} booked (${rate}%)"/>
+          <text class="val" x="${L + wAll + 7}" y="${yy + rowH / 2 + 3.5}">${c.booked}/${c.leads} · ${rate}%</text>`;
+      }).join('')}
+    </svg>`;
+  }
+
+  function forecastChart() {
+    const W = 460, H = 170, L = 26, R = 10, T = 14, B = 24;
+    const data = D.forecast;
+    const maxY = 14;
+    const x = (i) => L + (i / (data.length - 1)) * (W - L - R);
+    const y = (v) => T + (1 - v / maxY) * (H - T - B);
+    const band = data.map((d, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(d.hi).toFixed(1)}`).join('') +
+      data.slice().reverse().map((d, i) => `L${x(data.length - 1 - i).toFixed(1)},${y(d.lo).toFixed(1)}`).join('') + 'Z';
+    const mid = data.map((d, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(d.mid).toFixed(1)}`).join('');
+    return `<svg class="viz" viewBox="0 0 ${W} ${H}">
+      ${[0, 7, 14].map((v) => `<line class="grid-line" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 5}" y="${y(v) + 3.5}" text-anchor="end">${v}</text>`).join('')}
+      <path d="${band}" fill="var(--chart-1)" opacity="0.16"/>
+      <path d="${mid}" fill="none" stroke="var(--chart-1)" stroke-width="2"/>
+      ${data.map((d, i) => `
+        <circle cx="${x(i)}" cy="${y(d.mid)}" r="3.2" fill="var(--chart-1)" data-tip="${d.day}: ${d.mid} bookings (${d.lo}–${d.hi})"/>
+        <text x="${x(i)}" y="${H - 7}" text-anchor="middle">${d.day.split(' ')[0]}</text>`).join('')}
+      <text class="val" x="${x(0) + 4}" y="${y(data[0].mid) - 10}">Sat is your peak — 2 stylists booked out by noon</text>
+    </svg>`;
+  }
+
+  function servicesChart() {
+    const W = 460, rowH = 30, gap = 6, L = 118, R = 116;
+    const max = Math.max(...D.topServices.map((s) => s.revenue));
+    const H = D.topServices.length * (rowH + gap) + 4;
+    return `<svg class="viz" viewBox="0 0 ${W} ${H}">
+      ${D.topServices.map((s, i) => {
+        const yy = i * (rowH + gap);
+        const w = (s.revenue / max) * (W - L - R);
+        return `
+          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${s.name}</text>
+          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="var(--chart-1)" data-tip="${s.name}: ${money(s.revenue)} from ${s.bookings} bookings"/>
+          <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 + 3.5}">${money(s.revenue)} · ${s.bookings} bkgs</text>`;
+      }).join('')}
+    </svg>`;
+  }
+
+  // ---------- chrome ----------
+  function renderSide() {
+    const unread = D.conversations.filter((c) => c.unread).length;
+    $('#side').innerHTML = `
+      <div class="logo"><b>Rook</b><span>AI growth team</span></div>
+      ${NAV.map(([id, label]) => `
+        <button class="nav-btn ${state.view === id ? 'on' : ''}" data-nav="${id}">
+          ${IC[id]}${label}
+          ${id === 'inbox' && unread ? `<span class="bdg">${unread}</span>` : ''}
+        </button>`).join('')}
+      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(D.merchant.hours)}</div>`;
+    $('#tabbar').innerHTML = NAV.map(([id, label]) => `
+      <button class="${state.view === id ? 'on' : ''}" data-nav="${id}">${IC[id]}${label}</button>`).join('');
+  }
+  function renderTop() {
+    $('#topbar').innerHTML = `
+      <h1>${TITLES[state.view]}</h1>
+      <span class="sub">${esc(D.merchant.name)} · ${esc(D.merchant.tagline)}</span>
+      <div class="spacer"></div>
+      <span class="chip time">${esc(D.merchant.nowLabel)}</span>
+      <span class="chip sim">Simulated data</span>`;
+  }
+
+  function render() {
+    renderSide();
+    renderTop();
+    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, reputation: vReputation, brain: vBrain, insights: vInsights };
+    $('#view').innerHTML = views[state.view]();
+    const back = $('#view [data-back]');
+    if (back && window.innerWidth <= 760) back.style.display = 'inline-block';
+    const msgs = $('#msgs');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    bindHover();
+  }
+
+  // ---------- events ----------
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast]');
+    if (!t) return;
+    if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.conv) { state.convId = t.dataset.conv; state.mobilePane = 'thread'; render(); }
+    else if (t.dataset.openConv) { state.view = 'inbox'; state.convId = t.dataset.openConv; state.mobilePane = 'thread'; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.back !== undefined && t.dataset.back === '') { state.mobilePane = 'list'; render(); }
+    else if (t.dataset.takeover) {
+      const id = t.dataset.takeover;
+      const c = getConv(id);
+      state.aiPaused[id] = !state.aiPaused[id];
+      c.messages.push({ from: 'sys', text: state.aiPaused[id] ? 'You took over — AI paused on this thread. It will keep logging and suggest replies.' : 'Handed back to AI — it has the full context of your messages.' });
+      toast(state.aiPaused[id] ? 'AI paused — the thread is yours' : 'AI resumed on this thread');
+      render();
+    }
+    else if (t.dataset.simulate !== undefined) runSimulation();
+    else if (t.dataset.approve) {
+      const a = D.approvals.find((x) => x.id === t.dataset.approve);
+      state.done[a.id] = true;
+      if (a.ref === 'mk-rain') state.campaign['mk-rain'] = 'scheduled';
+      if (a.ref === 'rv-dana') state.reviewPosted['rv-dana'] = true;
+      toast({
+        'ap-campaign': 'Campaign approved — sending Sat 10:00 AM to 84 customers',
+        'ap-review': 'Reply posted to Google',
+        'ap-price': 'Price list v13 is live — AI will quote new prices immediately',
+        'ap-merge': 'Profiles merged — history from both channels kept',
+      }[a.id] || 'Approved');
+      render();
+    }
+    else if (t.dataset.hold) { state.done[t.dataset.hold] = true; toast('Held — moved to your review list for later'); render(); }
+    else if (t.dataset.approveCamp) {
+      state.campaign[t.dataset.approveCamp] = 'scheduled';
+      state.done['ap-campaign'] = true;
+      toast('Campaign approved — sending Sat 10:00 AM to 84 customers');
+      render();
+    }
+    else if (t.dataset.postReply) { state.reviewPosted[t.dataset.postReply] = true; state.done['ap-review'] = true; toast('Reply posted to Google'); render(); }
+    else if (t.dataset.filter) { state.custFilter = t.dataset.filter; render(); }
+    else if (t.dataset.cust) { state.custId = t.dataset.cust; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.backCust !== undefined) { state.custId = null; render(); }
+    else if (t.dataset.toast) toast(t.dataset.toast);
+  });
+
+  // ---------- chart hover ----------
+  const tip = $('#tooltip');
+  function bindHover() {
+    document.querySelectorAll('[data-tip]').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        tip.textContent = el.dataset.tip;
+        tip.style.display = 'block';
+        tip.style.left = e.clientX + 'px';
+        tip.style.top = e.clientY + 'px';
+      });
+      el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+    });
+    const hit = $('#linehit');
+    if (hit) {
+      const svg = $('#linechart');
+      const xh = svg.querySelector('#xhair');
+      const data = D.metrics;
+      const L = 26, R = 8, W = 460;
+      hit.addEventListener('mousemove', (e) => {
+        const r = svg.getBoundingClientRect();
+        const px = ((e.clientX - r.left) / r.width) * W;
+        const i = Math.max(0, Math.min(data.length - 1, Math.round(((px - L) / (W - L - R)) * (data.length - 1))));
+        const xx = L + (i / (data.length - 1)) * (W - L - R);
+        xh.setAttribute('x1', xx); xh.setAttribute('x2', xx);
+        xh.style.display = 'block';
+        const d = data[i];
+        tip.textContent = `${d.date.slice(5).replace('-', '/')} — ${d.leads} leads · ${d.bookings} bookings`;
+        tip.style.display = 'block';
+        tip.style.left = e.clientX + 'px';
+        tip.style.top = e.clientY + 'px';
+      });
+      hit.addEventListener('mouseleave', () => { xh.style.display = 'none'; tip.style.display = 'none'; });
+    }
+  }
+
+  render();
+})();
+
+</script>
