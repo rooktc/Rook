@@ -406,11 +406,33 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .ph-head .btn { margin-left: auto; background: rgba(255,255,255,0.15); border-color: transparent; color: #fff; }
 .ph-avatar { flex: none; width: 32px; height: 32px; border-radius: 99px; background: #128c7e; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 .ph-msgs { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; background: #efe7dc; }
-.ph-msg { max-width: 82%; padding: 7px 10px; border-radius: 9px; font-size: 13px; line-height: 1.45; color: #111; box-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+.ph-msg { max-width: 82%; padding: 7px 10px; border-radius: 9px; font-size: 13px; line-height: 1.45; color: #111; box-shadow: 0 1px 0 rgba(0,0,0,0.06); white-space: pre-line; }
 .ph-msg.theirs { align-self: flex-start; background: #ffffff; border-top-left-radius: 2px; }
 .ph-msg.mine { align-self: flex-end; background: #d9fdd3; border-top-right-radius: 2px; }
 .ph-time { display: block; font-size: 10px; color: #667; text-align: right; margin-top: 3px; }
 .ph-input { background: #f6f6f6; color: #999; font-size: 13px; padding: 10px 14px; border-top: 1px solid #ddd; }
+
+/* ---- voice notes ---- */
+.vn { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.vn-wave { display: inline-flex; align-items: center; gap: 2px; }
+.vn-wave i { display: inline-block; width: 2.5px; border-radius: 2px; background: currentColor; opacity: 0.55; }
+.vn-tx { font-size: 13px; font-style: italic; margin-top: 6px; color: var(--ink-2); }
+.vn-note { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-top: 4px; font-weight: 700; }
+
+/* ---- guided tour ---- */
+.tour {
+  position: fixed; right: 20px; bottom: 20px; z-index: 48;
+  width: 330px; max-width: calc(100vw - 32px);
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-top: 3px solid var(--accent);
+  border-radius: 12px; padding: 14px 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+}
+.tour .tour-step { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+.tour b { font-size: 14px; }
+.tour p { margin: 6px 0 12px; font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.tour .tour-actions { display: flex; gap: 6px; align-items: center; }
+@media (max-width: 760px) { .tour { bottom: 76px; } }
 
 /* ---- toast ---- */
 .toast {
@@ -691,6 +713,21 @@ window.DEMOS = (() => {
         ],
       },
     ];
+
+    conversations.splice(5, 0, {
+      id: 'v-lydia', customerId: null, name: 'Lydia Chew', channel: 'WhatsApp',
+      preview: '🎤 Voice note (0:19) → rescheduled to Sat 10:30 AM', time: hoursAgo(12.4), unread: false,
+      aiStatus: 'ai', score: 58, intent: 'Voice note · reschedule',
+      fields: { Service: 'Classic Gel Manicure', 'Original slot': 'Sat 11 Jul, 3:00 PM', 'New slot': 'Sat 11 Jul, 10:30 AM', Language: 'English (Singlish)', Source: 'Voice note, auto-transcribed' },
+      handoff: null,
+      nextAction: 'None — reschedule confirmed within cancellation rules. Reminder updated automatically.',
+      messages: [
+        { from: 'cust', time: hoursAgo(12.45), voice: true, duration: '0:19', text: 'Hi ah, I booked gel mani for tomorrow 3pm one, but my boss just called meeting lah. Can I change to Saturday morning instead? So sorry!! ' },
+        { from: 'ai', time: hoursAgo(12.44), text: 'No worries at all, Lydia! I’ve moved your Classic Gel Manicure from Sat 3:00 PM — wait, tomorrow 3 PM — to Saturday 10:30 AM with the same stylist. No fee since it’s more than 24h ahead. See you Saturday! 💅', cite: 'Cancellation policy · >24h free' },
+        { from: 'cust', time: hoursAgo(12.4), text: 'lifesaver!! thank youuu' },
+        { from: 'sys', time: hoursAgo(12.4), text: 'Voice note transcribed (EN/Singlish) → intent: reschedule → booking moved, reminder updated.' },
+      ],
+    });
 
     const simulation = {
       name: 'Hannah Teo', channel: 'WhatsApp', customerLine: 'New number · +65 9611 2087',
@@ -1089,6 +1126,20 @@ window.DEMOS = (() => {
       },
     ];
 
+    conversations.splice(4, 0, {
+      id: 'vp-zul', customerId: null, name: 'Zulkifli Rahmat', channel: 'WhatsApp',
+      preview: '🎤 Voice note (0:23) → aftercare answered + monitoring', time: hoursAgo(9.6), unread: false,
+      aiStatus: 'ai', score: null, intent: 'Voice note · aftercare',
+      fields: { Pet: 'Sunny · Golden Retriever', Topic: 'Scratching after Tuesday’s groom', Assessment: 'Normal post-groom itch window (24–48h)', 'Watch flag': 'Auto-follow-up tomorrow — escalate if persists', Source: 'Voice note, auto-transcribed' },
+      handoff: null,
+      nextAction: 'Automated check-in tomorrow 10 AM; if scratching persists → hand off + suggest vet (Safety S-01 threshold).',
+      messages: [
+        { from: 'cust', time: hoursAgo(9.65), voice: true, duration: '0:23', text: 'Eh hello, quick question — Sunny keeps scratching since the groom on Tuesday. Is that normal or should I be worried? He’s not bleeding or anything, just itchy.' },
+        { from: 'ai', time: hoursAgo(9.6), text: 'Thanks for checking, Zul! Mild itchiness for 24–48h after a de-shed groom is common while the coat settles — no redness or bleeding is a good sign. Keep him off grass baths today and I’ll check in with you tomorrow. If it gets worse or you see red patches, please see your vet and let us know right away. 🐕', cite: 'SOP-07 · Post-groom aftercare' },
+        { from: 'sys', time: hoursAgo(9.6), text: 'Voice note transcribed → aftercare answered from SOP · follow-up scheduled tomorrow 10 AM · S-01 escalation armed if symptoms persist.' },
+      ],
+    });
+
     const simulation = {
       name: 'Jon Lau', channel: 'WhatsApp', customerLine: 'New number · +65 8802 4416',
       doneToast: 'Lead → routed → booked in 38 seconds — postal code picked the van',
@@ -1401,7 +1452,8 @@ window.DEMO = window.DEMOS.beauty;
     campaign: {},      // campaign id -> new status
     reviewPosted: {},
     kbApproved: {},
-    phoneView: false,
+    phoneView: null,        // null | 'conv' | 'brief'
+    tour: 0,                // 0 = off, 1-based step otherwise
     simConvo: null,
     simRunning: false,
     simToken: 0,
@@ -1481,7 +1533,9 @@ window.DEMO = window.DEMOS.beauty;
       <div class="card brief">
         <h3>${esc(D.brief.headline)}</h3>
         <p>${esc(D.brief.body)}</p>
+        <div style="margin-top:10px"><button class="btn sm" data-brief-phone>📱 See it as your 7 AM WhatsApp</button></div>
       </div>
+      ${state.phoneView === 'brief' ? briefPhone() : ''}
       <h2 class="sec">${esc(D.activityLabel)}</h2>
       <div class="stat-row">
         ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(a.label)}</span></div>`).join('')}
@@ -1559,35 +1613,60 @@ window.DEMO = window.DEMOS.beauty;
           ${conv.nextAction ? `<div class="card nextact"><h4>Suggested next step</h4><p>${esc(conv.nextAction)}</p></div>` : ''}
         </div>
       </div>
-      ${state.phoneView ? phoneOverlay(conv) : ''}`;
+      ${state.phoneView === 'conv' ? phoneOverlay(conv) : ''}`;
   }
+  const WAVE = [5, 9, 13, 8, 11, 6, 12, 9, 14, 7, 10, 5, 8, 12, 6, 9]
+    .map((h) => `<i style="height:${h}px"></i>`).join('');
   function msgHtml(m) {
     if (m.from === 'sys') return `<div class="msg sys">${esc(m.text)}</div>`;
     if (m.from === 'typing') return '<div class="typing" aria-label="AI is typing"><i></i><i></i><i></i></div>';
     const who = m.from === 'cust' ? 'cust' : m.from;
     const label = m.from === 'cust' ? '' : m.from === 'ai' ? 'Rook AI · ' : 'Staff · ';
+    if (m.voice) return `<div class="msg ${who}">
+      <span class="vn" aria-label="Voice message, ${esc(m.duration)}">▶<span class="vn-wave">${WAVE}</span>${esc(m.duration)}</span>
+      <div class="vn-tx">“${esc(m.text)}”</div>
+      <span class="vn-note">Transcribed by Rook</span>
+      <span class="meta">${label}${m.time ? fmtClock(m.time) : ''}</span></div>`;
     return `<div class="msg ${who}">${esc(m.text)}
       ${m.cite ? `<br><span class="cite">📎 ${esc(m.cite)}</span>` : ''}
       <span class="meta">${label}${m.time ? fmtClock(m.time) : ''}</span></div>`;
   }
 
   // What the customer's phone shows: no system notes, no scores, no citations.
-  function phoneOverlay(conv) {
-    const bubbles = conv.messages.filter((m) => m.from !== 'sys' && m.from !== 'typing').map((m) => `
-      <div class="ph-msg ${m.from === 'cust' ? 'mine' : 'theirs'}">${esc(m.text)}
-        <span class="ph-time">${m.time ? fmtClock(m.time) : ''}</span></div>`).join('');
+  function phoneOverlay(conv, opts = {}) {
+    const bubbles = conv.messages.filter((m) => m.from !== 'sys' && m.from !== 'typing').map((m) => {
+      const body = m.voice
+        ? `<span class="vn">▶<span class="vn-wave">${WAVE}</span>${esc(m.duration)}</span>`
+        : esc(m.text);
+      return `<div class="ph-msg ${m.from === 'cust' ? 'mine' : 'theirs'}">${body}
+        <span class="ph-time">${m.time ? fmtClock(m.time) : ''}</span></div>`;
+    }).join('');
     return `
       <div class="phone-ovl" data-close-phone>
-        <div class="phone" role="dialog" aria-label="Customer view">
-          <div class="ph-note">What ${esc(conv.name)} sees — scores, notes and citations stay in your console.</div>
-          <div class="ph-head"><span class="ph-avatar">${esc(D.merchant.name[0])}</span>
-            <div><b>${esc(D.merchant.name)}</b><span>online</span></div>
+        <div class="phone" role="dialog" aria-label="${esc(opts.aria || 'Customer view')}">
+          <div class="ph-note">${esc(opts.note || `What ${conv.name} sees — scores, notes and citations stay in your console.`)}</div>
+          <div class="ph-head"><span class="ph-avatar">${esc((opts.header || D.merchant.name)[0])}</span>
+            <div><b>${esc(opts.header || D.merchant.name)}</b><span>online</span></div>
             <button class="btn sm" data-close-phone-btn>Close</button>
           </div>
           <div class="ph-msgs">${bubbles}</div>
           <div class="ph-input">Message…</div>
         </div>
       </div>`;
+  }
+  function briefPhone() {
+    const opps = D.opportunities.slice(0, 3).map((o, i) => `${i + 1}. ${o.who} — ${o.why}`).join('\n');
+    return phoneOverlay({
+      name: 'Rook',
+      messages: [{
+        from: 'ai', time: D.merchant.now,
+        text: `☀️ ${D.brief.headline}\n\n${D.brief.body}\n\nTop 3 right now:\n${opps}\n\nOpen your console to approve or take over → rook.app/today`,
+      }],
+    }, {
+      header: 'Rook — Daily brief',
+      note: 'The owner gets this brief on WhatsApp every morning — no dashboard required.',
+      aria: 'Daily brief as WhatsApp message',
+    });
   }
 
   // ---------- simulation ----------
@@ -2169,6 +2248,34 @@ window.DEMO = window.DEMOS.beauty;
     </svg>`;
   }
 
+  // ---------- guided tour ----------
+  const TOUR = [
+    { view: 'today', title: 'Start your day here', text: 'The morning brief says what needs you — everything else is already handled. Below it: what the AI did overnight, ranked opportunities, and one-tap approvals. Try approving one.' },
+    { view: 'inbox', title: 'The AI sells while you sleep', text: 'Open the top conversation — an overnight lead, qualified and quoted. The 📎 chips show exactly which knowledge item each answer came from. It never guesses a price.' },
+    { view: 'inbox', title: 'It knows when to stop', text: 'Find the complaint thread: the AI paused itself instantly and drafted a recovery plan for a human. Also try ▶ Simulate a live inquiry and 📱 Customer view.' },
+    { view: 'customers', title: 'Chats become an asset', text: 'Every conversation builds profiles, tags, lifecycle stages and lifetime value — and the task centre queues the human work with owners and due times.' },
+    { view: 'marketing', title: 'Campaigns run themselves', text: 'Triggered by service cycles, birthdays, weather and capacity gaps — every send passes consent checks and waits for your approval. ROI is tracked per campaign, including the referral engine below.' },
+    { view: 'social', title: 'Social feeds the funnel', text: 'A drafted content calendar (posts hold for consent and campaign approval), comments and DMs classified into leads vs complaints, and performance measured in bookings — not likes.' },
+    { view: 'trust', title: 'Governance you can prove', text: 'Consent coverage, DNC checks before every send, role permissions, and an audit trail that even records what Rook refused to do.' },
+    { view: 'insights', title: 'Data becomes strategy', text: 'Funnel, channel attribution (click a bar to see those customers), a 7-day forecast, unit economics, and a strategy card that says what to do this week — with its basis shown.' },
+    { view: 'setup', title: 'Day one takes 20 minutes', text: 'Press play: files in, Business Brain built, sensitive items approved, live on WhatsApp. Then switch the industry at the top — same platform, different configuration.' },
+  ];
+  function tourCard() {
+    const s = TOUR[state.tour - 1];
+    return `
+      <div class="tour" role="dialog" aria-label="Product tour">
+        <div class="tour-step">${state.tour} / ${TOUR.length}</div>
+        <b>${esc(s.title)}</b>
+        <p>${esc(s.text)}</p>
+        <div class="tour-actions">
+          <button class="btn sm" data-tour-end>End tour</button>
+          <span class="spacer"></span>
+          ${state.tour > 1 ? '<button class="btn sm" data-tour-back>← Back</button>' : ''}
+          <button class="btn sm pri" data-tour-next>${state.tour === TOUR.length ? 'Done' : 'Next →'}</button>
+        </div>
+      </div>`;
+  }
+
   // ---------- chrome ----------
   function renderSide() {
     const unread = D.conversations.filter((c) => c.unread).length;
@@ -2191,6 +2298,7 @@ window.DEMO = window.DEMOS.beauty;
       <div class="seg" role="group" aria-label="Demo industry">
         ${INDUSTRIES.map((ind) => `<button class="${state.industry === ind.id ? 'on' : ''}" data-industry="${ind.id}">${ind.label}</button>`).join('')}
       </div>
+      <button class="btn sm" data-tour-start>${state.tour ? '● Tour running' : '▶ Tour'}</button>
       <span class="chip time">${esc(D.merchant.nowLabel)}</span>
       <span class="chip sim">Simulated data</span>`;
   }
@@ -2204,6 +2312,9 @@ window.DEMO = window.DEMOS.beauty;
     if (back && window.innerWidth <= 760) back.style.display = 'inline-block';
     const msgs = $('#msgs');
     if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    const oldTour = $('.tour');
+    if (oldTour) oldTour.remove();
+    if (state.tour) document.body.insertAdjacentHTML('beforeend', tourCard());
     bindHover();
   }
 
@@ -2221,7 +2332,7 @@ window.DEMO = window.DEMOS.beauty;
     state.custId = null;
     state.custFilter = 'All';
     state.mobilePane = 'list';
-    state.phoneView = false;
+    state.phoneView = null;
     render();
     toast(`Switched template — same platform, configured for a ${id === 'pets' ? 'mobile pet groomer' : 'beauty studio'}`);
   }
@@ -2230,15 +2341,23 @@ window.DEMO = window.DEMOS.beauty;
   document.addEventListener('click', (e) => {
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl') ? e.target : null);
-    if (closePhone) { state.phoneView = false; render(); return; }
-    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-phone],[data-setup-play]');
+    if (closePhone) { state.phoneView = null; render(); return; }
+    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end]');
     if (!t) return;
     if (t.dataset.industry) switchIndustry(t.dataset.industry);
-    else if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; state.phoneView = false; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.tourStart !== undefined) { state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.tourNext !== undefined) {
+      if (state.tour >= TOUR.length) { state.tour = 0; render(); toast('Tour done — explore freely, or switch the industry up top'); }
+      else { state.tour++; state.view = TOUR[state.tour - 1].view; render(); window.scrollTo(0, 0); }
+    }
+    else if (t.dataset.tourBack !== undefined) { state.tour = Math.max(1, state.tour - 1); state.view = TOUR[state.tour - 1].view; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.tourEnd !== undefined) { state.tour = 0; render(); }
+    else if (t.dataset.briefPhone !== undefined) { state.phoneView = 'brief'; render(); }
+    else if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; state.phoneView = null; render(); window.scrollTo(0, 0); }
     else if (t.dataset.conv) { state.convId = t.dataset.conv; state.mobilePane = 'thread'; render(); }
     else if (t.dataset.openConv) { state.view = 'inbox'; state.convId = t.dataset.openConv; state.mobilePane = 'thread'; render(); window.scrollTo(0, 0); }
     else if (t.dataset.back !== undefined && t.dataset.back === '') { state.mobilePane = 'list'; render(); }
-    else if (t.dataset.phone !== undefined && t.dataset.phone === '') { state.phoneView = true; render(); }
+    else if (t.dataset.phone !== undefined && t.dataset.phone === '') { state.phoneView = 'conv'; render(); }
     else if (t.dataset.setupPlay !== undefined) runSetup();
     else if (t.dataset.takeover) {
       const id = t.dataset.takeover;

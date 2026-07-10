@@ -22,7 +22,8 @@
     campaign: {},      // campaign id -> new status
     reviewPosted: {},
     kbApproved: {},
-    phoneView: false,
+    phoneView: null,        // null | 'conv' | 'brief'
+    tour: 0,                // 0 = off, 1-based step otherwise
     simConvo: null,
     simRunning: false,
     simToken: 0,
@@ -102,7 +103,9 @@
       <div class="card brief">
         <h3>${esc(D.brief.headline)}</h3>
         <p>${esc(D.brief.body)}</p>
+        <div style="margin-top:10px"><button class="btn sm" data-brief-phone>📱 See it as your 7 AM WhatsApp</button></div>
       </div>
+      ${state.phoneView === 'brief' ? briefPhone() : ''}
       <h2 class="sec">${esc(D.activityLabel)}</h2>
       <div class="stat-row">
         ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(a.label)}</span></div>`).join('')}
@@ -180,35 +183,60 @@
           ${conv.nextAction ? `<div class="card nextact"><h4>Suggested next step</h4><p>${esc(conv.nextAction)}</p></div>` : ''}
         </div>
       </div>
-      ${state.phoneView ? phoneOverlay(conv) : ''}`;
+      ${state.phoneView === 'conv' ? phoneOverlay(conv) : ''}`;
   }
+  const WAVE = [5, 9, 13, 8, 11, 6, 12, 9, 14, 7, 10, 5, 8, 12, 6, 9]
+    .map((h) => `<i style="height:${h}px"></i>`).join('');
   function msgHtml(m) {
     if (m.from === 'sys') return `<div class="msg sys">${esc(m.text)}</div>`;
     if (m.from === 'typing') return '<div class="typing" aria-label="AI is typing"><i></i><i></i><i></i></div>';
     const who = m.from === 'cust' ? 'cust' : m.from;
     const label = m.from === 'cust' ? '' : m.from === 'ai' ? 'Rook AI · ' : 'Staff · ';
+    if (m.voice) return `<div class="msg ${who}">
+      <span class="vn" aria-label="Voice message, ${esc(m.duration)}">▶<span class="vn-wave">${WAVE}</span>${esc(m.duration)}</span>
+      <div class="vn-tx">“${esc(m.text)}”</div>
+      <span class="vn-note">Transcribed by Rook</span>
+      <span class="meta">${label}${m.time ? fmtClock(m.time) : ''}</span></div>`;
     return `<div class="msg ${who}">${esc(m.text)}
       ${m.cite ? `<br><span class="cite">📎 ${esc(m.cite)}</span>` : ''}
       <span class="meta">${label}${m.time ? fmtClock(m.time) : ''}</span></div>`;
   }
 
   // What the customer's phone shows: no system notes, no scores, no citations.
-  function phoneOverlay(conv) {
-    const bubbles = conv.messages.filter((m) => m.from !== 'sys' && m.from !== 'typing').map((m) => `
-      <div class="ph-msg ${m.from === 'cust' ? 'mine' : 'theirs'}">${esc(m.text)}
-        <span class="ph-time">${m.time ? fmtClock(m.time) : ''}</span></div>`).join('');
+  function phoneOverlay(conv, opts = {}) {
+    const bubbles = conv.messages.filter((m) => m.from !== 'sys' && m.from !== 'typing').map((m) => {
+      const body = m.voice
+        ? `<span class="vn">▶<span class="vn-wave">${WAVE}</span>${esc(m.duration)}</span>`
+        : esc(m.text);
+      return `<div class="ph-msg ${m.from === 'cust' ? 'mine' : 'theirs'}">${body}
+        <span class="ph-time">${m.time ? fmtClock(m.time) : ''}</span></div>`;
+    }).join('');
     return `
       <div class="phone-ovl" data-close-phone>
-        <div class="phone" role="dialog" aria-label="Customer view">
-          <div class="ph-note">What ${esc(conv.name)} sees — scores, notes and citations stay in your console.</div>
-          <div class="ph-head"><span class="ph-avatar">${esc(D.merchant.name[0])}</span>
-            <div><b>${esc(D.merchant.name)}</b><span>online</span></div>
+        <div class="phone" role="dialog" aria-label="${esc(opts.aria || 'Customer view')}">
+          <div class="ph-note">${esc(opts.note || `What ${conv.name} sees — scores, notes and citations stay in your console.`)}</div>
+          <div class="ph-head"><span class="ph-avatar">${esc((opts.header || D.merchant.name)[0])}</span>
+            <div><b>${esc(opts.header || D.merchant.name)}</b><span>online</span></div>
             <button class="btn sm" data-close-phone-btn>Close</button>
           </div>
           <div class="ph-msgs">${bubbles}</div>
           <div class="ph-input">Message…</div>
         </div>
       </div>`;
+  }
+  function briefPhone() {
+    const opps = D.opportunities.slice(0, 3).map((o, i) => `${i + 1}. ${o.who} — ${o.why}`).join('\n');
+    return phoneOverlay({
+      name: 'Rook',
+      messages: [{
+        from: 'ai', time: D.merchant.now,
+        text: `☀️ ${D.brief.headline}\n\n${D.brief.body}\n\nTop 3 right now:\n${opps}\n\nOpen your console to approve or take over → rook.app/today`,
+      }],
+    }, {
+      header: 'Rook — Daily brief',
+      note: 'The owner gets this brief on WhatsApp every morning — no dashboard required.',
+      aria: 'Daily brief as WhatsApp message',
+    });
   }
 
   // ---------- simulation ----------
@@ -790,6 +818,34 @@
     </svg>`;
   }
 
+  // ---------- guided tour ----------
+  const TOUR = [
+    { view: 'today', title: 'Start your day here', text: 'The morning brief says what needs you — everything else is already handled. Below it: what the AI did overnight, ranked opportunities, and one-tap approvals. Try approving one.' },
+    { view: 'inbox', title: 'The AI sells while you sleep', text: 'Open the top conversation — an overnight lead, qualified and quoted. The 📎 chips show exactly which knowledge item each answer came from. It never guesses a price.' },
+    { view: 'inbox', title: 'It knows when to stop', text: 'Find the complaint thread: the AI paused itself instantly and drafted a recovery plan for a human. Also try ▶ Simulate a live inquiry and 📱 Customer view.' },
+    { view: 'customers', title: 'Chats become an asset', text: 'Every conversation builds profiles, tags, lifecycle stages and lifetime value — and the task centre queues the human work with owners and due times.' },
+    { view: 'marketing', title: 'Campaigns run themselves', text: 'Triggered by service cycles, birthdays, weather and capacity gaps — every send passes consent checks and waits for your approval. ROI is tracked per campaign, including the referral engine below.' },
+    { view: 'social', title: 'Social feeds the funnel', text: 'A drafted content calendar (posts hold for consent and campaign approval), comments and DMs classified into leads vs complaints, and performance measured in bookings — not likes.' },
+    { view: 'trust', title: 'Governance you can prove', text: 'Consent coverage, DNC checks before every send, role permissions, and an audit trail that even records what Rook refused to do.' },
+    { view: 'insights', title: 'Data becomes strategy', text: 'Funnel, channel attribution (click a bar to see those customers), a 7-day forecast, unit economics, and a strategy card that says what to do this week — with its basis shown.' },
+    { view: 'setup', title: 'Day one takes 20 minutes', text: 'Press play: files in, Business Brain built, sensitive items approved, live on WhatsApp. Then switch the industry at the top — same platform, different configuration.' },
+  ];
+  function tourCard() {
+    const s = TOUR[state.tour - 1];
+    return `
+      <div class="tour" role="dialog" aria-label="Product tour">
+        <div class="tour-step">${state.tour} / ${TOUR.length}</div>
+        <b>${esc(s.title)}</b>
+        <p>${esc(s.text)}</p>
+        <div class="tour-actions">
+          <button class="btn sm" data-tour-end>End tour</button>
+          <span class="spacer"></span>
+          ${state.tour > 1 ? '<button class="btn sm" data-tour-back>← Back</button>' : ''}
+          <button class="btn sm pri" data-tour-next>${state.tour === TOUR.length ? 'Done' : 'Next →'}</button>
+        </div>
+      </div>`;
+  }
+
   // ---------- chrome ----------
   function renderSide() {
     const unread = D.conversations.filter((c) => c.unread).length;
@@ -812,6 +868,7 @@
       <div class="seg" role="group" aria-label="Demo industry">
         ${INDUSTRIES.map((ind) => `<button class="${state.industry === ind.id ? 'on' : ''}" data-industry="${ind.id}">${ind.label}</button>`).join('')}
       </div>
+      <button class="btn sm" data-tour-start>${state.tour ? '● Tour running' : '▶ Tour'}</button>
       <span class="chip time">${esc(D.merchant.nowLabel)}</span>
       <span class="chip sim">Simulated data</span>`;
   }
@@ -825,6 +882,9 @@
     if (back && window.innerWidth <= 760) back.style.display = 'inline-block';
     const msgs = $('#msgs');
     if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    const oldTour = $('.tour');
+    if (oldTour) oldTour.remove();
+    if (state.tour) document.body.insertAdjacentHTML('beforeend', tourCard());
     bindHover();
   }
 
@@ -842,7 +902,7 @@
     state.custId = null;
     state.custFilter = 'All';
     state.mobilePane = 'list';
-    state.phoneView = false;
+    state.phoneView = null;
     render();
     toast(`Switched template — same platform, configured for a ${id === 'pets' ? 'mobile pet groomer' : 'beauty studio'}`);
   }
@@ -851,15 +911,23 @@
   document.addEventListener('click', (e) => {
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl') ? e.target : null);
-    if (closePhone) { state.phoneView = false; render(); return; }
-    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-phone],[data-setup-play]');
+    if (closePhone) { state.phoneView = null; render(); return; }
+    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end]');
     if (!t) return;
     if (t.dataset.industry) switchIndustry(t.dataset.industry);
-    else if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; state.phoneView = false; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.tourStart !== undefined) { state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.tourNext !== undefined) {
+      if (state.tour >= TOUR.length) { state.tour = 0; render(); toast('Tour done — explore freely, or switch the industry up top'); }
+      else { state.tour++; state.view = TOUR[state.tour - 1].view; render(); window.scrollTo(0, 0); }
+    }
+    else if (t.dataset.tourBack !== undefined) { state.tour = Math.max(1, state.tour - 1); state.view = TOUR[state.tour - 1].view; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.tourEnd !== undefined) { state.tour = 0; render(); }
+    else if (t.dataset.briefPhone !== undefined) { state.phoneView = 'brief'; render(); }
+    else if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; state.phoneView = null; render(); window.scrollTo(0, 0); }
     else if (t.dataset.conv) { state.convId = t.dataset.conv; state.mobilePane = 'thread'; render(); }
     else if (t.dataset.openConv) { state.view = 'inbox'; state.convId = t.dataset.openConv; state.mobilePane = 'thread'; render(); window.scrollTo(0, 0); }
     else if (t.dataset.back !== undefined && t.dataset.back === '') { state.mobilePane = 'list'; render(); }
-    else if (t.dataset.phone !== undefined && t.dataset.phone === '') { state.phoneView = true; render(); }
+    else if (t.dataset.phone !== undefined && t.dataset.phone === '') { state.phoneView = 'conv'; render(); }
     else if (t.dataset.setupPlay !== undefined) runSetup();
     else if (t.dataset.takeover) {
       const id = t.dataset.takeover;

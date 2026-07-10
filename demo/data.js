@@ -217,6 +217,21 @@ window.DEMOS = (() => {
       },
     ];
 
+    conversations.splice(5, 0, {
+      id: 'v-lydia', customerId: null, name: 'Lydia Chew', channel: 'WhatsApp',
+      preview: '🎤 Voice note (0:19) → rescheduled to Sat 10:30 AM', time: hoursAgo(12.4), unread: false,
+      aiStatus: 'ai', score: 58, intent: 'Voice note · reschedule',
+      fields: { Service: 'Classic Gel Manicure', 'Original slot': 'Sat 11 Jul, 3:00 PM', 'New slot': 'Sat 11 Jul, 10:30 AM', Language: 'English (Singlish)', Source: 'Voice note, auto-transcribed' },
+      handoff: null,
+      nextAction: 'None — reschedule confirmed within cancellation rules. Reminder updated automatically.',
+      messages: [
+        { from: 'cust', time: hoursAgo(12.45), voice: true, duration: '0:19', text: 'Hi ah, I booked gel mani for tomorrow 3pm one, but my boss just called meeting lah. Can I change to Saturday morning instead? So sorry!! ' },
+        { from: 'ai', time: hoursAgo(12.44), text: 'No worries at all, Lydia! I’ve moved your Classic Gel Manicure from Sat 3:00 PM — wait, tomorrow 3 PM — to Saturday 10:30 AM with the same stylist. No fee since it’s more than 24h ahead. See you Saturday! 💅', cite: 'Cancellation policy · >24h free' },
+        { from: 'cust', time: hoursAgo(12.4), text: 'lifesaver!! thank youuu' },
+        { from: 'sys', time: hoursAgo(12.4), text: 'Voice note transcribed (EN/Singlish) → intent: reschedule → booking moved, reminder updated.' },
+      ],
+    });
+
     const simulation = {
       name: 'Hannah Teo', channel: 'WhatsApp', customerLine: 'New number · +65 9611 2087',
       doneToast: 'Lead → booking in 41 seconds, fully automated',
@@ -613,6 +628,20 @@ window.DEMOS = (() => {
         ],
       },
     ];
+
+    conversations.splice(4, 0, {
+      id: 'vp-zul', customerId: null, name: 'Zulkifli Rahmat', channel: 'WhatsApp',
+      preview: '🎤 Voice note (0:23) → aftercare answered + monitoring', time: hoursAgo(9.6), unread: false,
+      aiStatus: 'ai', score: null, intent: 'Voice note · aftercare',
+      fields: { Pet: 'Sunny · Golden Retriever', Topic: 'Scratching after Tuesday’s groom', Assessment: 'Normal post-groom itch window (24–48h)', 'Watch flag': 'Auto-follow-up tomorrow — escalate if persists', Source: 'Voice note, auto-transcribed' },
+      handoff: null,
+      nextAction: 'Automated check-in tomorrow 10 AM; if scratching persists → hand off + suggest vet (Safety S-01 threshold).',
+      messages: [
+        { from: 'cust', time: hoursAgo(9.65), voice: true, duration: '0:23', text: 'Eh hello, quick question — Sunny keeps scratching since the groom on Tuesday. Is that normal or should I be worried? He’s not bleeding or anything, just itchy.' },
+        { from: 'ai', time: hoursAgo(9.6), text: 'Thanks for checking, Zul! Mild itchiness for 24–48h after a de-shed groom is common while the coat settles — no redness or bleeding is a good sign. Keep him off grass baths today and I’ll check in with you tomorrow. If it gets worse or you see red patches, please see your vet and let us know right away. 🐕', cite: 'SOP-07 · Post-groom aftercare' },
+        { from: 'sys', time: hoursAgo(9.6), text: 'Voice note transcribed → aftercare answered from SOP · follow-up scheduled tomorrow 10 AM · S-01 escalation armed if symptoms persist.' },
+      ],
+    });
 
     const simulation = {
       name: 'Jon Lau', channel: 'WhatsApp', customerLine: 'New number · +65 8802 4416',
