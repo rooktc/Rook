@@ -898,7 +898,7 @@
   function renderSide() {
     const unread = D.conversations.filter((c) => c.unread).length;
     $('#side').innerHTML = `
-      <div class="logo"><b>Rook</b><span>AI growth team</span></div>
+      <div class="logo"><span class="mark" aria-hidden="true">♜</span><b>Rook</b><span>AI growth team</span></div>
       ${NAV.map(([id, label]) => `
         <button class="nav-btn ${state.view === id ? 'on' : ''}" data-nav="${id}">
           ${IC[id]}${label}
@@ -913,19 +913,30 @@
       <h1>${TITLES[state.view]}</h1>
       <span class="sub">${esc(D.merchant.name)} · ${esc(D.merchant.tagline)}</span>
       <div class="spacer"></div>
-      <div class="seg" role="group" aria-label="Demo industry">
-        ${INDUSTRIES.map((ind) => `<button class="${state.industry === ind.id ? 'on' : ''}" data-industry="${ind.id}">${ind.label}</button>`).join('')}
-      </div>
-      <button class="btn sm" data-tour-start>${state.tour ? '● Tour running' : '▶ Tour'}</button>
-      <span class="chip time">${esc(D.merchant.nowLabel)}</span>
-      <span class="chip sim">Simulated data</span>`;
+      <div class="top-right">
+        <div class="seg" role="group" aria-label="Demo industry">
+          ${INDUSTRIES.map((ind) => `<button class="${state.industry === ind.id ? 'on' : ''}" data-industry="${ind.id}">${ind.label}</button>`).join('')}
+        </div>
+        <button class="btn sm" data-tour-start>${state.tour ? '● Tour running' : '▶ Tour'}</button>
+        <span class="chip time">${esc(D.merchant.nowLabel)}</span>
+        <span class="chip sim">Simulated data</span>
+      </div>`;
   }
 
+  let lastView = null;
   function render() {
     renderSide();
     renderTop();
     const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, trust: vTrust, setup: vSetup };
-    $('#view').innerHTML = views[state.view]();
+    const el = $('#view');
+    el.innerHTML = views[state.view]();
+    // animate only on navigation, not on in-view state changes (approve, sim ticks…)
+    el.classList.remove('enter');
+    if (lastView !== state.view) {
+      void el.offsetWidth; // restart the animation
+      el.classList.add('enter');
+    }
+    lastView = state.view;
     const back = $('#view [data-back]');
     if (back && window.innerWidth <= 760) back.style.display = 'inline-block';
     const msgs = $('#msgs');
