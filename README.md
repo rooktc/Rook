@@ -10,6 +10,7 @@ planning, and building the product described in the RFP — **demo-first**.
 | `rfp-review.md` | Review of the source RFP (strengths, gaps, questions) |
 | `PLAN.md` | Evaluation, demo scope, data design, and roadmap to MVP |
 | `gm-review.md` | GM-perspective evaluation: RFP coverage matrix + iteration priorities |
+| `pilot-baseline.md` | Fill-in sheet to measure a merchant *before* go-live, so pilot results are provable |
 | `demo/` | The clickable owner-console demo (no build tools, no dependencies) |
 | `scripts/build.mjs` | Bundles the demo into one self-contained HTML file |
 | `dist/rook-demo.html` | The bundled demo — open it in any browser |
@@ -34,6 +35,8 @@ configuration:
 - **Whisker & Wag** — mobile pet grooming (on-site/dispatch): postal-code →
   van routing, time windows, pet-safety hand-offs (injury reports, sedation
   questions), vaccination rules.
+
+Press **▶ Tour** in the top bar for a guided 9-step walkthrough.
 
 ## What to look at
 

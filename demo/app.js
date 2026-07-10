@@ -741,6 +741,15 @@
           ${servicesChart()}
           ${dataTable(['Service', 'Bookings', 'Revenue'], D.topServices.map((s) => [s.name, s.bookings, money(s.revenue)]))}
         </div>
+        <div class="card chart-card">
+          <h3>${esc(D.teamCompare.title)}</h3>
+          <div class="sub">The RFP's store-comparison insight, at single-merchant scale</div>
+          <div class="tbl-wrap"><table class="tbl">
+            <thead><tr>${D.teamCompare.cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead>
+            <tbody>${D.teamCompare.rows.map((r) => `<tr>${r.map((c, i) => `<td class="${i ? 'num' : ''}">${i === 0 ? '<b>' + esc(c) + '</b>' : esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table></div>
+          <p style="font-size:12.5px;color:var(--ink-2);margin:10px 0 0;max-width:60ch">${esc(D.teamCompare.note)}</p>
+        </div>
         <div class="card strategy">
           <h3 style="margin:0 0 8px;font-size:13.5px">${esc(D.strategy.title)}</h3>
           <ul style="margin:0;padding-left:18px">${D.strategy.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>

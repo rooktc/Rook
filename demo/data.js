@@ -436,6 +436,15 @@ window.DEMOS = (() => {
         'Basis: last 30 days of bookings, June campaign results, NEA 7-day outlook. Forecast confidence: ±20%.',
       ],
     };
+    const teamCompare = {
+      title: 'By stylist — last 30 days',
+      note: 'Joanne’s rebook rate is 7 points higher — her aftercare scripts were added to the knowledge base as the standard this month.',
+      cols: ['Stylist', 'Bookings', 'Revenue', 'Avg rating', 'Rebook rate'],
+      rows: [
+        ['Joanne', '38', '$3,420', '4.9 ★', '64%'],
+        ['Ms Lee', '31', '$2,710', '4.7 ★', '57%'],
+      ],
+    };
     const kpis = [
       { label: 'First response', value: '28 sec', delta: 'was 3.5 h before Rook' },
       { label: 'Inquiries handled by AI', value: '72%', delta: '28% handed to staff' },
@@ -524,7 +533,7 @@ window.DEMOS = (() => {
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
       topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
-      referrals,
+      referrals, teamCompare,
     };
   })();
 
@@ -867,6 +876,15 @@ window.DEMOS = (() => {
         'Basis: last 30 days of bookings, June campaign results, NEA heat advisory. Forecast confidence: ±20%.',
       ],
     };
+    const teamCompare = {
+      title: 'By van — last 30 days',
+      note: 'Van 2’s Punggol–Sengkang loop runs 11 points hotter — the data behind the “cost a 3rd van day” task in your queue.',
+      cols: ['Van', 'Utilisation', 'Bookings', 'Revenue', 'Avg rating'],
+      rows: [
+        ['Van 1 · north/west loops', '74%', '34', '$3,180', '4.9 ★'],
+        ['Van 2 · north-east loops', '85%', '38', '$3,610', '4.8 ★'],
+      ],
+    };
     const kpis = [
       { label: 'First response', value: '31 sec', delta: 'was 4 h before Rook' },
       { label: 'Inquiries handled by AI', value: '69%', delta: '31% handed to staff' },
@@ -954,7 +972,7 @@ window.DEMOS = (() => {
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
       topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
-      referrals,
+      referrals, teamCompare,
     };
   })();
 
