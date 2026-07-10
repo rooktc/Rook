@@ -316,6 +316,63 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .strategy li::marker { color: var(--accent); }
 .kpi-delta { font-size: 11.5px; color: var(--good-text); }
 
+/* ---- industry switcher ---- */
+.seg { display: flex; gap: 3px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; padding: 3px; }
+.seg button { border: 0; background: none; border-radius: 99px; padding: 4px 12px; font-size: 12px; color: var(--ink-2); font-weight: 550; }
+.seg button.on { background: var(--ink); color: var(--bg); font-weight: 650; }
+
+/* ---- setup / onboarding ---- */
+.ob-stage { position: relative; opacity: 0.55; transition: opacity 0.3s; }
+.ob-stage.on { opacity: 1; }
+.ob-stage h3 { margin: 0 0 2px; font-size: 14.5px; padding-right: 40px; }
+.ob-stage .ob-sub { margin: 0 0 10px; font-size: 12.5px; color: var(--ink-2); max-width: 56ch; }
+.ob-num {
+  position: absolute; top: 14px; right: 16px;
+  width: 26px; height: 26px; border-radius: 99px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--accent-soft); color: var(--accent-soft-ink); font-weight: 700; font-size: 13px;
+}
+.ob-stage.on .ob-num { background: var(--accent); color: var(--accent-ink); }
+.ob-file, .ob-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.ob-file:last-child, .ob-item:last-child { border-bottom: 0; }
+.ob-file b { display: block; font-weight: 600; }
+.ob-file span:not(.ob-check) { font-size: 12px; color: var(--muted); }
+.ob-file div span { display: block; }
+.ob-check {
+  flex: none; width: 18px; height: 18px; border-radius: 99px;
+  border: 1.5px solid var(--line-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: transparent;
+}
+.ob-file.done .ob-check, .ob-item .ob-check { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ob-cat { margin-left: auto; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ---- customer phone view ---- */
+.phone-ovl {
+  position: fixed; inset: 0; z-index: 45;
+  background: rgba(10, 14, 12, 0.55);
+  display: flex; align-items: center; justify-content: center; padding: 18px;
+}
+.phone {
+  width: 350px; max-width: 96vw; max-height: 92vh;
+  background: #efe7dc; border-radius: 22px; overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+  border: 6px solid #1c1c1e;
+}
+.ph-note { background: #1c1c1e; color: #d9d9d9; font-size: 11px; padding: 8px 14px 10px; text-align: center; }
+.ph-head { display: flex; align-items: center; gap: 10px; background: #075e54; color: #fff; padding: 10px 12px; }
+.ph-head b { display: block; font-size: 14px; }
+.ph-head span { font-size: 11px; opacity: 0.85; }
+.ph-head .btn { margin-left: auto; background: rgba(255,255,255,0.15); border-color: transparent; color: #fff; }
+.ph-avatar { flex: none; width: 32px; height: 32px; border-radius: 99px; background: #128c7e; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.ph-msgs { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; background: #efe7dc; }
+.ph-msg { max-width: 82%; padding: 7px 10px; border-radius: 9px; font-size: 13px; line-height: 1.45; color: #111; box-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+.ph-msg.theirs { align-self: flex-start; background: #ffffff; border-top-left-radius: 2px; }
+.ph-msg.mine { align-self: flex-end; background: #d9fdd3; border-top-right-radius: 2px; }
+.ph-time { display: block; font-size: 10px; color: #667; text-align: right; margin-top: 3px; }
+.ph-input { background: #f6f6f6; color: #999; font-size: 13px; padding: 10px 14px; border-top: 1px solid #ddd; }
+
 /* ---- toast ---- */
 .toast {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
@@ -355,7 +412,9 @@ button:focus-visible, .convo:focus-visible, a:focus-visible { outline: 2px solid
   }
   .tabbar button {
     flex: 1; border: 0; background: none; color: var(--muted);
-    font-size: 10px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0;
+    font-size: 9px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
   }
+  .topbar .seg { order: 5; }
   .tabbar button.on { color: var(--accent); font-weight: 650; }
 }

@@ -1,11 +1,17 @@
 /* Rook demo — owner console app. No dependencies; all data from data.js. */
 (() => {
-  const D = window.DEMO;
+  const DEMOS = window.DEMOS;
+  const INDUSTRIES = [
+    { id: 'beauty', label: 'Beauty studio' },
+    { id: 'pets', label: 'Mobile pet groomer' },
+  ];
+  let D = DEMOS.beauty;
   const NOW = new Date(D.merchant.now);
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
   const state = {
+    industry: 'beauty',
     view: 'today',
     convId: 'v-priya',
     mobilePane: 'list',
@@ -15,8 +21,14 @@
     done: {},          // approval ids that were actioned
     campaign: {},      // campaign id -> new status
     reviewPosted: {},
+    kbApproved: {},
+    phoneView: false,
     simConvo: null,
     simRunning: false,
+    simToken: 0,
+    setupStep: 0,
+    setupPlaying: false,
+    setupToken: 0,
   };
 
   // ---------- formatting ----------
@@ -51,16 +63,17 @@
     reputation: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6z" stroke-linejoin="round"/></svg>',
     brain: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3c-1-1.2-3-1.5-4.5-.5S2 5.5 2.5 7c-1 .8-1 2.5 0 3.5S5 12 6 11.3M8 3c1-1.2 3-1.5 4.5-.5S14 5.5 13.5 7c1 .8 1 2.5 0 3.5S11 12 10 11.3M8 3v10.5"/></svg>',
     insights: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13.5h12M3.5 13V9M7 13V5.5M10.5 13V7.5M14 13V3.5"/></svg>',
+    setup: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4.5h8M12.5 4.5H14M2 11.5h3M7.5 11.5H14"/><circle cx="10.5" cy="4.5" r="1.7"/><circle cx="5.5" cy="11.5" r="1.7"/></svg>',
   };
   const NAV = [
     ['today', 'Today'], ['inbox', 'Inbox'], ['customers', 'Customers'],
     ['marketing', 'Marketing'], ['reputation', 'Reputation'],
-    ['brain', 'Brain'], ['insights', 'Insights'],
+    ['brain', 'Brain'], ['insights', 'Insights'], ['setup', 'Setup'],
   ];
   const TITLES = {
     today: 'Today', inbox: 'Inbox — all channels', customers: 'Customers',
     marketing: 'Marketing automation', reputation: 'Reputation & experience',
-    brain: 'Business brain', insights: 'Business insight',
+    brain: 'Business brain', insights: 'Business insight', setup: 'Setup — day one',
   };
 
   // ---------- shared bits ----------
@@ -87,7 +100,7 @@
         <h3>${esc(D.brief.headline)}</h3>
         <p>${esc(D.brief.body)}</p>
       </div>
-      <h2 class="sec">While you slept — since 8:30 PM yesterday</h2>
+      <h2 class="sec">${esc(D.activityLabel)}</h2>
       <div class="stat-row">
         ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(a.label)}</span></div>`).join('')}
       </div>
@@ -152,6 +165,7 @@
             <div><b>${esc(conv.name)}</b><div class="sub">${esc(conv.channel)} · ${esc(conv.customerLine || conv.intent || '')}</div></div>
             <div class="spacer"></div>
             ${statusChip(conv)}
+            <button class="btn sm" data-phone>📱 Customer view</button>
             <button class="btn sm" data-takeover="${conv.id}">${paused ? 'Hand back to AI' : 'Take over'}</button>
           </div>
           <div class="msgs" id="msgs">${msgs}</div>
@@ -162,7 +176,8 @@
           ${conv.handoff ? `<div class="card handoff"><h4>Why the AI stopped</h4><p>${esc(conv.handoff)}</p></div>` : ''}
           ${conv.nextAction ? `<div class="card nextact"><h4>Suggested next step</h4><p>${esc(conv.nextAction)}</p></div>` : ''}
         </div>
-      </div>`;
+      </div>
+      ${state.phoneView ? phoneOverlay(conv) : ''}`;
   }
   function msgHtml(m) {
     if (m.from === 'sys') return `<div class="msg sys">${esc(m.text)}</div>`;
@@ -174,18 +189,36 @@
       <span class="meta">${label}${m.time ? fmtClock(m.time) : ''}</span></div>`;
   }
 
+  // What the customer's phone shows: no system notes, no scores, no citations.
+  function phoneOverlay(conv) {
+    const bubbles = conv.messages.filter((m) => m.from !== 'sys' && m.from !== 'typing').map((m) => `
+      <div class="ph-msg ${m.from === 'cust' ? 'mine' : 'theirs'}">${esc(m.text)}
+        <span class="ph-time">${m.time ? fmtClock(m.time) : ''}</span></div>`).join('');
+    return `
+      <div class="phone-ovl" data-close-phone>
+        <div class="phone" role="dialog" aria-label="Customer view">
+          <div class="ph-note">What ${esc(conv.name)} sees — scores, notes and citations stay in your console.</div>
+          <div class="ph-head"><span class="ph-avatar">${esc(D.merchant.name[0])}</span>
+            <div><b>${esc(D.merchant.name)}</b><span>online</span></div>
+            <button class="btn sm" data-close-phone-btn>Close</button>
+          </div>
+          <div class="ph-msgs">${bubbles}</div>
+          <div class="ph-input">Message…</div>
+        </div>
+      </div>`;
+  }
+
   // ---------- simulation ----------
   function runSimulation() {
     if (state.simRunning) return;
     state.simRunning = true;
+    const token = ++state.simToken;
     const sim = D.simulation;
     state.simConvo = {
       id: 'v-sim', name: sim.name, channel: sim.channel, customerLine: sim.customerLine,
       preview: 'Live — playing now…', time: D.merchant.now, unread: true,
       aiStatus: 'ai', score: 58, intent: 'Booking inquiry',
-      fields: { Service: 'Brow Lamination', 'Date needed': 'Sun 12 Jul, 12:00 PM', Budget: '$88', Language: 'English', Urgency: 'Normal' },
-      handoff: null,
-      nextAction: 'None — booked automatically. Reminder scheduled Sat 6 PM.',
+      fields: sim.fields, handoff: null, nextAction: sim.nextAction,
       messages: [],
     };
     state.convId = 'v-sim';
@@ -193,13 +226,14 @@
     render();
     let i = 0;
     const step = () => {
+      if (token !== state.simToken) return; // industry switched or replay — abandon
       const s = sim.steps[i];
       if (!s) {
         state.simRunning = false;
-        state.simConvo.preview = 'Booked · Sun 12 PM Brow Lamination';
-        state.simConvo.score = 74;
+        state.simConvo.preview = sim.donePreview;
+        state.simConvo.score = sim.doneScore;
         render();
-        toast('Lead → booking in 41 seconds, fully automated');
+        toast(sim.doneToast);
         return;
       }
       i++;
@@ -207,12 +241,14 @@
         state.simConvo.messages.push({ from: 'typing' });
         render();
         setTimeout(() => {
+          if (token !== state.simToken) return;
           state.simConvo.messages = state.simConvo.messages.filter((m) => m.from !== 'typing');
           step();
         }, 1100);
         return;
       }
       setTimeout(() => {
+        if (token !== state.simToken) return;
         state.simConvo.messages.push({ from: s.from, text: s.text, cite: s.cite, time: D.merchant.now });
         render();
         step();
@@ -253,7 +289,7 @@
       </table></div>`;
   }
   function vCustomerDetail(c) {
-    const timeline = c.id === 'c-jasmine' ? D.timelineJasmine : [
+    const timeline = (D.timelines && D.timelines[c.id]) || [
       { time: c.lastVisit || daysAgoIso(30), kind: 'visit', text: `${esc(c.pref)} — most recent visit` },
       { time: daysAgoIso(45), kind: 'ai', text: 'Cycle reminder sent · customer rebooked same day' },
       { time: daysAgoIso(70), kind: 'campaign', text: 'Received June win-back campaign' },
@@ -339,7 +375,7 @@
         <div class="stat"><b>${cx.rating} ★</b><span>Google rating · ${cx.count} reviews</span></div>
         <div class="stat"><b>${cx.invited30d}</b><span>review invites sent (30d)</span></div>
         <div class="stat"><b>${cx.received30d}</b><span>new reviews (30d)</span></div>
-        <div class="stat"><b>1</b><span>open recovery ticket</span></div>
+        <div class="stat"><b>${cx.openTickets}</b><span>open recovery ticket${cx.openTickets === 1 ? '' : 's'}</span></div>
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div>
@@ -355,7 +391,7 @@
                 <span class="bar" style="width:${t.n * 16}px"></span>
                 <span class="n">${t.n}</span>
               </div>`).join('')}
-            <p style="font-size:12px;color:var(--muted);margin:10px 0 0">Themes are extracted from review text and post-service surveys. “Gel durability” created recovery ticket RT-114 and a staff-training suggestion.</p>
+            <p style="font-size:12px;color:var(--muted);margin:10px 0 0">${esc(cx.note)}</p>
           </div>
         </div>
       </div>`;
@@ -380,7 +416,6 @@
 
   // ---------- Brain ----------
   function vBrain() {
-    const priceApproved = state.done['ap-price'];
     return `
       <div class="grid c2" style="align-items:start">
         <div>
@@ -394,7 +429,7 @@
                 <span class="cites">cited ${k.cites30d}× / 30d</span>
               </div>
               <p>${esc(k.excerpt)}</p>
-              <div class="meta">${esc(k.id === 'kb-price' && priceApproved ? 'v13 live' : k.version)} · updated ${fmtRel(k.updated)} by ${esc(k.owner)}</div>
+              <div class="meta">${esc(state.kbApproved[k.id] && k.approvedVersion ? k.approvedVersion : k.version)} · updated ${fmtRel(k.updated)} by ${esc(k.owner)}</div>
             </div>`).join('')}
         </div>
         <div>
@@ -413,6 +448,77 @@
       </div>`;
   }
 
+  // ---------- Setup (onboarding walkthrough) ----------
+  // setupStep milestones: 0 idle · 1-3 files upload · 4 building · 5-10 items
+  //                       · 11 review note · 12 test Q · 13 typing · 14 answer · 15 live
+  const SETUP_LAST = 15;
+  function vSetup() {
+    const ob = D.onboarding;
+    const s = state.setupStep;
+    const fileRows = ob.files.map((f, i) => s >= i + 1
+      ? `<div class="ob-file done"><span class="ob-check">✓</span><div><b>${esc(f.name)}</b><span>${esc(f.desc)}</span></div></div>`
+      : `<div class="ob-file"><span class="ob-check"></span><div><b>${esc(f.name)}</b><span>${esc(f.desc)}</span></div></div>`).join('');
+    const itemRows = ob.extracted.map((it, i) => s >= i + 5
+      ? `<div class="ob-item"><span class="ob-check">✓</span><span>${esc(it.title)}</span><span class="ob-cat">${esc(it.cat)}</span></div>` : '').join('');
+    const chat = s >= 12 ? `
+      <div class="msgs" style="padding:10px 2px 2px">
+        <div class="msg cust">${esc(ob.testQ)}</div>
+        ${s === 13 ? '<div class="typing"><i></i><i></i><i></i></div>' : ''}
+        ${s >= 14 ? `<div class="msg ai">${esc(ob.testA)}<br><span class="cite">📎 ${esc(ob.testCite)}</span></div>` : ''}
+      </div>` : '';
+    return `
+      <div class="card brief">
+        <h3>From files to a working AI in four steps</h3>
+        <p>${esc(ob.intro)}</p>
+        <div style="margin-top:12px">
+          <button class="btn pri" data-setup-play ${state.setupPlaying ? 'disabled' : ''}>${s > 0 && !state.setupPlaying ? '↻ Replay onboarding' : state.setupPlaying ? 'Playing…' : '▶ Play onboarding'}</button>
+        </div>
+      </div>
+      <div class="grid c2" style="margin-top:14px;align-items:start">
+        <div class="card ob-stage ${s >= 1 ? 'on' : ''}">
+          <div class="ob-num">1</div><h3>Upload what you already have</h3>
+          <p class="ob-sub">No forms, no data entry — photos and files are enough.</p>
+          ${fileRows}
+        </div>
+        <div class="card ob-stage ${s >= 4 ? 'on' : ''}">
+          <div class="ob-num">2</div><h3>The Business Brain builds itself</h3>
+          <p class="ob-sub">${s === 4 ? 'Reading your files…' : s > 4 ? 'Extracted and organised:' : 'Waits for step 1.'}</p>
+          ${itemRows}
+        </div>
+        <div class="card ob-stage ${s >= 11 ? 'on' : ''}">
+          <div class="ob-num">3</div><h3>You approve the sensitive parts</h3>
+          <p class="ob-sub">${s >= 11 ? esc(ob.review) : 'Waits for step 2.'}</p>
+          ${chat}
+        </div>
+        <div class="card ob-stage ${s >= 15 ? 'on' : ''}">
+          <div class="ob-num">4</div><h3>Go live on WhatsApp</h3>
+          <p class="ob-sub">${s >= 15 ? esc(ob.live) : 'Waits for step 3.'}</p>
+          ${s >= 15 ? '<div style="margin-top:10px"><span class="tagchip ai">● Live — answering as of now</span></div>' : ''}
+        </div>
+      </div>`;
+  }
+  function runSetup() {
+    if (state.setupPlaying) return;
+    state.setupPlaying = true;
+    state.setupStep = 0;
+    const token = ++state.setupToken;
+    render();
+    const delays = { 4: 1100, 12: 900, 13: 1200, 15: 800 };
+    const tick = () => {
+      if (token !== state.setupToken) return;
+      if (state.setupStep >= SETUP_LAST) {
+        state.setupPlaying = false;
+        render();
+        toast('Onboarding done — the AI is live and every answer is grounded');
+        return;
+      }
+      state.setupStep++;
+      render();
+      setTimeout(tick, delays[state.setupStep] || 480);
+    };
+    setTimeout(tick, 400);
+  }
+
   // ---------- Insights (charts) ----------
   function vInsights() {
     return `
@@ -422,7 +528,7 @@
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div class="card chart-card">
           <h3>Leads &amp; bookings — last 30 days</h3>
-          <div class="sub">Daily counts across all channels · closed Mondays</div>
+          <div class="sub">Daily counts across all channels</div>
           ${lineChart()}
         </div>
         <div class="card chart-card">
@@ -437,7 +543,7 @@
         </div>
         <div class="card chart-card">
           <h3>Next 7 days — booking forecast</h3>
-          <div class="sub">Band = ±20% confidence · basis: 30-day history, June campaigns, NEA outlook</div>
+          <div class="sub">Band = ±20% confidence · basis: 30-day history, campaigns, weather outlook</div>
           ${forecastChart()}
         </div>
         <div class="card chart-card">
@@ -465,7 +571,7 @@
     const last = data[data.length - 1];
     const ticks = [0, 9, 19, 29].map((i) => `<text x="${x(i)}" y="${H - 6}" text-anchor="middle">${data[i].date.slice(5).replace('-', '/')}</text>`).join('');
     return `
-      <svg class="viz" viewBox="0 0 ${W} ${H}" id="linechart" data-max="${maxY}">
+      <svg class="viz" viewBox="0 0 ${W} ${H}" id="linechart">
         ${grid}
         <line class="axis" x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}"/>
         ${ticks}
@@ -525,20 +631,21 @@
   function forecastChart() {
     const W = 460, H = 170, L = 26, R = 10, T = 14, B = 24;
     const data = D.forecast;
-    const maxY = 14;
+    const maxY = Math.max(...data.map((d) => d.hi)) + 1;
+    const midY = Math.round(maxY / 2);
     const x = (i) => L + (i / (data.length - 1)) * (W - L - R);
     const y = (v) => T + (1 - v / maxY) * (H - T - B);
     const band = data.map((d, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(d.hi).toFixed(1)}`).join('') +
       data.slice().reverse().map((d, i) => `L${x(data.length - 1 - i).toFixed(1)},${y(d.lo).toFixed(1)}`).join('') + 'Z';
     const mid = data.map((d, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(d.mid).toFixed(1)}`).join('');
     return `<svg class="viz" viewBox="0 0 ${W} ${H}">
-      ${[0, 7, 14].map((v) => `<line class="grid-line" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 5}" y="${y(v) + 3.5}" text-anchor="end">${v}</text>`).join('')}
+      ${[0, midY, maxY].map((v) => `<line class="grid-line" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 5}" y="${y(v) + 3.5}" text-anchor="end">${v}</text>`).join('')}
       <path d="${band}" fill="var(--chart-1)" opacity="0.16"/>
       <path d="${mid}" fill="none" stroke="var(--chart-1)" stroke-width="2"/>
       ${data.map((d, i) => `
         <circle cx="${x(i)}" cy="${y(d.mid)}" r="3.2" fill="var(--chart-1)" data-tip="${d.day}: ${d.mid} bookings (${d.lo}–${d.hi})"/>
         <text x="${x(i)}" y="${H - 7}" text-anchor="middle">${d.day.split(' ')[0]}</text>`).join('')}
-      <text class="val" x="${x(0) + 4}" y="${y(data[0].mid) - 10}">Sat is your peak — 2 stylists booked out by noon</text>
+      <text class="val" x="${x(0) + 4}" y="${T + 2}">${esc(D.forecastNote)}</text>
     </svg>`;
   }
 
@@ -577,6 +684,9 @@
       <h1>${TITLES[state.view]}</h1>
       <span class="sub">${esc(D.merchant.name)} · ${esc(D.merchant.tagline)}</span>
       <div class="spacer"></div>
+      <div class="seg" role="group" aria-label="Demo industry">
+        ${INDUSTRIES.map((ind) => `<button class="${state.industry === ind.id ? 'on' : ''}" data-industry="${ind.id}">${ind.label}</button>`).join('')}
+      </div>
       <span class="chip time">${esc(D.merchant.nowLabel)}</span>
       <span class="chip sim">Simulated data</span>`;
   }
@@ -584,7 +694,7 @@
   function render() {
     renderSide();
     renderTop();
-    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, reputation: vReputation, brain: vBrain, insights: vInsights };
+    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, reputation: vReputation, brain: vBrain, insights: vInsights, setup: vSetup };
     $('#view').innerHTML = views[state.view]();
     const back = $('#view [data-back]');
     if (back && window.innerWidth <= 760) back.style.display = 'inline-block';
@@ -593,14 +703,39 @@
     bindHover();
   }
 
+  function switchIndustry(id) {
+    if (state.industry === id) return;
+    state.industry = id;
+    D = DEMOS[id];
+    state.simToken++;           // cancel any running simulation
+    state.setupToken++;         // cancel any running onboarding playback
+    state.simConvo = null;
+    state.simRunning = false;
+    state.setupStep = 0;
+    state.setupPlaying = false;
+    state.convId = D.conversations[0].id;
+    state.custId = null;
+    state.custFilter = 'All';
+    state.mobilePane = 'list';
+    state.phoneView = false;
+    render();
+    toast(`Switched template — same platform, configured for a ${id === 'pets' ? 'mobile pet groomer' : 'beauty studio'}`);
+  }
+
   // ---------- events ----------
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast]');
+    const closePhone = e.target.closest('[data-close-phone-btn]') ||
+      (e.target.classList && e.target.classList.contains('phone-ovl') ? e.target : null);
+    if (closePhone) { state.phoneView = false; render(); return; }
+    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-phone],[data-setup-play]');
     if (!t) return;
-    if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; render(); window.scrollTo(0, 0); }
+    if (t.dataset.industry) switchIndustry(t.dataset.industry);
+    else if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; state.phoneView = false; render(); window.scrollTo(0, 0); }
     else if (t.dataset.conv) { state.convId = t.dataset.conv; state.mobilePane = 'thread'; render(); }
     else if (t.dataset.openConv) { state.view = 'inbox'; state.convId = t.dataset.openConv; state.mobilePane = 'thread'; render(); window.scrollTo(0, 0); }
     else if (t.dataset.back !== undefined && t.dataset.back === '') { state.mobilePane = 'list'; render(); }
+    else if (t.dataset.phone !== undefined && t.dataset.phone === '') { state.phoneView = true; render(); }
+    else if (t.dataset.setupPlay !== undefined) runSetup();
     else if (t.dataset.takeover) {
       const id = t.dataset.takeover;
       const c = getConv(id);
@@ -613,24 +748,29 @@
     else if (t.dataset.approve) {
       const a = D.approvals.find((x) => x.id === t.dataset.approve);
       state.done[a.id] = true;
-      if (a.ref === 'mk-rain') state.campaign['mk-rain'] = 'scheduled';
-      if (a.ref === 'rv-dana') state.reviewPosted['rv-dana'] = true;
-      toast({
-        'ap-campaign': 'Campaign approved — sending Sat 10:00 AM to 84 customers',
-        'ap-review': 'Reply posted to Google',
-        'ap-price': 'Price list v13 is live — AI will quote new prices immediately',
-        'ap-merge': 'Profiles merged — history from both channels kept',
-      }[a.id] || 'Approved');
+      if (a.action.campaign) state.campaign[a.action.campaign] = 'scheduled';
+      if (a.action.review) state.reviewPosted[a.action.review] = true;
+      if (a.action.knowledge) state.kbApproved[a.action.knowledge] = true;
+      toast(a.toast);
       render();
     }
     else if (t.dataset.hold) { state.done[t.dataset.hold] = true; toast('Held — moved to your review list for later'); render(); }
     else if (t.dataset.approveCamp) {
-      state.campaign[t.dataset.approveCamp] = 'scheduled';
-      state.done['ap-campaign'] = true;
-      toast('Campaign approved — sending Sat 10:00 AM to 84 customers');
+      const cid = t.dataset.approveCamp;
+      state.campaign[cid] = 'scheduled';
+      const a = D.approvals.find((x) => x.action.campaign === cid);
+      if (a) state.done[a.id] = true;
+      toast('Campaign approved and scheduled');
       render();
     }
-    else if (t.dataset.postReply) { state.reviewPosted[t.dataset.postReply] = true; state.done['ap-review'] = true; toast('Reply posted to Google'); render(); }
+    else if (t.dataset.postReply) {
+      const rid = t.dataset.postReply;
+      state.reviewPosted[rid] = true;
+      const a = D.approvals.find((x) => x.action.review === rid);
+      if (a) state.done[a.id] = true;
+      toast('Reply posted to Google');
+      render();
+    }
     else if (t.dataset.filter) { state.custFilter = t.dataset.filter; render(); }
     else if (t.dataset.cust) { state.custId = t.dataset.cust; render(); window.scrollTo(0, 0); }
     else if (t.dataset.backCust !== undefined) { state.custId = null; render(); }

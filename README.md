@@ -20,10 +20,19 @@ node scripts/build.mjs   # writes dist/rook-demo.html
 open dist/rook-demo.html # or just open demo/index.html directly
 ```
 
-Everything in the demo is **simulated, deterministic data** for one fictional
-merchant (Glow Theory Studio, a Singapore beauty studio) at a fixed moment in
-time — Fri 10 Jul 2026, 8:05 AM SGT. There is no backend and no live LLM; the
-"Simulate a live inquiry" conversation is scripted.
+Everything in the demo is **simulated, deterministic data**, frozen at
+Fri 10 Jul 2026, 8:05 AM SGT. There is no backend and no live LLM; the
+"Simulate a live inquiry" and onboarding sequences are scripted.
+
+The demo ships **two industry templates** (switcher in the top bar) to prove
+the RFP's horizontal-platform claim — same console, same modules, different
+configuration:
+
+- **Glow Theory Studio** — in-store beauty (nails/lashes/facials, Tanjong
+  Pagar): group bookings, deposits, off-peak campaigns.
+- **Whisker & Wag** — mobile pet grooming (on-site/dispatch): postal-code →
+  van routing, time windows, pet-safety hand-offs (injury reports, sedation
+  questions), vaccination rules.
 
 ## What to look at
 
@@ -34,6 +43,11 @@ time — Fri 10 Jul 2026, 8:05 AM SGT. There is no backend and no live LLM; the
   price objection resolved with a rule-based discount, an Instagram DM turned
   into a lead, a complaint where the AI stops and escalates, an FAQ answered
   with a knowledge citation, and a follow-up that recovered a booking.
+- **Customer view** (📱 button in any conversation) — the same thread as the
+  customer's WhatsApp sees it: scores, system notes and citations stay in the
+  console.
+- **Setup** — an animated day-one onboarding walkthrough: upload files → the
+  Business Brain builds itself → owner approves sensitive items → go live.
 - **Brain** — the grounding story: every quoted price/policy cites a knowledge
   item; sensitive items are owner-gated; unanswerable questions become a gap
   list.
