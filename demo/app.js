@@ -64,16 +64,19 @@
     brain: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3c-1-1.2-3-1.5-4.5-.5S2 5.5 2.5 7c-1 .8-1 2.5 0 3.5S5 12 6 11.3M8 3c1-1.2 3-1.5 4.5-.5S14 5.5 13.5 7c1 .8 1 2.5 0 3.5S11 12 10 11.3M8 3v10.5"/></svg>',
     insights: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13.5h12M3.5 13V9M7 13V5.5M10.5 13V7.5M14 13V3.5"/></svg>',
     setup: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4.5h8M12.5 4.5H14M2 11.5h3M7.5 11.5H14"/><circle cx="10.5" cy="4.5" r="1.7"/><circle cx="5.5" cy="11.5" r="1.7"/></svg>',
+    social: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="3.5" r="1.8"/><circle cx="4" cy="8" r="1.8"/><circle cx="12" cy="12.5" r="1.8"/><path d="M5.7 7.2l4.6-2.6M5.7 8.8l4.6 2.6"/></svg>',
+    trust: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1.8l5 2v3.7c0 3.2-2.1 5.6-5 6.7-2.9-1.1-5-3.5-5-6.7V3.8z" stroke-linejoin="round"/><path d="M5.8 7.8l1.6 1.6 2.8-3"/></svg>',
   };
   const NAV = [
     ['today', 'Today'], ['inbox', 'Inbox'], ['customers', 'Customers'],
-    ['marketing', 'Marketing'], ['reputation', 'Reputation'],
-    ['brain', 'Brain'], ['insights', 'Insights'], ['setup', 'Setup'],
+    ['marketing', 'Marketing'], ['social', 'Social'], ['reputation', 'Reputation'],
+    ['brain', 'Brain'], ['insights', 'Insights'], ['trust', 'Trust'], ['setup', 'Setup'],
   ];
   const TITLES = {
-    today: 'Today', inbox: 'Inbox — all channels', customers: 'Customers',
-    marketing: 'Marketing automation', reputation: 'Reputation & experience',
-    brain: 'Business brain', insights: 'Business insight', setup: 'Setup — day one',
+    today: 'Today', inbox: 'Inbox — all channels', customers: 'Customers & tasks',
+    marketing: 'Marketing automation', social: 'Social & brand', reputation: 'Reputation & experience',
+    brain: 'Business brain', insights: 'Business insight', trust: 'Trust, permissions & audit',
+    setup: 'Setup — day one',
   };
 
   // ---------- shared bits ----------
@@ -260,12 +263,28 @@
   // ---------- Customers ----------
   const LIFECYCLES = ['All', 'New lead', 'Evaluating', 'Converted', 'Active', 'VIP', 'Dormant', 'Churn risk'];
   const lcClass = (lc) => ({ 'Churn risk': 'churn', 'New lead': 'lead' }[lc] || lc);
+  function taskCentre() {
+    return `
+      <h2 class="sec">Task centre — what the AI queued for the team</h2>
+      <div class="card" style="padding:8px 16px">
+        ${D.tasks.map((t) => `
+          <div class="task-row ${t.status}">
+            <span class="task-dot"></span>
+            <span class="task-title">${esc(t.title)}</span>
+            <span class="tagchip">${esc(t.source)}</span>
+            <span class="task-meta">${esc(t.who)} · ${esc(t.due)}</span>
+          </div>`).join('')}
+      </div>`;
+  }
+
   function vCustomers() {
     if (state.custId) return vCustomerDetail(D.customers.find((c) => c.id === state.custId));
     const rows = D.customers
       .filter((c) => state.custFilter === 'All' || c.lifecycle === state.custFilter)
       .sort((a, b) => b.ltv - a.ltv);
     return `
+      ${taskCentre()}
+      <h2 class="sec">Customer base</h2>
       <div class="filters">${LIFECYCLES.map((f) => {
         const n = f === 'All' ? D.customers.length : D.customers.filter((c) => c.lifecycle === f).length;
         return `<button class="fbtn ${state.custFilter === f ? 'on' : ''}" data-filter="${f}">${f} · ${n}</button>`;
@@ -411,6 +430,112 @@
           <button class="btn sm pri" data-post-reply="${r.id}">Approve &amp; post</button>
           <button class="btn sm">Edit</button>
         </div>`}
+      </div>`;
+  }
+
+  // ---------- Social & Brand ----------
+  const stChip = (s) => ({
+    scheduled: '<span class="tagchip ai">Scheduled</span>',
+    linked: '<span class="tagchip st-linked">Linked to campaign</span>',
+    held: '<span class="tagchip human">Held — needs approval</span>',
+    idea: '<span class="tagchip">Idea</span>',
+  }[s] || '');
+  const klassChip = (k) => {
+    const tone = { Complaint: 'human', Spam: '', Partnership: 'st-linked', FAQ: '', 'Price inquiry': 'ai', 'High intent': 'ai' }[k] ?? '';
+    return `<span class="tagchip ${tone}">${esc(k)}</span>`;
+  };
+  function vSocial() {
+    const s = D.social;
+    return `
+      <div class="grid c2" style="align-items:start">
+        <div>
+          <h2 class="sec">This week's content — drafted by the AI</h2>
+          <div class="card" style="padding:8px 16px">
+            ${s.calendar.map((c) => `
+              <div class="cal-row">
+                <span class="cal-day">${esc(c.day)}<em>${esc(c.time)}</em></span>
+                <div class="cal-body"><b>${esc(c.title)}</b>
+                  <span>${esc(c.channel)}${c.note ? ' · ' + esc(c.note) : ''}</span></div>
+                ${stChip(c.status)}
+              </div>`).join('')}
+          </div>
+          <h2 class="sec">Assets worth shooting next</h2>
+          <div class="card">
+            <ul class="strategy" style="margin:0;padding-left:18px">${s.assets.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div>
+          <h2 class="sec">What content actually drives — not likes</h2>
+          ${s.posts.map((p) => `
+            <div class="card" style="margin-bottom:10px">
+              <b>${esc(p.title)}</b> <span style="color:var(--muted);font-size:12px">· ${esc(p.when)}</span>
+              <div class="est" style="margin-top:8px">
+                <div><b>${esc(p.reach)}</b><span>reach</span></div>
+                <div><b>${p.saves}</b><span>saves</span></div>
+                <div><b>${p.inquiries}</b><span>inquiries</span></div>
+                <div><b>${p.bookings}</b><span>bookings</span></div>
+                <div><b>${money(p.revenue)}</b><span>revenue</span></div>
+              </div>
+              ${p.flag ? `<p style="margin:8px 0 0;font-size:12.5px;color:var(--accent-soft-ink)">★ ${esc(p.flag)}</p>` : ''}
+            </div>`).join('')}
+          <h2 class="sec">Comments & DMs — classified live</h2>
+          <div class="card" style="padding:8px 16px">
+            ${s.interactions.map((i) => `
+              <div class="int-row">
+                <div><b>${esc(i.who)}</b> <span style="color:var(--muted);font-size:11.5px">${esc(i.channel)} · ${esc(i.when)}</span>
+                  <div class="int-text">“${esc(i.text)}”</div>
+                  <div class="int-out">→ ${esc(i.outcome)}</div></div>
+                ${klassChip(i.klass)}
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ---------- Trust, permissions & audit ----------
+  const auditTag = (t) => ({
+    ai: '<span class="tagchip ai">AI action</span>',
+    check: '<span class="tagchip st-good">Compliance check</span>',
+    handoff: '<span class="tagchip human">Hand-off</span>',
+    denied: '<span class="tagchip esc">Denied</span>',
+    change: '<span class="tagchip st-linked">Change held</span>',
+    data: '<span class="tagchip">Data request</span>',
+  }[t] || '');
+  function vTrust() {
+    const tr = D.trust;
+    return `
+      <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
+        ${tr.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span><div class="kpi-delta" style="color:var(--muted)">${esc(s.sub)}</div></div>`).join('')}
+      </div>
+      <div class="grid c2" style="margin-top:14px;align-items:start">
+        <div>
+          <h2 class="sec">Audit trail — every action, attributable</h2>
+          <div class="card" style="padding:8px 16px">
+            ${tr.audit.map((a) => `
+              <div class="audit-row">
+                <span class="audit-t">${esc(a.t)}</span>
+                <span class="audit-text">${esc(a.text)}</span>
+                ${auditTag(a.tag)}
+              </div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <h2 class="sec">Outreach rules — enforced before every send</h2>
+          <div class="card">
+            <ul class="strategy" style="margin:0;padding-left:18px">${tr.rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+          </div>
+          <h2 class="sec">Who can do what</h2>
+          <div class="card tbl-wrap" style="padding:6px 10px">
+            <table class="tbl">
+              <thead><tr><th>Person</th><th>Role</th><th>Permissions</th></tr></thead>
+              <tbody>${tr.roles.map((r) => `<tr><td><b>${esc(r.who)}</b></td><td>${esc(r.role)}</td><td style="color:var(--ink-2)">${esc(r.can)}</td></tr>`).join('')}</tbody>
+            </table>
+          </div>
+          <h2 class="sec">Why this exists</h2>
+          <div class="card">
+            <p style="margin:0;font-size:13px;color:var(--ink-2);max-width:60ch">Singapore's PDPA and DNC rules apply to every marketing send. Rook records consent with source and time, checks it before each message, and keeps this audit trail so any reply, send or data access can be explained after the fact — including the ones it refused.</p>
+          </div>
+        </div>
       </div>`;
   }
 
@@ -694,7 +819,7 @@
   function render() {
     renderSide();
     renderTop();
-    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, reputation: vReputation, brain: vBrain, insights: vInsights, setup: vSetup };
+    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, trust: vTrust, setup: vSetup };
     $('#view').innerHTML = views[state.view]();
     const back = $('#view [data-back]');
     if (back && window.innerWidth <= 760) back.style.display = 'inline-block';

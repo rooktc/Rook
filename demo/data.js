@@ -412,13 +412,87 @@ window.DEMOS = (() => {
       { label: 'Un-followed-up leads', value: '2', delta: 'was ~15/wk before' },
       { label: 'Repeat-purchase rate', value: '61%', delta: '+7 pts vs May' },
       { label: 'Campaign revenue (30d)', value: '$2,728', delta: '$153 message cost' },
+      { label: 'Cost per AI-handled conversation', value: '$0.11', delta: 'model + WhatsApp fees' },
+      { label: 'Cost per AI-won booking', value: '$1.92', delta: 'vs ~$14 typical paid-ads CPA' },
+      { label: 'Staff time saved (est.)', value: '9.5 h/wk', delta: 'repetitive replies + follow-ups' },
+    ];
+
+    const social = {
+      calendar: [
+        { day: 'Fri 10', time: '6:00 PM', channel: 'Instagram Reel', title: 'Lash transformation: before/after (client consent on file)', status: 'scheduled' },
+        { day: 'Sat 11', time: '11:00 AM', channel: 'IG carousel', title: 'BIAB at week 3 — durability close-ups', status: 'scheduled' },
+        { day: 'Sun 12', time: '10:00 AM', channel: 'Google post', title: 'Sunday slots + the Duxton parking tip', status: 'scheduled' },
+        { day: 'Mon 13', time: '12:00 PM', channel: 'IG story', title: 'Studio closed — repost of top review (automated)', status: 'scheduled' },
+        { day: 'Tue 14', time: '10:00 AM', channel: 'IG story + Google', title: 'Rainy-week facial promo', status: 'linked', note: 'Publishes only if the campaign is approved' },
+        { day: 'Wed 15', time: '—', channel: 'IG Reel', title: 'Client feature: bridal trial morning', status: 'held', note: 'Held — client consent not yet on file' },
+        { day: 'Thu 16', time: '—', channel: 'IG story', title: 'Behind the scenes: tool sterilisation routine', status: 'idea', note: 'Needs a 30s clip — see asset list' },
+      ],
+      posts: [
+        { title: 'Volume lash close-up reel', when: '28 Jun', reach: '12,400', saves: 214, inquiries: 9, bookings: 4, revenue: 572, flag: null },
+        { title: '“Is BIAB worth it?” Q&A story', when: '5 Jul', reach: '940', saves: 22, inquiries: 5, bookings: 3, revenue: 264, flag: 'Small reach, high conversion — AI suggests making this a monthly format' },
+        { title: 'Nail art of the month carousel', when: '2 Jul', reach: '3,100', saves: 89, inquiries: 3, bookings: 1, revenue: 88, flag: null },
+      ],
+      interactions: [
+        { when: '23m ago', who: '@mel.bakes', channel: 'IG comment', text: 'how much for a volume set?', klass: 'Price inquiry', outcome: 'Lead created · replied + invited to WhatsApp' },
+        { when: '2h ago', who: '@gwen_ho', channel: 'IG DM', text: 'GORGEOUS 😍 my wedding is in Sept, do you do trials?', klass: 'High intent', outcome: 'Lead created · routed to bridal script' },
+        { when: '5h ago', who: '@cst_87', channel: 'IG comment', text: 'waited 20 min past my slot last week :(', klass: 'Complaint', outcome: 'Routed to Reputation · human review' },
+        { when: '9h ago', who: '@lifestyle.lena', channel: 'IG DM', text: 'Hi! Open to a collab? 20k followers', klass: 'Partnership', outcome: 'Human review queue' },
+        { when: 'yesterday', who: '3 accounts', channel: 'IG comments', text: '(crypto spam links)', klass: 'Spam', outcome: 'Auto-hidden' },
+      ],
+      assets: [
+        'Natural-light close-up of volume lash application — your top-converting theme (2 of your top 3 posts)',
+        '30-second BIAB removal clip — answers the FAQ asked 21× this month',
+        'Ask Grace Fu for a membership testimonial (VIP, 26 visits, consent on file)',
+      ],
+    };
+
+    const trust = {
+      stats: [
+        { value: '45/55', label: 'marketing consent coverage', sub: 'others get service messages only' },
+        { value: '312', label: 'consent + DNC checks (30d)', sub: '100% pass before any send' },
+        { value: '2', label: 'unsubscribes (30d)', sub: 'both processed in under 1 h' },
+        { value: '1', label: 'data request (30d)', sub: 'export completed in 6 h' },
+      ],
+      rules: [
+        'Quiet hours: no marketing 9 PM–9 AM (service replies stay 24/7)',
+        'Frequency cap: max 2 marketing messages per customer per 14 days',
+        'Auto-excluded: open complaints, no consent, unsubscribed, contacted <14 days',
+        'Language rule: ZH-preference customers receive ZH templates',
+        'Bulk sends, discounts and public replies require owner/manager approval',
+      ],
+      roles: [
+        { who: 'Rachel Tan', role: 'Owner', can: 'Everything — refunds, exports, permissions' },
+        { who: 'Joanne', role: 'Manager', can: 'Approve knowledge & replies · no data exports' },
+        { who: 'Front desk (2)', role: 'Staff', can: 'Inbox, tasks, bookings · no bulk sends' },
+        { who: 'SocialBoost Co', role: 'Agency', can: 'Social drafts only · no customer data' },
+      ],
+      audit: [
+        { t: '7:41 AM', text: 'AI replied to Marcus Wee — price quoted from Price list v12', tag: 'ai' },
+        { t: '7:12 AM', text: 'Campaign pre-check: 84 recipients passed consent + DNC + frequency caps', tag: 'check' },
+        { t: '1:14 AM', text: 'AI escalated Priya Nair — group-booking rule R-07', tag: 'handoff' },
+        { t: 'Yst 9:03 PM', text: 'Joanne uploaded Price list v13 — held for owner approval', tag: 'change' },
+        { t: 'Yst 7:22 PM', text: 'AI paused itself — complaint with refund intent (Dana Lim)', tag: 'handoff' },
+        { t: 'Yst 7:23 PM', text: 'Marketing suppressed for Dana Lim until ticket RT-114 closes', tag: 'check' },
+        { t: 'Yst 4:05 PM', text: 'Front desk attempted a customer export — denied (staff role)', tag: 'denied' },
+        { t: 'Tue 11:30 AM', text: 'Data export completed for Grace Fu (PDPA access request)', tag: 'data' },
+      ],
+    };
+
+    const tasks = [
+      { title: 'Call Dana Lim — recovery ticket RT-114, script drafted', who: 'Rachel', due: 'Today 12:00 PM', status: 'today', source: 'Reputation Agent' },
+      { title: 'Confirm 2 stylists for 22 Aug bridal party, then release the group quote', who: 'Rachel', due: 'Today 10:00 AM', status: 'today', source: 'Sales Agent' },
+      { title: 'Review Price list v13 (lash fill $68 → $72)', who: 'Rachel', due: 'Today', status: 'today', source: 'Business Brain' },
+      { title: 'Call the 2 unpaid deposits if still unpaid at 6 PM (auto-reminders sent)', who: 'Front desk', due: 'Today 6:00 PM', status: 'today', source: 'Follow-up Agent' },
+      { title: 'Prep Grace Fu birthday visit — free brow-shape voucher', who: 'Front desk', due: 'Mon 13 Jul', status: 'scheduled', source: 'CRM Agent' },
+      { title: 'Draft answer: “Do you do bridal home visits?” (asked 4×)', who: 'Joanne', due: 'This week', status: 'scheduled', source: 'Business Brain' },
+      { title: 'Send aftercare notes to yesterday’s 6 lash clients', who: 'AI', due: 'Done 7:45 AM', status: 'done', source: 'Follow-up Agent' },
     ];
 
     return {
       merchant, services, customers, conversations, simulation, opportunities,
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
-      topServices, forecast, forecastNote, strategy, kpis,
+      topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
     };
   })();
 
@@ -738,13 +812,86 @@ window.DEMOS = (() => {
       { label: 'Un-followed-up leads', value: '3', delta: 'was ~12/wk before' },
       { label: 'Repeat / rebook rate', value: '68%', delta: '+6 pts vs May' },
       { label: 'Campaign revenue (30d)', value: '$3,506', delta: '$142 message cost' },
+      { label: 'Cost per AI-handled conversation', value: '$0.12', delta: 'model + WhatsApp fees' },
+      { label: 'Cost per AI-won booking', value: '$1.71', delta: 'vs ~$12 typical paid-ads CPA' },
+      { label: 'Staff time saved (est.)', value: '8 h/wk', delta: 'phone tag + route planning' },
+    ];
+
+    const social = {
+      calendar: [
+        { day: 'Fri 10', time: '5:00 PM', channel: 'Instagram Reel', title: 'Husky de-shed timelapse pt 2 (pt 1 hit 48k)', status: 'scheduled' },
+        { day: 'Sat 11', time: '10:00 AM', channel: 'IG story', title: 'Route day: Van 2 in Punggol — 1 slot left', status: 'scheduled', note: 'Capacity-aware — pulls live route data' },
+        { day: 'Sun 12', time: '11:00 AM', channel: 'Google post', title: 'Weekend nail trims — we come to you', status: 'scheduled' },
+        { day: 'Mon 13', time: '9:00 AM', channel: 'IG post + Google', title: 'Heatwave coat-care tips', status: 'linked', note: 'Publishes only if the campaign is approved' },
+        { day: 'Wed 15', time: '—', channel: 'IG Reel', title: 'Client feature: Mimi the Persian’s home groom', status: 'held', note: 'Held — owner consent not yet on file' },
+        { day: 'Thu 16', time: '—', channel: 'IG carousel', title: 'Matting 101: why we sometimes recommend a shave-down', status: 'idea', note: 'Sets expectations — ties to the matting policy' },
+      ],
+      posts: [
+        { title: 'Husky de-shed timelapse', when: '30 Jun', reach: '48,200', saves: 1830, inquiries: 31, bookings: 9, revenue: 1247, flag: 'Outlier — AI suggests a boosted ad + follow-up reel while interest is hot' },
+        { title: 'Anxious cat home groom (with consent)', when: '24 Jun', reach: '9,600', saves: 412, inquiries: 8, bookings: 4, revenue: 436, flag: null },
+        { title: 'Van tour: inside the mobile salon', when: '3 Jul', reach: '5,400', saves: 158, inquiries: 6, bookings: 3, revenue: 301, flag: null },
+      ],
+      interactions: [
+        { when: '41m ago', who: '@corgi.mum', channel: 'IG comment', text: 'how much for a corgi full groom?', klass: 'Price inquiry', outcome: 'Lead created · replied + invited to WhatsApp' },
+        { when: '3h ago', who: '@jubeethefrenchie', channel: 'IG DM', text: 'do u cover Jurong?', klass: 'FAQ', outcome: 'Answered from route zones · no human needed' },
+        { when: '6h ago', who: '@max_n_millie', channel: 'IG comment', text: 'my dog was so scared after your groom last month', klass: 'Complaint', outcome: 'Routed to Reputation · human review' },
+        { when: '8h ago', who: 'Paws Haven Shelter', channel: 'IG DM', text: 'we’re a shelter — any discount for rescues?', klass: 'Partnership', outcome: 'Human queue · flagged as community-campaign idea' },
+        { when: 'yesterday', who: '5 accounts', channel: 'IG comments', text: '(spam links)', klass: 'Spam', outcome: 'Auto-hidden' },
+      ],
+      assets: [
+        'Before/after de-shed shots in daylight — your top-converting theme by far',
+        '15-second clip of a groomer calming an anxious dog (get owner consent first)',
+        'Ask Imran for a two-GSD testimonial (VIP, consent on file)',
+      ],
+    };
+
+    const trust = {
+      stats: [
+        { value: '41/52', label: 'marketing consent coverage', sub: 'others get service messages only' },
+        { value: '348', label: 'consent + DNC checks (30d)', sub: '100% pass before any send' },
+        { value: '3', label: 'unsubscribes (30d)', sub: 'all processed in under 1 h' },
+        { value: '0', label: 'data requests (30d)', sub: 'none this month' },
+      ],
+      rules: [
+        'Quiet hours: no marketing 8 PM–9 AM (service replies stay 24/7)',
+        'Frequency cap: max 2 marketing messages per customer per 14 days',
+        'Auto-excluded: open complaints, no consent, unsubscribed, contacted <14 days',
+        'Vaccination records stored as sensitive documents — staff view only, never in chat logs',
+        'Bulk sends, discounts and public replies require owner/senior approval',
+      ],
+      roles: [
+        { who: 'Daniel Chua', role: 'Owner', can: 'Everything — refunds, exports, permissions' },
+        { who: 'Mei', role: 'Senior groomer', can: 'Approve SOPs & safety replies · no data exports' },
+        { who: 'Groomers (3)', role: 'Staff', can: 'Route tasks, chat takeover · no bulk sends' },
+        { who: 'PawSocial', role: 'Agency', can: 'Social drafts only · no customer data' },
+      ],
+      audit: [
+        { t: '7:52 AM', text: 'AI routed Jon Lau to Van 1 by postal code — quoted from Price list v8', tag: 'ai' },
+        { t: '7:30 AM', text: 'Campaign pre-check: 96 recipients passed consent + DNC + frequency caps', tag: 'check' },
+        { t: 'Yst 7:05 PM', text: 'AI refused sedation advice — safety rule S-02, escalated to senior groomer', tag: 'handoff' },
+        { t: 'Yst 3:10 PM', text: 'AI paused itself — pet injury report (Ravi Kumar), ticket RT-52', tag: 'handoff' },
+        { t: 'Yst 3:11 PM', text: 'Marketing suppressed for Ravi Kumar until ticket RT-52 closes', tag: 'check' },
+        { t: 'Yst 1:44 PM', text: 'Groomer requested the customer list — denied (staff role)', tag: 'denied' },
+        { t: 'Wed 6:20 PM', text: 'Daniel uploaded Price list v9 — held for owner approval', tag: 'change' },
+        { t: 'Tue 10:15 AM', text: 'Vaccination booklet photo filed for Sarah Goh (sensitive document)', tag: 'data' },
+      ],
+    };
+
+    const tasks = [
+      { title: 'Call Ravi Kumar — ticket RT-52, vet-bill decision is owner-only', who: 'Daniel', due: 'Today 11:00 AM', status: 'today', source: 'Reputation Agent' },
+      { title: 'Assessment call: Mimi the Persian (anxious cat, sedation question)', who: 'Mei', due: 'Today', status: 'today', source: 'Safety rule S-02' },
+      { title: 'Review Price list v9 (large dog $128 → $138)', who: 'Daniel', due: 'Today', status: 'today', source: 'Business Brain' },
+      { title: 'Call Sarah Goh if deposit + vaccination proof still missing at 6 PM', who: 'Front office', due: 'Today 6:00 PM', status: 'today', source: 'Follow-up Agent' },
+      { title: 'Cost a 3rd van day for a Bedok Saturday loop', who: 'Daniel', due: 'This week', status: 'scheduled', source: 'Insight Agent' },
+      { title: 'Get consent from Mimi’s owner for the client-feature reel', who: 'PawSocial', due: 'This week', status: 'scheduled', source: 'Social Agent' },
+      { title: 'Send groom-day reminders for Saturday routes (14 customers)', who: 'AI', due: 'Done 7:30 AM', status: 'done', source: 'Follow-up Agent' },
     ];
 
     return {
       merchant, services, customers, conversations, simulation, opportunities,
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
-      topServices, forecast, forecastNote, strategy, kpis,
+      topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
     };
   })();
 

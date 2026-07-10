@@ -9,6 +9,7 @@ planning, and building the product described in the RFP — **demo-first**.
 |---|---|
 | `rfp-review.md` | Review of the source RFP (strengths, gaps, questions) |
 | `PLAN.md` | Evaluation, demo scope, data design, and roadmap to MVP |
+| `gm-review.md` | GM-perspective evaluation: RFP coverage matrix + iteration priorities |
 | `demo/` | The clickable owner-console demo (no build tools, no dependencies) |
 | `scripts/build.mjs` | Bundles the demo into one self-contained HTML file |
 | `dist/rook-demo.html` | The bundled demo — open it in any browser |
@@ -51,5 +52,13 @@ configuration:
 - **Brain** — the grounding story: every quoted price/policy cites a knowledge
   item; sensitive items are owner-gated; unanswerable questions become a gap
   list.
-- **Insights** — funnel, channel attribution, forecast, and a strategy card
-  that ties back to the pending campaign.
+- **Social** (RFP 7.6) — AI-drafted content calendar with approval-gated and
+  consent-held posts, comments/DMs classified into leads vs complaints vs
+  spam, and content performance measured in inquiries and bookings.
+- **Customers → Task centre** (RFP 7.4) — the queue of tasks the AI creates
+  for staff, with owner, due time, and originating agent.
+- **Trust** (RFP 7.10) — consent coverage, DNC checks, outreach rules, role
+  permissions, and an audit trail that includes a denied staff action.
+- **Insights** — funnel, channel attribution, forecast, a strategy card that
+  ties back to the pending campaign, and unit economics (cost per AI-handled
+  conversation / per AI-won booking).

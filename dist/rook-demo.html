@@ -266,9 +266,9 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .camp .row dt { color: var(--muted); }
 .camp .row dd { margin: 0; color: var(--ink-2); }
 .camp .copy { font-style: italic; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 13px; color: var(--ink-2); max-width: 68ch; }
-.camp .est { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; }
-.camp .est div b { display: block; font-size: 16px; font-variant-numeric: tabular-nums; }
-.camp .est div span { font-size: 11.5px; color: var(--muted); }
+.est { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; }
+.est div b { display: block; font-size: 16px; font-variant-numeric: tabular-nums; }
+.est div span { font-size: 11.5px; color: var(--muted); }
 .camp .actions { margin-top: 12px; display: flex; gap: 8px; }
 
 /* ---- reputation ---- */
@@ -319,6 +319,41 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .strategy li { margin-bottom: 8px; color: var(--ink-2); max-width: 72ch; }
 .strategy li::marker { color: var(--accent); }
 .kpi-delta { font-size: 11.5px; color: var(--good-text); }
+
+/* ---- task centre ---- */
+.task-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.task-row:last-child { border-bottom: 0; }
+.task-dot { flex: none; width: 9px; height: 9px; border-radius: 99px; background: var(--line-strong); }
+.task-row.today .task-dot { background: var(--warn); }
+.task-row.scheduled .task-dot { background: var(--chart-1); }
+.task-row.done .task-dot { background: var(--good); }
+.task-row.done .task-title { color: var(--muted); text-decoration: line-through; }
+.task-title { flex: 1; min-width: 0; }
+.task-meta { flex: none; color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+/* ---- social ---- */
+.cal-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.cal-row:last-child { border-bottom: 0; }
+.cal-day { flex: none; width: 58px; font-weight: 650; font-size: 12.5px; }
+.cal-day em { display: block; font-style: normal; font-weight: 400; font-size: 11px; color: var(--muted); }
+.cal-body { flex: 1; min-width: 0; }
+.cal-body b { display: block; font-weight: 600; font-size: 13px; }
+.cal-body span { font-size: 11.5px; color: var(--muted); }
+.tagchip.st-linked { background: var(--funnel-1); border-color: transparent; color: #0d366b; font-weight: 600; }
+.tagchip.st-good { background: var(--good); border-color: transparent; color: #fff; font-weight: 600; }
+.int-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.int-row:last-child { border-bottom: 0; }
+.int-row > div { flex: 1; min-width: 0; }
+.int-text { font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+.int-out { font-size: 12px; color: var(--accent-soft-ink); margin-top: 2px; }
+.int-row .tagchip { flex: none; }
+
+/* ---- trust / audit ---- */
+.audit-row { display: flex; align-items: baseline; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.audit-row:last-child { border-bottom: 0; }
+.audit-t { flex: none; width: 84px; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.audit-text { flex: 1; min-width: 0; font-size: 13px; }
+.audit-row .tagchip { flex: none; }
 
 /* ---- industry switcher ---- */
 .seg { display: flex; gap: 3px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; padding: 3px; }
@@ -413,11 +448,12 @@ button:focus-visible, .convo:focus-visible, a:focus-visible { outline: 2px solid
     display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
     background: var(--surface); border-top: 1px solid var(--line);
     padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
   }
   .tabbar button {
-    flex: 1; border: 0; background: none; color: var(--muted);
+    flex: 1 0 56px; border: 0; background: none; color: var(--muted);
     font-size: 9px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+    white-space: nowrap;
   }
   .topbar .seg { order: 5; }
   .tabbar button.on { color: var(--accent); font-weight: 650; }
@@ -851,13 +887,87 @@ window.DEMOS = (() => {
       { label: 'Un-followed-up leads', value: '2', delta: 'was ~15/wk before' },
       { label: 'Repeat-purchase rate', value: '61%', delta: '+7 pts vs May' },
       { label: 'Campaign revenue (30d)', value: '$2,728', delta: '$153 message cost' },
+      { label: 'Cost per AI-handled conversation', value: '$0.11', delta: 'model + WhatsApp fees' },
+      { label: 'Cost per AI-won booking', value: '$1.92', delta: 'vs ~$14 typical paid-ads CPA' },
+      { label: 'Staff time saved (est.)', value: '9.5 h/wk', delta: 'repetitive replies + follow-ups' },
+    ];
+
+    const social = {
+      calendar: [
+        { day: 'Fri 10', time: '6:00 PM', channel: 'Instagram Reel', title: 'Lash transformation: before/after (client consent on file)', status: 'scheduled' },
+        { day: 'Sat 11', time: '11:00 AM', channel: 'IG carousel', title: 'BIAB at week 3 — durability close-ups', status: 'scheduled' },
+        { day: 'Sun 12', time: '10:00 AM', channel: 'Google post', title: 'Sunday slots + the Duxton parking tip', status: 'scheduled' },
+        { day: 'Mon 13', time: '12:00 PM', channel: 'IG story', title: 'Studio closed — repost of top review (automated)', status: 'scheduled' },
+        { day: 'Tue 14', time: '10:00 AM', channel: 'IG story + Google', title: 'Rainy-week facial promo', status: 'linked', note: 'Publishes only if the campaign is approved' },
+        { day: 'Wed 15', time: '—', channel: 'IG Reel', title: 'Client feature: bridal trial morning', status: 'held', note: 'Held — client consent not yet on file' },
+        { day: 'Thu 16', time: '—', channel: 'IG story', title: 'Behind the scenes: tool sterilisation routine', status: 'idea', note: 'Needs a 30s clip — see asset list' },
+      ],
+      posts: [
+        { title: 'Volume lash close-up reel', when: '28 Jun', reach: '12,400', saves: 214, inquiries: 9, bookings: 4, revenue: 572, flag: null },
+        { title: '“Is BIAB worth it?” Q&A story', when: '5 Jul', reach: '940', saves: 22, inquiries: 5, bookings: 3, revenue: 264, flag: 'Small reach, high conversion — AI suggests making this a monthly format' },
+        { title: 'Nail art of the month carousel', when: '2 Jul', reach: '3,100', saves: 89, inquiries: 3, bookings: 1, revenue: 88, flag: null },
+      ],
+      interactions: [
+        { when: '23m ago', who: '@mel.bakes', channel: 'IG comment', text: 'how much for a volume set?', klass: 'Price inquiry', outcome: 'Lead created · replied + invited to WhatsApp' },
+        { when: '2h ago', who: '@gwen_ho', channel: 'IG DM', text: 'GORGEOUS 😍 my wedding is in Sept, do you do trials?', klass: 'High intent', outcome: 'Lead created · routed to bridal script' },
+        { when: '5h ago', who: '@cst_87', channel: 'IG comment', text: 'waited 20 min past my slot last week :(', klass: 'Complaint', outcome: 'Routed to Reputation · human review' },
+        { when: '9h ago', who: '@lifestyle.lena', channel: 'IG DM', text: 'Hi! Open to a collab? 20k followers', klass: 'Partnership', outcome: 'Human review queue' },
+        { when: 'yesterday', who: '3 accounts', channel: 'IG comments', text: '(crypto spam links)', klass: 'Spam', outcome: 'Auto-hidden' },
+      ],
+      assets: [
+        'Natural-light close-up of volume lash application — your top-converting theme (2 of your top 3 posts)',
+        '30-second BIAB removal clip — answers the FAQ asked 21× this month',
+        'Ask Grace Fu for a membership testimonial (VIP, 26 visits, consent on file)',
+      ],
+    };
+
+    const trust = {
+      stats: [
+        { value: '45/55', label: 'marketing consent coverage', sub: 'others get service messages only' },
+        { value: '312', label: 'consent + DNC checks (30d)', sub: '100% pass before any send' },
+        { value: '2', label: 'unsubscribes (30d)', sub: 'both processed in under 1 h' },
+        { value: '1', label: 'data request (30d)', sub: 'export completed in 6 h' },
+      ],
+      rules: [
+        'Quiet hours: no marketing 9 PM–9 AM (service replies stay 24/7)',
+        'Frequency cap: max 2 marketing messages per customer per 14 days',
+        'Auto-excluded: open complaints, no consent, unsubscribed, contacted <14 days',
+        'Language rule: ZH-preference customers receive ZH templates',
+        'Bulk sends, discounts and public replies require owner/manager approval',
+      ],
+      roles: [
+        { who: 'Rachel Tan', role: 'Owner', can: 'Everything — refunds, exports, permissions' },
+        { who: 'Joanne', role: 'Manager', can: 'Approve knowledge & replies · no data exports' },
+        { who: 'Front desk (2)', role: 'Staff', can: 'Inbox, tasks, bookings · no bulk sends' },
+        { who: 'SocialBoost Co', role: 'Agency', can: 'Social drafts only · no customer data' },
+      ],
+      audit: [
+        { t: '7:41 AM', text: 'AI replied to Marcus Wee — price quoted from Price list v12', tag: 'ai' },
+        { t: '7:12 AM', text: 'Campaign pre-check: 84 recipients passed consent + DNC + frequency caps', tag: 'check' },
+        { t: '1:14 AM', text: 'AI escalated Priya Nair — group-booking rule R-07', tag: 'handoff' },
+        { t: 'Yst 9:03 PM', text: 'Joanne uploaded Price list v13 — held for owner approval', tag: 'change' },
+        { t: 'Yst 7:22 PM', text: 'AI paused itself — complaint with refund intent (Dana Lim)', tag: 'handoff' },
+        { t: 'Yst 7:23 PM', text: 'Marketing suppressed for Dana Lim until ticket RT-114 closes', tag: 'check' },
+        { t: 'Yst 4:05 PM', text: 'Front desk attempted a customer export — denied (staff role)', tag: 'denied' },
+        { t: 'Tue 11:30 AM', text: 'Data export completed for Grace Fu (PDPA access request)', tag: 'data' },
+      ],
+    };
+
+    const tasks = [
+      { title: 'Call Dana Lim — recovery ticket RT-114, script drafted', who: 'Rachel', due: 'Today 12:00 PM', status: 'today', source: 'Reputation Agent' },
+      { title: 'Confirm 2 stylists for 22 Aug bridal party, then release the group quote', who: 'Rachel', due: 'Today 10:00 AM', status: 'today', source: 'Sales Agent' },
+      { title: 'Review Price list v13 (lash fill $68 → $72)', who: 'Rachel', due: 'Today', status: 'today', source: 'Business Brain' },
+      { title: 'Call the 2 unpaid deposits if still unpaid at 6 PM (auto-reminders sent)', who: 'Front desk', due: 'Today 6:00 PM', status: 'today', source: 'Follow-up Agent' },
+      { title: 'Prep Grace Fu birthday visit — free brow-shape voucher', who: 'Front desk', due: 'Mon 13 Jul', status: 'scheduled', source: 'CRM Agent' },
+      { title: 'Draft answer: “Do you do bridal home visits?” (asked 4×)', who: 'Joanne', due: 'This week', status: 'scheduled', source: 'Business Brain' },
+      { title: 'Send aftercare notes to yesterday’s 6 lash clients', who: 'AI', due: 'Done 7:45 AM', status: 'done', source: 'Follow-up Agent' },
     ];
 
     return {
       merchant, services, customers, conversations, simulation, opportunities,
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
-      topServices, forecast, forecastNote, strategy, kpis,
+      topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
     };
   })();
 
@@ -1177,13 +1287,86 @@ window.DEMOS = (() => {
       { label: 'Un-followed-up leads', value: '3', delta: 'was ~12/wk before' },
       { label: 'Repeat / rebook rate', value: '68%', delta: '+6 pts vs May' },
       { label: 'Campaign revenue (30d)', value: '$3,506', delta: '$142 message cost' },
+      { label: 'Cost per AI-handled conversation', value: '$0.12', delta: 'model + WhatsApp fees' },
+      { label: 'Cost per AI-won booking', value: '$1.71', delta: 'vs ~$12 typical paid-ads CPA' },
+      { label: 'Staff time saved (est.)', value: '8 h/wk', delta: 'phone tag + route planning' },
+    ];
+
+    const social = {
+      calendar: [
+        { day: 'Fri 10', time: '5:00 PM', channel: 'Instagram Reel', title: 'Husky de-shed timelapse pt 2 (pt 1 hit 48k)', status: 'scheduled' },
+        { day: 'Sat 11', time: '10:00 AM', channel: 'IG story', title: 'Route day: Van 2 in Punggol — 1 slot left', status: 'scheduled', note: 'Capacity-aware — pulls live route data' },
+        { day: 'Sun 12', time: '11:00 AM', channel: 'Google post', title: 'Weekend nail trims — we come to you', status: 'scheduled' },
+        { day: 'Mon 13', time: '9:00 AM', channel: 'IG post + Google', title: 'Heatwave coat-care tips', status: 'linked', note: 'Publishes only if the campaign is approved' },
+        { day: 'Wed 15', time: '—', channel: 'IG Reel', title: 'Client feature: Mimi the Persian’s home groom', status: 'held', note: 'Held — owner consent not yet on file' },
+        { day: 'Thu 16', time: '—', channel: 'IG carousel', title: 'Matting 101: why we sometimes recommend a shave-down', status: 'idea', note: 'Sets expectations — ties to the matting policy' },
+      ],
+      posts: [
+        { title: 'Husky de-shed timelapse', when: '30 Jun', reach: '48,200', saves: 1830, inquiries: 31, bookings: 9, revenue: 1247, flag: 'Outlier — AI suggests a boosted ad + follow-up reel while interest is hot' },
+        { title: 'Anxious cat home groom (with consent)', when: '24 Jun', reach: '9,600', saves: 412, inquiries: 8, bookings: 4, revenue: 436, flag: null },
+        { title: 'Van tour: inside the mobile salon', when: '3 Jul', reach: '5,400', saves: 158, inquiries: 6, bookings: 3, revenue: 301, flag: null },
+      ],
+      interactions: [
+        { when: '41m ago', who: '@corgi.mum', channel: 'IG comment', text: 'how much for a corgi full groom?', klass: 'Price inquiry', outcome: 'Lead created · replied + invited to WhatsApp' },
+        { when: '3h ago', who: '@jubeethefrenchie', channel: 'IG DM', text: 'do u cover Jurong?', klass: 'FAQ', outcome: 'Answered from route zones · no human needed' },
+        { when: '6h ago', who: '@max_n_millie', channel: 'IG comment', text: 'my dog was so scared after your groom last month', klass: 'Complaint', outcome: 'Routed to Reputation · human review' },
+        { when: '8h ago', who: 'Paws Haven Shelter', channel: 'IG DM', text: 'we’re a shelter — any discount for rescues?', klass: 'Partnership', outcome: 'Human queue · flagged as community-campaign idea' },
+        { when: 'yesterday', who: '5 accounts', channel: 'IG comments', text: '(spam links)', klass: 'Spam', outcome: 'Auto-hidden' },
+      ],
+      assets: [
+        'Before/after de-shed shots in daylight — your top-converting theme by far',
+        '15-second clip of a groomer calming an anxious dog (get owner consent first)',
+        'Ask Imran for a two-GSD testimonial (VIP, consent on file)',
+      ],
+    };
+
+    const trust = {
+      stats: [
+        { value: '41/52', label: 'marketing consent coverage', sub: 'others get service messages only' },
+        { value: '348', label: 'consent + DNC checks (30d)', sub: '100% pass before any send' },
+        { value: '3', label: 'unsubscribes (30d)', sub: 'all processed in under 1 h' },
+        { value: '0', label: 'data requests (30d)', sub: 'none this month' },
+      ],
+      rules: [
+        'Quiet hours: no marketing 8 PM–9 AM (service replies stay 24/7)',
+        'Frequency cap: max 2 marketing messages per customer per 14 days',
+        'Auto-excluded: open complaints, no consent, unsubscribed, contacted <14 days',
+        'Vaccination records stored as sensitive documents — staff view only, never in chat logs',
+        'Bulk sends, discounts and public replies require owner/senior approval',
+      ],
+      roles: [
+        { who: 'Daniel Chua', role: 'Owner', can: 'Everything — refunds, exports, permissions' },
+        { who: 'Mei', role: 'Senior groomer', can: 'Approve SOPs & safety replies · no data exports' },
+        { who: 'Groomers (3)', role: 'Staff', can: 'Route tasks, chat takeover · no bulk sends' },
+        { who: 'PawSocial', role: 'Agency', can: 'Social drafts only · no customer data' },
+      ],
+      audit: [
+        { t: '7:52 AM', text: 'AI routed Jon Lau to Van 1 by postal code — quoted from Price list v8', tag: 'ai' },
+        { t: '7:30 AM', text: 'Campaign pre-check: 96 recipients passed consent + DNC + frequency caps', tag: 'check' },
+        { t: 'Yst 7:05 PM', text: 'AI refused sedation advice — safety rule S-02, escalated to senior groomer', tag: 'handoff' },
+        { t: 'Yst 3:10 PM', text: 'AI paused itself — pet injury report (Ravi Kumar), ticket RT-52', tag: 'handoff' },
+        { t: 'Yst 3:11 PM', text: 'Marketing suppressed for Ravi Kumar until ticket RT-52 closes', tag: 'check' },
+        { t: 'Yst 1:44 PM', text: 'Groomer requested the customer list — denied (staff role)', tag: 'denied' },
+        { t: 'Wed 6:20 PM', text: 'Daniel uploaded Price list v9 — held for owner approval', tag: 'change' },
+        { t: 'Tue 10:15 AM', text: 'Vaccination booklet photo filed for Sarah Goh (sensitive document)', tag: 'data' },
+      ],
+    };
+
+    const tasks = [
+      { title: 'Call Ravi Kumar — ticket RT-52, vet-bill decision is owner-only', who: 'Daniel', due: 'Today 11:00 AM', status: 'today', source: 'Reputation Agent' },
+      { title: 'Assessment call: Mimi the Persian (anxious cat, sedation question)', who: 'Mei', due: 'Today', status: 'today', source: 'Safety rule S-02' },
+      { title: 'Review Price list v9 (large dog $128 → $138)', who: 'Daniel', due: 'Today', status: 'today', source: 'Business Brain' },
+      { title: 'Call Sarah Goh if deposit + vaccination proof still missing at 6 PM', who: 'Front office', due: 'Today 6:00 PM', status: 'today', source: 'Follow-up Agent' },
+      { title: 'Cost a 3rd van day for a Bedok Saturday loop', who: 'Daniel', due: 'This week', status: 'scheduled', source: 'Insight Agent' },
+      { title: 'Get consent from Mimi’s owner for the client-feature reel', who: 'PawSocial', due: 'This week', status: 'scheduled', source: 'Social Agent' },
+      { title: 'Send groom-day reminders for Saturday routes (14 customers)', who: 'AI', due: 'Done 7:30 AM', status: 'done', source: 'Follow-up Agent' },
     ];
 
     return {
       merchant, services, customers, conversations, simulation, opportunities,
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
-      topServices, forecast, forecastNote, strategy, kpis,
+      topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
     };
   })();
 
@@ -1260,16 +1443,19 @@ window.DEMO = window.DEMOS.beauty;
     brain: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3c-1-1.2-3-1.5-4.5-.5S2 5.5 2.5 7c-1 .8-1 2.5 0 3.5S5 12 6 11.3M8 3c1-1.2 3-1.5 4.5-.5S14 5.5 13.5 7c1 .8 1 2.5 0 3.5S11 12 10 11.3M8 3v10.5"/></svg>',
     insights: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13.5h12M3.5 13V9M7 13V5.5M10.5 13V7.5M14 13V3.5"/></svg>',
     setup: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4.5h8M12.5 4.5H14M2 11.5h3M7.5 11.5H14"/><circle cx="10.5" cy="4.5" r="1.7"/><circle cx="5.5" cy="11.5" r="1.7"/></svg>',
+    social: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="3.5" r="1.8"/><circle cx="4" cy="8" r="1.8"/><circle cx="12" cy="12.5" r="1.8"/><path d="M5.7 7.2l4.6-2.6M5.7 8.8l4.6 2.6"/></svg>',
+    trust: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1.8l5 2v3.7c0 3.2-2.1 5.6-5 6.7-2.9-1.1-5-3.5-5-6.7V3.8z" stroke-linejoin="round"/><path d="M5.8 7.8l1.6 1.6 2.8-3"/></svg>',
   };
   const NAV = [
     ['today', 'Today'], ['inbox', 'Inbox'], ['customers', 'Customers'],
-    ['marketing', 'Marketing'], ['reputation', 'Reputation'],
-    ['brain', 'Brain'], ['insights', 'Insights'], ['setup', 'Setup'],
+    ['marketing', 'Marketing'], ['social', 'Social'], ['reputation', 'Reputation'],
+    ['brain', 'Brain'], ['insights', 'Insights'], ['trust', 'Trust'], ['setup', 'Setup'],
   ];
   const TITLES = {
-    today: 'Today', inbox: 'Inbox — all channels', customers: 'Customers',
-    marketing: 'Marketing automation', reputation: 'Reputation & experience',
-    brain: 'Business brain', insights: 'Business insight', setup: 'Setup — day one',
+    today: 'Today', inbox: 'Inbox — all channels', customers: 'Customers & tasks',
+    marketing: 'Marketing automation', social: 'Social & brand', reputation: 'Reputation & experience',
+    brain: 'Business brain', insights: 'Business insight', trust: 'Trust, permissions & audit',
+    setup: 'Setup — day one',
   };
 
   // ---------- shared bits ----------
@@ -1456,12 +1642,28 @@ window.DEMO = window.DEMOS.beauty;
   // ---------- Customers ----------
   const LIFECYCLES = ['All', 'New lead', 'Evaluating', 'Converted', 'Active', 'VIP', 'Dormant', 'Churn risk'];
   const lcClass = (lc) => ({ 'Churn risk': 'churn', 'New lead': 'lead' }[lc] || lc);
+  function taskCentre() {
+    return `
+      <h2 class="sec">Task centre — what the AI queued for the team</h2>
+      <div class="card" style="padding:8px 16px">
+        ${D.tasks.map((t) => `
+          <div class="task-row ${t.status}">
+            <span class="task-dot"></span>
+            <span class="task-title">${esc(t.title)}</span>
+            <span class="tagchip">${esc(t.source)}</span>
+            <span class="task-meta">${esc(t.who)} · ${esc(t.due)}</span>
+          </div>`).join('')}
+      </div>`;
+  }
+
   function vCustomers() {
     if (state.custId) return vCustomerDetail(D.customers.find((c) => c.id === state.custId));
     const rows = D.customers
       .filter((c) => state.custFilter === 'All' || c.lifecycle === state.custFilter)
       .sort((a, b) => b.ltv - a.ltv);
     return `
+      ${taskCentre()}
+      <h2 class="sec">Customer base</h2>
       <div class="filters">${LIFECYCLES.map((f) => {
         const n = f === 'All' ? D.customers.length : D.customers.filter((c) => c.lifecycle === f).length;
         return `<button class="fbtn ${state.custFilter === f ? 'on' : ''}" data-filter="${f}">${f} · ${n}</button>`;
@@ -1607,6 +1809,112 @@ window.DEMO = window.DEMOS.beauty;
           <button class="btn sm pri" data-post-reply="${r.id}">Approve &amp; post</button>
           <button class="btn sm">Edit</button>
         </div>`}
+      </div>`;
+  }
+
+  // ---------- Social & Brand ----------
+  const stChip = (s) => ({
+    scheduled: '<span class="tagchip ai">Scheduled</span>',
+    linked: '<span class="tagchip st-linked">Linked to campaign</span>',
+    held: '<span class="tagchip human">Held — needs approval</span>',
+    idea: '<span class="tagchip">Idea</span>',
+  }[s] || '');
+  const klassChip = (k) => {
+    const tone = { Complaint: 'human', Spam: '', Partnership: 'st-linked', FAQ: '', 'Price inquiry': 'ai', 'High intent': 'ai' }[k] ?? '';
+    return `<span class="tagchip ${tone}">${esc(k)}</span>`;
+  };
+  function vSocial() {
+    const s = D.social;
+    return `
+      <div class="grid c2" style="align-items:start">
+        <div>
+          <h2 class="sec">This week's content — drafted by the AI</h2>
+          <div class="card" style="padding:8px 16px">
+            ${s.calendar.map((c) => `
+              <div class="cal-row">
+                <span class="cal-day">${esc(c.day)}<em>${esc(c.time)}</em></span>
+                <div class="cal-body"><b>${esc(c.title)}</b>
+                  <span>${esc(c.channel)}${c.note ? ' · ' + esc(c.note) : ''}</span></div>
+                ${stChip(c.status)}
+              </div>`).join('')}
+          </div>
+          <h2 class="sec">Assets worth shooting next</h2>
+          <div class="card">
+            <ul class="strategy" style="margin:0;padding-left:18px">${s.assets.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div>
+          <h2 class="sec">What content actually drives — not likes</h2>
+          ${s.posts.map((p) => `
+            <div class="card" style="margin-bottom:10px">
+              <b>${esc(p.title)}</b> <span style="color:var(--muted);font-size:12px">· ${esc(p.when)}</span>
+              <div class="est" style="margin-top:8px">
+                <div><b>${esc(p.reach)}</b><span>reach</span></div>
+                <div><b>${p.saves}</b><span>saves</span></div>
+                <div><b>${p.inquiries}</b><span>inquiries</span></div>
+                <div><b>${p.bookings}</b><span>bookings</span></div>
+                <div><b>${money(p.revenue)}</b><span>revenue</span></div>
+              </div>
+              ${p.flag ? `<p style="margin:8px 0 0;font-size:12.5px;color:var(--accent-soft-ink)">★ ${esc(p.flag)}</p>` : ''}
+            </div>`).join('')}
+          <h2 class="sec">Comments & DMs — classified live</h2>
+          <div class="card" style="padding:8px 16px">
+            ${s.interactions.map((i) => `
+              <div class="int-row">
+                <div><b>${esc(i.who)}</b> <span style="color:var(--muted);font-size:11.5px">${esc(i.channel)} · ${esc(i.when)}</span>
+                  <div class="int-text">“${esc(i.text)}”</div>
+                  <div class="int-out">→ ${esc(i.outcome)}</div></div>
+                ${klassChip(i.klass)}
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ---------- Trust, permissions & audit ----------
+  const auditTag = (t) => ({
+    ai: '<span class="tagchip ai">AI action</span>',
+    check: '<span class="tagchip st-good">Compliance check</span>',
+    handoff: '<span class="tagchip human">Hand-off</span>',
+    denied: '<span class="tagchip esc">Denied</span>',
+    change: '<span class="tagchip st-linked">Change held</span>',
+    data: '<span class="tagchip">Data request</span>',
+  }[t] || '');
+  function vTrust() {
+    const tr = D.trust;
+    return `
+      <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
+        ${tr.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span><div class="kpi-delta" style="color:var(--muted)">${esc(s.sub)}</div></div>`).join('')}
+      </div>
+      <div class="grid c2" style="margin-top:14px;align-items:start">
+        <div>
+          <h2 class="sec">Audit trail — every action, attributable</h2>
+          <div class="card" style="padding:8px 16px">
+            ${tr.audit.map((a) => `
+              <div class="audit-row">
+                <span class="audit-t">${esc(a.t)}</span>
+                <span class="audit-text">${esc(a.text)}</span>
+                ${auditTag(a.tag)}
+              </div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <h2 class="sec">Outreach rules — enforced before every send</h2>
+          <div class="card">
+            <ul class="strategy" style="margin:0;padding-left:18px">${tr.rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+          </div>
+          <h2 class="sec">Who can do what</h2>
+          <div class="card tbl-wrap" style="padding:6px 10px">
+            <table class="tbl">
+              <thead><tr><th>Person</th><th>Role</th><th>Permissions</th></tr></thead>
+              <tbody>${tr.roles.map((r) => `<tr><td><b>${esc(r.who)}</b></td><td>${esc(r.role)}</td><td style="color:var(--ink-2)">${esc(r.can)}</td></tr>`).join('')}</tbody>
+            </table>
+          </div>
+          <h2 class="sec">Why this exists</h2>
+          <div class="card">
+            <p style="margin:0;font-size:13px;color:var(--ink-2);max-width:60ch">Singapore's PDPA and DNC rules apply to every marketing send. Rook records consent with source and time, checks it before each message, and keeps this audit trail so any reply, send or data access can be explained after the fact — including the ones it refused.</p>
+          </div>
+        </div>
       </div>`;
   }
 
@@ -1890,7 +2198,7 @@ window.DEMO = window.DEMOS.beauty;
   function render() {
     renderSide();
     renderTop();
-    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, reputation: vReputation, brain: vBrain, insights: vInsights, setup: vSetup };
+    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, trust: vTrust, setup: vSetup };
     $('#view').innerHTML = views[state.view]();
     const back = $('#view [data-back]');
     if (back && window.innerWidth <= 760) back.style.display = 'inline-block';
