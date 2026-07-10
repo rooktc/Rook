@@ -328,6 +328,22 @@ window.DEMOS = (() => {
       },
     ];
 
+    const referrals = {
+      rule: '$15 credit for both sides after the friend’s first visit (R-11) — the AI sends the link when a customer leaves a 5★ review or a “my friend asked” signal appears in chat.',
+      link: 'rook.link/glow·R8F2',
+      stats: [
+        { value: '6', label: 'referral leads (30d)' },
+        { value: '3', label: 'became bookings' },
+        { value: '$492', label: 'referred revenue' },
+        { value: '$90', label: 'credits issued' },
+      ],
+      top: [
+        { name: 'Grace Fu Wenli', referred: 3, booked: 2, revenue: 296, note: 'VIP · sends her office colleagues' },
+        { name: 'Jasmine Koh', referred: 2, booked: 1, revenue: 108, note: '1 friend still deciding — follow-up queued' },
+        { name: 'Wei Ting T.', referred: 1, booked: 0, revenue: 0, note: 'Link shared yesterday' },
+      ],
+    };
+
     const reviews = [
       { id: 'rv-dana', name: 'Dana L.', rating: 2, time: hoursAgo(13.4), source: 'Google', text: 'Gel extensions chipped within 3 days. Staff are lovely but for the price I expected the set to last. Disappointed this time.', replyStatus: 'pending', reply: 'Dana, thank you for telling us — this isn’t the standard we hold ourselves to, and I’m sorry. I’ve reached out personally: we’d love to re-do the set with our senior stylist at no charge. — Rachel, owner', linked: 'Recovery ticket RT-114 · same customer as open complaint' },
       { id: 'rv-1', name: 'Jasmine K.', rating: 5, time: daysAgo(11, 19, 40), source: 'Google', text: 'Joanne did my BIAB perfectly again. Booking over WhatsApp took literally 30 seconds.', replyStatus: 'posted', reply: 'Thank you Jasmine! Joanne will be so happy to hear this 💛' },
@@ -508,6 +524,7 @@ window.DEMOS = (() => {
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
       topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
+      referrals,
     };
   })();
 
@@ -741,6 +758,22 @@ window.DEMOS = (() => {
       },
     ];
 
+    const referrals = {
+      rule: '$10 credit for both sides after the friend’s first groom (R-06) — the AI offers the link after a 5★ review or when a customer mentions a friend’s pet in chat.',
+      link: 'rook.link/wag·K3TQ',
+      stats: [
+        { value: '12', label: 'referral leads (30d)' },
+        { value: '8', label: 'became bookings' },
+        { value: '$824', label: 'referred revenue' },
+        { value: '$160', label: 'credits issued' },
+      ],
+      top: [
+        { name: 'Imran Hakim', referred: 4, booked: 3, revenue: 402, note: 'VIP · the GSD community group chat' },
+        { name: 'Adeline W.', referred: 2, booked: 2, revenue: 220, note: 'Both anxious-cat owners' },
+        { name: 'Elaine Sng', referred: 1, booked: 1, revenue: 78, note: 'Neighbour, same block — same van visit' },
+      ],
+    };
+
     const reviews = [
       { id: 'rv-p-ravi', name: 'Ravi K.', rating: 2, time: hoursAgo(12.6), source: 'Google', text: 'Been using them a year but last groom Toby’s nail was cut too short and bled. Groomers are usually careful — this visit wasn’t.', replyStatus: 'pending', reply: 'Ravi, I’m truly sorry — Toby’s safety is the whole point of what we do, and we fell short. I’ve called you directly; the vet check is on us and Mei, our senior groomer, will handle Toby’s next visit personally. — Daniel, owner', linked: 'Recovery ticket RT-52 · same customer as open complaint' },
       { id: 'rv-p-1', name: 'Adeline W.', rating: 5, time: daysAgo(3, 16, 20), source: 'Google', text: 'They groomed our super anxious cat in our living room. No cage, no car ride, no drama. Life-changing honestly.', replyStatus: 'posted', reply: 'This is exactly why we go to you instead 🐱 Thank you Adeline!' },
@@ -921,6 +954,7 @@ window.DEMOS = (() => {
       aiActivity, activityLabel, approvals, brief, timelines, campaigns, reviews,
       cxSummary, knowledge, knowledgeGaps, onboarding, metrics, funnel, channels,
       topServices, forecast, forecastNote, strategy, kpis, social, trust, tasks,
+      referrals,
     };
   })();
 

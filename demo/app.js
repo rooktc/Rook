@@ -16,6 +16,7 @@
     convId: 'v-priya',
     mobilePane: 'list',
     custFilter: 'All',
+    custChannel: null,
     custId: null,
     aiPaused: {},
     done: {},          // approval ids that were actioned
@@ -307,14 +308,16 @@
 
   function vCustomers() {
     if (state.custId) return vCustomerDetail(D.customers.find((c) => c.id === state.custId));
-    const rows = D.customers
+    const chFiltered = state.custChannel ? D.customers.filter((c) => c.channel === state.custChannel) : D.customers;
+    const rows = chFiltered
       .filter((c) => state.custFilter === 'All' || c.lifecycle === state.custFilter)
       .sort((a, b) => b.ltv - a.ltv);
     return `
       ${taskCentre()}
       <h2 class="sec">Customer base</h2>
+      ${state.custChannel ? `<div style="margin-bottom:10px"><button class="fbtn on" data-clear-channel>Source: ${esc(state.custChannel)} · ${chFiltered.length} ✕</button></div>` : ''}
       <div class="filters">${LIFECYCLES.map((f) => {
-        const n = f === 'All' ? D.customers.length : D.customers.filter((c) => c.lifecycle === f).length;
+        const n = f === 'All' ? chFiltered.length : chFiltered.filter((c) => c.lifecycle === f).length;
         return `<button class="fbtn ${state.custFilter === f ? 'on' : ''}" data-filter="${f}">${f} · ${n}</button>`;
       }).join('')}</div>
       <div class="card tbl-wrap" style="padding:6px 10px">
@@ -376,7 +379,28 @@
       <h2 class="sec">Needs a decision / upcoming</h2>
       ${active.map((c) => campHtml(c, st(c))).join('')}
       <h2 class="sec">Recently completed</h2>
-      ${past.map((c) => campHtml(c, 'completed')).join('')}`;
+      ${past.map((c) => campHtml(c, 'completed')).join('')}
+      ${referralSection()}`;
+  }
+  function referralSection() {
+    const r = D.referrals;
+    return `
+      <h2 class="sec">Referrals — the lifecycle's last stage</h2>
+      <div class="grid c2" style="align-items:start">
+        <div class="card">
+          <div class="est" style="margin-top:0">
+            ${r.stats.map((s) => `<div><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join('')}
+          </div>
+          <p style="font-size:12.5px;color:var(--ink-2);margin:12px 0 8px;max-width:64ch">${esc(r.rule)}</p>
+          <span class="tagchip" style="font-variant-numeric:tabular-nums">🔗 ${esc(r.link)} — unique per customer, so every referral is attributed</span>
+        </div>
+        <div class="card tbl-wrap" style="padding:6px 10px">
+          <table class="tbl">
+            <thead><tr><th>Top referrers</th><th class="num">Referred</th><th class="num">Booked</th><th class="num">Revenue</th><th>Note</th></tr></thead>
+            <tbody>${r.top.map((t) => `<tr><td><b>${esc(t.name)}</b></td><td class="num">${t.referred}</td><td class="num">${t.booked}</td><td class="num">${t.revenue ? money(t.revenue) : '—'}</td><td style="color:var(--ink-2)">${esc(t.note)}</td></tr>`).join('')}</tbody>
+          </table>
+        </div>
+      </div>`;
   }
   function campHtml(c, status) {
     const est = c.estimate ? `
@@ -673,6 +697,14 @@
   }
 
   // ---------- Insights (charts) ----------
+  // Accessible fallback for every chart (CVD / screen readers / print).
+  function dataTable(headers, rows) {
+    return `<details class="dtable"><summary>View as table</summary>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr>${headers.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>
+        <tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table></div></details>`;
+  }
   function vInsights() {
     return `
       <div class="stat-row" style="grid-template-columns:repeat(3,1fr)">
@@ -683,26 +715,31 @@
           <h3>Leads &amp; bookings — last 30 days</h3>
           <div class="sub">Daily counts across all channels</div>
           ${lineChart()}
+          ${dataTable(['Date', 'Leads', 'Bookings'], D.metrics.map((m) => [m.date, m.leads, m.bookings]))}
         </div>
         <div class="card chart-card">
           <h3>Sales funnel — last 30 days</h3>
           <div class="sub">From first contact to repeat booking</div>
           ${funnelChart()}
+          ${dataTable(['Stage', 'Count', '% of previous'], D.funnel.map((f, i) => [f.stage, f.n, i ? Math.round((f.n / D.funnel[i - 1].n) * 100) + '%' : '—']))}
         </div>
         <div class="card chart-card">
           <h3>Leads by channel — last 30 days</h3>
-          <div class="sub">Full bar = leads · dark segment = became bookings</div>
+          <div class="sub">Full bar = leads · dark segment = became bookings · click a bar to see those customers</div>
           ${channelChart()}
+          ${dataTable(['Channel', 'Leads', 'Booked', 'Rate'], D.channels.map((c) => [c.name, c.leads, c.booked, Math.round((c.booked / c.leads) * 100) + '%']))}
         </div>
         <div class="card chart-card">
           <h3>Next 7 days — booking forecast</h3>
           <div class="sub">Band = ±20% confidence · basis: 30-day history, campaigns, weather outlook</div>
           ${forecastChart()}
+          ${dataTable(['Day', 'Low', 'Expected', 'High'], D.forecast.map((f) => [f.day, f.lo, f.mid, f.hi]))}
         </div>
         <div class="card chart-card">
           <h3>Top services by revenue — last 30 days</h3>
           <div class="sub">Bookings shown at right</div>
           ${servicesChart()}
+          ${dataTable(['Service', 'Bookings', 'Revenue'], D.topServices.map((s) => [s.name, s.bookings, money(s.revenue)]))}
         </div>
         <div class="card strategy">
           <h3 style="margin:0 0 8px;font-size:13.5px">${esc(D.strategy.title)}</h3>
@@ -762,6 +799,7 @@
     </svg>`;
   }
 
+  const DRILL_MAP = { 'QR / walk-in': 'QR code', 'Vet-clinic QR': 'QR code' };
   function channelChart() {
     const W = 460, rowH = 30, gap = 6, L = 88, R = 92;
     const max = Math.max(...D.channels.map((c) => c.leads));
@@ -772,10 +810,11 @@
         const wAll = (c.leads / max) * (W - L - R);
         const wBook = (c.booked / max) * (W - L - R);
         const rate = Math.round((c.booked / c.leads) * 100);
+        const drill = DRILL_MAP[c.name] || c.name;
         return `
           <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${c.name}</text>
-          <rect x="${L}" y="${yy}" width="${wAll}" height="${rowH - 8}" rx="4" fill="var(--funnel-1)" data-tip="${c.name}: ${c.leads} leads"/>
-          <rect x="${L}" y="${yy}" width="${wBook}" height="${rowH - 8}" rx="4" fill="var(--funnel-4)" data-tip="${c.name}: ${c.booked} booked (${rate}%)"/>
+          <rect class="drillable" x="${L}" y="${yy}" width="${wAll}" height="${rowH - 8}" rx="4" fill="var(--funnel-1)" data-drill="${drill}" data-tip="${c.name}: ${c.leads} leads — click to see these customers"/>
+          <rect class="drillable" x="${L}" y="${yy}" width="${wBook}" height="${rowH - 8}" rx="4" fill="var(--funnel-4)" data-drill="${drill}" data-tip="${c.name}: ${c.booked} booked (${rate}%) — click to see these customers"/>
           <text class="val" x="${L + wAll + 7}" y="${yy + rowH / 2 + 3.5}">${c.booked}/${c.leads} · ${rate}%</text>`;
       }).join('')}
     </svg>`;
@@ -912,7 +951,7 @@
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl') ? e.target : null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end]');
+    const t = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel]');
     if (!t) return;
     if (t.dataset.industry) switchIndustry(t.dataset.industry);
     else if (t.dataset.tourStart !== undefined) { state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }
@@ -923,7 +962,9 @@
     else if (t.dataset.tourBack !== undefined) { state.tour = Math.max(1, state.tour - 1); state.view = TOUR[state.tour - 1].view; render(); window.scrollTo(0, 0); }
     else if (t.dataset.tourEnd !== undefined) { state.tour = 0; render(); }
     else if (t.dataset.briefPhone !== undefined) { state.phoneView = 'brief'; render(); }
-    else if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.mobilePane = 'list'; state.phoneView = null; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.nav) { state.view = t.dataset.nav; state.custId = null; state.custChannel = null; state.mobilePane = 'list'; state.phoneView = null; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.drill) { state.view = 'customers'; state.custId = null; state.custFilter = 'All'; state.custChannel = t.dataset.drill; render(); window.scrollTo(0, 0); }
+    else if (t.dataset.clearChannel !== undefined) { state.custChannel = null; render(); }
     else if (t.dataset.conv) { state.convId = t.dataset.conv; state.mobilePane = 'thread'; render(); }
     else if (t.dataset.openConv) { state.view = 'inbox'; state.convId = t.dataset.openConv; state.mobilePane = 'thread'; render(); window.scrollTo(0, 0); }
     else if (t.dataset.back !== undefined && t.dataset.back === '') { state.mobilePane = 'list'; render(); }
