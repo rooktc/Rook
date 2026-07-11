@@ -36,7 +36,7 @@ configuration:
   van routing, time windows, pet-safety hand-offs (injury reports, sedation
   questions), vaccination rules.
 
-Press **▶ Tour** in the top bar for a guided 9-step walkthrough.
+Press **Tour** in the top bar for a guided 9-step walkthrough.
 
 ## What to look at
 
@@ -47,7 +47,7 @@ Press **▶ Tour** in the top bar for a guided 9-step walkthrough.
   price objection resolved with a rule-based discount, an Instagram DM turned
   into a lead, a complaint where the AI stops and escalates, an FAQ answered
   with a knowledge citation, and a follow-up that recovered a booking.
-- **Customer view** (📱 button in any conversation) — the same thread as the
+- **Customer view** (button in any conversation header) — the same thread as the
   customer's WhatsApp sees it: scores, system notes and citations stay in the
   console.
 - **Setup** — an animated day-one onboarding walkthrough: upload files → the

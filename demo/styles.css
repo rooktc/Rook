@@ -91,10 +91,11 @@ a { color: var(--accent); }
   display: flex; flex-direction: column; gap: 4px;
   background: var(--surface-2);
 }
-.logo { display: flex; align-items: baseline; gap: 7px; padding: 4px 10px 14px; }
-.logo .mark { color: var(--accent); font-size: 17px; align-self: center; line-height: 1; }
-.logo b { font-size: 19px; letter-spacing: -0.02em; }
-.logo span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.logo { padding: 4px 10px 14px; }
+.logo-row { display: flex; align-items: center; gap: 7px; }
+.logo .mark { color: var(--accent); font-size: 17px; line-height: 1; }
+.logo b { font-size: 19px; letter-spacing: -0.02em; line-height: 1.2; }
+.logo-tag { display: block; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.09em; margin-top: 2px; padding-left: 24px; }
 .nav-btn {
   display: flex; align-items: center; gap: 10px;
   width: 100%; text-align: left;
@@ -215,6 +216,7 @@ h2.sec:first-child { margin-top: 0; }
 .msg.ai, .msg.staff { align-self: flex-end; background: var(--accent-soft); color: var(--ink); border-bottom-right-radius: 4px; }
 .msg .meta { display: block; font-size: 10.5px; color: var(--muted); margin-top: 4px; }
 .msg .cite { display: inline-block; font-size: 10.5px; margin-top: 6px; padding: 2px 8px; border-radius: 99px; border: 1px dashed var(--accent); color: var(--accent-soft-ink); }
+.cite-k { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-right: 6px; opacity: 0.75; }
 .msg.sys { align-self: center; max-width: 92%; background: transparent; border: 1px dashed var(--line-strong); color: var(--muted); font-size: 11.5px; text-align: center; border-radius: 8px; }
 .typing { align-self: flex-end; background: var(--accent-soft); border-radius: 14px; padding: 10px 14px; }
 .typing i { display: inline-block; width: 5px; height: 5px; margin: 0 1.5px; background: var(--accent); border-radius: 99px; animation: blink 1s infinite; }
