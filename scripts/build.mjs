@@ -11,6 +11,7 @@ let html = read('demo/index.html');
 // are never interpreted as replacement patterns.
 html = html.replace('<link rel="stylesheet" href="styles.css">', () => `<style>\n${read('demo/styles.css')}\n</style>`);
 html = html.replace('<script src="data.js"></script>', () => `<script>\n${read('demo/data.js')}\n</script>`);
+html = html.replace('<script src="i18n-data.js"></script>', () => `<script>\n${read('demo/i18n-data.js')}\n</script>`);
 html = html.replace('<script src="app.js"></script>', () => `<script>\n${read('demo/app.js')}\n</script>`);
 
 mkdirSync(join(root, 'dist'), { recursive: true });

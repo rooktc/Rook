@@ -38,13 +38,15 @@ configuration:
 
 Press **Tour** in the top bar for a guided 9-step walkthrough.
 
-**Language switcher** (top bar) — the entire interface (navigation, buttons,
-headers, chart labels, tooltips, toasts) is available in English, Traditional
-Chinese, and Simplified Chinese. Scripted business content — customer names,
-conversation transcripts, campaign copy, task titles, strategy commentary —
-stays as authored (some of it, like the Chen Meiling conversation, is
-intentionally already bilingual) since translating narrative demo content is
-a different job from localizing the product chrome.
+**Language switcher** (top bar) — English, Traditional Chinese, and Simplified
+Chinese. Both the interface (navigation, buttons, headers, chart labels,
+tooltips, toasts) and the console-facing data layer (daily brief,
+opportunities, approvals, tasks, campaign details, knowledge base, audit
+trail, strategy, KPIs, conversation annotations) are translated via
+`demo/i18n-data.js`. The only content left as authored is what real customers
+wrote: WhatsApp/IG transcripts, review text, and campaign message drafts —
+plus names and prices. Untranslated strings fall back to English rather than
+breaking.
 
 ## What to look at
 

@@ -1516,6 +1516,714 @@ window.DEMO = window.DEMOS.beauty;
 
 </script>
 <script>
+/* Rook demo — data-layer translations. Exact English string → [zh-Hant, zh-Hans].
+   Looked up by td() in app.js with English fallback; chat transcripts stay as authored. */
+window.DATA_TRX = {
+/* ---------- beauty: merchant / brief / activity ---------- */
+'Nails · Lashes · Facials': ['美甲 · 美睫 · 臉部護理','美甲 · 美睫 · 面部护理'],
+'Tue–Sun 10:30–20:30, closed Mon': ['週二至週日 10:30–20:30，週一公休','周二至周日 10:30–20:30，周一闭店'],
+'Good morning, Rachel — 3 decisions need you; the rest is handled.': ['早安，Rachel——有3件事需要您決定；其餘都已處理妥當。','早上好，Rachel——有3件事需要您决定；其余都已处理妥当。'],
+'Overnight the AI answered 9 inquiries (one at 1:14 AM became your biggest lead this week — Priya’s bridal party, ~$1,017). Tuesday afternoons are still 40% empty next week, so a rainy-week facial campaign is drafted and waiting for your approval. One VIP complaint needs a personal call before noon — script is ready.': ['昨夜AI回覆了9筆諮詢（其中凌晨1:14的一筆成為本週最大商機——Priya的婚禮團體訂單，約$1,017）。下週二下午仍有40%空檔，因此已擬好一檔雨季臉部護理活動，等待您核准。有一件VIP客訴需要您在中午前親自致電——話術已備妥。','昨夜AI回复了9条咨询（其中凌晨1:14的一条成为本周最大商机——Priya的婚礼团体订单，约$1,017）。下周二下午仍有40%空档，因此已拟好一档雨季面部护理活动，等待您批准。有一件VIP投诉需要您在中午前亲自致电——话术已备好。'],
+'While you slept — since 8:30 PM yesterday': ['您休息期間——自昨晚8:30起','您休息期间——自昨晚8:30起'],
+'inquiries answered overnight': ['夜間已回覆的諮詢','夜间已回复的咨询'],
+'follow-ups sent': ['已傳送的跟進訊息','已发送的跟进消息'],
+'bookings confirmed': ['已確認的預約','已确认的预约'],
+'review invites sent': ['已傳送的評價邀請','已发送的评价邀请'],
+'tasks created for staff': ['已為員工建立的任務','已为员工创建的任务'],
+/* ---------- beauty: opportunities ---------- */
+'Bridal party ×5 — $1,017 quote held, needs your stylist confirmation by 10 AM': ['婚禮團體×5——$1,017報價已保留，需您在上午10點前確認美容師','婚礼团体×5——$1,017报价已保留，需您在上午10点前确认美容师'],
+'VIP complaint (chipped gel, refund intent). Call before noon — recovery script ready': ['VIP客訴（光療剝落，有退款意向）。請中午前致電——補救話術已備妥','VIP投诉（光疗剥落，有退款意向）。请中午前致电——补救话术已备好'],
+'LTV $1,462': ['終身價值 $1,462','终身价值 $1,462'],
+'IG lead asked volume lash price 11h ago, no reply yet — 1 nudge queued for 6 PM': ['IG商機11小時前詢問濃密睫毛價格，尚未回覆——已排定下午6點傳送1次提醒','IG商机11小时前询问浓密睫毛价格，尚未回复——已排定下午6点发送1次提醒'],
+'2 deposits unpaid for bookings tomorrow/Mon — reminders sent, will auto-release slots at 8 PM': ['明天/週一的預約有2筆訂金未付——提醒已傳送，晚上8點將自動釋出時段','明天/周一的预约有2笔订金未付——提醒已发送，晚上8点将自动释放时段'],
+'2 slots': ['2個時段','2个时段'],
+'VIP dormant 9 weeks (usual cycle 3). Suggested: personal win-back with lash-fill offer': ['VIP已沉睡9週（平常週期為3週）。建議：附睫毛補接優惠的親自召回','VIP已沉睡9周（平常周期为3周）。建议：附睫毛补接优惠的亲自召回'],
+'LTV $2,210': ['終身價值 $2,210','终身价值 $2,210'],
+'Nurul Huda · Devi Chandran': ['Nurul Huda · Devi Chandran','Nurul Huda · Devi Chandran'],
+/* ---------- beauty: approvals ---------- */
+'Campaign': ['行銷活動','营销活动'],
+'Rainy-week off-peak facials': ['雨季離峰臉部護理','雨季非高峰面部护理'],
+'Send to 84 consented customers · est. 6–9 bookings ($780–$1,170)': ['傳送給84位已授權客戶 · 預估6–9筆預約（$780–$1,170）','发送给84位已授权客户 · 预估6–9笔预约（$780–$1,170）'],
+'Campaign approved — sending Sat 10:00 AM to 84 customers': ['行銷活動已核准——將於週六上午10點傳送給84位客戶','营销活动已批准——将于周六上午10点发送给84位客户'],
+'Review reply': ['評價回覆','评价回复'],
+'Reply to Dana L. (2★ Google review)': ['回覆 Dana L.（2★ Google評價）','回复 Dana L.（2★ Google评价）'],
+'Apology + invitation to re-do drafted; posting is held for your approval': ['道歉並邀請重做的回覆已擬妥；發布前需您核准','道歉并邀请重做的回复已拟好；发布前需您批准'],
+'Reply posted to Google': ['回覆已發布至Google','回复已发布至Google'],
+'Knowledge': ['知識庫','知识库'],
+'Price list v13 (lash fill $68 → $72)': ['價目表 v13（睫毛補接 $68 → $72）','价目表 v13（睫毛补接 $68 → $72）'],
+'Uploaded by Joanne yesterday — goes live only after owner review': ['Joanne昨天上傳——經店主審核後才會生效','Joanne昨天上传——经店主审核后才会生效'],
+'Price list v13 is live — AI will quote new prices immediately': ['價目表 v13 已生效——AI將立即按新價格報價','价目表 v13 已生效——AI将立即按新价格报价'],
+'Identity': ['身分合併','身份合并'],
+'Merge @jasmineeats → Jasmine Koh': ['合併 @jasmineeats → Jasmine Koh','合并 @jasmineeats → Jasmine Koh'],
+'Same phone on IG profile and CRM record — confirm to merge': ['IG個人檔案與CRM紀錄的電話相同——確認後即合併','IG个人资料与CRM记录的电话相同——确认后即合并'],
+'Profiles merged — history from both channels kept': ['檔案已合併——保留兩個管道的完整紀錄','档案已合并——保留两个渠道的完整记录'],
+/* ---------- beauty: tasks ---------- */
+'Call Dana Lim — recovery ticket RT-114, script drafted': ['致電 Dana Lim——補救工單 RT-114，話術已擬妥','致电 Dana Lim——补救工单 RT-114，话术已拟好'],
+'Reputation Agent': ['口碑Agent','口碑Agent'],
+'Today 12:00 PM': ['今天 12:00 PM','今天 12:00 PM'],
+'Confirm 2 stylists for 22 Aug bridal party, then release the group quote': ['為8月22日婚禮團體確認2位美容師，然後發出團體報價','为8月22日婚礼团体确认2位美容师，然后发出团体报价'],
+'Sales Agent': ['銷售Agent','销售Agent'],
+'Today 10:00 AM': ['今天 10:00 AM','今天 10:00 AM'],
+'Review Price list v13 (lash fill $68 → $72)': ['審核價目表 v13（睫毛補接 $68 → $72）','审核价目表 v13（睫毛补接 $68 → $72）'],
+'Business Brain': ['業務知識庫','业务知识库'],
+'Today': ['今天','今天'],
+'Call the 2 unpaid deposits if still unpaid at 6 PM (auto-reminders sent)': ['若下午6點仍未付款，致電2位未付訂金的客戶（自動提醒已傳送）','若下午6点仍未付款，致电2位未付订金的客户（自动提醒已发送）'],
+'Follow-up Agent': ['跟進Agent','跟进Agent'],
+'Front desk': ['前台','前台'],
+'Today 6:00 PM': ['今天 6:00 PM','今天 6:00 PM'],
+'Prep Grace Fu birthday visit — free brow-shape voucher': ['準備 Grace Fu 的生日到訪——免費修眉券','准备 Grace Fu 的生日到访——免费修眉券'],
+'CRM Agent': ['CRM Agent','CRM Agent'],
+'Mon 13 Jul': ['7月13日 週一','7月13日 周一'],
+'Draft answer: “Do you do bridal home visits?” (asked 4×)': ['擬定答案：「你們提供婚禮到府服務嗎？」（已被問4次）','拟定答案：“你们提供婚礼上门服务吗？”（已被问4次）'],
+'This week': ['本週','本周'],
+'Send aftercare notes to yesterday’s 6 lash clients': ['向昨天6位美睫客戶傳送保養須知','向昨天6位美睫客户发送保养须知'],
+'Done 7:45 AM': ['已完成 7:45 AM','已完成 7:45 AM'],
+/* ---------- beauty: campaigns ---------- */
+'Demand forecast: NEA forecasts monsoon surge Mon–Wed · Tue 2–6 PM only 60% booked': ['需求預測：環境局預報週一至週三有季風雨 · 週二下午2–6點僅60%訂滿','需求预测：环境局预报周一至周三有季风雨 · 周二下午2–6点仅60%订满'],
+'84 consented customers, facial buyers or facial-curious, no visit in 3+ weeks. Excludes: open complaints, unsubscribed, contacted <14 days ago.': ['84位已授權客戶，曾購買或詢問過臉部護理，3週以上未到訪。排除：有未結客訴、已取消訂閱、14天內已聯繫。','84位已授权客户，曾购买或询问过面部护理，3周以上未到访。排除：有未结投诉、已退订、14天内已联系。'],
+'Sat 10:00 AM': ['週六 10:00 AM','周六 10:00 AM'],
+'WhatsApp template': ['WhatsApp 範本訊息','WhatsApp 模板消息'],
+'July birthdays': ['7月壽星','7月寿星'],
+'Lifecycle: birthday within 7 days · runs monthly': ['生命週期：7天內生日 · 每月執行','生命周期：7天内生日 · 每月执行'],
+'6 customers with July birthdays (incl. Grace Fu, 14 Jul)': ['6位7月生日的客戶（含 Grace Fu，7月14日）','6位7月生日的客户（含 Grace Fu，7月14日）'],
+'Each customer, 3 days before birthday, 11 AM': ['每位客戶生日前3天上午11點','每位客户生日前3天上午11点'],
+'Dormant win-back (June)': ['沉睡客戶召回（6月）','沉睡客户召回（6月）'],
+'Lifecycle: no visit in 8+ weeks, LTV > $200': ['生命週期：8週以上未到訪，終身價值 > $200','生命周期：8周以上未到访，终身价值 > $200'],
+'62 dormant customers': ['62位沉睡客戶','62位沉睡客户'],
+'Sent 24 Jun, 11 AM': ['6月24日上午11點已傳送','6月24日上午11点已发送'],
+'Off-peak Tuesdays (June)': ['週二離峰時段（6月）','周二非高峰时段（6月）'],
+'Capacity: Tue 2–6 PM under 65% booked': ['產能：週二下午2–6點訂位率低於65%','产能：周二下午2–6点订位率低于65%'],
+'48 flexible-schedule customers': ['48位時間彈性的客戶','48位时间灵活的客户'],
+'Sent 17 Jun': ['6月17日已傳送','6月17日已发送'],
+'Lash-fill cycle reminders (rolling)': ['睫毛補接週期提醒（持續執行）','睫毛补接周期提醒（持续执行）'],
+'Lifecycle: 17 days since last lash appointment (individual)': ['生命週期：距上次美睫已17天（逐一觸發）','生命周期：距上次美睫已17天（逐一触发）'],
+'Rolling — 31 sends in June': ['持續執行——6月共傳送31次','持续执行——6月共发送31次'],
+'Automated, per customer': ['自動化，按客戶逐一傳送','自动化，按客户逐一发送'],
+/* ---------- beauty: reputation ---------- */
+'Recovery ticket RT-114 · same customer as open complaint': ['補救工單 RT-114 · 與未結客訴為同一位客戶','补救工单 RT-114 · 与未结投诉为同一位客户'],
+'Fast replies / easy booking': ['回覆快 / 預約方便','回复快 / 预约方便'],
+'Lash quality': ['美睫品質','美睫质量'],
+'Parking difficulty': ['停車不便','停车不便'],
+'Gel durability': ['光療持久度','光疗持久度'],
+'Themes are extracted from review text and post-service surveys. “Gel durability” created recovery ticket RT-114 and a staff-training suggestion.': ['主題由評價內容與服務後問卷萃取。「光療持久度」已產生補救工單 RT-114 及一項員工培訓建議。','主题由评价内容与服务后问卷提取。“光疗持久度”已生成补救工单 RT-114 及一项员工培训建议。'],
+/* ---------- beauty: knowledge ---------- */
+'Price list': ['價目表','价目表'],
+'Services & pricing': ['服務與定價','服务与定价'],
+'All service prices, durations, add-ons. v13 changes: Lash Fill $68 → $72. Sensitive — owner approval required before AI can quote new prices.': ['所有服務的價格、時長與加購項目。v13變更：睫毛補接 $68 → $72。屬敏感內容——AI須經店主核准才能按新價報價。','所有服务的价格、时长与加购项目。v13变更：睫毛补接 $68 → $72。属敏感内容——AI须经店主批准才能按新价报价。'],
+'v12 live · v13 pending approval': ['v12 生效中 · v13 待核准','v12 生效中 · v13 待批准'],
+'v13 live': ['v13 已生效','v13 已生效'],
+'R-03 · First-visit discount': ['R-03 · 首次到店優惠','R-03 · 首次到店优惠'],
+'Rules centre': ['規則中心','规则中心'],
+'15% off first visit, any service, not stackable. AI may offer proactively on price objections.': ['首次到店任何服務85折，不可疊加。客戶對價格有異議時AI可主動提出。','首次到店任何服务85折，不可叠加。客户对价格有异议时AI可主动提出。'],
+'R-07 · Group bookings': ['R-07 · 團體預約','R-07 · 团体预约'],
+'Groups of 4+: AI may quote and hold a slot but staff must confirm stylist availability before final confirmation. Bridal 4+ gets 10% off.': ['4人以上團體：AI可報價並保留時段，但須由員工確認美容師人力後才能最終確認。婚禮4人以上享9折。','4人以上团体：AI可报价并保留时段，但须由员工确认美容师人力后才能最终确认。婚礼4人以上享9折。'],
+'R-09 · Service recovery limits': ['R-09 · 服務補救權限','R-09 · 服务补救权限'],
+'AI may suggest (never promise): free re-do within 7 days, credit up to $20. Refunds are owner-only decisions.': ['AI可建議（絕不承諾）：7天內免費重做、最高$20的抵用金。退款僅限店主決定。','AI可建议（绝不承诺）：7天内免费重做、最高$20的抵用金。退款仅限店主决定。'],
+'FAQ-04 · Opening hours & men’s services': ['FAQ-04 · 營業時間與男士服務','FAQ-04 · 营业时间与男士服务'],
+'Tue–Sun 10:30–20:30, closed Mondays. Yes to men’s manicures/facials — mention ~20% of mani clients are men.': ['週二至週日10:30–20:30，週一公休。提供男士美甲/臉部護理——可提及約20%的美甲客人是男士。','周二至周日10:30–20:30，周一闭店。提供男士美甲/面部护理——可提及约20%的美甲客人是男士。'],
+'AI (approved by Rachel)': ['AI（經Rachel核准）','AI（经Rachel批准）'],
+'SOP-11 · Brow lamination aftercare': ['SOP-11 · 眉毛雕塑保養須知','SOP-11 · 眉毛雕塑保养须知'],
+'Pre: no retinol near brows 48h. Post: keep dry 24h, no makeup on brows 24h.': ['前：48小時內眉周不使用A醇。後：24小時保持乾燥，24小時內眉部不上妝。','前：48小时内眉周不使用A醇。后：24小时保持干燥，24小时内眉部不上妆。'],
+'Pregnancy-safe treatments': ['孕期安全療程','孕期安全项目'],
+'Safety': ['安全','安全'],
+'Lash/brow OK with patch test; avoid certain facial acids. AI must recommend checking with doctor — never give medical assurances (hands off if pressed).': ['美睫/美眉須先做過敏測試；避免部分臉部酸類。AI必須建議諮詢醫生——絕不給予醫療保證（被追問時轉交人工）。','美睫/美眉须先做过敏测试；避免部分面部酸类。AI必须建议咨询医生——绝不给予医疗保证（被追问时转交人工）。'],
+'Brand voice': ['品牌語氣','品牌语气'],
+'Brand': ['品牌','品牌'],
+'Warm, unhurried, a little playful. EN: plain, friendly wording. ZH: 亲切、不过度促销. Never pushy; one nudge max on follow-ups. Banned: “cheapest”, “guaranteed results”.': ['溫暖、從容、帶點俏皮。英文：平實友善的用語。中文：親切、不過度促銷。絕不強推；跟進最多提醒一次。禁用詞：「最便宜」、「保證效果」。','温暖、从容、带点俏皮。英文：平实友善的用语。中文：亲切、不过度促销。绝不强推；跟进最多提醒一次。禁用词：“最便宜”、“保证效果”。'],
+'Objection scripts · “too expensive”': ['異議話術 · 「太貴了」','异议话术 · “太贵了”'],
+'Sales scripts': ['銷售話術','销售话术'],
+'Acknowledge → explain value (Japanese gel, free removal) → offer R-03 first-visit 15% → never discount beyond rules.': ['先認同 → 說明價值（日本品牌膠、免費卸甲）→ 提出R-03首次85折 → 絕不超出規則折扣。','先认同 → 说明价值（日本品牌胶、免费卸甲）→ 提出R-03首次85折 → 绝不超出规则折扣。'],
+'Do you do bridal home visits?': ['你們提供婚禮到府服務嗎？','你们提供婚礼上门服务吗？'],
+'AI declined to guess; suggest adding a policy (Priya asked too)': ['AI拒絕臆測；建議新增相關政策（Priya也問過）','AI拒绝臆测；建议新增相关政策（Priya也问过）'],
+'Is lash glue safe for sensitive eyes / can I get a patch test?': ['睫毛膠對敏感眼睛安全嗎／可以做過敏測試嗎？','睫毛胶对敏感眼睛安全吗／可以做过敏测试吗？'],
+'Partially covered by Safety doc — needs an FAQ-level answer': ['安全文件僅部分涵蓋——需要一則FAQ層級的答案','安全文件仅部分涵盖——需要一则FAQ层级的答案'],
+'Do you sell gift cards?': ['你們有賣禮品卡嗎？','你们有卖礼品卡吗？'],
+'No knowledge item exists': ['尚無對應的知識條目','尚无对应的知识条目'],
+/* ---------- beauty: onboarding ---------- */
+'This is what a new merchant does on day one. Total time: about 20 minutes — the Business Brain is built from files you already have.': ['這是新商家第一天要做的事。總共約20分鐘——業務知識庫由您現有的文件自動建立。','这是新商家第一天要做的事。总共约20分钟——业务知识库由您现有的文件自动建立。'],
+'Photo of the studio price list': ['店內價目表的照片','店内价目表的照片'],
+'Cancellation, lateness & refund policies': ['取消、遲到與退款政策','取消、迟到与退款政策'],
+'3 months of real customer Q&A': ['3個月的真實客戶問答紀錄','3个月的真实客户问答记录'],
+'10 services with prices & durations': ['10項服務的價格與時長','10项服务的价格与时长'],
+'Cancellation & lateness policy': ['取消與遲到政策','取消与迟到政策'],
+'First-visit discount rule': ['首次到店優惠規則','首次到店优惠规则'],
+'23 FAQs found in past chats': ['從過往對話中找到23則常見問題','从过往对话中找到23条常见问题'],
+'Brand voice profile (EN + 中文)': ['品牌語氣設定（英文＋中文）','品牌语气设置（英文＋中文）'],
+'4 questions it could not answer — sent to you': ['4個無法回答的問題——已傳送給您','4个无法回答的问题——已发送给您'],
+'Gap list': ['缺口清單','缺口清单'],
+'Prices, refund rules and safety items are marked sensitive — the AI can’t use them until you tap Approve on each. Everything else goes live now.': ['價格、退款規則與安全事項已標記為敏感——您逐項核准前AI無法使用。其餘內容立即生效。','价格、退款规则与安全事项已标记为敏感——您逐项批准前AI无法使用。其余内容立即生效。'],
+'Connect your WhatsApp number and the AI starts answering — with staff able to take over any conversation, and every price it quotes traceable to what you uploaded.': ['連接您的WhatsApp號碼，AI即開始回覆——員工可隨時接手任何對話，AI報出的每個價格都可追溯至您上傳的文件。','连接您的WhatsApp号码，AI即开始回复——员工可随时接手任何对话，AI报出的每个价格都可追溯至您上传的文件。'],
+'Price list v1 · imported 2 minutes ago': ['價目表 v1 · 2分鐘前匯入','价目表 v1 · 2分钟前导入'],
+/* ---------- shared: funnel / days ---------- */
+'Leads': ['商機','商机'],
+'Qualified': ['已確認需求','已确认需求'],
+'Booked': ['已預約','已预约'],
+'Showed': ['已到店','已到店'],
+'Rebooked': ['再次預約','再次预约'],
+'Completed': ['已完成','已完成'],
+'BIAB Manicure': ['BIAB美甲','BIAB美甲'],
+'Volume Lash': ['濃密美睫','浓密美睫'],
+'Signature Facial': ['招牌臉部護理','招牌面部护理'],
+'Lash Fill': ['睫毛補接','睫毛补接'],
+'Gel Extensions': ['光療延甲','光疗延甲'],
+'Fri 10': ['週五 10','周五 10'],
+'Sat 11': ['週六 11','周六 11'],
+'Sun 12': ['週日 12','周日 12'],
+'Mon 13': ['週一 13','周一 13'],
+'Tue 14': ['週二 14','周二 14'],
+'Wed 15': ['週三 15','周三 15'],
+'Thu 16': ['週四 16','周四 16'],
+'Fri 17': ['週五 17','周五 17'],
+'Sat is your peak — 2 stylists booked out by noon': ['週六是高峰——2位美容師中午前已全數訂滿','周六是高峰——2位美容师中午前已全部订满'],
+/* ---------- beauty: strategy / KPIs ---------- */
+'This week: fill Tuesday–Wednesday afternoons before the monsoon surge': ['本週重點：在季風雨來臨前填滿週二、週三下午','本周重点：在季风雨来临前填满周二、周三下午'],
+'Tue/Wed 2–6 PM next week are 40% empty while weekend slots are nearly full — approve the rainy-week facial campaign (est. $780–$1,170) to shift demand.': ['下週二/三下午2–6點有40%空檔，而週末時段幾乎全滿——核准雨季臉部護理活動（預估$780–$1,170）以轉移需求。','下周二/三下午2–6点有40%空档，而周末时段几乎全满——批准雨季面部护理活动（预估$780–$1,170）以转移需求。'],
+'Lash-fill cycle reminders are your highest-ROI automation (46×) — 8 more customers hit their 17-day mark this week; keep it running.': ['睫毛補接週期提醒是您投報率最高的自動化（46倍）——本週還有8位客戶到達17天週期；請保持運行。','睫毛补接周期提醒是您回报率最高的自动化（46倍）——本周还有8位客户到达17天周期；请保持运行。'],
+'Instagram converts at 39% vs WhatsApp’s 53% — leads answered within 5 minutes book 2.1× more often. The 6 PM auto-nudge for @sitiblooms is queued.': ['Instagram轉換率為39%，WhatsApp為53%——5分鐘內獲回覆的商機，預約率高2.1倍。@sitiblooms的下午6點自動提醒已排定。','Instagram转化率为39%，WhatsApp为53%——5分钟内获回复的商机，预约率高2.1倍。@sitiblooms的下午6点自动提醒已排定。'],
+'Basis: last 30 days of bookings, June campaign results, NEA 7-day outlook. Forecast confidence: ±20%.': ['依據：近30天預約、6月活動成效、環境局7天展望。預測信賴水準：±20%。','依据：近30天预约、6月活动成效、环境局7天展望。预测置信度：±20%。'],
+'First response': ['首次回應','首次响应'],
+'was 3.5 h before Rook': ['使用Rook前為3.5小時','使用Rook前为3.5小时'],
+'Inquiries handled by AI': ['AI處理的諮詢佔比','AI处理的咨询占比'],
+'28% handed to staff': ['28%轉交員工','28%转交员工'],
+'Lead → booking': ['商機 → 預約','商机 → 预约'],
+'+11 pts vs May': ['較5月 +11 百分點','较5月 +11 百分点'],
+'Un-followed-up leads': ['未跟進的商機','未跟进的商机'],
+'was ~15/wk before': ['之前約每週15筆','之前约每周15条'],
+'Repeat-purchase rate': ['回購率','回购率'],
+'+7 pts vs May': ['較5月 +7 百分點','较5月 +7 百分点'],
+'Campaign revenue (30d)': ['行銷活動營收（30天）','营销活动营收（30天）'],
+'$153 message cost': ['訊息成本 $153','消息成本 $153'],
+'Cost per AI-handled conversation': ['每筆AI處理對話的成本','每条AI处理对话的成本'],
+'model + WhatsApp fees': ['模型＋WhatsApp費用','模型＋WhatsApp费用'],
+'Cost per AI-won booking': ['每筆AI促成預約的成本','每笔AI促成预约的成本'],
+'vs ~$14 typical paid-ads CPA': ['對比付費廣告約$14的獲客成本','对比付费广告约$14的获客成本'],
+'Staff time saved (est.)': ['節省的員工時間（估）','节省的员工时间（估）'],
+'repetitive replies + follow-ups': ['重複回覆＋跟進工作','重复回复＋跟进工作'],
+/* ---------- beauty: social ---------- */
+'Lash transformation: before/after (client consent on file)': ['美睫改造：前後對比（客戶授權已存檔）','美睫改造：前后对比（客户授权已存档）'],
+'Instagram Reel': ['Instagram Reel','Instagram Reel'],
+'BIAB at week 3 — durability close-ups': ['BIAB第3週——持久度特寫','BIAB第3周——持久度特写'],
+'IG carousel': ['IG多圖貼文','IG多图贴文'],
+'Sunday slots + the Duxton parking tip': ['週日時段＋Duxton停車攻略','周日时段＋Duxton停车攻略'],
+'Google post': ['Google貼文','Google贴文'],
+'Studio closed — repost of top review (automated)': ['公休日——轉發最佳評價（自動）','闭店日——转发最佳评价（自动）'],
+'IG story': ['IG限時動態','IG快拍'],
+'Rainy-week facial promo': ['雨季臉部護理促銷','雨季面部护理促销'],
+'Publishes only if the campaign is approved': ['僅在行銷活動獲核准後發布','仅在营销活动获批准后发布'],
+'IG story + Google': ['IG限時動態＋Google','IG快拍＋Google'],
+'Client feature: bridal trial morning': ['客戶特輯：婚前試妝早晨','客户特辑：婚前试妆早晨'],
+'Held — client consent not yet on file': ['暫緩——客戶授權尚未存檔','暂缓——客户授权尚未存档'],
+'IG Reel': ['IG Reel','IG Reel'],
+'Behind the scenes: tool sterilisation routine': ['幕後直擊：工具消毒流程','幕后直击：工具消毒流程'],
+'Needs a 30s clip — see asset list': ['需要一段30秒影片——見素材清單','需要一段30秒视频——见素材清单'],
+'Volume lash close-up reel': ['濃密睫毛特寫短片','浓密睫毛特写短视频'],
+'“Is BIAB worth it?” Q&A story': ['「BIAB值得做嗎？」問答動態','“BIAB值得做吗？”问答快拍'],
+'Small reach, high conversion — AI suggests making this a monthly format': ['觸及少但轉換高——AI建議做成每月固定形式','触达少但转化高——AI建议做成每月固定形式'],
+'Nail art of the month carousel': ['本月美甲作品多圖貼文','本月美甲作品多图贴文'],
+'IG comment': ['IG留言','IG留言'],
+'23m ago': ['23分鐘前','23分钟前'],
+'Lead created · replied + invited to WhatsApp': ['已建立商機 · 已回覆並邀請至WhatsApp','已创建商机 · 已回复并邀请至WhatsApp'],
+'IG DM': ['IG私訊','IG私信'],
+'2h ago': ['2小時前','2小时前'],
+'Lead created · routed to bridal script': ['已建立商機 · 已轉入婚禮話術流程','已创建商机 · 已转入婚礼话术流程'],
+'5h ago': ['5小時前','5小时前'],
+'Routed to Reputation · human review': ['已轉入口碑模組 · 人工審核','已转入口碑模块 · 人工审核'],
+'9h ago': ['9小時前','9小时前'],
+'Human review queue': ['人工審核佇列','人工审核队列'],
+'IG comments': ['IG留言','IG留言'],
+'yesterday': ['昨天','昨天'],
+'Auto-hidden': ['已自動隱藏','已自动隐藏'],
+'3 accounts': ['3個帳號','3个账号'],
+'Natural-light close-up of volume lash application — your top-converting theme (2 of your top 3 posts)': ['自然光下的濃密睫毛施作特寫——您轉換率最高的主題（前3名貼文中佔2席）','自然光下的浓密睫毛操作特写——您转化率最高的主题（前3名贴文中占2席）'],
+'30-second BIAB removal clip — answers the FAQ asked 21× this month': ['30秒BIAB卸除影片——回答本月被問21次的常見問題','30秒BIAB卸除视频——回答本月被问21次的常见问题'],
+'Ask Grace Fu for a membership testimonial (VIP, 26 visits, consent on file)': ['邀請 Grace Fu 提供會員見證（VIP，26次到訪，授權已存檔）','邀请 Grace Fu 提供会员见证（VIP，26次到访，授权已存档）'],
+/* ---------- beauty: trust ---------- */
+'marketing consent coverage': ['行銷授權覆蓋率','营销授权覆盖率'],
+'others get service messages only': ['其餘客戶僅接收服務性訊息','其余客户仅接收服务性消息'],
+'consent + DNC checks (30d)': ['授權＋DNC核查（30天）','授权＋DNC核查（30天）'],
+'100% pass before any send': ['每次傳送前100%通過','每次发送前100%通过'],
+'unsubscribes (30d)': ['取消訂閱（30天）','退订（30天）'],
+'both processed in under 1 h': ['均在1小時內處理完成','均在1小时内处理完成'],
+'data request (30d)': ['資料請求（30天）','数据请求（30天）'],
+'export completed in 6 h': ['匯出在6小時內完成','导出在6小时内完成'],
+'Quiet hours: no marketing 9 PM–9 AM (service replies stay 24/7)': ['靜音時段：晚上9點至早上9點不傳行銷訊息（服務回覆維持24/7）','静音时段：晚上9点至早上9点不发营销消息（服务回复保持24/7）'],
+'Frequency cap: max 2 marketing messages per customer per 14 days': ['頻率上限：每位客戶每14天最多2則行銷訊息','频率上限：每位客户每14天最多2条营销消息'],
+'Auto-excluded: open complaints, no consent, unsubscribed, contacted <14 days': ['自動排除：未結客訴、未授權、已取消訂閱、14天內已聯繫','自动排除：未结投诉、未授权、已退订、14天内已联系'],
+'Language rule: ZH-preference customers receive ZH templates': ['語言規則：偏好中文的客戶收到中文範本','语言规则：偏好中文的客户收到中文模板'],
+'Bulk sends, discounts and public replies require owner/manager approval': ['大量傳送、折扣與公開回覆須經店主/店長核准','批量发送、折扣与公开回复须经店主/店长批准'],
+'Owner': ['店主','店主'],
+'Everything — refunds, exports, permissions': ['全部權限——退款、匯出、權限管理','全部权限——退款、导出、权限管理'],
+'Manager': ['店長','店长'],
+'Approve knowledge & replies · no data exports': ['可核准知識與回覆 · 不可匯出資料','可批准知识与回复 · 不可导出数据'],
+'Staff': ['員工','员工'],
+'Inbox, tasks, bookings · no bulk sends': ['收件匣、任務、預約 · 不可大量傳送','收件箱、任务、预约 · 不可批量发送'],
+'Front desk (2)': ['前台（2人）','前台（2人）'],
+'Agency': ['代理商','代理商'],
+'Social drafts only · no customer data': ['僅社群草稿 · 無客戶資料權限','仅社交媒体草稿 · 无客户数据权限'],
+'AI replied to Marcus Wee — price quoted from Price list v12': ['AI回覆 Marcus Wee——按價目表v12報價','AI回复 Marcus Wee——按价目表v12报价'],
+'Campaign pre-check: 84 recipients passed consent + DNC + frequency caps': ['活動預檢：84位收件人通過授權＋DNC＋頻率上限核查','活动预检：84位收件人通过授权＋DNC＋频率上限核查'],
+'AI escalated Priya Nair — group-booking rule R-07': ['AI上報 Priya Nair——團體預約規則R-07','AI上报 Priya Nair——团体预约规则R-07'],
+'Yst 9:03 PM': ['昨 9:03 PM','昨 9:03 PM'],
+'Joanne uploaded Price list v13 — held for owner approval': ['Joanne上傳價目表v13——待店主核准','Joanne上传价目表v13——待店主批准'],
+'Yst 7:22 PM': ['昨 7:22 PM','昨 7:22 PM'],
+'AI paused itself — complaint with refund intent (Dana Lim)': ['AI自行暫停——含退款意向的客訴（Dana Lim）','AI自行暂停——含退款意向的投诉（Dana Lim）'],
+'Yst 7:23 PM': ['昨 7:23 PM','昨 7:23 PM'],
+'Marketing suppressed for Dana Lim until ticket RT-114 closes': ['已暫停對 Dana Lim 的行銷，直至工單RT-114結案','已暂停对 Dana Lim 的营销，直至工单RT-114结案'],
+'Yst 4:05 PM': ['昨 4:05 PM','昨 4:05 PM'],
+'Front desk attempted a customer export — denied (staff role)': ['前台嘗試匯出客戶資料——已拒絕（員工角色）','前台尝试导出客户数据——已拒绝（员工角色）'],
+'Tue 11:30 AM': ['週二 11:30 AM','周二 11:30 AM'],
+'Data export completed for Grace Fu (PDPA access request)': ['已完成 Grace Fu 的資料匯出（PDPA查閱請求）','已完成 Grace Fu 的数据导出（PDPA查阅请求）'],
+/* ---------- beauty: referrals / teamCompare ---------- */
+'$15 credit for both sides after the friend’s first visit (R-11) — the AI sends the link when a customer leaves a 5★ review or a “my friend asked” signal appears in chat.': ['朋友首次到店後雙方各得$15抵用金（R-11）——當客戶留下5★評價或對話中出現「我朋友想問」訊號時，AI會傳送專屬連結。','朋友首次到店后双方各得$15抵用金（R-11）——当客户留下5★评价或对话中出现“我朋友想问”信号时，AI会发送专属链接。'],
+'referral leads (30d)': ['轉介商機（30天）','转介绍商机（30天）'],
+'became bookings': ['轉化為預約','转化为预约'],
+'referred revenue': ['轉介帶來的營收','转介绍带来的营收'],
+'credits issued': ['已發放的抵用金','已发放的抵用金'],
+'VIP · sends her office colleagues': ['VIP · 常介紹同事來','VIP · 常介绍同事来'],
+'1 friend still deciding — follow-up queued': ['1位朋友仍在考慮——跟進已排定','1位朋友仍在考虑——跟进已排定'],
+'Link shared yesterday': ['昨天分享了連結','昨天分享了链接'],
+'By stylist — last 30 days': ['按美容師 — 近30天','按美容师 — 近30天'],
+'Stylist': ['美容師','美容师'],
+'Bookings': ['預約數','预约数'],
+'Revenue': ['營收','营收'],
+'Avg rating': ['平均評分','平均评分'],
+'Rebook rate': ['回訪率','回访率'],
+'Joanne’s rebook rate is 7 points higher — her aftercare scripts were added to the knowledge base as the standard this month.': ['Joanne的回訪率高出7個百分點——她的保養話術本月已納入知識庫作為標準。','Joanne的回访率高出7个百分点——她的保养话术本月已纳入知识库作为标准。'],
+/* ---------- beauty: conversations ---------- */
+'Bridal party of 5 — lashes + nails, 22 Aug': ['5人婚禮團體——美睫＋美甲，8月22日','5人婚礼团体——美睫＋美甲，8月22日'],
+'Group booking': ['團體預約','团体预约'],
+'Group booking over 4 pax requires staff confirmation of stylist availability (Rules Centre R-07).': ['超過4人的團體預約須由員工確認美容師人力（規則中心R-07）。','超过4人的团体预约须由员工确认美容师人力（规则中心R-07）。'],
+'Confirm 2 stylists for 22 Aug morning, then send group quote $1,017 (bridal bundle −10%).': ['確認8月22日上午2位美容師，然後傳送團體報價$1,017（婚禮組合9折）。','确认8月22日上午2位美容师，然后发送团体报价$1,017（婚礼组合9折）。'],
+'Service': ['服務項目','服务项目'],
+'Volume lash ×5, gel mani ×5': ['濃密美睫×5、光療美甲×5','浓密美睫×5、光疗美甲×5'],
+'Date needed': ['需求日期','需求日期'],
+'Sat 22 Aug, before 1 PM': ['8月22日（六），下午1點前','8月22日（六），下午1点前'],
+'Party size': ['人數','人数'],
+'5 pax': ['5位','5位'],
+'Budget': ['預算','预算'],
+'“around $1k”': ['「大約$1k」','“大约$1k”'],
+'Language': ['語言','语言'],
+'English': ['英語','英语'],
+'Urgency': ['緊急程度','紧急程度'],
+'High — wedding': ['高——婚禮','高——婚礼'],
+'Price list v12 · Rules Centre R-07': ['價目表v12 · 規則中心R-07','价目表v12 · 规则中心R-07'],
+'Escalated to owner — group booking >4 pax (R-07). Slot held. Task created for Rachel.': ['已上報店主——團體預約超過4人（R-07）。時段已保留。已為Rachel建立任務。','已上报店主——团体预约超过4人（R-07）。时段已保留。已为Rachel创建任务。'],
+'Price inquiry → booked': ['價格諮詢 → 已預約','价格咨询 → 已预约'],
+'Send Tue 10 AM reminder with parking directions (automated).': ['週二上午10點傳送含停車指引的提醒（自動）。','周二上午10点发送含停车指引的提醒（自动）。'],
+'BIAB Structured Manicure': ['BIAB結構美甲','BIAB结构美甲'],
+'Tue 14 Jul, 2:00 PM': ['7月14日（二）2:00 PM','7月14日（二）2:00 PM'],
+'Normal': ['一般','一般'],
+'Price list v12': ['價目表 v12','价目表 v12'],
+'Rules Centre R-03 · first-visit 15%': ['規則中心R-03 · 首次85折','规则中心R-03 · 首次85折'],
+'Booking created · first-visit discount applied per R-03 · customer profile created (ZH).': ['已建立預約 · 依R-03套用首次優惠 · 已建立客戶檔案（中文）。','已创建预约 · 依R-03应用首次优惠 · 已创建客户档案（中文）。'],
+'how much for volume lashes?': ['濃密睫毛多少錢？','浓密睫毛多少钱？'],
+'Price inquiry': ['價格諮詢','价格咨询'],
+'If no reply by 6 PM, send one gentle follow-up with this month’s lash portfolio (max 1 nudge — IG policy).': ['若下午6點前無回覆，傳送一次附本月美睫作品集的溫和跟進（最多1次——IG政策）。','若下午6点前无回复，发送一次附本月美睫作品集的温和跟进（最多1次——IG政策）。'],
+'Volume Lash Extensions': ['濃密睫毛嫁接','浓密睫毛嫁接'],
+'Browsing': ['隨意瀏覽','随意浏览'],
+'Social lead created from IG DM · high-intent keyword “how much” · guided to WhatsApp.': ['由IG私訊建立社群商機 · 高意向關鍵詞「多少錢」 · 已引導至WhatsApp。','由IG私信创建社交商机 · 高意向关键词“多少钱” · 已引导至WhatsApp。'],
+'Honestly quite disappointed… gel chipped in 3 days': ['說實話蠻失望的……光療3天就剝落','说实话挺失望的……光疗3天就剥落'],
+'Complaint · refund risk': ['客訴 · 退款風險','投诉 · 退款风险'],
+'Complaint with refund intent — AI paused itself per hand-off policy. Recovery ticket RT-114 created; owner notified before customer posts a public review.': ['含退款意向的客訴——AI依轉交政策自行暫停。已建立補救工單RT-114；在客戶發布公開評價前已通知店主。','含退款意向的投诉——AI依转交政策自行暂停。已创建补救工单RT-114；在客户发布公开评价前已通知店主。'],
+'Rachel to call Dana before noon; offer free re-do with senior stylist (drafted below). Do not send automated marketing until resolved.': ['Rachel中午前致電Dana；提供資深美容師免費重做（草稿見下）。解決前暫停自動行銷。','Rachel中午前致电Dana；提供资深美容师免费重做（草稿见下）。解决前暂停自动营销。'],
+'Gel Extensions (visit Mon 7 Jul)': ['光療延甲（7月7日週一到店）','光疗延甲（7月7日周一到店）'],
+'Sentiment': ['情緒','情绪'],
+'Negative — refund intent': ['負面——有退款意向','负面——有退款意向'],
+'Customer tier': ['客戶等級','客户等级'],
+'VIP · 14 visits': ['VIP · 14次到訪','VIP · 14次到访'],
+'High': ['高','高'],
+'AI paused (complaint + refund intent). Recovery ticket RT-114 → owner. Suggested remedy: free re-do w/ senior stylist + $20 credit (within R-09 limits). Marketing suppressed for this customer.': ['AI已暫停（客訴＋退款意向）。補救工單RT-114 → 店主。建議補救：資深美容師免費重做＋$20抵用金（在R-09權限內）。已暫停對此客戶的行銷。','AI已暂停（投诉＋退款意向）。补救工单RT-114 → 店主。建议补救：资深美容师免费重做＋$20抵用金（在R-09权限内）。已暂停对此客户的营销。'],
+'Do you do men’s manicures? Open Sunday?': ['你們做男士美甲嗎？週日營業嗎？','你们做男士美甲吗？周日营业吗？'],
+'None — answered from knowledge base. Auto-close if no reply in 48h.': ['無——已由知識庫回答。48小時無回覆將自動結束。','无——已由知识库回答。48小时无回复将自动关闭。'],
+'Classic Gel Manicure': ['經典光療美甲','经典光疗美甲'],
+'Sunday (browsing)': ['週日（瀏覽中）','周日（浏览中）'],
+'Low': ['低','低'],
+'FAQ-04 · Opening hours': ['FAQ-04 · 營業時間','FAQ-04 · 营业时间'],
+'Voice note (0:19) → rescheduled to Sat 10:30 AM': ['語音訊息（0:19）→ 已改約至週六10:30 AM','语音消息（0:19）→ 已改约至周六10:30 AM'],
+'Voice note · reschedule': ['語音訊息 · 改期','语音消息 · 改期'],
+'None — reschedule confirmed within cancellation rules. Reminder updated automatically.': ['無——改期符合取消規則，已確認。提醒已自動更新。','无——改期符合取消规则，已确认。提醒已自动更新。'],
+'Original slot': ['原時段','原时段'],
+'Sat 11 Jul, 3:00 PM': ['7月11日（六）3:00 PM','7月11日（六）3:00 PM'],
+'New slot': ['新時段','新时段'],
+'Sat 11 Jul, 10:30 AM': ['7月11日（六）10:30 AM','7月11日（六）10:30 AM'],
+'English (Singlish)': ['英語（新加坡式）','英语（新加坡式）'],
+'Source': ['來源','来源'],
+'Voice note, auto-transcribed': ['語音訊息，自動轉錄','语音消息，自动转录'],
+'Cancellation policy · >24h free': ['取消政策 · 超過24小時免費','取消政策 · 超过24小时免费'],
+'Voice note transcribed (EN/Singlish) → intent: reschedule → booking moved, reminder updated.': ['語音已轉錄（英語/新加坡式）→ 意圖：改期 → 預約已調整，提醒已更新。','语音已转录（英语/新加坡式）→ 意图：改期 → 预约已调整，提醒已更新。'],
+'Ok let’s do Sunday 11am then!': ['好，那就週日上午11點！','好，那就周日上午11点！'],
+'Follow-up recovered': ['跟進挽回','跟进挽回'],
+'Reminder + pre-facial skincare note scheduled for Sat 6 PM (automated).': ['提醒＋護理前保養須知已排定週六下午6點傳送（自動）。','提醒＋护理前保养须知已排定周六下午6点发送（自动）。'],
+'Hydrating Signature Facial': ['保濕招牌臉部護理','保湿招牌面部护理'],
+'Sun 12 Jul, 11:00 AM': ['7月12日（日）11:00 AM','7月12日（日）11:00 AM'],
+'Quote sent 2 days ago, no reply — Follow-up Agent triggered cadence step 1.': ['2天前已報價但無回覆——跟進Agent觸發第1步跟進。','2天前已报价但无回复——跟进Agent触发第1步跟进。'],
+'Conversion recovered by follow-up cadence (would otherwise have lapsed). Attributed: Follow-up Agent.': ['由跟進節奏挽回的轉換（否則將流失）。歸因：跟進Agent。','由跟进节奏挽回的转化（否则将流失）。归因：跟进Agent。'],
+'New number · +65 9611 2087': ['新號碼 · +65 9611 2087','新号码 · +65 9611 2087'],
+'None — booked automatically. Reminder scheduled Sat 6 PM.': ['無——已自動完成預約。提醒排定週六下午6點。','无——已自动完成预约。提醒排定周六下午6点。'],
+'Booked · Sun 12 PM Brow Lamination': ['已預約 · 週日12點眉毛雕塑','已预约 · 周日12点眉毛雕塑'],
+'Lead → booking in 41 seconds, fully automated': ['商機 → 預約僅41秒，全程自動','商机 → 预约仅41秒，全程自动'],
+'Brow Lamination': ['眉毛雕塑','眉毛雕塑'],
+'Sun 12 Jul, 12:00 PM': ['7月12日（日）12:00 PM','7月12日（日）12:00 PM'],
+'SOP-11 · Brow aftercare': ['SOP-11 · 眉部保養','SOP-11 · 眉部保养'],
+'Lead created → qualified → booked in 41 seconds. Customer profile created. Reminder scheduled Sat 6 PM.': ['建立商機 → 確認需求 → 完成預約，僅41秒。已建立客戶檔案。提醒排定週六下午6點。','创建商机 → 确认需求 → 完成预约，仅41秒。已创建客户档案。提醒排定周六下午6点。'],
+'Booking inquiry': ['預約諮詢','预约咨询'],
+'Live — playing now…': ['即時進行中…','实时进行中…'],
+/* ---------- beauty: timeline / tags / prefs ---------- */
+'BIAB manicure with Joanne — $88 · left 5★ review': ['Joanne操作的BIAB美甲——$88 · 留下5★評價','Joanne操作的BIAB美甲——$88 · 留下5★评价'],
+'Review invite sent · review received 40 min later': ['已傳送評價邀請 · 40分鐘後收到評價','已发送评价邀请 · 40分钟后收到评价'],
+'BIAB manicure — $88': ['BIAB美甲——$88','BIAB美甲——$88'],
+'Clicked “Bring a friend” campaign · friend booked (referral credited)': ['點擊「帶朋友來」活動 · 朋友已預約（轉介已記錄）','点击“带朋友来”活动 · 朋友已预约（转介绍已记录）'],
+'Gel manicure — $68 · noted: sensitive cuticles, use gentler remover': ['光療美甲——$68 · 備註：甘皮敏感，使用較溫和卸甲液','光疗美甲——$68 · 备注：甘皮敏感，使用较温和卸甲液'],
+'visit': ['到訪','到访'],
+'ai': ['AI','AI'],
+'campaign': ['行銷活動','营销活动'],
+'High intent': ['高意向','高意向'],
+'Bridal': ['婚禮','婚礼'],
+'Volume Lash + Gel Mani': ['濃密美睫＋光療美甲','浓密美睫＋光疗美甲'],
+'Price-sensitive': ['價格敏感','价格敏感'],
+'First visit booked': ['已預約首次到店','已预约首次到店'],
+'Social lead': ['社群商機','社交商机'],
+'Lashes': ['美睫','美睫'],
+'Complaint open': ['客訴處理中','投诉处理中'],
+'Men’s grooming': ['男士美容','男士美容'],
+'Recovered by follow-up': ['由跟進挽回','由跟进挽回'],
+'Lapsed 9 weeks': ['已流失9週','已流失9周'],
+'Volume Lash + Facial': ['濃密美睫＋臉部護理','浓密美睫＋面部护理'],
+'Merge suggested: @jasmineeats': ['建議合併：@jasmineeats','建议合并：@jasmineeats'],
+'Birthday 14 Jul': ['生日 7月14日','生日 7月14日'],
+'Membership': ['會員','会员'],
+'Facial Package': ['臉部護理套組','面部护理套餐'],
+'Deposit unpaid': ['訂金未付','订金未付'],
+'Prefers weekday AM': ['偏好平日上午','偏好工作日上午'],
+'Deep Cleanse Facial': ['深層清潔臉部護理','深层清洁面部护理'],
+'Regular 3-week cycle': ['固定3週週期','固定3周周期'],
+'Brings a friend': ['常帶朋友來','常带朋友来'],
+'Sensitive skin': ['敏感肌','敏感肌'],
+'Classic Lash Extensions': ['經典睫毛嫁接','经典睫毛嫁接'],
+'Prefers Joanne': ['指定Joanne','指定Joanne'],
+'Quiet hours only': ['僅限靜音時段外聯繫','仅限静音时段外联系'],
+'Cash payer': ['現金支付','现金支付'],
+'Prefers weekends': ['偏好週末','偏好周末'],
+'Responds to promos': ['對促銷有反應','对促销有反应'],
+'Prefers Ms Lee': ['指定Ms Lee','指定Ms Lee'],
+/* ---------- pets: merchant / brief / activity ---------- */
+'Mobile pet grooming · island-wide': ['到府寵物美容 · 全島服務','上门宠物美容 · 全岛服务'],
+'Daily 9:00–19:00': ['每日 9:00–19:00','每日 9:00–19:00'],
+'2 vans, dispatched from Kaki Bukit': ['2輛服務車，自加基武吉調度','2辆服务车，自加基武吉调度'],
+'Good morning, Daniel — 2 calls to make; Saturday is nearly sold out.': ['早安，Daniel——有2通電話要打；週六幾乎全數訂滿。','早上好，Daniel——有2通电话要打；周六几乎全部订满。'],
+'Overnight the AI answered 7 inquiries and routed 6 bookings onto the vans. Saturday’s two routes are at 92% and 85% — the waitlist is on. Ravi reported Toby’s nail was cut too short (call before 11, remedy drafted), and Mdm Lim’s anxious Persian needs a senior groomer assessment call. NEA has a heat advisory next week: a coat-care campaign is drafted for your approval.': ['昨夜AI回覆了7筆諮詢，並將6筆預約排入服務車路線。週六兩條路線分別達92%和85%——候補名單已開啟。Ravi反映Toby的指甲剪得太短（請11點前致電，補救方案已擬妥），林太太焦慮的波斯貓需要資深美容師的評估電話。環境局發布下週高溫預警：毛髮護理活動已擬妥待您核准。','昨夜AI回复了7条咨询，并将6笔预约排入服务车路线。周六两条路线分别达92%和85%——候补名单已开启。Ravi反映Toby的指甲剪得太短（请11点前致电，补救方案已拟好），林太太焦虑的波斯猫需要资深美容师的评估电话。环境局发布下周高温预警：毛发护理活动已拟好待您批准。'],
+'While you slept — since 7:00 PM yesterday': ['您休息期間——自昨晚7:00起','您休息期间——自昨晚7:00起'],
+'cycle reminders sent': ['已傳送的週期提醒','已发送的周期提醒'],
+'bookings routed to vans': ['已排入服務車的預約','已排入服务车的预约'],
+/* ---------- pets: opportunities ---------- */
+'Pet injury complaint (Toby, nail). Call before 11 AM — vet-bill decision is yours, script ready': ['寵物受傷客訴（Toby，指甲）。請上午11點前致電——獸醫費用由您決定，話術已備妥','宠物受伤投诉（Toby，指甲）。请上午11点前致电——兽医费用由您决定，话术已备好'],
+'LTV $936': ['終身價值 $936','终身价值 $936'],
+'Anxious Persian cat + sedation question — senior groomer assessment call needed today': ['焦慮的波斯貓＋鎮靜劑詢問——今天需要資深美容師評估電話','焦虑的波斯猫＋镇静剂询问——今天需要资深美容师评估电话'],
+'Sat 10 AM double-groom held on Van 2 — $20 deposit unpaid for 8h, auto-releases 8 PM': ['週六上午10點雙寵美容保留在2號車——$20訂金已8小時未付，晚上8點自動釋出','周六上午10点双宠美容保留在2号车——$20订金已8小时未付，晚上8点自动释放'],
+'Saturday routes': ['週六路線','周六路线'],
+'Van 1 north loop 92% full, Van 2 Punggol loop 85% — 3 slots left across both. Waitlist is on': ['1號車北區路線已滿92%，2號車榜鵝路線85%——兩車合計剩3個時段。候補名單已開啟','1号车北区路线已满92%，2号车榜鹅路线85%——两车合计剩3个时段。候补名单已开启'],
+'3 slots': ['3個時段','3个时段'],
+'4 overdue regulars': ['4位逾期的常客','4位逾期的常客'],
+'Joyce (Bobo), + 3 more past their 8-week cycle — cycle reminders queued for 11 AM': ['Joyce（Bobo）等4位已超過8週週期——週期提醒排定上午11點傳送','Joyce（Bobo）等4位已超过8周周期——周期提醒排定上午11点发送'],
+/* ---------- pets: approvals / tasks ---------- */
+'Heatwave coat-care special': ['高溫毛髮護理特惠','高温毛发护理特惠'],
+'Send to 96 consented customers · est. 8–12 bookings ($860–$1,290)': ['傳送給96位已授權客戶 · 預估8–12筆預約（$860–$1,290）','发送给96位已授权客户 · 预估8–12笔预约（$860–$1,290）'],
+'Campaign approved — sending tomorrow 9:30 AM to 96 customers': ['行銷活動已核准——明天上午9:30傳送給96位客戶','营销活动已批准——明天上午9:30发送给96位客户'],
+'Reply to Ravi K. (2★ Google review)': ['回覆 Ravi K.（2★ Google評價）','回复 Ravi K.（2★ Google评价）'],
+'Apology + remedy drafted; posting held for your approval': ['道歉與補救方案已擬妥；發布前需您核准','道歉与补救方案已拟好；发布前需您批准'],
+'Price list v9 (Large dog $128 → $138)': ['價目表 v9（大型犬 $128 → $138）','价目表 v9（大型犬 $128 → $138）'],
+'Fuel + time costs on large breeds — goes live only after your review': ['大型犬的油費與工時成本——經您審核後才會生效','大型犬的油费与工时成本——经您审核后才会生效'],
+'Price list v9 is live — AI will quote new prices immediately': ['價目表 v9 已生效——AI將立即按新價格報價','价目表 v9 已生效——AI将立即按新价格报价'],
+'Merge @latte.maltipoo → Melissa Chng': ['合併 @latte.maltipoo → Melissa Chng','合并 @latte.maltipoo → Melissa Chng'],
+'Call Ravi Kumar — ticket RT-52, vet-bill decision is owner-only': ['致電 Ravi Kumar——工單RT-52，獸醫費用僅限店主決定','致电 Ravi Kumar——工单RT-52，兽医费用仅限店主决定'],
+'Today 11:00 AM': ['今天 11:00 AM','今天 11:00 AM'],
+'Assessment call: Mimi the Persian (anxious cat, sedation question)': ['評估電話：波斯貓Mimi（焦慮，詢問鎮靜劑）','评估电话：波斯猫Mimi（焦虑，询问镇静剂）'],
+'Safety rule S-02': ['安全規則 S-02','安全规则 S-02'],
+'Review Price list v9 (large dog $128 → $138)': ['審核價目表 v9（大型犬 $128 → $138）','审核价目表 v9（大型犬 $128 → $138）'],
+'Call Sarah Goh if deposit + vaccination proof still missing at 6 PM': ['若下午6點仍未收到訂金與疫苗證明，致電 Sarah Goh','若下午6点仍未收到订金与疫苗证明，致电 Sarah Goh'],
+'Front office': ['前台','前台'],
+'Cost a 3rd van day for a Bedok Saturday loop': ['評估勿洛週六路線增開第3車日的成本','评估勿洛周六路线增开第3车日的成本'],
+'Insight Agent': ['洞察Agent','洞察Agent'],
+'Get consent from Mimi’s owner for the client-feature reel': ['向Mimi的主人取得客戶特輯影片的授權','向Mimi的主人取得客户特辑视频的授权'],
+'Social Agent': ['社群Agent','社交Agent'],
+'Send groom-day reminders for Saturday routes (14 customers)': ['傳送週六路線的美容日提醒（14位客戶）','发送周六路线的美容日提醒（14位客户）'],
+'Done 7:30 AM': ['已完成 7:30 AM','已完成 7:30 AM'],
+/* ---------- pets: campaigns ---------- */
+'External: NEA heat advisory Mon–Thu next week · de-shed capacity open on weekday routes': ['外部因素：環境局預警下週一至四高溫 · 平日路線的去毛護理仍有空檔','外部因素：环境局预警下周一至四高温 · 工作日路线的去毛护理仍有空档'],
+'96 consented customers with double-coat or long-hair pets, no groom in 4+ weeks. Excludes: open complaints, unsubscribed, contacted <14 days ago.': ['96位已授權、養雙層毛或長毛寵物的客戶，4週以上未美容。排除：有未結客訴、已取消訂閱、14天內已聯繫。','96位已授权、养双层毛或长毛宠物的客户，4周以上未美容。排除：有未结投诉、已退订、14天内已联系。'],
+'Sat 9:30 AM': ['週六 9:30 AM','周六 9:30 AM'],
+'Pet birthdays (July)': ['寵物生日（7月）','宠物生日（7月）'],
+'Lifecycle: pet birthday within 7 days · runs monthly': ['生命週期：寵物7天內生日 · 每月執行','生命周期：宠物7天内生日 · 每月执行'],
+'5 pets with July birthdays on file': ['檔案中有5隻寵物7月生日','档案中有5只宠物7月生日'],
+'Each pet, 3 days before birthday, 10 AM': ['每隻寵物生日前3天上午10點','每只宠物生日前3天上午10点'],
+'8-week cycle reminders (rolling)': ['8週週期提醒（持續執行）','8周周期提醒（持续执行）'],
+'Lifecycle: 56 days since last groom (per pet)': ['生命週期：距上次美容已56天（按寵物逐一觸發）','生命周期：距上次美容已56天（按宠物逐一触发）'],
+'Rolling — 44 sends in June': ['持續執行——6月共傳送44次','持续执行——6月共发送44次'],
+'Automated, per pet': ['自動化，按寵物逐一傳送','自动化，按宠物逐一发送'],
+'Lifecycle: no groom in 12+ weeks, LTV > $200': ['生命週期：12週以上未美容，終身價值 > $200','生命周期：12周以上未美容，终身价值 > $200'],
+'51 dormant customers': ['51位沉睡客戶','51位沉睡客户'],
+'Sent 22 Jun, 10 AM': ['6月22日上午10點已傳送','6月22日上午10点已发送'],
+'Weekday morning routes (June)': ['平日上午路線（6月）','工作日上午路线（6月）'],
+'Capacity: Tue–Thu 9–12 routes under 60% booked': ['產能：週二至週四9–12點路線訂位率低於60%','产能：周二至周四9–12点路线订位率低于60%'],
+'38 flexible customers (retirees, WFH)': ['38位時間彈性的客戶（退休人士、在家工作者）','38位时间灵活的客户（退休人士、居家办公者）'],
+'Sent 15 Jun': ['6月15日已傳送','6月15日已发送'],
+/* ---------- pets: reputation / knowledge ---------- */
+'Recovery ticket RT-52 · same customer as open complaint': ['補救工單 RT-52 · 與未結客訴為同一位客戶','补救工单 RT-52 · 与未结投诉为同一位客户'],
+'Convenience / no travel stress': ['方便 / 免去交通壓力','方便 / 免去交通压力'],
+'Gentle with anxious pets': ['對焦慮寵物很溫柔','对焦虑宠物很温柔'],
+'East-side weekend availability': ['東部週末時段不足','东部周末时段不足'],
+'Nail-trimming care': ['剪指甲的細心度','剪指甲的细心度'],
+'Themes are extracted from review text and post-visit surveys. “Nail-trimming care” created recovery ticket RT-52 and a groomer-retraining suggestion.': ['主題由評價內容與服務後問卷萃取。「剪指甲的細心度」已產生補救工單 RT-52 及一項美容師再培訓建議。','主题由评价内容与服务后问卷提取。“剪指甲的细心度”已生成补救工单 RT-52 及一项美容师再培训建议。'],
+'Price list (by size & coat)': ['價目表（按體型與毛質）','价目表（按体型与毛质）'],
+'All grooming prices by pet size, coat type, add-ons. v9 change: Large dog $128 → $138. Sensitive — owner approval required before AI can quote new prices.': ['按寵物體型、毛質與加購項目的所有美容價格。v9變更：大型犬 $128 → $138。屬敏感內容——AI須經店主核准才能按新價報價。','按宠物体型、毛质与加购项目的所有美容价格。v9变更：大型犬 $128 → $138。属敏感内容——AI须经店主批准才能按新价报价。'],
+'v8 live · v9 pending approval': ['v8 生效中 · v9 待核准','v8 生效中 · v9 待批准'],
+'v9 live': ['v9 已生效','v9 已生效'],
+'Service zones & van routing': ['服務區域與派車路線','服务区域与派车路线'],
+'Operations': ['營運','运营'],
+'Island-wide. Postal code → route loop mapping (Van 1 north/west, Van 2 north-east). $15 surcharge: Sentosa. AI checks route day before offering windows.': ['全島服務。郵遞區號 → 路線對應（1號車北/西區，2號車東北區）。聖淘沙加收$15。AI提供時段前會先核對當日路線。','全岛服务。邮政编码 → 路线对应（1号车北/西区，2号车东北区）。圣淘沙加收$15。AI提供时段前会先核对当日路线。'],
+'S-01 · Injury & welfare reports': ['S-01 · 受傷與福祉通報','S-01 · 受伤与福祉通报'],
+'ANY report of injury, bleeding, limping or distress: AI apologises, advises vet if symptoms persist, and hands off immediately. Vet-bill offers are owner-only.': ['任何受傷、流血、跛行或不適的通報：AI先致歉，若症狀持續建議就醫，並立即轉交人工。獸醫費用補償僅限店主決定。','任何受伤、流血、跛行或不适的通报：AI先致歉，若症状持续建议就医，并立即转交人工。兽医费用补偿仅限店主决定。'],
+'S-02 · Sedation & medical topics': ['S-02 · 鎮靜劑與醫療話題','S-02 · 镇静剂与医疗话题'],
+'No sedation services, ever. Anxious/aggressive/senior pets require a groomer assessment call before booking. AI never gives medical advice.': ['絕不提供鎮靜服務。焦慮/具攻擊性/高齡寵物須先由美容師電話評估才能預約。AI絕不提供醫療建議。','绝不提供镇静服务。焦虑/具攻击性/高龄宠物须先由美容师电话评估才能预约。AI绝不提供医疗建议。'],
+'Vaccination policy': ['疫苗政策','疫苗政策'],
+'First-time pets: proof of core vaccinations before the visit. AI requests a photo of the vax booklet after booking.': ['首次服務的寵物：到府前須提供核心疫苗證明。AI在預約後會請客戶提供疫苗手冊照片。','首次服务的宠物：上门前须提供核心疫苗证明。AI在预约后会请客户提供疫苗手册照片。'],
+'R-04 · Multi-pet discount': ['R-04 · 多寵優惠','R-04 · 多宠优惠'],
+'10% off total for 2+ pets in one visit, same address. Not stackable with first-visit 15% (apply the better one).': ['同一地址單次服務2隻以上寵物總價9折。不可與首次85折疊加（擇優適用）。','同一地址单次服务2只以上宠物总价9折。不可与首次85折叠加（择优适用）。'],
+'D-02 · Deposits & holds': ['D-02 · 訂金與保留','D-02 · 订金与保留'],
+'$20 deposit confirms a van slot. Unpaid holds: 1 automated reminder, auto-release after 12h. Refundable up to 24h before.': ['$20訂金確認服務車時段。未付保留：1次自動提醒，12小時後自動釋出。24小時前可退。','$20订金确认服务车时段。未付保留：1次自动提醒，12小时后自动释放。24小时前可退。'],
+'Severe matting policy': ['嚴重打結政策','严重打结政策'],
+'Severe matting may require a shave-down — groomer decides on-site for the pet’s comfort. AI sets this expectation but never promises a specific outcome.': ['嚴重打結可能需要剃毛——由美容師到場後以寵物舒適為前提決定。AI會先建立此預期，但絕不承諾特定結果。','严重打结可能需要剃毛——由美容师到场后以宠物舒适为前提决定。AI会先建立此预期，但绝不承诺特定结果。'],
+'Mei (senior groomer)': ['Mei（資深美容師）','Mei（资深美容师）'],
+'SOP-03 · Van arrival protocol': ['SOP-03 · 服務車抵達流程','SOP-03 · 服务车抵达流程'],
+'Groomer calls 15 min before arrival. Needs: parking lot or loading bay access. Customer told: water/power NOT needed, van is self-contained.': ['美容師抵達前15分鐘來電。需求：停車位或卸貨區。告知客戶：不需供水供電，服務車自給自足。','美容师抵达前15分钟来电。需求：停车位或卸货区。告知客户：不需供水供电，服务车自给自足。'],
+'Friendly, pet-name-first (“How’s Biscuit doing?”), light humour OK. EN + 中文. Never fear-based selling. Banned: “guaranteed calm”, “100% safe”.': ['親切、以寵物名字開頭（「Biscuit最近好嗎？」），可帶輕鬆幽默。英文＋中文。絕不用恐嚇式銷售。禁用詞：「保證乖巧」、「100%安全」。','亲切、以宠物名字开头（“Biscuit最近好吗？”），可带轻松幽默。英文＋中文。绝不用恐吓式销售。禁用词：“保证乖巧”、“100%安全”。'],
+'Do you groom rabbits?': ['你們幫兔子美容嗎？','你们帮兔子美容吗？'],
+'No policy exists — AI declined to guess each time': ['尚無相關政策——AI每次都拒絕臆測','尚无相关政策——AI每次都拒绝臆测'],
+'Can the groomer give my dog his medication during the visit?': ['美容師可以在服務時幫我的狗餵藥嗎？','美容师可以在服务时帮我的狗喂药吗？'],
+'Safety-adjacent — needs an owner-approved policy, likely “no, but we can pause while you do”': ['涉及安全——需要店主核准的政策，可能是「不行，但您餵藥時我們可以暫停」','涉及安全——需要店主批准的政策，可能是“不行，但您喂药时我们可以暂停”'],
+'Do you offer package pricing for monthly grooms?': ['每月美容有套餐價嗎？','每月美容有套餐价吗？'],
+'No knowledge item exists — possible new revenue line': ['尚無對應知識條目——可能是新的營收線','尚无对应知识条目——可能是新的营收线'],
+/* ---------- pets: onboarding ---------- */
+'Rate card by pet size & coat': ['按寵物體型與毛質的價目卡','按宠物体型与毛质的价目卡'],
+'Weekly route loops for both vans': ['兩輛服務車的每週路線','两辆服务车的每周路线'],
+'9 services priced by size & coat': ['9項按體型與毛質定價的服務','9项按体型与毛质定价的服务'],
+'Route loops → postal-code zones': ['路線 → 郵遞區號區域','路线 → 邮政编码区域'],
+'Deposit & cancellation rules': ['訂金與取消規則','订金与取消规则'],
+'19 FAQs found in past chats': ['從過往對話中找到19則常見問題','从过往对话中找到19条常见问题'],
+'Safety flags: sedation & injury topics': ['安全標記：鎮靜劑與受傷話題','安全标记：镇静剂与受伤话题'],
+'3 questions it could not answer — sent to you': ['3個無法回答的問題——已傳送給您','3个无法回答的问题——已发送给您'],
+'Prices, safety rules and deposits are marked sensitive — the AI can’t use them until you tap Approve on each. Everything else goes live now.': ['價格、安全規則與訂金已標記為敏感——您逐項核准前AI無法使用。其餘內容立即生效。','价格、安全规则与订金已标记为敏感——您逐项批准前AI无法使用。其余内容立即生效。'],
+'Price list v1 · Route zones — imported 2 minutes ago': ['價目表 v1 · 路線區域——2分鐘前匯入','价目表 v1 · 路线区域——2分钟前导入'],
+/* ---------- pets: services / forecast / strategy / KPIs ---------- */
+'Full Groom M': ['全套美容（中型）','全套美容（中型）'],
+'Full Groom L': ['全套美容（大型）','全套美容（大型）'],
+'Full Groom S': ['全套美容（小型）','全套美容（小型）'],
+'Cat Groom': ['貓咪美容','猫咪美容'],
+'De-shed add-on': ['去毛加購','去毛加购'],
+'Both vans near capacity Sat–Sun — heat advisory lifts weekday demand': ['週六日兩車接近滿載——高溫預警帶動平日需求','周六日两车接近满载——高温预警带动工作日需求'],
+'This week: push heatwave de-shedding onto quiet weekday routes': ['本週重點：把高溫去毛需求導向較空的平日路線','本周重点：把高温去毛需求导向较空的工作日路线'],
+'Weekends are at 88%+ but Tue–Thu morning routes run at 58% — approve the heatwave coat-care campaign (est. $860–$1,290) to move flexible customers off-peak.': ['週末訂位率88%以上，但週二至週四上午路線僅58%——核准高溫毛髮護理活動（預估$860–$1,290），把時間彈性的客戶移往離峰。','周末订位率88%以上，但周二至周四上午路线仅58%——批准高温毛发护理活动（预估$860–$1,290），把时间灵活的客户移往非高峰。'],
+'Cycle reminders are your highest-ROI automation (55×) — 4 more pets pass their 8-week mark this week; reminders are queued for 11 AM.': ['週期提醒是您投報率最高的自動化（55倍）——本週還有4隻寵物到達8週週期；提醒排定上午11點傳送。','周期提醒是您回报率最高的自动化（55倍）——本周还有4只宠物到达8周周期；提醒排定上午11点发送。'],
+'East-side weekend demand keeps exceeding supply (4 review mentions + waitlist). A Bedok loop on alternate Saturdays would absorb it — worth costing a 3rd van day.': ['東部週末需求持續供不應求（4則評價提及＋候補名單）。隔週週六增設勿洛路線可消化需求——值得評估增開第3車日的成本。','东部周末需求持续供不应求（4条评价提及＋候补名单）。隔周周六增设勿洛路线可消化需求——值得评估增开第3车日的成本。'],
+'Basis: last 30 days of bookings, June campaign results, NEA heat advisory. Forecast confidence: ±20%.': ['依據：近30天預約、6月活動成效、環境局高溫預警。預測信賴水準：±20%。','依据：近30天预约、6月活动成效、环境局高温预警。预测置信度：±20%。'],
+'was 4 h before Rook': ['使用Rook前為4小時','使用Rook前为4小时'],
+'31% handed to staff': ['31%轉交員工','31%转交员工'],
+'+9 pts vs May': ['較5月 +9 百分點','较5月 +9 百分点'],
+'was ~12/wk before': ['之前約每週12筆','之前约每周12条'],
+'Repeat / rebook rate': ['回購/再預約率','回购/再预约率'],
+'+6 pts vs May': ['較5月 +6 百分點','较5月 +6 百分点'],
+'$142 message cost': ['訊息成本 $142','消息成本 $142'],
+'vs ~$12 typical paid-ads CPA': ['對比付費廣告約$12的獲客成本','对比付费广告约$12的获客成本'],
+'phone tag + route planning': ['電話往返＋路線規劃','电话往返＋路线规划'],
+/* ---------- pets: social ---------- */
+'Husky de-shed timelapse pt 2 (pt 1 hit 48k)': ['哈士奇去毛縮時影片第2集（第1集達4.8萬觀看）','哈士奇去毛延时视频第2集（第1集达4.8万观看）'],
+'Route day: Van 2 in Punggol — 1 slot left': ['路線日：2號車在榜鵝——僅剩1個時段','路线日：2号车在榜鹅——仅剩1个时段'],
+'Capacity-aware — pulls live route data': ['產能連動——讀取即時路線資料','产能联动——读取实时路线数据'],
+'Weekend nail trims — we come to you': ['週末剪指甲——我們到府服務','周末剪指甲——我们上门服务'],
+'Heatwave coat-care tips': ['高溫毛髮護理小知識','高温毛发护理小知识'],
+'IG post + Google': ['IG貼文＋Google','IG贴文＋Google'],
+'Client feature: Mimi the Persian’s home groom': ['客戶特輯：波斯貓Mimi的居家美容','客户特辑：波斯猫Mimi的居家美容'],
+'Held — owner consent not yet on file': ['暫緩——飼主授權尚未存檔','暂缓——宠物主人授权尚未存档'],
+'Matting 101: why we sometimes recommend a shave-down': ['打結入門：為什麼有時我們會建議剃毛','打结入门：为什么有时我们会建议剃毛'],
+'Sets expectations — ties to the matting policy': ['建立預期——呼應打結政策','建立预期——呼应打结政策'],
+'Husky de-shed timelapse': ['哈士奇去毛縮時影片','哈士奇去毛延时视频'],
+'Outlier — AI suggests a boosted ad + follow-up reel while interest is hot': ['爆款——AI建議趁熱投放廣告並拍攝後續影片','爆款——AI建议趁热投放广告并拍摄后续视频'],
+'Anxious cat home groom (with consent)': ['焦慮貓咪的居家美容（已獲授權）','焦虑猫咪的居家美容（已获授权）'],
+'Van tour: inside the mobile salon': ['服務車導覽：行動美容室內部','服务车导览：移动美容室内部'],
+'41m ago': ['41分鐘前','41分钟前'],
+'3h ago': ['3小時前','3小时前'],
+'Answered from route zones · no human needed': ['由路線區域資料回答 · 無需人工','由路线区域数据回答 · 无需人工'],
+'6h ago': ['6小時前','6小时前'],
+'8h ago': ['8小時前','8小时前'],
+'Human queue · flagged as community-campaign idea': ['人工佇列 · 已標記為社區活動構想','人工队列 · 已标记为社区活动构想'],
+'5 accounts': ['5個帳號','5个账号'],
+'Before/after de-shed shots in daylight — your top-converting theme by far': ['日光下的去毛前後對比照——您目前轉換率最高的主題','日光下的去毛前后对比照——您目前转化率最高的主题'],
+'15-second clip of a groomer calming an anxious dog (get owner consent first)': ['美容師安撫焦慮狗狗的15秒影片（須先取得飼主授權）','美容师安抚焦虑狗狗的15秒视频（须先取得宠物主人授权）'],
+'Ask Imran for a two-GSD testimonial (VIP, consent on file)': ['邀請 Imran 提供雙德牧見證（VIP，授權已存檔）','邀请 Imran 提供双德牧见证（VIP，授权已存档）'],
+/* ---------- pets: trust ---------- */
+'all processed in under 1 h': ['均在1小時內處理完成','均在1小时内处理完成'],
+'data requests (30d)': ['資料請求（30天）','数据请求（30天）'],
+'none this month': ['本月無','本月无'],
+'Quiet hours: no marketing 8 PM–9 AM (service replies stay 24/7)': ['靜音時段：晚上8點至早上9點不傳行銷訊息（服務回覆維持24/7）','静音时段：晚上8点至早上9点不发营销消息（服务回复保持24/7）'],
+'Vaccination records stored as sensitive documents — staff view only, never in chat logs': ['疫苗紀錄以敏感文件儲存——僅限員工檢視，絕不出現在對話紀錄','疫苗记录以敏感文件存储——仅限员工查看，绝不出现在对话记录'],
+'Bulk sends, discounts and public replies require owner/senior approval': ['大量傳送、折扣與公開回覆須經店主/資深人員核准','批量发送、折扣与公开回复须经店主/资深人员批准'],
+'Senior groomer': ['資深美容師','资深美容师'],
+'Approve SOPs & safety replies · no data exports': ['可核准SOP與安全回覆 · 不可匯出資料','可批准SOP与安全回复 · 不可导出数据'],
+'Route tasks, chat takeover · no bulk sends': ['路線任務、對話接手 · 不可大量傳送','路线任务、对话接手 · 不可批量发送'],
+'Groomers (3)': ['美容師（3人）','美容师（3人）'],
+'AI routed Jon Lau to Van 1 by postal code — quoted from Price list v8': ['AI依郵遞區號將 Jon Lau 排入1號車——按價目表v8報價','AI依邮政编码将 Jon Lau 排入1号车——按价目表v8报价'],
+'Campaign pre-check: 96 recipients passed consent + DNC + frequency caps': ['活動預檢：96位收件人通過授權＋DNC＋頻率上限核查','活动预检：96位收件人通过授权＋DNC＋频率上限核查'],
+'Yst 7:05 PM': ['昨 7:05 PM','昨 7:05 PM'],
+'AI refused sedation advice — safety rule S-02, escalated to senior groomer': ['AI拒絕提供鎮靜建議——安全規則S-02，已上報資深美容師','AI拒绝提供镇静建议——安全规则S-02，已上报资深美容师'],
+'Yst 3:10 PM': ['昨 3:10 PM','昨 3:10 PM'],
+'AI paused itself — pet injury report (Ravi Kumar), ticket RT-52': ['AI自行暫停——寵物受傷通報（Ravi Kumar），工單RT-52','AI自行暂停——宠物受伤通报（Ravi Kumar），工单RT-52'],
+'Yst 3:11 PM': ['昨 3:11 PM','昨 3:11 PM'],
+'Marketing suppressed for Ravi Kumar until ticket RT-52 closes': ['已暫停對 Ravi Kumar 的行銷，直至工單RT-52結案','已暂停对 Ravi Kumar 的营销，直至工单RT-52结案'],
+'Yst 1:44 PM': ['昨 1:44 PM','昨 1:44 PM'],
+'Groomer requested the customer list — denied (staff role)': ['美容師請求客戶名單——已拒絕（員工角色）','美容师请求客户名单——已拒绝（员工角色）'],
+'Wed 6:20 PM': ['週三 6:20 PM','周三 6:20 PM'],
+'Daniel uploaded Price list v9 — held for owner approval': ['Daniel上傳價目表v9——待店主核准','Daniel上传价目表v9——待店主批准'],
+'Tue 10:15 AM': ['週二 10:15 AM','周二 10:15 AM'],
+'Vaccination booklet photo filed for Sarah Goh (sensitive document)': ['已歸檔 Sarah Goh 的疫苗手冊照片（敏感文件）','已归档 Sarah Goh 的疫苗手册照片（敏感文件）'],
+/* ---------- pets: referrals / teamCompare ---------- */
+'$10 credit for both sides after the friend’s first groom (R-06) — the AI offers the link after a 5★ review or when a customer mentions a friend’s pet in chat.': ['朋友首次美容後雙方各得$10抵用金（R-06）——當客戶留下5★評價或在對話中提到朋友的寵物時，AI會主動提供連結。','朋友首次美容后双方各得$10抵用金（R-06）——当客户留下5★评价或在对话中提到朋友的宠物时，AI会主动提供链接。'],
+'VIP · the GSD community group chat': ['VIP · 德牧社群群組','VIP · 德牧社群群聊'],
+'Both anxious-cat owners': ['兩位都是焦慮貓咪的飼主','两位都是焦虑猫咪的主人'],
+'Neighbour, same block — same van visit': ['鄰居，同一棟——同一趟服務車','邻居，同一栋——同一趟服务车'],
+'By van — last 30 days': ['按服務車 — 近30天','按服务车 — 近30天'],
+'Van': ['服務車','服务车'],
+'Utilisation': ['使用率','使用率'],
+'Van 1 · north/west loops': ['1號車 · 北/西區路線','1号车 · 北/西区路线'],
+'Van 2 · north-east loops': ['2號車 · 東北區路線','2号车 · 东北区路线'],
+'Van 2’s Punggol–Sengkang loop runs 11 points hotter — the data behind the “cost a 3rd van day” task in your queue.': ['2號車的榜鵝–盛港路線使用率高出11個百分點——這就是您任務清單中「評估第3車日」背後的數據。','2号车的榜鹅–盛港路线使用率高出11个百分点——这就是您任务清单中“评估第3车日”背后的数据。'],
+/* ---------- pets: conversations ---------- */
+'Booked Sat 10 AM — Biscuit + Momo, Punggol': ['已預約週六上午10點——Biscuit＋Momo，榜鵝','已预约周六上午10点——Biscuit＋Momo，榜鹅'],
+'On-site booking': ['到府預約','上门预约'],
+'Deposit link unpaid for 8h — one automated reminder at 10 AM, then hold releases at 8 PM (Rules D-02).': ['訂金連結已8小時未付——上午10點自動提醒一次，晚上8點釋出保留（規則D-02）。','订金链接已8小时未付——上午10点自动提醒一次，晚上8点释放保留（规则D-02）。'],
+'Pets': ['寵物','宠物'],
+'Biscuit (Golden Retriever, ~30kg) · Momo (Corgi, ~12kg)': ['Biscuit（黃金獵犬，約30kg）· Momo（柯基，約12kg）','Biscuit（金毛，约30kg）· Momo（柯基，约12kg）'],
+'Full groom ×2': ['全套美容×2','全套美容×2'],
+'Address': ['地址','地址'],
+'Blk 268C Punggol Field, #— (lift lobby B)': ['榜鵝Field 268C座，#—（B電梯廳）','榜鹅Field 268C座，#—（B电梯厅）'],
+'Time window': ['時間窗','时间窗'],
+'Sat 11 Jul, 10 AM–12 PM': ['7月11日（六）10 AM–12 PM','7月11日（六）10 AM–12 PM'],
+'Van assigned': ['指派車輛','指派车辆'],
+'Van 2 (Sengkang loop)': ['2號車（盛港路線）','2号车（盛港路线）'],
+'Parking': ['停車','停车'],
+'MSCP level 1 confirmed': ['多層停車場1樓已確認','多层停车场1楼已确认'],
+'Price list v8 · R-04 multi-pet 10%': ['價目表v8 · R-04多寵9折','价目表v8 · R-04多宠9折'],
+'D-02 deposits · SOP-03 van arrival': ['D-02訂金 · SOP-03服務車抵達','D-02订金 · SOP-03服务车抵达'],
+'Booking held on Van 2 route · deposit link sent (unpaid) · vaccination proof on file? NO → request queued with reminder.': ['預約保留於2號車路線 · 訂金連結已傳送（未付）· 疫苗證明已存檔？否 → 已排入提醒請求。','预约保留于2号车路线 · 订金链接已发送（未付）· 疫苗证明已存档？否 → 已排入提醒请求。'],
+'Safety question': ['安全詢問','安全询问'],
+'Customer asked about sedation — medical topic. AI must not advise (Safety S-02); senior groomer assessment call required before booking.': ['客戶詢問鎮靜劑——屬醫療話題。AI不得提供建議（安全S-02）；預約前須由資深美容師電話評估。','客户询问镇静剂——属医疗话题。AI不得提供建议（安全S-02）；预约前须由资深美容师电话评估。'],
+'Daniel or senior groomer to call Mdm Lim today: assess Mimi’s temperament, explain no-sedation policy, offer low-stress home-environment groom.': ['Daniel或資深美容師今天致電林太太：評估Mimi的性情、說明無鎮靜政策、提供低壓力的居家環境美容。','Daniel或资深美容师今天致电林太太：评估Mimi的性情、说明无镇静政策、提供低压力的居家环境美容。'],
+'Pet': ['寵物','宠物'],
+'Mimi · Persian cat, 6 yrs': ['Mimi · 波斯貓，6歲','Mimi · 波斯猫，6岁'],
+'Cat Full Groom': ['貓咪全套美容','猫咪全套美容'],
+'Concern': ['顧慮','顾虑'],
+'Very anxious, matting on belly': ['非常焦慮，腹部毛打結','非常焦虑，腹部毛打结'],
+'Bishan (exact address pending)': ['碧山（詳細地址待提供）','碧山（详细地址待提供）'],
+'Safety S-02 · no sedation, groomer assessment': ['安全S-02 · 無鎮靜服務，美容師評估','安全S-02 · 无镇静服务，美容师评估'],
+'Escalated — medical/sedation topic (S-02). Assessment call task created for senior groomer. No booking until assessment done.': ['已上報——醫療/鎮靜話題（S-02）。已為資深美容師建立評估電話任務。評估完成前不接受預約。','已上报——医疗/镇静话题（S-02）。已为资深美容师创建评估电话任务。评估完成前不接受预约。'],
+'bro how much to deshed a husky': ['哈士奇去毛多少錢','哈士奇去毛多少钱'],
+'If no reply by 6 PM, send one follow-up with before/after de-shed photos (max 1 nudge — IG policy).': ['若下午6點前無回覆，傳送一次附去毛前後對比照的跟進（最多1次——IG政策）。','若下午6点前无回复，发送一次附去毛前后对比照的跟进（最多1次——IG政策）。'],
+'Husky (large, double coat)': ['哈士奇（大型，雙層毛）','哈士奇（大型，双层毛）'],
+'Full Groom L + De-shedding': ['全套美容（大型）＋去毛護理','全套美容（大型）＋去毛护理'],
+'Price list v8 · R-01 first-visit 15%': ['價目表v8 · R-01首次85折','价目表v8 · R-01首次85折'],
+'Toby’s nail was cut too short — he was bleeding': ['Toby的指甲剪得太短——流血了','Toby的指甲剪得太短——流血了'],
+'Complaint · injury report': ['客訴 · 受傷通報','投诉 · 受伤通报'],
+'Pet welfare complaint — AI paused itself immediately (Safety S-01: any injury report goes to a human). Recovery ticket RT-52 created; vet-bill offers are owner-only decisions.': ['寵物福祉客訴——AI立即自行暫停（安全S-01：任何受傷通報轉交人工）。已建立補救工單RT-52；獸醫費用補償僅限店主決定。','宠物福祉投诉——AI立即自行暂停（安全S-01：任何受伤通报转交人工）。已创建补救工单RT-52；兽医费用补偿仅限店主决定。'],
+'Daniel to call Ravi before 11 AM. Suggested remedy (within D-05): apologise, offer vet-visit reimbursement review + free next groom with senior groomer Mei.': ['Daniel在上午11點前致電Ravi。建議補救（在D-05權限內）：致歉、提出獸醫費用報銷評估＋下次由資深美容師Mei免費服務。','Daniel在上午11点前致电Ravi。建议补救（在D-05权限内）：致歉、提出兽医费用报销评估＋下次由资深美容师Mei免费服务。'],
+'Toby · Shih Tzu': ['Toby · 西施犬','Toby · 西施犬'],
+'Issue': ['問題','问题'],
+'Nail cut too short at Tue visit, minor bleeding': ['週二服務時指甲剪得太短，輕微流血','周二服务时指甲剪得太短，轻微流血'],
+'Regular · 12 visits': ['常客 · 12次服務','常客 · 12次服务'],
+'Upset': ['不滿','不满'],
+'AI paused (pet injury report — S-01). Recovery ticket RT-52 → owner. Marketing suppressed. Groomer noted for retraining review.': ['AI已暫停（寵物受傷通報——S-01）。補救工單RT-52 → 店主。已暫停行銷。美容師已列入再培訓檢視。','AI已暂停（宠物受伤通报——S-01）。补救工单RT-52 → 店主。已暂停营销。美容师已列入再培训评估。'],
+'Voice note (0:23) → aftercare answered + monitoring': ['語音訊息（0:23）→ 已回覆保養問題＋持續關注','语音消息（0:23）→ 已回复保养问题＋持续关注'],
+'Voice note · aftercare': ['語音訊息 · 術後保養','语音消息 · 术后保养'],
+'Automated check-in tomorrow 10 AM; if scratching persists → hand off + suggest vet (Safety S-01 threshold).': ['明天上午10點自動關懷；若持續抓癢 → 轉交人工＋建議就醫（安全S-01門檻）。','明天上午10点自动关怀；若持续抓痒 → 转交人工＋建议就医（安全S-01门槛）。'],
+'Sunny · Golden Retriever': ['Sunny · 黃金獵犬','Sunny · 金毛'],
+'Topic': ['主題','主题'],
+'Scratching after Tuesday’s groom': ['週二美容後抓癢','周二美容后抓痒'],
+'Assessment': ['評估','评估'],
+'Normal post-groom itch window (24–48h)': ['美容後正常發癢期（24–48小時）','美容后正常发痒期（24–48小时）'],
+'Watch flag': ['關注標記','关注标记'],
+'Auto-follow-up tomorrow — escalate if persists': ['明天自動跟進——若持續則上報','明天自动跟进——若持续则上报'],
+'SOP-07 · Post-groom aftercare': ['SOP-07 · 美容後保養','SOP-07 · 美容后保养'],
+'Voice note transcribed → aftercare answered from SOP · follow-up scheduled tomorrow 10 AM · S-01 escalation armed if symptoms persist.': ['語音已轉錄 → 依SOP回覆保養問題 · 明天上午10點跟進 · 若症狀持續將啟動S-01上報。','语音已转录 → 依SOP回复保养问题 · 明天上午10点跟进 · 若症状持续将启动S-01上报。'],
+'Yes Tues morning works, thanks for the nudge': ['好，週二上午可以，謝謝提醒','好，周二上午可以，谢谢提醒'],
+'Cycle reminder → rebooked': ['週期提醒 → 已再預約','周期提醒 → 已再预约'],
+'Reminder Mon 6 PM with groomer name + arrival window (automated).': ['週一下午6點傳送含美容師姓名＋抵達時間窗的提醒（自動）。','周一下午6点发送含美容师姓名＋抵达时间窗的提醒（自动）。'],
+'Muffin · Toy Poodle': ['Muffin · 玩具貴賓犬','Muffin · 泰迪'],
+'Full Groom — Small Dog': ['全套美容——小型犬','全套美容——小型犬'],
+'Tue 14 Jul, 9:30–11 AM': ['7月14日（二）9:30–11 AM','7月14日（二）9:30–11 AM'],
+'Van 1 (Clementi loop)': ['1號車（金文泰路線）','1号车（金文泰路线）'],
+'Cycle': ['週期','周期'],
+'8 weeks (2 overdue)': ['8週（已逾期2週）','8周（已逾期2周）'],
+'Muffin is 2 weeks past the 8-week groom cycle — Follow-up Agent triggered win-back step 1.': ['Muffin已超過8週美容週期2週——跟進Agent觸發第1步召回。','Muffin已超过8周美容周期2周——跟进Agent触发第1步召回。'],
+'Conversion recovered by cycle reminder (customer was lapsing). Attributed: Follow-up Agent.': ['由週期提醒挽回的轉換（客戶正在流失）。歸因：跟進Agent。','由周期提醒挽回的转化（客户正在流失）。归因：跟进Agent。'],
+'New number · +65 8802 4416': ['新號碼 · +65 8802 4416','新号码 · +65 8802 4416'],
+'None — booked automatically. Groomer calls 15 min before arrival.': ['無——已自動完成預約。美容師抵達前15分鐘來電。','无——已自动完成预约。美容师抵达前15分钟来电。'],
+'Booked · Sat 2–4 PM nail trim (Yishun)': ['已預約 · 週六2–4點剪指甲（義順）','已预约 · 周六2–4点剪指甲（义顺）'],
+'Lead → routed → booked in 38 seconds — postal code picked the van': ['商機 → 排線 → 預約僅38秒——郵遞區號自動選車','商机 → 排线 → 预约仅38秒——邮政编码自动选车'],
+'Shih Tzu': ['西施犬','西施犬'],
+'Nail Trim & Ear Clean': ['剪指甲＋清耳','剪指甲＋清耳'],
+'Yishun (postal 760xxx)': ['義順（郵遞區號760xxx）','义顺（邮政编码760xxx）'],
+'Sat 11 Jul, 2–4 PM': ['7月11日（六）2–4 PM','7月11日（六）2–4 PM'],
+'Van 1 (north loop)': ['1號車（北區路線）','1号车（北区路线）'],
+'Price list v8': ['價目表 v8','价目表 v8'],
+'Route planner · SOP-03 van arrival': ['路線規劃 · SOP-03服務車抵達','路线规划 · SOP-03服务车抵达'],
+'Lead created → routed to Van 1 by postal code → booked in 38 seconds. Pet profile created (Pepper · Shih Tzu).': ['建立商機 → 依郵遞區號排入1號車 → 完成預約，僅38秒。已建立寵物檔案（Pepper · 西施犬）。','创建商机 → 依邮政编码排入1号车 → 完成预约，仅38秒。已创建宠物档案（Pepper · 西施犬）。'],
+/* ---------- pets: timeline / tags / prefs / breeds / areas ---------- */
+'Cycle reminder → rebooked Tue 14 Jul (Van 1, Clementi loop)': ['週期提醒 → 已再預約7月14日週二（1號車，金文泰路線）','周期提醒 → 已再预约7月14日周二（1号车，金文泰路线）'],
+'Full groom — Muffin · $78 · groomer Mei · note: sensitive around tail': ['全套美容——Muffin · $78 · 美容師Mei · 備註：尾部敏感','全套美容——Muffin · $78 · 美容师Mei · 备注：尾部敏感'],
+'Review invite sent · 5★ received': ['已傳送評價邀請 · 收到5★','已发送评价邀请 · 收到5★'],
+'Full groom — Muffin · $78': ['全套美容——Muffin · $78','全套美容——Muffin · $78'],
+'Deposit unpaid 8h': ['訂金8小時未付','订金8小时未付'],
+'Full Groom ×2 (multi-pet)': ['全套美容×2（多寵）','全套美容×2（多宠）'],
+'Anxious pet': ['焦慮寵物','焦虑宠物'],
+'De-shedding': ['去毛護理','去毛护理'],
+'De-shedding Treatment': ['去毛護理','去毛护理'],
+'Regular': ['常客','常客'],
+'Merge suggested: @latte.maltipoo': ['建議合併：@latte.maltipoo','建议合并：@latte.maltipoo'],
+'Rocky + Bella · 2 GSDs': ['Rocky＋Bella · 2隻德牧','Rocky＋Bella · 2只德牧'],
+'East side': ['東部','东部'],
+'Quarterly de-shed': ['每季去毛','每季去毛'],
+'Full Groom — Large Dog': ['全套美容——大型犬','全套美容——大型犬'],
+'Lapsed 11 weeks': ['已流失11週','已流失11周'],
+'Bath & Tidy': ['洗澡＋基礎修剪','洗澡＋基础修剪'],
+'Puppy Intro Groom (<6 months)': ['幼犬初次美容（6個月以下）','幼犬初次美容（6个月以下）'],
+'De-shedding Treatment (add-on)': ['去毛護理（加購）','去毛护理（加购）'],
+'Full Groom — Large Dog (>25kg)': ['全套美容——大型犬（25kg以上）','全套美容——大型犬（25kg以上）'],
+'Full Groom — Medium Dog (10–25kg)': ['全套美容——中型犬（10–25kg）','全套美容——中型犬（10–25kg）'],
+'Full Groom — Small Dog (<10kg)': ['全套美容——小型犬（10kg以下）','全套美容——小型犬（10kg以下）'],
+'Golden Retriever': ['黃金獵犬','金毛'],
+'Corgi': ['柯基','柯基'],
+'Persian cat': ['波斯貓','波斯猫'],
+'Toy Poodle': ['玩具貴賓犬','泰迪'],
+'Maltipoo': ['馬爾泰迪','马尔泰迪'],
+'French Bulldog': ['法國鬥牛犬','法国斗牛犬'],
+'Pomeranian': ['博美犬','博美犬'],
+'Schnauzer': ['雪納瑞','雪纳瑞'],
+'Singapore Special': ['新加坡混種犬','新加坡混种犬'],
+'British Shorthair': ['英國短毛貓','英国短毛猫'],
+'Ragdoll': ['布偶貓','布偶猫'],
+'Husky': ['哈士奇','哈士奇'],
+'Punggol': ['榜鵝','榜鹅'],
+'Tampines': ['淡濱尼','淡滨尼'],
+'Bishan': ['碧山','碧山'],
+'Yishun': ['義順','义顺'],
+'Bedok': ['勿洛','勿洛'],
+'Woodlands': ['兀蘭','兀兰'],
+'Clementi': ['金文泰','金文泰'],
+'Hougang': ['後港','后港'],
+'Jurong East': ['裕廊東','裕廊东'],
+'Bukit Timah': ['武吉知馬','武吉知马'],
+};
+
+</script>
+<script>
 /* Rook demo — owner console app. No dependencies; all data from data.js. */
 (() => {
   const DEMOS = window.DEMOS;
@@ -1628,7 +2336,7 @@ window.DEMO = window.DEMOS.beauty;
       'insights.forecastTitle':'Next 7 days — booking forecast',
       'insights.forecastSub':'Band = ±20% confidence · basis: 30-day history, campaigns, weather outlook',
       'insights.servicesTitle':'Top services by revenue — last 30 days','insights.servicesSub':'Bookings shown at right',
-      'insights.viewTable':'View as table','insights.colDate':'Date','insights.colLeads':'Leads',
+      'insights.viewTable':'View as table','insights.teamCompareSub':"The RFP's store-comparison insight, at single-merchant scale",'insights.colDate':'Date','insights.colLeads':'Leads',
       'insights.colBookings':'Bookings','insights.colStage':'Stage','insights.colCount':'Count',
       'insights.colPctPrev':'% of previous','insights.colChannel':'Channel','insights.colBooked':'Booked',
       'insights.colRate':'Rate','insights.colDay':'Day','insights.colLow':'Low','insights.colExpected':'Expected',
@@ -1765,7 +2473,7 @@ window.DEMO = window.DEMOS.beauty;
     'insights.forecastTitle':'未來7天 — 預約預測',
     'insights.forecastSub':'陰影區間為±20%信賴水準 · 依據：近30天數據、行銷活動與天氣展望',
     'insights.servicesTitle':'熱門服務營收 — 近30天','insights.servicesSub':'右側顯示預約數',
-    'insights.viewTable':'檢視表格','insights.colDate':'日期','insights.colLeads':'商機',
+    'insights.viewTable':'檢視表格','insights.teamCompareSub':'RFP要求的門市比較洞察，在單店規模呈現','insights.colDate':'日期','insights.colLeads':'商機',
     'insights.colBookings':'預約','insights.colStage':'階段','insights.colCount':'數量',
     'insights.colPctPrev':'佔上一階段比例','insights.colChannel':'通路','insights.colBooked':'已預約',
     'insights.colRate':'轉換率','insights.colDay':'日期','insights.colLow':'低值','insights.colExpected':'預期值',
@@ -1901,7 +2609,7 @@ window.DEMO = window.DEMOS.beauty;
     'insights.forecastTitle':'未来7天 — 预约预测',
     'insights.forecastSub':'阴影区间为±20%置信度 · 依据：近30天数据、营销活动与天气展望',
     'insights.servicesTitle':'热门服务营收 — 近30天','insights.servicesSub':'右侧显示预约数',
-    'insights.viewTable':'查看表格','insights.colDate':'日期','insights.colLeads':'商机',
+    'insights.viewTable':'查看表格','insights.teamCompareSub':'RFP要求的门店比较洞察，在单店规模呈现','insights.colDate':'日期','insights.colLeads':'商机',
     'insights.colBookings':'预约','insights.colStage':'阶段','insights.colCount':'数量',
     'insights.colPctPrev':'占上一阶段比例','insights.colChannel':'渠道','insights.colBooked':'已预约',
     'insights.colRate':'转化率','insights.colDay':'日期','insights.colLow':'低值','insights.colExpected':'预期值',
@@ -1947,6 +2655,21 @@ window.DEMO = window.DEMOS.beauty;
     if (vars) str = str.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ''));
     return str;
   }
+  // Data-layer translation overlay: exact-string lookup into window.DATA_TRX
+  // (from i18n-data.js), falling back to the authored English. Chat transcripts
+  // are intentionally not translated — they are simulated customer messages.
+  const td = (s) => {
+    if (state.lang ==='en' || s == null) return s;
+    const dict = window.DATA_TRX || {};
+    const idx = state.lang ==='zh-Hant'? 0: 1;
+    const hit = dict[s];
+    if (hit) return hit[idx];
+    // compound fallback: "Toby · Golden Retriever" translates part by part
+    if (typeof s ==='string' && s.includes(' · ')) {
+      return s.split(' · ').map((p) => { const h = dict[p]; return h? h[idx]: p; }).join(' · ');
+    }
+    return s;
+  };
   const LIFECYCLE_KEY = { All:'lc.all','New lead':'lc.newLead',Evaluating:'lc.evaluating',Converted:'lc.converted',
     Active:'lc.active',VIP:'lc.vip',Dormant:'lc.dormant','Churn risk':'lc.churnRisk' };
   const lcLabel = (v) => t(LIFECYCLE_KEY[v] || v);
@@ -2036,28 +2759,28 @@ window.DEMO = window.DEMOS.beauty;
     const pending = D.approvals.filter((a) =>!state.done[a.id]);
     return `
       <div class="card brief">
-        <h3>${esc(D.brief.headline)}</h3>
-        <p>${esc(D.brief.body)}</p>
+        <h3>${esc(td(D.brief.headline))}</h3>
+        <p>${esc(td(D.brief.body))}</p>
         <div style="margin-top:10px"><button class="btn sm" data-brief-phone>${t('today.briefButton')}</button></div>
       </div>
       ${state.phoneView ==='brief'? briefPhone():''}
-      <h2 class="sec">${esc(D.activityLabel)}</h2>
+      <h2 class="sec">${esc(td(D.activityLabel))}</h2>
       <div class="stat-row">
-        ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(a.label)}</span></div>`).join('')}
+        ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(td(a.label))}</span></div>`).join('')}
       </div>
       <h2 class="sec">${t('today.opportunities')}</h2>
       ${D.opportunities.map((o) => `
         <div class="opp ${o.kind}">
           <span class="stripe"></span>
-          <div><div class="who">${esc(o.who)}</div><div class="why">${esc(o.why)}</div></div>
-          <div class="val">${esc(o.value)}</div>
+          <div><div class="who">${esc(td(o.who))}</div><div class="why">${esc(td(o.why))}</div></div>
+          <div class="val">${esc(td(o.value))}</div>
           ${o.convId? `<button class="btn sm go" data-open-conv="${o.convId}">${t('today.open')}</button>`:''}
         </div>`).join('')}
       <h2 class="sec">${t('today.waitingApproval', { n: pending.length })}</h2>
       ${pending.length === 0? `<div class="card"><p style="margin:0;color:var(--muted)">${t('today.allClear')}</p></div>`: pending.map((a) => `
         <div class="appr">
-          <span class="k">${esc(a.type)}</span>
-          <div class="t"><b>${esc(a.title)}</b><span>${esc(a.detail)}</span></div>
+          <span class="k">${esc(td(a.type))}</span>
+          <div class="t"><b>${esc(td(a.title))}</b><span>${esc(td(a.detail))}</span></div>
           <div class="act">
             <button class="btn sm pri" data-approve="${a.id}">${t('today.approve')}</button>
             <button class="btn sm" data-hold="${a.id}">${t('today.hold')}</button>
@@ -2079,7 +2802,7 @@ window.DEMO = window.DEMOS.beauty;
     const listHtml = convoList().map((c) => `
       <button class="convo ${c.id === conv.id?'on':''}" data-conv="${c.id}">
         <span class="r1"><b>${esc(c.name)}</b><time>${fmtRel(c.time)}</time></span>
-        <span class="pv">${esc(c.preview)}</span>
+        <span class="pv">${esc(td(c.preview))}</span>
         <span class="r2">
           <span class="tagchip">${chIcon[c.channel] || c.channel}</span>
           ${statusChip(c)}
@@ -2103,7 +2826,7 @@ window.DEMO = window.DEMOS.beauty;
         <div class="card thread thread-pane ${threadHide}">
           <div class="thread-head">
             <button class="btn sm only-m" data-back style="display:none">←</button>
-            <div><b>${esc(conv.name)}</b><div class="sub">${chLabel(conv.channel)} · ${esc(conv.customerLine || conv.intent ||'')}</div></div>
+            <div><b>${esc(conv.name)}</b><div class="sub">${chLabel(conv.channel)} · ${esc(td(conv.customerLine || conv.intent ||''))}</div></div>
             <div class="spacer"></div>
             ${statusChip(conv)}
             <button class="btn sm" data-phone>${t('inbox.customerView')}</button>
@@ -2112,10 +2835,10 @@ window.DEMO = window.DEMOS.beauty;
           <div class="msgs" id="msgs">${msgs}</div>
         </div>
         <div class="ctx ${threadHide}">
-          ${conv.score!= null? `<div class="card"><h4>${t('inbox.leadScore')}</h4><span class="score-pill">${conv.score}</span><span style="color:var(--muted)"> / 100 · ${esc(conv.intent)}</span></div>`:''}
-          ${conv.fields? `<div class="card"><h4>${t('inbox.extracted')}</h4><dl class="kv">${Object.entries(conv.fields).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>`:''}
-          ${conv.handoff? `<div class="card handoff"><h4>${t('inbox.whyStopped')}</h4><p>${esc(conv.handoff)}</p></div>`:''}
-          ${conv.nextAction? `<div class="card nextact"><h4>${t('inbox.suggestedNext')}</h4><p>${esc(conv.nextAction)}</p></div>`:''}
+          ${conv.score!= null? `<div class="card"><h4>${t('inbox.leadScore')}</h4><span class="score-pill">${conv.score}</span><span style="color:var(--muted)"> / 100 · ${esc(td(conv.intent))}</span></div>`:''}
+          ${conv.fields? `<div class="card"><h4>${t('inbox.extracted')}</h4><dl class="kv">${Object.entries(conv.fields).map(([k, v]) => `<dt>${esc(td(k))}</dt><dd>${esc(td(v))}</dd>`).join('')}</dl></div>`:''}
+          ${conv.handoff? `<div class="card handoff"><h4>${t('inbox.whyStopped')}</h4><p>${esc(td(conv.handoff))}</p></div>`:''}
+          ${conv.nextAction? `<div class="card nextact"><h4>${t('inbox.suggestedNext')}</h4><p>${esc(td(conv.nextAction))}</p></div>`:''}
         </div>
       </div>
       ${state.phoneView ==='conv'? phoneOverlay(conv):''}`;
@@ -2123,7 +2846,7 @@ window.DEMO = window.DEMOS.beauty;
   const WAVE = [5, 9, 13, 8, 11, 6, 12, 9, 14, 7, 10, 5, 8, 12, 6, 9]
 .map((h) => `<i style="height:${h}px"></i>`).join('');
   function msgHtml(m) {
-    if (m.from ==='sys') return `<div class="msg sys">${esc(m.text)}</div>`;
+    if (m.from ==='sys') return `<div class="msg sys">${esc(td(m.text))}</div>`;
     if (m.from ==='typing') return `<div class="typing" aria-label="${t('msg.aiTypingAria')}"><i></i><i></i><i></i></div>`;
     const who = m.from ==='cust'?'cust': m.from;
     const label = m.from ==='cust'?'': m.from ==='ai'? t('msg.rookAI'): t('msg.staff');
@@ -2133,7 +2856,7 @@ window.DEMO = window.DEMOS.beauty;
       <span class="vn-note">${t('msg.transcribed')}</span>
       <span class="meta">${label}${label && m.time? ' · ':''}${m.time? fmtClock(m.time):''}</span></div>`;
     return `<div class="msg ${who}">${esc(m.text)}
-      ${m.cite? `<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(m.cite)}</span>`:''}
+      ${m.cite? `<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(td(m.cite))}</span>`:''}
       <span class="meta">${label}${label && m.time? ' · ':''}${m.time? fmtClock(m.time):''}</span></div>`;
   }
 
@@ -2199,7 +2922,7 @@ window.DEMO = window.DEMOS.beauty;
         state.simConvo.preview = sim.donePreview;
         state.simConvo.score = sim.doneScore;
         render();
-        toast(sim.doneToast);
+        toast(td(sim.doneToast));
         return;
       }
       i++;
@@ -2233,9 +2956,9 @@ window.DEMO = window.DEMOS.beauty;
         ${D.tasks.map((tk) => `
           <div class="task-row ${tk.status}">
             <span class="task-dot"></span>
-            <span class="task-title">${esc(tk.title)}</span>
-            <span class="tagchip">${esc(tk.source)}</span>
-            <span class="task-meta">${esc(tk.who)} · ${esc(tk.due)}</span>
+            <span class="task-title">${esc(td(tk.title))}</span>
+            <span class="tagchip">${esc(td(tk.source))}</span>
+            <span class="task-meta">${esc(td(tk.who))} · ${esc(td(tk.due))}</span>
           </div>`).join('')}
       </div>`;
   }
@@ -2262,7 +2985,7 @@ window.DEMO = window.DEMOS.beauty;
           <tr class="rowbtn" data-cust="${c.id}">
             <td><b>${esc(c.name)}</b><br><span style="color:var(--muted);font-size:12px">${esc(c.phone)} · ${c.lang}</span></td>
             <td><span class="lc ${lcClass(c.lifecycle)}">${lcLabel(c.lifecycle)}</span></td>
-            <td>${c.tags.map((tg) => `<span class="tagchip">${esc(tg)}</span>`).join('')}</td>
+            <td>${c.tags.map((tg) => `<span class="tagchip">${esc(td(tg))}</span>`).join('')}</td>
             <td>${chLabel(c.channel)}</td>
             <td class="num">${c.visits}</td>
             <td class="num">${c.ltv? money(c.ltv):'—'}</td>
@@ -2274,7 +2997,7 @@ window.DEMO = window.DEMOS.beauty;
   }
   function vCustomerDetail(c) {
     const timeline = (D.timelines && D.timelines[c.id]) || [
-      { time: c.lastVisit || daysAgoIso(30), kind:'visit', text: `${esc(c.pref)} — ${t('customers.timelineDefault1')}` },
+      { time: c.lastVisit || daysAgoIso(30), kind:'visit', text: `${esc(td(c.pref))} — ${t('customers.timelineDefault1')}` },
       { time: daysAgoIso(45), kind:'ai', text: t('customers.timelineDefault2') },
       { time: daysAgoIso(70), kind:'campaign', text: t('customers.timelineDefault3') },
     ];
@@ -2287,17 +3010,17 @@ window.DEMO = window.DEMOS.beauty;
           <dl class="kv">
             <dt>${t('customers.ltv')}</dt><dd>${c.ltv? money(c.ltv):'—'}</dd>
             <dt>${t('customers.visits')}</dt><dd>${c.visits}</dd>
-            <dt>${t('customers.usualService')}</dt><dd>${esc(c.pref)}</dd>
+            <dt>${t('customers.usualService')}</dt><dd>${esc(td(c.pref))}</dd>
             <dt>${t('customers.lastVisit')}</dt><dd>${fmtRel(c.lastVisit)}</dd>
             <dt>${t('customers.nextDue')}</dt><dd>${c.nextDue? fmtRel(c.nextDue):'—'}</dd>
             <dt>${t('customers.consent')}</dt><dd>${c.consent? t('customers.consentYes'): t('customers.consentNo')}</dd>
-            <dt>${t('customers.tags')}</dt><dd>${c.tags.map((tg) => `<span class="tagchip">${esc(tg)}</span>`).join('')}</dd>
+            <dt>${t('customers.tags')}</dt><dd>${c.tags.map((tg) => `<span class="tagchip">${esc(td(tg))}</span>`).join('')}</dd>
           </dl>
         </div>
         <div class="card">
           <h4 style="margin:0 0 6px">${t('customers.timeline')}</h4>
           <ul class="timeline">
-            ${timeline.map((tl) => `<li><time>${fmtRel(tl.time)} · ${esc(tl.kind)}</time>${tl.text}</li>`).join('')}
+            ${timeline.map((tl) => `<li><time>${fmtRel(tl.time)} · ${esc(td(tl.kind))}</time>${td(tl.text)}</li>`).join('')}
           </ul>
         </div>
       </div>`;
@@ -2323,15 +3046,15 @@ window.DEMO = window.DEMOS.beauty;
       <div class="grid c2" style="align-items:start">
         <div class="card">
           <div class="est" style="margin-top:0">
-            ${r.stats.map((s) => `<div><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join('')}
+            ${r.stats.map((s) => `<div><b>${esc(s.value)}</b><span>${esc(td(s.label))}</span></div>`).join('')}
           </div>
-          <p style="font-size:12.5px;color:var(--ink-2);margin:12px 0 8px;max-width:64ch">${esc(r.rule)}</p>
+          <p style="font-size:12.5px;color:var(--ink-2);margin:12px 0 8px;max-width:64ch">${esc(td(r.rule))}</p>
           <span class="tagchip" style="font-variant-numeric:tabular-nums">${esc(r.link)} ${t('referral.linkNote')}</span>
         </div>
         <div class="card tbl-wrap" style="padding:6px 10px">
           <table class="tbl">
             <thead><tr><th>${t('referral.topReferrers')}</th><th class="num">${t('referral.referred')}</th><th class="num">${t('referral.booked')}</th><th class="num">${t('referral.revenue')}</th><th>${t('referral.note')}</th></tr></thead>
-            <tbody>${r.top.map((rf) => `<tr><td><b>${esc(rf.name)}</b></td><td class="num">${rf.referred}</td><td class="num">${rf.booked}</td><td class="num">${rf.revenue? money(rf.revenue):'—'}</td><td style="color:var(--ink-2)">${esc(rf.note)}</td></tr>`).join('')}</tbody>
+            <tbody>${r.top.map((rf) => `<tr><td><b>${esc(rf.name)}</b></td><td class="num">${rf.referred}</td><td class="num">${rf.booked}</td><td class="num">${rf.revenue? money(rf.revenue):'—'}</td><td style="color:var(--ink-2)">${esc(td(rf.note))}</td></tr>`).join('')}</tbody>
           </table>
         </div>
       </div>`;
@@ -2356,11 +3079,11 @@ window.DEMO = window.DEMOS.beauty;
       </div>`:'';
     return `
       <div class="camp">
-        <div class="head"><b>${esc(c.name)}</b><span class="status ${status}">${t(CAMP_STATUS_KEY[status] || status)}</span></div>
+        <div class="head"><b>${esc(td(c.name))}</b><span class="status ${status}">${t(CAMP_STATUS_KEY[status] || status)}</span></div>
         <dl class="row">
-          <dt>${t('marketing.trigger')}</dt><dd>${esc(c.trigger)}</dd>
-          <dt>${t('marketing.audience')}</dt><dd>${esc(c.audience)}</dd>
-          <dt>${t('marketing.schedule')}</dt><dd>${esc(c.schedule)} · ${esc(c.channel)}</dd>
+          <dt>${t('marketing.trigger')}</dt><dd>${esc(td(c.trigger))}</dd>
+          <dt>${t('marketing.audience')}</dt><dd>${esc(td(c.audience))}</dd>
+          <dt>${t('marketing.schedule')}</dt><dd>${esc(td(c.schedule))} · ${esc(td(c.channel))}</dd>
         </dl>
         <div class="copy">“${esc(c.copy)}”</div>
         ${est}${res}
@@ -2393,11 +3116,11 @@ window.DEMO = window.DEMOS.beauty;
           <div class="card">
             ${cx.themes.map((th) => `
               <div class="theme-row ${th.tone ==='warn'?'warn': th.tone ==='bad'?'bad':''}">
-                <span style="min-width:180px">${esc(th.theme)}</span>
+                <span style="min-width:180px">${esc(td(th.theme))}</span>
                 <span class="bar" style="width:${th.n * 16}px"></span>
                 <span class="n">${th.n}</span>
               </div>`).join('')}
-            <p style="font-size:12px;color:var(--muted);margin:10px 0 0">${esc(cx.note)}</p>
+            <p style="font-size:12px;color:var(--muted);margin:10px 0 0">${esc(td(cx.note))}</p>
           </div>
         </div>
       </div>`;
@@ -2411,7 +3134,7 @@ window.DEMO = window.DEMOS.beauty;
           <span style="color:var(--muted);font-size:12px">${esc(r.source)} · ${fmtRel(r.time)}</span>
         </div>
         <p class="txt">${esc(r.text)}</p>
-        ${r.linked? `<p style="font-size:12px;color:var(--serious);margin:0 0 8px"><b>${t('reputation.linked')}</b> · ${esc(r.linked)}</p>`:''}
+        ${r.linked? `<p style="font-size:12px;color:var(--serious);margin:0 0 8px"><b>${t('reputation.linked')}</b> · ${esc(td(r.linked))}</p>`:''}
         <div class="reply"><span class="lbl">${posted? t('reputation.replyPosted'): t('reputation.replyDrafted')}</span>${esc(r.reply)}</div>
         ${posted?'': `<div style="margin-top:10px;display:flex;gap:8px">
           <button class="btn sm pri" data-post-reply="${r.id}">${t('reputation.approvePost')}</button>
@@ -2442,22 +3165,22 @@ window.DEMO = window.DEMOS.beauty;
           <div class="card" style="padding:8px 16px">
             ${s.calendar.map((c) => `
               <div class="cal-row">
-                <span class="cal-day">${esc(c.day)}<em>${esc(c.time)}</em></span>
-                <div class="cal-body"><b>${esc(c.title)}</b>
-                  <span>${esc(c.channel)}${c.note?' ·' + esc(c.note):''}</span></div>
+                <span class="cal-day">${esc(td(c.day))}<em>${esc(c.time)}</em></span>
+                <div class="cal-body"><b>${esc(td(c.title))}</b>
+                  <span>${esc(td(c.channel))}${c.note?' · ' + esc(td(c.note)):''}</span></div>
                 ${stChip(c.status)}
               </div>`).join('')}
           </div>
           <h2 class="sec">${t('social.assets')}</h2>
           <div class="card">
-            <ul class="strategy" style="margin:0;padding-left:18px">${s.assets.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
+            <ul class="strategy" style="margin:0;padding-left:18px">${s.assets.map((a) => `<li>${esc(td(a))}</li>`).join('')}</ul>
           </div>
         </div>
         <div>
           <h2 class="sec">${t('social.whatDrives')}</h2>
           ${s.posts.map((p) => `
             <div class="card" style="margin-bottom:10px">
-              <b>${esc(p.title)}</b> <span style="color:var(--muted);font-size:12px">· ${esc(p.when)}</span>
+              <b>${esc(td(p.title))}</b> <span style="color:var(--muted);font-size:12px">· ${esc(p.when)}</span>
               <div class="est" style="margin-top:8px">
                 <div><b>${esc(p.reach)}</b><span>${t('social.reach')}</span></div>
                 <div><b>${p.saves}</b><span>${t('social.saves')}</span></div>
@@ -2465,15 +3188,15 @@ window.DEMO = window.DEMOS.beauty;
                 <div><b>${p.bookings}</b><span>${t('social.bookings')}</span></div>
                 <div><b>${money(p.revenue)}</b><span>${t('social.revenue')}</span></div>
               </div>
-              ${p.flag? `<p style="margin:8px 0 0;font-size:12.5px;color:var(--accent-soft-ink)"><b>${t('social.insight')}</b> · ${esc(p.flag)}</p>`:''}
+              ${p.flag? `<p style="margin:8px 0 0;font-size:12.5px;color:var(--accent-soft-ink)"><b>${t('social.insight')}</b> · ${esc(td(p.flag))}</p>`:''}
             </div>`).join('')}
           <h2 class="sec">${t('social.commentsDms')}</h2>
           <div class="card" style="padding:8px 16px">
             ${s.interactions.map((i) => `
               <div class="int-row">
-                <div><b>${esc(i.who)}</b> <span style="color:var(--muted);font-size:11.5px">${esc(i.channel)} · ${esc(i.when)}</span>
+                <div><b>${esc(i.who)}</b> <span style="color:var(--muted);font-size:11.5px">${esc(td(i.channel))} · ${esc(td(i.when))}</span>
                   <div class="int-text">“${esc(i.text)}”</div>
-                  <div class="int-out">→ ${esc(i.outcome)}</div></div>
+                  <div class="int-out">→ ${esc(td(i.outcome))}</div></div>
                 ${klassChip(i.klass)}
               </div>`).join('')}
           </div>
@@ -2492,7 +3215,7 @@ window.DEMO = window.DEMOS.beauty;
     const tr = D.trust;
     return `
       <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
-        ${tr.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span><div class="kpi-delta" style="color:var(--muted)">${esc(s.sub)}</div></div>`).join('')}
+        ${tr.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(td(s.label))}</span><div class="kpi-delta" style="color:var(--muted)">${esc(td(s.sub))}</div></div>`).join('')}
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div>
@@ -2500,8 +3223,8 @@ window.DEMO = window.DEMOS.beauty;
           <div class="card" style="padding:8px 16px">
             ${tr.audit.map((a) => `
               <div class="audit-row">
-                <span class="audit-t">${esc(a.t)}</span>
-                <span class="audit-text">${esc(a.text)}</span>
+                <span class="audit-t">${esc(td(a.t))}</span>
+                <span class="audit-text">${esc(td(a.text))}</span>
                 ${auditTag(a.tag)}
               </div>`).join('')}
           </div>
@@ -2509,13 +3232,13 @@ window.DEMO = window.DEMOS.beauty;
         <div>
           <h2 class="sec">Outreach rules — enforced before every send</h2>
           <div class="card">
-            <ul class="strategy" style="margin:0;padding-left:18px">${tr.rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+            <ul class="strategy" style="margin:0;padding-left:18px">${tr.rules.map((r) => `<li>${esc(td(r))}</li>`).join('')}</ul>
           </div>
           <h2 class="sec">${t('trust.whoCanDo')}</h2>
           <div class="card tbl-wrap" style="padding:6px 10px">
             <table class="tbl">
               <thead><tr><th>${t('trust.person')}</th><th>${t('trust.role')}</th><th>${t('trust.permissions')}</th></tr></thead>
-              <tbody>${tr.roles.map((r) => `<tr><td><b>${esc(r.who)}</b></td><td>${esc(r.role)}</td><td style="color:var(--ink-2)">${esc(r.can)}</td></tr>`).join('')}</tbody>
+              <tbody>${tr.roles.map((r) => `<tr><td><b>${esc(r.who)}</b></td><td>${esc(td(r.role))}</td><td style="color:var(--ink-2)">${esc(td(r.can))}</td></tr>`).join('')}</tbody>
             </table>
           </div>
           <h2 class="sec">${t('trust.whyExists')}</h2>
@@ -2535,21 +3258,21 @@ window.DEMO = window.DEMOS.beauty;
           ${D.knowledge.map((k) => `
             <div class="kb">
               <div class="head">
-                <b>${esc(k.title)}</b>
-                <span class="cat">${esc(k.category)}</span>
+                <b>${esc(td(k.title))}</b>
+                <span class="cat">${esc(td(k.category))}</span>
                 ${k.sensitive? `<span class="lock">${t('brain.ownerGated')}</span>`:''}
                 <span class="cites">${t('brain.cited', { n: k.cites30d })}</span>
               </div>
-              <p>${esc(k.excerpt)}</p>
-              <div class="meta">${esc(state.kbApproved[k.id] && k.approvedVersion? k.approvedVersion: k.version)} · ${t('brain.updatedBy', { rel: fmtRel(k.updated), owner: esc(k.owner) })}</div>
+              <p>${esc(td(k.excerpt))}</p>
+              <div class="meta">${esc(td(state.kbApproved[k.id] && k.approvedVersion? k.approvedVersion: k.version))} · ${t('brain.updatedBy', { rel: fmtRel(k.updated), owner: esc(td(k.owner)) })}</div>
             </div>`).join('')}
         </div>
         <div>
           <h2 class="sec">${t('brain.gaps')}</h2>
           ${D.knowledgeGaps.map((g) => `
             <div class="kb gap">
-              <b>“${esc(g.q)}”</b>
-              <p>${t('brain.askedLast', { n: g.asked, rel: fmtRel(g.last) })} ${esc(g.note)}</p>
+              <b>“${esc(td(g.q))}”</b>
+              <p>${t('brain.askedLast', { n: g.asked, rel: fmtRel(g.last) })} ${esc(td(g.note))}</p>
               <div style="margin-top:8px"><button class="btn sm" data-toast="${esc(t('brain.draftToast'))}">${t('brain.draftAnswer')}</button></div>
             </div>`).join('')}
           <h2 class="sec">${t('brain.howGrounding')}</h2>
@@ -2568,20 +3291,20 @@ window.DEMO = window.DEMOS.beauty;
     const ob = D.onboarding;
     const s = state.setupStep;
     const fileRows = ob.files.map((f, i) => s >= i + 1
-? `<div class="ob-file done"><span class="ob-check">✓</span><div><b>${esc(f.name)}</b><span>${esc(f.desc)}</span></div></div>`
-: `<div class="ob-file"><span class="ob-check"></span><div><b>${esc(f.name)}</b><span>${esc(f.desc)}</span></div></div>`).join('');
+? `<div class="ob-file done"><span class="ob-check">✓</span><div><b>${esc(f.name)}</b><span>${esc(td(f.desc))}</span></div></div>`
+: `<div class="ob-file"><span class="ob-check"></span><div><b>${esc(f.name)}</b><span>${esc(td(f.desc))}</span></div></div>`).join('');
     const itemRows = ob.extracted.map((it, i) => s >= i + 5
-? `<div class="ob-item"><span class="ob-check">✓</span><span>${esc(it.title)}</span><span class="ob-cat">${esc(it.cat)}</span></div>`:'').join('');
+? `<div class="ob-item"><span class="ob-check">✓</span><span>${esc(td(it.title))}</span><span class="ob-cat">${esc(td(it.cat))}</span></div>`:'').join('');
     const chat = s >= 12? `
       <div class="msgs" style="padding:10px 2px 2px">
         <div class="msg cust">${esc(ob.testQ)}</div>
         ${s === 13?'<div class="typing"><i></i><i></i><i></i></div>':''}
-        ${s >= 14? `<div class="msg ai">${esc(ob.testA)}<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(ob.testCite)}</span></div>`:''}
+        ${s >= 14? `<div class="msg ai">${esc(ob.testA)}<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(td(ob.testCite))}</span></div>`:''}
       </div>`:'';
     return `
       <div class="card brief">
         <h3>${t('setup.heading')}</h3>
-        <p>${esc(ob.intro)}</p>
+        <p>${esc(td(ob.intro))}</p>
         <div style="margin-top:12px">
           <button class="btn pri" data-setup-play ${state.setupPlaying?'disabled':''}>${s > 0 &&!state.setupPlaying? '↻ ' + t('setup.replay'): state.setupPlaying? t('setup.playing'): '▶ ' + t('setup.play')}</button>
         </div>
@@ -2599,12 +3322,12 @@ window.DEMO = window.DEMOS.beauty;
         </div>
         <div class="card ob-stage ${s >= 11?'on':''}">
           <div class="ob-num">3</div><h3>${t('setup.step3Title')}</h3>
-          <p class="ob-sub">${s >= 11? esc(ob.review): t('setup.waitsFor2')}</p>
+          <p class="ob-sub">${s >= 11? esc(td(ob.review)): t('setup.waitsFor2')}</p>
           ${chat}
         </div>
         <div class="card ob-stage ${s >= 15?'on':''}">
           <div class="ob-num">4</div><h3>${t('setup.step4Title')}</h3>
-          <p class="ob-sub">${s >= 15? esc(ob.live): t('setup.waitsFor3')}</p>
+          <p class="ob-sub">${s >= 15? esc(td(ob.live)): t('setup.waitsFor3')}</p>
           ${s >= 15? `<div style="margin-top:10px"><span class="tagchip ai">● ${t('setup.liveNow')}</span></div>`:''}
         </div>
       </div>`;
@@ -2643,7 +3366,7 @@ window.DEMO = window.DEMOS.beauty;
   function vInsights() {
     return `
       <div class="stat-row" style="grid-template-columns:repeat(3,1fr)">
-        ${D.kpis.map((k) => `<div class="stat"><b>${esc(k.value)}</b><span>${esc(k.label)}</span><div class="kpi-delta">${esc(k.delta)}</div></div>`).join('')}
+        ${D.kpis.map((k) => `<div class="stat"><b>${esc(k.value)}</b><span>${esc(td(k.label))}</span><div class="kpi-delta">${esc(td(k.delta))}</div></div>`).join('')}
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div class="card chart-card">
@@ -2656,7 +3379,7 @@ window.DEMO = window.DEMOS.beauty;
           <h3>${t('insights.funnelTitle')}</h3>
           <div class="sub">${t('insights.funnelSub')}</div>
           ${funnelChart()}
-          ${dataTable([t('insights.colStage'), t('insights.colCount'), t('insights.colPctPrev')], D.funnel.map((f, i) => [f.stage, f.n, i? Math.round((f.n / D.funnel[i - 1].n) * 100) +'%':'—']))}
+          ${dataTable([t('insights.colStage'), t('insights.colCount'), t('insights.colPctPrev')], D.funnel.map((f, i) => [td(f.stage), f.n, i? Math.round((f.n / D.funnel[i - 1].n) * 100) +'%':'—']))}
         </div>
         <div class="card chart-card">
           <h3>${t('insights.channelTitle')}</h3>
@@ -2668,26 +3391,26 @@ window.DEMO = window.DEMOS.beauty;
           <h3>${t('insights.forecastTitle')}</h3>
           <div class="sub">${t('insights.forecastSub')}</div>
           ${forecastChart()}
-          ${dataTable([t('insights.colDay'), t('insights.colLow'), t('insights.colExpected'), t('insights.colHigh')], D.forecast.map((f) => [f.day, f.lo, f.mid, f.hi]))}
+          ${dataTable([t('insights.colDay'), t('insights.colLow'), t('insights.colExpected'), t('insights.colHigh')], D.forecast.map((f) => [td(f.day), f.lo, f.mid, f.hi]))}
         </div>
         <div class="card chart-card">
           <h3>${t('insights.servicesTitle')}</h3>
           <div class="sub">${t('insights.servicesSub')}</div>
           ${servicesChart()}
-          ${dataTable([t('insights.colService'), t('insights.colBookings'), t('insights.colRevenue')], D.topServices.map((s) => [s.name, s.bookings, money(s.revenue)]))}
+          ${dataTable([t('insights.colService'), t('insights.colBookings'), t('insights.colRevenue')], D.topServices.map((s) => [td(s.name), s.bookings, money(s.revenue)]))}
         </div>
         <div class="card chart-card">
-          <h3>${esc(D.teamCompare.title)}</h3>
-          <div class="sub">The RFP's store-comparison insight, at single-merchant scale</div>
+          <h3>${esc(td(D.teamCompare.title))}</h3>
+          <div class="sub">${t('insights.teamCompareSub')}</div>
           <div class="tbl-wrap"><table class="tbl">
-            <thead><tr>${D.teamCompare.cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead>
-            <tbody>${D.teamCompare.rows.map((r) => `<tr>${r.map((c, i) => `<td class="${i?'num':''}">${i === 0?'<b>' + esc(c) +'</b>': esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+            <thead><tr>${D.teamCompare.cols.map((c) => `<th>${esc(td(c))}</th>`).join('')}</tr></thead>
+            <tbody>${D.teamCompare.rows.map((r) => `<tr>${r.map((c, i) => `<td class="${i?'num':''}">${i === 0?'<b>' + esc(td(c)) +'</b>': esc(td(c))}</td>`).join('')}</tr>`).join('')}</tbody>
           </table></div>
-          <p style="font-size:12.5px;color:var(--ink-2);margin:10px 0 0;max-width:60ch">${esc(D.teamCompare.note)}</p>
+          <p style="font-size:12.5px;color:var(--ink-2);margin:10px 0 0;max-width:60ch">${esc(td(D.teamCompare.note))}</p>
         </div>
         <div class="card strategy">
-          <h3 style="margin:0 0 8px;font-size:13.5px">${esc(D.strategy.title)}</h3>
-          <ul style="margin:0;padding-left:18px">${D.strategy.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+          <h3 style="margin:0 0 8px;font-size:13.5px">${esc(td(D.strategy.title))}</h3>
+          <ul style="margin:0;padding-left:18px">${D.strategy.points.map((p) => `<li>${esc(td(p))}</li>`).join('')}</ul>
         </div>
       </div>`;
   }
@@ -2735,8 +3458,8 @@ window.DEMO = window.DEMOS.beauty;
         const yy = i * (rowH + gap);
         const conv = i > 0? Math.round((f.n / D.funnel[i - 1].n) * 100) +'%':'';
         return `
-          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${f.stage}</text>
-          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="${colors[i]}" data-tip="${f.stage}: ${f.n}${conv? t('chart.funnelTipSuffix', { pct: conv }):''}"/>
+          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${td(f.stage)}</text>
+          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="${colors[i]}" data-tip="${td(f.stage)}: ${f.n}${conv? t('chart.funnelTipSuffix', { pct: conv }):''}"/>
           <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 - 1}">${f.n}</text>
           ${conv? `<text x="${L + w + 7}" y="${yy + rowH / 2 + 11}" font-size="9.5">${conv} →</text>`:''}`;
       }).join('')}
@@ -2780,9 +3503,9 @@ window.DEMO = window.DEMOS.beauty;
       <path d="${band}" fill="var(--chart-1)" opacity="0.16"/>
       <path d="${mid}" fill="none" stroke="var(--chart-1)" stroke-width="2"/>
       ${data.map((d, i) => `
-        <circle cx="${x(i)}" cy="${y(d.mid)}" r="3.2" fill="var(--chart-1)" data-tip="${t('chart.forecastTip', { day: d.day, n: d.mid, lo: d.lo, hi: d.hi })}"/>
-        <text x="${x(i)}" y="${H - 7}" text-anchor="middle">${d.day.split(' ')[0]}</text>`).join('')}
-      <text class="val" x="${x(0) + 4}" y="${T + 2}">${esc(D.forecastNote)}</text>
+        <circle cx="${x(i)}" cy="${y(d.mid)}" r="3.2" fill="var(--chart-1)" data-tip="${t('chart.forecastTip', { day: td(d.day), n: d.mid, lo: d.lo, hi: d.hi })}"/>
+        <text x="${x(i)}" y="${H - 7}" text-anchor="middle">${td(d.day).split(' ')[0]}</text>`).join('')}
+      <text class="val" x="${x(0) + 4}" y="${T + 2}">${esc(td(D.forecastNote))}</text>
     </svg>`;
   }
 
@@ -2795,9 +3518,9 @@ window.DEMO = window.DEMOS.beauty;
         const yy = i * (rowH + gap);
         const w = (s.revenue / max) * (W - L - R);
         return `
-          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${s.name}</text>
-          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="var(--chart-1)" data-tip="${s.name}: ${money(s.revenue)} from ${s.bookings} bookings"/>
-          <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 + 3.5}">${money(s.revenue)} · ${s.bookings} bkgs</text>`;
+          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${td(s.name)}</text>
+          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="var(--chart-1)" data-tip="${t('chart.serviceTip', { name: td(s.name), money: money(s.revenue), n: s.bookings })}"/>
+          <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 + 3.5}">${t('chart.serviceLabel', { money: money(s.revenue), n: s.bookings })}</text>`;
       }).join('')}
     </svg>`;
   }
@@ -2834,14 +3557,14 @@ window.DEMO = window.DEMOS.beauty;
           ${IC[id]}${t('nav.' + id)}
           ${id ==='inbox' && unread? `<span class="bdg">${unread}</span>`:''}
         </button>`).join('')}
-      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(D.merchant.hours)}</div>`;
+      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(td(D.merchant.hours))}</div>`;
     $('#tabbar').innerHTML = NAV_IDS.map((id) => `
       <button class="${state.view === id?'on':''}" data-nav="${id}">${IC[id]}${t('nav.' + id)}</button>`).join('');
   }
   function renderTop() {
     $('#topbar').innerHTML = `
       <h1>${t('title.' + state.view)}</h1>
-      <span class="sub">${esc(D.merchant.name)} · ${esc(D.merchant.tagline)}</span>
+      <span class="sub">${esc(D.merchant.name)} · ${esc(td(D.merchant.tagline))}</span>
       <div class="spacer"></div>
       <div class="top-right">
         <div class="seg" role="group" aria-label="${t('aria.langGroup')}">
@@ -2941,7 +3664,7 @@ window.DEMO = window.DEMOS.beauty;
       if (a.action.campaign) state.campaign[a.action.campaign] ='scheduled';
       if (a.action.review) state.reviewPosted[a.action.review] = true;
       if (a.action.knowledge) state.kbApproved[a.action.knowledge] = true;
-      toast(a.toast);
+      toast(td(a.toast));
       render();
     }
     else if (el.dataset.hold) { state.done[el.dataset.hold] = true; toast(t('toast.held')); render(); }

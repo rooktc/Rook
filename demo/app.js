@@ -110,7 +110,7 @@
       'insights.forecastTitle':'Next 7 days — booking forecast',
       'insights.forecastSub':'Band = ±20% confidence · basis: 30-day history, campaigns, weather outlook',
       'insights.servicesTitle':'Top services by revenue — last 30 days','insights.servicesSub':'Bookings shown at right',
-      'insights.viewTable':'View as table','insights.colDate':'Date','insights.colLeads':'Leads',
+      'insights.viewTable':'View as table','insights.teamCompareSub':"The RFP's store-comparison insight, at single-merchant scale",'insights.colDate':'Date','insights.colLeads':'Leads',
       'insights.colBookings':'Bookings','insights.colStage':'Stage','insights.colCount':'Count',
       'insights.colPctPrev':'% of previous','insights.colChannel':'Channel','insights.colBooked':'Booked',
       'insights.colRate':'Rate','insights.colDay':'Day','insights.colLow':'Low','insights.colExpected':'Expected',
@@ -247,7 +247,7 @@
     'insights.forecastTitle':'未來7天 — 預約預測',
     'insights.forecastSub':'陰影區間為±20%信賴水準 · 依據：近30天數據、行銷活動與天氣展望',
     'insights.servicesTitle':'熱門服務營收 — 近30天','insights.servicesSub':'右側顯示預約數',
-    'insights.viewTable':'檢視表格','insights.colDate':'日期','insights.colLeads':'商機',
+    'insights.viewTable':'檢視表格','insights.teamCompareSub':'RFP要求的門市比較洞察，在單店規模呈現','insights.colDate':'日期','insights.colLeads':'商機',
     'insights.colBookings':'預約','insights.colStage':'階段','insights.colCount':'數量',
     'insights.colPctPrev':'佔上一階段比例','insights.colChannel':'通路','insights.colBooked':'已預約',
     'insights.colRate':'轉換率','insights.colDay':'日期','insights.colLow':'低值','insights.colExpected':'預期值',
@@ -383,7 +383,7 @@
     'insights.forecastTitle':'未来7天 — 预约预测',
     'insights.forecastSub':'阴影区间为±20%置信度 · 依据：近30天数据、营销活动与天气展望',
     'insights.servicesTitle':'热门服务营收 — 近30天','insights.servicesSub':'右侧显示预约数',
-    'insights.viewTable':'查看表格','insights.colDate':'日期','insights.colLeads':'商机',
+    'insights.viewTable':'查看表格','insights.teamCompareSub':'RFP要求的门店比较洞察，在单店规模呈现','insights.colDate':'日期','insights.colLeads':'商机',
     'insights.colBookings':'预约','insights.colStage':'阶段','insights.colCount':'数量',
     'insights.colPctPrev':'占上一阶段比例','insights.colChannel':'渠道','insights.colBooked':'已预约',
     'insights.colRate':'转化率','insights.colDay':'日期','insights.colLow':'低值','insights.colExpected':'预期值',
@@ -429,6 +429,21 @@
     if (vars) str = str.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ''));
     return str;
   }
+  // Data-layer translation overlay: exact-string lookup into window.DATA_TRX
+  // (from i18n-data.js), falling back to the authored English. Chat transcripts
+  // are intentionally not translated — they are simulated customer messages.
+  const td = (s) => {
+    if (state.lang ==='en' || s == null) return s;
+    const dict = window.DATA_TRX || {};
+    const idx = state.lang ==='zh-Hant'? 0: 1;
+    const hit = dict[s];
+    if (hit) return hit[idx];
+    // compound fallback: "Toby · Golden Retriever" translates part by part
+    if (typeof s ==='string' && s.includes(' · ')) {
+      return s.split(' · ').map((p) => { const h = dict[p]; return h? h[idx]: p; }).join(' · ');
+    }
+    return s;
+  };
   const LIFECYCLE_KEY = { All:'lc.all','New lead':'lc.newLead',Evaluating:'lc.evaluating',Converted:'lc.converted',
     Active:'lc.active',VIP:'lc.vip',Dormant:'lc.dormant','Churn risk':'lc.churnRisk' };
   const lcLabel = (v) => t(LIFECYCLE_KEY[v] || v);
@@ -518,28 +533,28 @@
     const pending = D.approvals.filter((a) =>!state.done[a.id]);
     return `
       <div class="card brief">
-        <h3>${esc(D.brief.headline)}</h3>
-        <p>${esc(D.brief.body)}</p>
+        <h3>${esc(td(D.brief.headline))}</h3>
+        <p>${esc(td(D.brief.body))}</p>
         <div style="margin-top:10px"><button class="btn sm" data-brief-phone>${t('today.briefButton')}</button></div>
       </div>
       ${state.phoneView ==='brief'? briefPhone():''}
-      <h2 class="sec">${esc(D.activityLabel)}</h2>
+      <h2 class="sec">${esc(td(D.activityLabel))}</h2>
       <div class="stat-row">
-        ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(a.label)}</span></div>`).join('')}
+        ${D.aiActivity.map((a) => `<div class="stat"><b>${a.n}</b><span>${esc(td(a.label))}</span></div>`).join('')}
       </div>
       <h2 class="sec">${t('today.opportunities')}</h2>
       ${D.opportunities.map((o) => `
         <div class="opp ${o.kind}">
           <span class="stripe"></span>
-          <div><div class="who">${esc(o.who)}</div><div class="why">${esc(o.why)}</div></div>
-          <div class="val">${esc(o.value)}</div>
+          <div><div class="who">${esc(td(o.who))}</div><div class="why">${esc(td(o.why))}</div></div>
+          <div class="val">${esc(td(o.value))}</div>
           ${o.convId? `<button class="btn sm go" data-open-conv="${o.convId}">${t('today.open')}</button>`:''}
         </div>`).join('')}
       <h2 class="sec">${t('today.waitingApproval', { n: pending.length })}</h2>
       ${pending.length === 0? `<div class="card"><p style="margin:0;color:var(--muted)">${t('today.allClear')}</p></div>`: pending.map((a) => `
         <div class="appr">
-          <span class="k">${esc(a.type)}</span>
-          <div class="t"><b>${esc(a.title)}</b><span>${esc(a.detail)}</span></div>
+          <span class="k">${esc(td(a.type))}</span>
+          <div class="t"><b>${esc(td(a.title))}</b><span>${esc(td(a.detail))}</span></div>
           <div class="act">
             <button class="btn sm pri" data-approve="${a.id}">${t('today.approve')}</button>
             <button class="btn sm" data-hold="${a.id}">${t('today.hold')}</button>
@@ -561,7 +576,7 @@
     const listHtml = convoList().map((c) => `
       <button class="convo ${c.id === conv.id?'on':''}" data-conv="${c.id}">
         <span class="r1"><b>${esc(c.name)}</b><time>${fmtRel(c.time)}</time></span>
-        <span class="pv">${esc(c.preview)}</span>
+        <span class="pv">${esc(td(c.preview))}</span>
         <span class="r2">
           <span class="tagchip">${chIcon[c.channel] || c.channel}</span>
           ${statusChip(c)}
@@ -585,7 +600,7 @@
         <div class="card thread thread-pane ${threadHide}">
           <div class="thread-head">
             <button class="btn sm only-m" data-back style="display:none">←</button>
-            <div><b>${esc(conv.name)}</b><div class="sub">${chLabel(conv.channel)} · ${esc(conv.customerLine || conv.intent ||'')}</div></div>
+            <div><b>${esc(conv.name)}</b><div class="sub">${chLabel(conv.channel)} · ${esc(td(conv.customerLine || conv.intent ||''))}</div></div>
             <div class="spacer"></div>
             ${statusChip(conv)}
             <button class="btn sm" data-phone>${t('inbox.customerView')}</button>
@@ -594,10 +609,10 @@
           <div class="msgs" id="msgs">${msgs}</div>
         </div>
         <div class="ctx ${threadHide}">
-          ${conv.score!= null? `<div class="card"><h4>${t('inbox.leadScore')}</h4><span class="score-pill">${conv.score}</span><span style="color:var(--muted)"> / 100 · ${esc(conv.intent)}</span></div>`:''}
-          ${conv.fields? `<div class="card"><h4>${t('inbox.extracted')}</h4><dl class="kv">${Object.entries(conv.fields).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>`:''}
-          ${conv.handoff? `<div class="card handoff"><h4>${t('inbox.whyStopped')}</h4><p>${esc(conv.handoff)}</p></div>`:''}
-          ${conv.nextAction? `<div class="card nextact"><h4>${t('inbox.suggestedNext')}</h4><p>${esc(conv.nextAction)}</p></div>`:''}
+          ${conv.score!= null? `<div class="card"><h4>${t('inbox.leadScore')}</h4><span class="score-pill">${conv.score}</span><span style="color:var(--muted)"> / 100 · ${esc(td(conv.intent))}</span></div>`:''}
+          ${conv.fields? `<div class="card"><h4>${t('inbox.extracted')}</h4><dl class="kv">${Object.entries(conv.fields).map(([k, v]) => `<dt>${esc(td(k))}</dt><dd>${esc(td(v))}</dd>`).join('')}</dl></div>`:''}
+          ${conv.handoff? `<div class="card handoff"><h4>${t('inbox.whyStopped')}</h4><p>${esc(td(conv.handoff))}</p></div>`:''}
+          ${conv.nextAction? `<div class="card nextact"><h4>${t('inbox.suggestedNext')}</h4><p>${esc(td(conv.nextAction))}</p></div>`:''}
         </div>
       </div>
       ${state.phoneView ==='conv'? phoneOverlay(conv):''}`;
@@ -605,7 +620,7 @@
   const WAVE = [5, 9, 13, 8, 11, 6, 12, 9, 14, 7, 10, 5, 8, 12, 6, 9]
 .map((h) => `<i style="height:${h}px"></i>`).join('');
   function msgHtml(m) {
-    if (m.from ==='sys') return `<div class="msg sys">${esc(m.text)}</div>`;
+    if (m.from ==='sys') return `<div class="msg sys">${esc(td(m.text))}</div>`;
     if (m.from ==='typing') return `<div class="typing" aria-label="${t('msg.aiTypingAria')}"><i></i><i></i><i></i></div>`;
     const who = m.from ==='cust'?'cust': m.from;
     const label = m.from ==='cust'?'': m.from ==='ai'? t('msg.rookAI'): t('msg.staff');
@@ -615,7 +630,7 @@
       <span class="vn-note">${t('msg.transcribed')}</span>
       <span class="meta">${label}${label && m.time? ' · ':''}${m.time? fmtClock(m.time):''}</span></div>`;
     return `<div class="msg ${who}">${esc(m.text)}
-      ${m.cite? `<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(m.cite)}</span>`:''}
+      ${m.cite? `<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(td(m.cite))}</span>`:''}
       <span class="meta">${label}${label && m.time? ' · ':''}${m.time? fmtClock(m.time):''}</span></div>`;
   }
 
@@ -681,7 +696,7 @@
         state.simConvo.preview = sim.donePreview;
         state.simConvo.score = sim.doneScore;
         render();
-        toast(sim.doneToast);
+        toast(td(sim.doneToast));
         return;
       }
       i++;
@@ -715,9 +730,9 @@
         ${D.tasks.map((tk) => `
           <div class="task-row ${tk.status}">
             <span class="task-dot"></span>
-            <span class="task-title">${esc(tk.title)}</span>
-            <span class="tagchip">${esc(tk.source)}</span>
-            <span class="task-meta">${esc(tk.who)} · ${esc(tk.due)}</span>
+            <span class="task-title">${esc(td(tk.title))}</span>
+            <span class="tagchip">${esc(td(tk.source))}</span>
+            <span class="task-meta">${esc(td(tk.who))} · ${esc(td(tk.due))}</span>
           </div>`).join('')}
       </div>`;
   }
@@ -744,7 +759,7 @@
           <tr class="rowbtn" data-cust="${c.id}">
             <td><b>${esc(c.name)}</b><br><span style="color:var(--muted);font-size:12px">${esc(c.phone)} · ${c.lang}</span></td>
             <td><span class="lc ${lcClass(c.lifecycle)}">${lcLabel(c.lifecycle)}</span></td>
-            <td>${c.tags.map((tg) => `<span class="tagchip">${esc(tg)}</span>`).join('')}</td>
+            <td>${c.tags.map((tg) => `<span class="tagchip">${esc(td(tg))}</span>`).join('')}</td>
             <td>${chLabel(c.channel)}</td>
             <td class="num">${c.visits}</td>
             <td class="num">${c.ltv? money(c.ltv):'—'}</td>
@@ -756,7 +771,7 @@
   }
   function vCustomerDetail(c) {
     const timeline = (D.timelines && D.timelines[c.id]) || [
-      { time: c.lastVisit || daysAgoIso(30), kind:'visit', text: `${esc(c.pref)} — ${t('customers.timelineDefault1')}` },
+      { time: c.lastVisit || daysAgoIso(30), kind:'visit', text: `${esc(td(c.pref))} — ${t('customers.timelineDefault1')}` },
       { time: daysAgoIso(45), kind:'ai', text: t('customers.timelineDefault2') },
       { time: daysAgoIso(70), kind:'campaign', text: t('customers.timelineDefault3') },
     ];
@@ -769,17 +784,17 @@
           <dl class="kv">
             <dt>${t('customers.ltv')}</dt><dd>${c.ltv? money(c.ltv):'—'}</dd>
             <dt>${t('customers.visits')}</dt><dd>${c.visits}</dd>
-            <dt>${t('customers.usualService')}</dt><dd>${esc(c.pref)}</dd>
+            <dt>${t('customers.usualService')}</dt><dd>${esc(td(c.pref))}</dd>
             <dt>${t('customers.lastVisit')}</dt><dd>${fmtRel(c.lastVisit)}</dd>
             <dt>${t('customers.nextDue')}</dt><dd>${c.nextDue? fmtRel(c.nextDue):'—'}</dd>
             <dt>${t('customers.consent')}</dt><dd>${c.consent? t('customers.consentYes'): t('customers.consentNo')}</dd>
-            <dt>${t('customers.tags')}</dt><dd>${c.tags.map((tg) => `<span class="tagchip">${esc(tg)}</span>`).join('')}</dd>
+            <dt>${t('customers.tags')}</dt><dd>${c.tags.map((tg) => `<span class="tagchip">${esc(td(tg))}</span>`).join('')}</dd>
           </dl>
         </div>
         <div class="card">
           <h4 style="margin:0 0 6px">${t('customers.timeline')}</h4>
           <ul class="timeline">
-            ${timeline.map((tl) => `<li><time>${fmtRel(tl.time)} · ${esc(tl.kind)}</time>${tl.text}</li>`).join('')}
+            ${timeline.map((tl) => `<li><time>${fmtRel(tl.time)} · ${esc(td(tl.kind))}</time>${td(tl.text)}</li>`).join('')}
           </ul>
         </div>
       </div>`;
@@ -805,15 +820,15 @@
       <div class="grid c2" style="align-items:start">
         <div class="card">
           <div class="est" style="margin-top:0">
-            ${r.stats.map((s) => `<div><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join('')}
+            ${r.stats.map((s) => `<div><b>${esc(s.value)}</b><span>${esc(td(s.label))}</span></div>`).join('')}
           </div>
-          <p style="font-size:12.5px;color:var(--ink-2);margin:12px 0 8px;max-width:64ch">${esc(r.rule)}</p>
+          <p style="font-size:12.5px;color:var(--ink-2);margin:12px 0 8px;max-width:64ch">${esc(td(r.rule))}</p>
           <span class="tagchip" style="font-variant-numeric:tabular-nums">${esc(r.link)} ${t('referral.linkNote')}</span>
         </div>
         <div class="card tbl-wrap" style="padding:6px 10px">
           <table class="tbl">
             <thead><tr><th>${t('referral.topReferrers')}</th><th class="num">${t('referral.referred')}</th><th class="num">${t('referral.booked')}</th><th class="num">${t('referral.revenue')}</th><th>${t('referral.note')}</th></tr></thead>
-            <tbody>${r.top.map((rf) => `<tr><td><b>${esc(rf.name)}</b></td><td class="num">${rf.referred}</td><td class="num">${rf.booked}</td><td class="num">${rf.revenue? money(rf.revenue):'—'}</td><td style="color:var(--ink-2)">${esc(rf.note)}</td></tr>`).join('')}</tbody>
+            <tbody>${r.top.map((rf) => `<tr><td><b>${esc(rf.name)}</b></td><td class="num">${rf.referred}</td><td class="num">${rf.booked}</td><td class="num">${rf.revenue? money(rf.revenue):'—'}</td><td style="color:var(--ink-2)">${esc(td(rf.note))}</td></tr>`).join('')}</tbody>
           </table>
         </div>
       </div>`;
@@ -838,11 +853,11 @@
       </div>`:'';
     return `
       <div class="camp">
-        <div class="head"><b>${esc(c.name)}</b><span class="status ${status}">${t(CAMP_STATUS_KEY[status] || status)}</span></div>
+        <div class="head"><b>${esc(td(c.name))}</b><span class="status ${status}">${t(CAMP_STATUS_KEY[status] || status)}</span></div>
         <dl class="row">
-          <dt>${t('marketing.trigger')}</dt><dd>${esc(c.trigger)}</dd>
-          <dt>${t('marketing.audience')}</dt><dd>${esc(c.audience)}</dd>
-          <dt>${t('marketing.schedule')}</dt><dd>${esc(c.schedule)} · ${esc(c.channel)}</dd>
+          <dt>${t('marketing.trigger')}</dt><dd>${esc(td(c.trigger))}</dd>
+          <dt>${t('marketing.audience')}</dt><dd>${esc(td(c.audience))}</dd>
+          <dt>${t('marketing.schedule')}</dt><dd>${esc(td(c.schedule))} · ${esc(td(c.channel))}</dd>
         </dl>
         <div class="copy">“${esc(c.copy)}”</div>
         ${est}${res}
@@ -875,11 +890,11 @@
           <div class="card">
             ${cx.themes.map((th) => `
               <div class="theme-row ${th.tone ==='warn'?'warn': th.tone ==='bad'?'bad':''}">
-                <span style="min-width:180px">${esc(th.theme)}</span>
+                <span style="min-width:180px">${esc(td(th.theme))}</span>
                 <span class="bar" style="width:${th.n * 16}px"></span>
                 <span class="n">${th.n}</span>
               </div>`).join('')}
-            <p style="font-size:12px;color:var(--muted);margin:10px 0 0">${esc(cx.note)}</p>
+            <p style="font-size:12px;color:var(--muted);margin:10px 0 0">${esc(td(cx.note))}</p>
           </div>
         </div>
       </div>`;
@@ -893,7 +908,7 @@
           <span style="color:var(--muted);font-size:12px">${esc(r.source)} · ${fmtRel(r.time)}</span>
         </div>
         <p class="txt">${esc(r.text)}</p>
-        ${r.linked? `<p style="font-size:12px;color:var(--serious);margin:0 0 8px"><b>${t('reputation.linked')}</b> · ${esc(r.linked)}</p>`:''}
+        ${r.linked? `<p style="font-size:12px;color:var(--serious);margin:0 0 8px"><b>${t('reputation.linked')}</b> · ${esc(td(r.linked))}</p>`:''}
         <div class="reply"><span class="lbl">${posted? t('reputation.replyPosted'): t('reputation.replyDrafted')}</span>${esc(r.reply)}</div>
         ${posted?'': `<div style="margin-top:10px;display:flex;gap:8px">
           <button class="btn sm pri" data-post-reply="${r.id}">${t('reputation.approvePost')}</button>
@@ -924,22 +939,22 @@
           <div class="card" style="padding:8px 16px">
             ${s.calendar.map((c) => `
               <div class="cal-row">
-                <span class="cal-day">${esc(c.day)}<em>${esc(c.time)}</em></span>
-                <div class="cal-body"><b>${esc(c.title)}</b>
-                  <span>${esc(c.channel)}${c.note?' ·' + esc(c.note):''}</span></div>
+                <span class="cal-day">${esc(td(c.day))}<em>${esc(c.time)}</em></span>
+                <div class="cal-body"><b>${esc(td(c.title))}</b>
+                  <span>${esc(td(c.channel))}${c.note?' · ' + esc(td(c.note)):''}</span></div>
                 ${stChip(c.status)}
               </div>`).join('')}
           </div>
           <h2 class="sec">${t('social.assets')}</h2>
           <div class="card">
-            <ul class="strategy" style="margin:0;padding-left:18px">${s.assets.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
+            <ul class="strategy" style="margin:0;padding-left:18px">${s.assets.map((a) => `<li>${esc(td(a))}</li>`).join('')}</ul>
           </div>
         </div>
         <div>
           <h2 class="sec">${t('social.whatDrives')}</h2>
           ${s.posts.map((p) => `
             <div class="card" style="margin-bottom:10px">
-              <b>${esc(p.title)}</b> <span style="color:var(--muted);font-size:12px">· ${esc(p.when)}</span>
+              <b>${esc(td(p.title))}</b> <span style="color:var(--muted);font-size:12px">· ${esc(p.when)}</span>
               <div class="est" style="margin-top:8px">
                 <div><b>${esc(p.reach)}</b><span>${t('social.reach')}</span></div>
                 <div><b>${p.saves}</b><span>${t('social.saves')}</span></div>
@@ -947,15 +962,15 @@
                 <div><b>${p.bookings}</b><span>${t('social.bookings')}</span></div>
                 <div><b>${money(p.revenue)}</b><span>${t('social.revenue')}</span></div>
               </div>
-              ${p.flag? `<p style="margin:8px 0 0;font-size:12.5px;color:var(--accent-soft-ink)"><b>${t('social.insight')}</b> · ${esc(p.flag)}</p>`:''}
+              ${p.flag? `<p style="margin:8px 0 0;font-size:12.5px;color:var(--accent-soft-ink)"><b>${t('social.insight')}</b> · ${esc(td(p.flag))}</p>`:''}
             </div>`).join('')}
           <h2 class="sec">${t('social.commentsDms')}</h2>
           <div class="card" style="padding:8px 16px">
             ${s.interactions.map((i) => `
               <div class="int-row">
-                <div><b>${esc(i.who)}</b> <span style="color:var(--muted);font-size:11.5px">${esc(i.channel)} · ${esc(i.when)}</span>
+                <div><b>${esc(i.who)}</b> <span style="color:var(--muted);font-size:11.5px">${esc(td(i.channel))} · ${esc(td(i.when))}</span>
                   <div class="int-text">“${esc(i.text)}”</div>
-                  <div class="int-out">→ ${esc(i.outcome)}</div></div>
+                  <div class="int-out">→ ${esc(td(i.outcome))}</div></div>
                 ${klassChip(i.klass)}
               </div>`).join('')}
           </div>
@@ -974,7 +989,7 @@
     const tr = D.trust;
     return `
       <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
-        ${tr.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span><div class="kpi-delta" style="color:var(--muted)">${esc(s.sub)}</div></div>`).join('')}
+        ${tr.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(td(s.label))}</span><div class="kpi-delta" style="color:var(--muted)">${esc(td(s.sub))}</div></div>`).join('')}
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div>
@@ -982,8 +997,8 @@
           <div class="card" style="padding:8px 16px">
             ${tr.audit.map((a) => `
               <div class="audit-row">
-                <span class="audit-t">${esc(a.t)}</span>
-                <span class="audit-text">${esc(a.text)}</span>
+                <span class="audit-t">${esc(td(a.t))}</span>
+                <span class="audit-text">${esc(td(a.text))}</span>
                 ${auditTag(a.tag)}
               </div>`).join('')}
           </div>
@@ -991,13 +1006,13 @@
         <div>
           <h2 class="sec">Outreach rules — enforced before every send</h2>
           <div class="card">
-            <ul class="strategy" style="margin:0;padding-left:18px">${tr.rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+            <ul class="strategy" style="margin:0;padding-left:18px">${tr.rules.map((r) => `<li>${esc(td(r))}</li>`).join('')}</ul>
           </div>
           <h2 class="sec">${t('trust.whoCanDo')}</h2>
           <div class="card tbl-wrap" style="padding:6px 10px">
             <table class="tbl">
               <thead><tr><th>${t('trust.person')}</th><th>${t('trust.role')}</th><th>${t('trust.permissions')}</th></tr></thead>
-              <tbody>${tr.roles.map((r) => `<tr><td><b>${esc(r.who)}</b></td><td>${esc(r.role)}</td><td style="color:var(--ink-2)">${esc(r.can)}</td></tr>`).join('')}</tbody>
+              <tbody>${tr.roles.map((r) => `<tr><td><b>${esc(r.who)}</b></td><td>${esc(td(r.role))}</td><td style="color:var(--ink-2)">${esc(td(r.can))}</td></tr>`).join('')}</tbody>
             </table>
           </div>
           <h2 class="sec">${t('trust.whyExists')}</h2>
@@ -1017,21 +1032,21 @@
           ${D.knowledge.map((k) => `
             <div class="kb">
               <div class="head">
-                <b>${esc(k.title)}</b>
-                <span class="cat">${esc(k.category)}</span>
+                <b>${esc(td(k.title))}</b>
+                <span class="cat">${esc(td(k.category))}</span>
                 ${k.sensitive? `<span class="lock">${t('brain.ownerGated')}</span>`:''}
                 <span class="cites">${t('brain.cited', { n: k.cites30d })}</span>
               </div>
-              <p>${esc(k.excerpt)}</p>
-              <div class="meta">${esc(state.kbApproved[k.id] && k.approvedVersion? k.approvedVersion: k.version)} · ${t('brain.updatedBy', { rel: fmtRel(k.updated), owner: esc(k.owner) })}</div>
+              <p>${esc(td(k.excerpt))}</p>
+              <div class="meta">${esc(td(state.kbApproved[k.id] && k.approvedVersion? k.approvedVersion: k.version))} · ${t('brain.updatedBy', { rel: fmtRel(k.updated), owner: esc(td(k.owner)) })}</div>
             </div>`).join('')}
         </div>
         <div>
           <h2 class="sec">${t('brain.gaps')}</h2>
           ${D.knowledgeGaps.map((g) => `
             <div class="kb gap">
-              <b>“${esc(g.q)}”</b>
-              <p>${t('brain.askedLast', { n: g.asked, rel: fmtRel(g.last) })} ${esc(g.note)}</p>
+              <b>“${esc(td(g.q))}”</b>
+              <p>${t('brain.askedLast', { n: g.asked, rel: fmtRel(g.last) })} ${esc(td(g.note))}</p>
               <div style="margin-top:8px"><button class="btn sm" data-toast="${esc(t('brain.draftToast'))}">${t('brain.draftAnswer')}</button></div>
             </div>`).join('')}
           <h2 class="sec">${t('brain.howGrounding')}</h2>
@@ -1050,20 +1065,20 @@
     const ob = D.onboarding;
     const s = state.setupStep;
     const fileRows = ob.files.map((f, i) => s >= i + 1
-? `<div class="ob-file done"><span class="ob-check">✓</span><div><b>${esc(f.name)}</b><span>${esc(f.desc)}</span></div></div>`
-: `<div class="ob-file"><span class="ob-check"></span><div><b>${esc(f.name)}</b><span>${esc(f.desc)}</span></div></div>`).join('');
+? `<div class="ob-file done"><span class="ob-check">✓</span><div><b>${esc(f.name)}</b><span>${esc(td(f.desc))}</span></div></div>`
+: `<div class="ob-file"><span class="ob-check"></span><div><b>${esc(f.name)}</b><span>${esc(td(f.desc))}</span></div></div>`).join('');
     const itemRows = ob.extracted.map((it, i) => s >= i + 5
-? `<div class="ob-item"><span class="ob-check">✓</span><span>${esc(it.title)}</span><span class="ob-cat">${esc(it.cat)}</span></div>`:'').join('');
+? `<div class="ob-item"><span class="ob-check">✓</span><span>${esc(td(it.title))}</span><span class="ob-cat">${esc(td(it.cat))}</span></div>`:'').join('');
     const chat = s >= 12? `
       <div class="msgs" style="padding:10px 2px 2px">
         <div class="msg cust">${esc(ob.testQ)}</div>
         ${s === 13?'<div class="typing"><i></i><i></i><i></i></div>':''}
-        ${s >= 14? `<div class="msg ai">${esc(ob.testA)}<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(ob.testCite)}</span></div>`:''}
+        ${s >= 14? `<div class="msg ai">${esc(ob.testA)}<br><span class="cite"><span class="cite-k">${t('msg.source')}</span>${esc(td(ob.testCite))}</span></div>`:''}
       </div>`:'';
     return `
       <div class="card brief">
         <h3>${t('setup.heading')}</h3>
-        <p>${esc(ob.intro)}</p>
+        <p>${esc(td(ob.intro))}</p>
         <div style="margin-top:12px">
           <button class="btn pri" data-setup-play ${state.setupPlaying?'disabled':''}>${s > 0 &&!state.setupPlaying? '↻ ' + t('setup.replay'): state.setupPlaying? t('setup.playing'): '▶ ' + t('setup.play')}</button>
         </div>
@@ -1081,12 +1096,12 @@
         </div>
         <div class="card ob-stage ${s >= 11?'on':''}">
           <div class="ob-num">3</div><h3>${t('setup.step3Title')}</h3>
-          <p class="ob-sub">${s >= 11? esc(ob.review): t('setup.waitsFor2')}</p>
+          <p class="ob-sub">${s >= 11? esc(td(ob.review)): t('setup.waitsFor2')}</p>
           ${chat}
         </div>
         <div class="card ob-stage ${s >= 15?'on':''}">
           <div class="ob-num">4</div><h3>${t('setup.step4Title')}</h3>
-          <p class="ob-sub">${s >= 15? esc(ob.live): t('setup.waitsFor3')}</p>
+          <p class="ob-sub">${s >= 15? esc(td(ob.live)): t('setup.waitsFor3')}</p>
           ${s >= 15? `<div style="margin-top:10px"><span class="tagchip ai">● ${t('setup.liveNow')}</span></div>`:''}
         </div>
       </div>`;
@@ -1125,7 +1140,7 @@
   function vInsights() {
     return `
       <div class="stat-row" style="grid-template-columns:repeat(3,1fr)">
-        ${D.kpis.map((k) => `<div class="stat"><b>${esc(k.value)}</b><span>${esc(k.label)}</span><div class="kpi-delta">${esc(k.delta)}</div></div>`).join('')}
+        ${D.kpis.map((k) => `<div class="stat"><b>${esc(k.value)}</b><span>${esc(td(k.label))}</span><div class="kpi-delta">${esc(td(k.delta))}</div></div>`).join('')}
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div class="card chart-card">
@@ -1138,7 +1153,7 @@
           <h3>${t('insights.funnelTitle')}</h3>
           <div class="sub">${t('insights.funnelSub')}</div>
           ${funnelChart()}
-          ${dataTable([t('insights.colStage'), t('insights.colCount'), t('insights.colPctPrev')], D.funnel.map((f, i) => [f.stage, f.n, i? Math.round((f.n / D.funnel[i - 1].n) * 100) +'%':'—']))}
+          ${dataTable([t('insights.colStage'), t('insights.colCount'), t('insights.colPctPrev')], D.funnel.map((f, i) => [td(f.stage), f.n, i? Math.round((f.n / D.funnel[i - 1].n) * 100) +'%':'—']))}
         </div>
         <div class="card chart-card">
           <h3>${t('insights.channelTitle')}</h3>
@@ -1150,26 +1165,26 @@
           <h3>${t('insights.forecastTitle')}</h3>
           <div class="sub">${t('insights.forecastSub')}</div>
           ${forecastChart()}
-          ${dataTable([t('insights.colDay'), t('insights.colLow'), t('insights.colExpected'), t('insights.colHigh')], D.forecast.map((f) => [f.day, f.lo, f.mid, f.hi]))}
+          ${dataTable([t('insights.colDay'), t('insights.colLow'), t('insights.colExpected'), t('insights.colHigh')], D.forecast.map((f) => [td(f.day), f.lo, f.mid, f.hi]))}
         </div>
         <div class="card chart-card">
           <h3>${t('insights.servicesTitle')}</h3>
           <div class="sub">${t('insights.servicesSub')}</div>
           ${servicesChart()}
-          ${dataTable([t('insights.colService'), t('insights.colBookings'), t('insights.colRevenue')], D.topServices.map((s) => [s.name, s.bookings, money(s.revenue)]))}
+          ${dataTable([t('insights.colService'), t('insights.colBookings'), t('insights.colRevenue')], D.topServices.map((s) => [td(s.name), s.bookings, money(s.revenue)]))}
         </div>
         <div class="card chart-card">
-          <h3>${esc(D.teamCompare.title)}</h3>
-          <div class="sub">The RFP's store-comparison insight, at single-merchant scale</div>
+          <h3>${esc(td(D.teamCompare.title))}</h3>
+          <div class="sub">${t('insights.teamCompareSub')}</div>
           <div class="tbl-wrap"><table class="tbl">
-            <thead><tr>${D.teamCompare.cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead>
-            <tbody>${D.teamCompare.rows.map((r) => `<tr>${r.map((c, i) => `<td class="${i?'num':''}">${i === 0?'<b>' + esc(c) +'</b>': esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+            <thead><tr>${D.teamCompare.cols.map((c) => `<th>${esc(td(c))}</th>`).join('')}</tr></thead>
+            <tbody>${D.teamCompare.rows.map((r) => `<tr>${r.map((c, i) => `<td class="${i?'num':''}">${i === 0?'<b>' + esc(td(c)) +'</b>': esc(td(c))}</td>`).join('')}</tr>`).join('')}</tbody>
           </table></div>
-          <p style="font-size:12.5px;color:var(--ink-2);margin:10px 0 0;max-width:60ch">${esc(D.teamCompare.note)}</p>
+          <p style="font-size:12.5px;color:var(--ink-2);margin:10px 0 0;max-width:60ch">${esc(td(D.teamCompare.note))}</p>
         </div>
         <div class="card strategy">
-          <h3 style="margin:0 0 8px;font-size:13.5px">${esc(D.strategy.title)}</h3>
-          <ul style="margin:0;padding-left:18px">${D.strategy.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+          <h3 style="margin:0 0 8px;font-size:13.5px">${esc(td(D.strategy.title))}</h3>
+          <ul style="margin:0;padding-left:18px">${D.strategy.points.map((p) => `<li>${esc(td(p))}</li>`).join('')}</ul>
         </div>
       </div>`;
   }
@@ -1217,8 +1232,8 @@
         const yy = i * (rowH + gap);
         const conv = i > 0? Math.round((f.n / D.funnel[i - 1].n) * 100) +'%':'';
         return `
-          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${f.stage}</text>
-          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="${colors[i]}" data-tip="${f.stage}: ${f.n}${conv? t('chart.funnelTipSuffix', { pct: conv }):''}"/>
+          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${td(f.stage)}</text>
+          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="${colors[i]}" data-tip="${td(f.stage)}: ${f.n}${conv? t('chart.funnelTipSuffix', { pct: conv }):''}"/>
           <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 - 1}">${f.n}</text>
           ${conv? `<text x="${L + w + 7}" y="${yy + rowH / 2 + 11}" font-size="9.5">${conv} →</text>`:''}`;
       }).join('')}
@@ -1262,9 +1277,9 @@
       <path d="${band}" fill="var(--chart-1)" opacity="0.16"/>
       <path d="${mid}" fill="none" stroke="var(--chart-1)" stroke-width="2"/>
       ${data.map((d, i) => `
-        <circle cx="${x(i)}" cy="${y(d.mid)}" r="3.2" fill="var(--chart-1)" data-tip="${t('chart.forecastTip', { day: d.day, n: d.mid, lo: d.lo, hi: d.hi })}"/>
-        <text x="${x(i)}" y="${H - 7}" text-anchor="middle">${d.day.split(' ')[0]}</text>`).join('')}
-      <text class="val" x="${x(0) + 4}" y="${T + 2}">${esc(D.forecastNote)}</text>
+        <circle cx="${x(i)}" cy="${y(d.mid)}" r="3.2" fill="var(--chart-1)" data-tip="${t('chart.forecastTip', { day: td(d.day), n: d.mid, lo: d.lo, hi: d.hi })}"/>
+        <text x="${x(i)}" y="${H - 7}" text-anchor="middle">${td(d.day).split(' ')[0]}</text>`).join('')}
+      <text class="val" x="${x(0) + 4}" y="${T + 2}">${esc(td(D.forecastNote))}</text>
     </svg>`;
   }
 
@@ -1277,9 +1292,9 @@
         const yy = i * (rowH + gap);
         const w = (s.revenue / max) * (W - L - R);
         return `
-          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${s.name}</text>
-          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="var(--chart-1)" data-tip="${s.name}: ${money(s.revenue)} from ${s.bookings} bookings"/>
-          <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 + 3.5}">${money(s.revenue)} · ${s.bookings} bkgs</text>`;
+          <text x="${L - 8}" y="${yy + rowH / 2 + 3.5}" text-anchor="end">${td(s.name)}</text>
+          <rect x="${L}" y="${yy}" width="${w}" height="${rowH - 8}" rx="4" fill="var(--chart-1)" data-tip="${t('chart.serviceTip', { name: td(s.name), money: money(s.revenue), n: s.bookings })}"/>
+          <text class="val" x="${L + w + 7}" y="${yy + rowH / 2 + 3.5}">${t('chart.serviceLabel', { money: money(s.revenue), n: s.bookings })}</text>`;
       }).join('')}
     </svg>`;
   }
@@ -1316,14 +1331,14 @@
           ${IC[id]}${t('nav.' + id)}
           ${id ==='inbox' && unread? `<span class="bdg">${unread}</span>`:''}
         </button>`).join('')}
-      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(D.merchant.hours)}</div>`;
+      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(td(D.merchant.hours))}</div>`;
     $('#tabbar').innerHTML = NAV_IDS.map((id) => `
       <button class="${state.view === id?'on':''}" data-nav="${id}">${IC[id]}${t('nav.' + id)}</button>`).join('');
   }
   function renderTop() {
     $('#topbar').innerHTML = `
       <h1>${t('title.' + state.view)}</h1>
-      <span class="sub">${esc(D.merchant.name)} · ${esc(D.merchant.tagline)}</span>
+      <span class="sub">${esc(D.merchant.name)} · ${esc(td(D.merchant.tagline))}</span>
       <div class="spacer"></div>
       <div class="top-right">
         <div class="seg" role="group" aria-label="${t('aria.langGroup')}">
@@ -1423,7 +1438,7 @@
       if (a.action.campaign) state.campaign[a.action.campaign] ='scheduled';
       if (a.action.review) state.reviewPosted[a.action.review] = true;
       if (a.action.knowledge) state.kbApproved[a.action.knowledge] = true;
-      toast(a.toast);
+      toast(td(a.toast));
       render();
     }
     else if (el.dataset.hold) { state.done[el.dataset.hold] = true; toast(t('toast.held')); render(); }
