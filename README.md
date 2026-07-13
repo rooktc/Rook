@@ -38,6 +38,14 @@ configuration:
 
 Press **Tour** in the top bar for a guided 9-step walkthrough.
 
+**Language switcher** (top bar) — the entire interface (navigation, buttons,
+headers, chart labels, tooltips, toasts) is available in English, Traditional
+Chinese, and Simplified Chinese. Scripted business content — customer names,
+conversation transcripts, campaign copy, task titles, strategy commentary —
+stays as authored (some of it, like the Chen Meiling conversation, is
+intentionally already bilingual) since translating narrative demo content is
+a different job from localizing the product chrome.
+
 ## What to look at
 
 - **Today** — the owner's daily brief, overnight AI activity, and the approval
