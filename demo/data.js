@@ -976,6 +976,164 @@ window.DEMOS = (() => {
     };
   })();
 
+  /* ================================================================
+     Ops / marketing / advisor additions (stakeholder feedback round)
+     Injected onto each industry so the builders above stay untouched.
+     ================================================================ */
+  const absAmt = (n) => n; // expense magnitude; rendered with a leading − in the UI
+  Object.assign(beauty, {
+    advisor: {
+      summary: 'Your biggest lever this week is filling Tue–Wed afternoons before the monsoon surge — the drafted rainy-week facial campaign covers it. Before that: 3 approvals, 1 VIP complaint call, and one bridal group to confirm.',
+      metricLabel:'projected upside if you act', metricValue:'+$1,017',
+    },
+    todayBookings: 8, followUpCount: 10,
+    finance: {
+      monthRevenue: 18420, monthExpense: 9260, monthNet: 9160, margin:'50%',
+      periods: {
+        day: { cols:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], revenue:[520,610,480,640,880,1240,760], expense:[240,300,260,300,360,420,300] },
+        month: { cols:['Feb','Mar','Apr','May','Jun','Jul'], revenue:[14200,15100,16800,17200,18900,18420], expense:[8100,8400,8900,9000,9400,9260] },
+        year: { cols:['2024','2025','2026 YTD'], revenue:[142000,178000,124000], expense:[82000,101000,64000] },
+      },
+      expenseBreakdown: [
+        { cat:'Staff pay', amount:3800 }, { cat:'Rent', amount:3200 },
+        { cat:'Products & materials', amount:1460 }, { cat:'Marketing', amount:420 },
+        { cat:'Utilities & other', amount:380 },
+      ],
+      transactions: [
+        { date: daysAgo(1,19,10), item:'Volume lash set — walk-in', type:'in', amount:158 },
+        { date: daysAgo(1,17,30), item:'Japanese gel restock (supplier)', type:'out', amount:absAmt(320) },
+        { date: daysAgo(1,15,0), item:'Facial package ×1', type:'in', amount:628 },
+        { date: daysAgo(1,18,0), item:'July birthday campaign (WhatsApp fees)', type:'out', amount:absAmt(0.66) },
+        { date: daysAgo(2,10,0), item:'Day takings', type:'in', amount:940 },
+        { date: daysAgo(3,17,0), item:'Utilities — electricity', type:'out', amount:absAmt(210) },
+      ],
+    },
+    materials: {
+      inventory: [
+        { name:'Japanese gel polish (assorted)', stock:6, unit:'bottles', reorder:8, status:'low' },
+        { name:'Base / top coat', stock:14, unit:'bottles', reorder:6, status:'ok' },
+        { name:'Volume lash trays', stock:3, unit:'trays', reorder:5, status:'low' },
+        { name:'Lash glue', stock:0, unit:'tubes', reorder:3, status:'out' },
+        { name:'Signature facial serum', stock:9, unit:'bottles', reorder:4, status:'ok' },
+        { name:'Consumables (cotton, files)', stock:220, unit:'pcs', reorder:80, status:'ok' },
+      ],
+      purchases: [
+        { date: daysAgo(1,12,0), item:'Japanese gel polish', qty:'24 bottles', cost:320, supplier:'GelPro SG', status:'ordered' },
+        { date: daysAgo(4,12,0), item:'Lash glue + trays', qty:'6 tubes / 10 trays', cost:180, supplier:'LashHouse', status:'delivered' },
+        { date: daysAgo(9,12,0), item:'Facial serum refill', qty:'12 bottles', cost:540, supplier:'DermaLab', status:'delivered' },
+      ],
+    },
+    staff: {
+      roster: [
+        { name:'Joanne', role:'Senior stylist', pay:3420, shiftsWeek:5, rating:'4.9 ★', records:38 },
+        { name:'Ms Lee', role:'Stylist', pay:2710, shiftsWeek:5, rating:'4.7 ★', records:31 },
+        { name:'Nadia', role:'Front desk', pay:2200, shiftsWeek:6, rating:'—', records:0 },
+      ],
+      shifts: {
+        days:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        rows:[
+          { name:'Joanne', on:[0,1,1,1,0,1,1] },
+          { name:'Ms Lee', on:[1,1,0,1,1,1,0] },
+          { name:'Nadia', on:[0,1,1,1,1,1,1] },
+        ],
+      },
+    },
+    marketingSuggestions: [
+      { text:'Handle 1 negative review first', count:1, tone:'bad', goto:{ view:'reputation' } },
+      { text:'Follow up 10 to-do customers', count:10, goto:{ view:'inbox' } },
+      { text:'Push 1 “booking-intent” customer to close', count:1, goto:{ view:'inbox' } },
+      { text:'Send an offer to 14 “evaluating” customers', count:14, goto:{ view:'customers', filter:'Evaluating' } },
+      { text:'Win back 6 dormant customers', count:6, goto:{ view:'customers', filter:'Dormant' } },
+    ],
+    publishWizard: {
+      goals:['More bookings','Fill off-peak','Promote a service','Win back dormant','Boost reviews'],
+      audiences:['All consented','VIPs','Dormant 8 weeks+','New leads','Facial buyers'],
+      platforms:['Instagram','Facebook','Google','WhatsApp broadcast'],
+      variants:[
+        'Rainy week ahead — the perfect excuse for a facial. 20% off Signature & Deep Cleanse, Tue–Thu 2–6 PM next week only. Reply YES and we’ll sort your slot.',
+        'Beat the haze with a hydrating glow-up. Weekday-afternoon facials are 20% off this week — quiet, unhurried, just you. Tap to book.',
+        'Midweek reset, on us: 20% off Signature Facials Tue–Thu. Slots are filling fast — reply to grab yours.',
+      ],
+    },
+  });
+  Object.assign(pets, {
+    advisor: {
+      summary: 'Saturday is nearly sold out and a heat advisory hits next week — approve the coat-care campaign to push de-shedding onto quiet weekday routes. First: call Ravi about Toby’s nail, and get the senior groomer to assess Mimi.',
+      metricLabel:'projected upside if you act', metricValue:'+$1,290',
+    },
+    todayBookings: 11, followUpCount: 8,
+    finance: {
+      monthRevenue: 21880, monthExpense: 11240, monthNet: 10640, margin:'49%',
+      periods: {
+        day: { cols:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], revenue:[640,580,600,660,820,1560,1420], expense:[320,300,300,340,380,620,560] },
+        month: { cols:['Feb','Mar','Apr','May','Jun','Jul'], revenue:[16800,17900,19200,20100,22400,21880], expense:[9200,9600,10100,10500,11500,11240] },
+        year: { cols:['2024','2025','2026 YTD'], revenue:[168000,214000,148000], expense:[92000,118000,76000] },
+      },
+      expenseBreakdown: [
+        { cat:'Groomer pay', amount:4600 }, { cat:'Van fuel & upkeep', amount:2600 },
+        { cat:'Products & materials', amount:2100 }, { cat:'Marketing', amount:520 },
+        { cat:'Insurance & other', amount:1420 },
+      ],
+      transactions: [
+        { date: daysAgo(1,18,0), item:'Full groom ×2 (Punggol)', type:'in', amount:248 },
+        { date: daysAgo(1,16,0), item:'Van 2 diesel', type:'out', amount:absAmt(90) },
+        { date: daysAgo(1,16,0), item:'De-shed + large groom', type:'in', amount:173 },
+        { date: daysAgo(2,10,0), item:'Shampoo & cologne restock', type:'out', amount:absAmt(260) },
+        { date: daysAgo(2,19,0), item:'Day takings — both vans', type:'in', amount:1560 },
+        { date: daysAgo(4,12,0), item:'Blade sharpening service', type:'out', amount:absAmt(70) },
+      ],
+    },
+    materials: {
+      inventory: [
+        { name:'Hypoallergenic shampoo', stock:4, unit:'litres', reorder:6, status:'low' },
+        { name:'De-shed tool blades', stock:2, unit:'sets', reorder:4, status:'low' },
+        { name:'Pet cologne', stock:11, unit:'bottles', reorder:5, status:'ok' },
+        { name:'Ear-cleaning solution', stock:0, unit:'bottles', reorder:3, status:'out' },
+        { name:'Nail clippers / grinders', stock:8, unit:'pcs', reorder:3, status:'ok' },
+        { name:'Towels & cage liners', stock:140, unit:'pcs', reorder:60, status:'ok' },
+      ],
+      purchases: [
+        { date: daysAgo(2,12,0), item:'Hypoallergenic shampoo', qty:'20 L', cost:260, supplier:'PetSupply Co', status:'ordered' },
+        { date: daysAgo(5,12,0), item:'De-shed blades', qty:'6 sets', cost:210, supplier:'GroomTools', status:'delivered' },
+        { date: daysAgo(11,12,0), item:'Cologne + ear solution', qty:'assorted', cost:180, supplier:'PetSupply Co', status:'delivered' },
+      ],
+    },
+    staff: {
+      roster: [
+        { name:'Mei', role:'Senior groomer', pay:3680, shiftsWeek:6, rating:'4.9 ★', records:42 },
+        { name:'Arif', role:'Groomer (Van 1)', pay:2900, shiftsWeek:5, rating:'4.8 ★', records:34 },
+        { name:'Kelvin', role:'Groomer (Van 2)', pay:2900, shiftsWeek:5, rating:'4.7 ★', records:31 },
+        { name:'Siti', role:'Dispatch / front office', pay:2300, shiftsWeek:6, rating:'—', records:0 },
+      ],
+      shifts: {
+        days:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        rows:[
+          { name:'Mei', on:[1,1,1,0,1,1,1] },
+          { name:'Arif', on:[1,1,1,1,0,1,1] },
+          { name:'Kelvin', on:[0,1,1,1,1,1,1] },
+          { name:'Siti', on:[1,1,1,1,1,1,0] },
+        ],
+      },
+    },
+    marketingSuggestions: [
+      { text:'Handle 1 injury complaint first', count:1, tone:'bad', goto:{ view:'reputation' } },
+      { text:'Follow up 8 to-do customers', count:8, goto:{ view:'inbox' } },
+      { text:'Push 1 “booking-intent” customer to close', count:1, goto:{ view:'inbox' } },
+      { text:'Send an offer to 11 “evaluating” customers', count:11, goto:{ view:'customers', filter:'Evaluating' } },
+      { text:'Win back 6 dormant customers', count:6, goto:{ view:'customers', filter:'Dormant' } },
+    ],
+    publishWizard: {
+      goals:['More bookings','Fill weekday routes','Promote de-shedding','Win back dormant','Boost reviews'],
+      audiences:['All consented','VIPs','Dormant 12 weeks+','New leads','Double-coat pets'],
+      platforms:['Instagram','Facebook','Google','WhatsApp broadcast'],
+      variants:[
+        'Heatwave incoming — help your pup beat it. 15% off de-shedding & summer trims on weekday routes next week. Reply YES and we’ll bring a van to you.',
+        'Less fur at home, one cool dog. Weekday de-shed sessions are 15% off this week — we come to you, the fur stays in our van.',
+        'Beat the heat, keep the coat healthy: 15% off de-shedding Tue–Thu. Van slots filling — reply to lock yours in.',
+      ],
+    },
+  });
+
   return { beauty, pets };
 })();
 /* Back-compat alias (first industry) */

@@ -147,6 +147,7 @@ h2.sec:first-child { margin-top: 0; }
 .brief h3 { margin: 0 0 6px; font-size: 15.5px; }
 .brief p { margin: 0; color: var(--ink-2); max-width: 62ch; }
 .stat-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.stat-row.s6 { grid-template-columns: repeat(6, 1fr); }
 .stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
 .stat b { display: block; font-size: 22px; font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
 .stat span { font-size: 12px; color: var(--muted); }
@@ -373,6 +374,81 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .seg { display: flex; gap: 3px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; padding: 3px; }
 .seg button { border: 0; background: none; border-radius: 99px; padding: 4px 12px; font-size: 12px; color: var(--ink-2); font-weight: 550; }
 .seg button.on { background: var(--ink); color: var(--bg); font-weight: 650; }
+.seg.sm button { padding: 3px 10px; font-size: 11.5px; }
+
+/* ---- home: AI advisor hero ---- */
+.advisor { background: linear-gradient(180deg, var(--accent-soft), var(--surface)); border-color: var(--accent); }
+.advisor-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent-soft-ink); margin-bottom: 8px; }
+.advisor-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.advisor-summary { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink); max-width: 74ch; }
+.advisor-foot { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.advisor-metric b { font-size: 18px; color: var(--good-text); font-variant-numeric: tabular-nums; }
+.advisor-metric span { font-size: 12px; color: var(--muted); }
+.advisor-foot .btn { margin-left: auto; }
+
+/* ---- home: clickable KPI row ---- */
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 14px 0; }
+.kpi-card { position: relative; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); cursor: pointer; transition: border-color 0.15s, transform 0.1s; display: flex; flex-direction: column; gap: 3px; }
+.kpi-card:hover { border-color: var(--accent); }
+.kpi-card:active { transform: translateY(1px); }
+.kpi-label { font-size: 12px; color: var(--muted); }
+.kpi-val { font-size: 23px; font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.kpi-go { position: absolute; top: 12px; right: 14px; color: var(--muted); opacity: 0; transition: opacity 0.15s; }
+.kpi-card:hover .kpi-go { opacity: 1; color: var(--accent); }
+
+/* ---- home: AI task cards ---- */
+.tcard { text-align: left; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--chart-1); border-radius: var(--radius); padding: 12px 15px; cursor: pointer; display: flex; flex-direction: column; gap: 3px; transition: border-color 0.15s; box-shadow: var(--shadow); }
+.tcard:hover { border-color: var(--accent); border-left-color: var(--chart-1); }
+.tcard.neg { border-left-color: var(--crit); }
+.tcard-k { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.tcard b { font-size: 14px; }
+.tcard-pv { font-size: 12.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tcard-cta { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 2px; }
+
+/* ---- tabs (operations) ---- */
+.tabbtns { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+.tabbtn { border: 0; background: none; padding: 8px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+.tabbtn:hover { color: var(--accent); }
+.tabbtn.on { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---- staff shift grid ---- */
+.tbl.shifts td, .tbl.shifts th { text-align: center; }
+.tbl.shifts td:first-child, .tbl.shifts th:first-child { text-align: left; }
+.shift-on { color: var(--accent); font-size: 13px; }
+.shift-off { color: var(--line-strong); }
+
+/* ---- marketing: suggestions ---- */
+.sec-sub { font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
+.sugg-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.sugg-row:last-child { border-bottom: 0; }
+.sugg-dot { flex: none; width: 8px; height: 8px; border-radius: 99px; background: var(--chart-1); }
+.sugg-row.bad .sugg-dot { background: var(--crit); }
+.sugg-text { flex: 1; font-size: 13.5px; }
+.sugg-row .btn { flex: none; }
+
+/* ---- marketing: publish wizard ---- */
+.wizard { border-top: 3px solid var(--accent); }
+.wiz-sub { margin: 0 0 14px; font-size: 12.5px; color: var(--muted); }
+.wiz-field { margin-bottom: 14px; }
+.wiz-field > label { display: block; font-size: 12px; font-weight: 650; margin-bottom: 6px; }
+.wiz-field > label span { font-weight: 400; color: var(--muted); }
+.wchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.wchip { border: 1px solid var(--line-strong); background: var(--surface); border-radius: 99px; padding: 5px 13px; font-size: 12.5px; color: var(--ink-2); cursor: pointer; transition: all 0.12s; }
+.wchip:hover { border-color: var(--accent); }
+.wchip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.wiz-textarea { width: 100%; box-sizing: border-box; border: 1px solid var(--line-strong); border-radius: 8px; padding: 10px 12px; font: inherit; font-size: 13.5px; line-height: 1.5; color: var(--ink); background: var(--surface-2); resize: vertical; }
+.wiz-textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.wiz-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.wiz-poster { font-size: 11px; color: var(--accent-soft-ink); background: var(--accent-soft); border-radius: 99px; padding: 3px 10px; font-weight: 600; }
+.wiz-actions { margin-top: 4px; }
+.wizard.done { text-align: center; border-top-color: var(--good); }
+.wiz-done-ic { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 99px; background: var(--good); color: #fff; font-size: 20px; }
+.wiz-preview { font-style: italic; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--ink-2); max-width: 62ch; margin: 0 auto; text-align: left; }
+
+/* ---- marketing: published-content reveal ---- */
+.camp-published { margin-top: 10px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.cp-head { background: var(--surface-2); padding: 7px 12px; font-size: 11.5px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.cp-body { padding: 12px 14px; font-size: 13.5px; color: var(--ink); line-height: 1.55; }
 
 /* ---- setup / onboarding ---- */
 .ob-stage { position: relative; opacity: 0.55; transition: opacity 0.3s; }
@@ -481,6 +557,7 @@ button:focus-visible, .convo:focus-visible, a:focus-visible { outline: 2px solid
   .inbox .ctx { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
   .ctx .card + .card { margin-top: 0; }
   .stat-row { grid-template-columns: repeat(3, 1fr); }
+  .stat-row.s6 { grid-template-columns: repeat(3, 1fr); }
   .grid.c3 { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
@@ -488,7 +565,8 @@ button:focus-visible, .convo:focus-visible, a:focus-visible { outline: 2px solid
   .side { display: none; }
   .main { padding: 0 14px 96px; }
   .grid.c2, .grid.c3 { grid-template-columns: 1fr; }
-  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .stat-row, .stat-row.s6 { grid-template-columns: repeat(2, 1fr); }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
   .inbox { grid-template-columns: 1fr; }
   .inbox .list-pane.hidden-m, .inbox .thread-pane.hidden-m { display: none; }
   .opp .val { display: none; }

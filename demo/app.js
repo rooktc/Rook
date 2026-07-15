@@ -149,6 +149,38 @@
       'toast.replyPostedGoogle':'Reply posted to Google',
       'rel.dash':'—','rel.tomorrow':'tomorrow','rel.inDays':'in {n}d','rel.minAgo':'{n}m ago','rel.hAgo':'{n}h ago',
       'rel.yesterday':'yesterday','rel.daysAgo':'{n}d ago','rel.weeksAgo':'{n}w ago','rel.monthsAgo':'{n}mo ago',
+      'nav.operations':'Operations','title.operations':'Operations — finance, materials, staff',
+      'home.advisorTitle':'AI business advisor','home.viewInsights':'Full insights →',
+      'home.kpiRevenue':'This month revenue','home.kpiBookings':"Today's bookings",
+      'home.kpiFollowup':'To follow up','home.kpiRating':'Rating',
+      'home.aiTasks':'AI operations tasks','home.taskTakeover':'Needs human takeover',
+      'home.taskNegative':'Negative review to handle','home.openChat':'Open chat','home.openReview':'Open review',
+      'ops.finance':'Finance','ops.materials':'Materials','ops.staff':'Staff',
+      'ops.revenue':'Revenue','ops.expense':'Expense','ops.net':'Net profit','ops.margin':'Margin',
+      'ops.periodDay':'Day','ops.periodMonth':'Month','ops.periodYear':'Year',
+      'ops.revVsExp':'Revenue vs expense','ops.expenseBreakdown':'Expense breakdown — this month',
+      'ops.recentTx':'Recent transactions','ops.txItem':'Item','ops.txAmount':'Amount',
+      'ops.inventory':'Inventory','ops.purchases':'Purchase orders','ops.stock':'In stock',
+      'ops.reorder':'Reorder at','ops.matStatus':'Status','ops.statusOk':'OK','ops.statusLow':'Low','ops.statusOut':'Out',
+      'ops.reorderBtn':'Reorder','ops.reorderToast':'Purchase order drafted — sent to your supplier to confirm',
+      'ops.poQty':'Qty','ops.poCost':'Cost','ops.poSupplier':'Supplier','ops.poStatus':'Status',
+      'ops.poDelivered':'Delivered','ops.poOrdered':'Ordered','ops.poPending':'Pending',
+      'ops.staffRole':'Role','ops.staffPay':'This-month pay','ops.staffShifts':'Shifts / wk',
+      'ops.staffRating':'Avg rating','ops.staffRecords':'Work records','ops.roster':'Team',
+      'ops.weeklyShifts':'This week’s shifts','ops.payrollTotal':'Total month payroll','ops.legendRev':'Revenue','ops.legendExp':'Expense',
+      'cust.statTotal':'Total customers','cust.statActive':'Active','cust.statDormant':'Dormant','cust.statVip':'VIP',
+      'cust.statLtv':'Total lifetime value','cust.statAvgLtv':'Avg per customer','cust.statVisits':'Total visits',
+      'cust.bySource':'Customers by source',
+      'mkt.wizardTitle':'AI content-publishing wizard','mkt.wizardSub':'Draft, edit and publish a post across platforms.',
+      'mkt.goal':'Goal','mkt.audience':'Audience','mkt.content':'Content','mkt.platforms':'Publish to',
+      'mkt.multiHint':'choose one or more','mkt.regenerate':'Regenerate','mkt.poster':'AI poster attached',
+      'mkt.confirmPublish':'Confirm & publish','mkt.publishedTitle':'Published',
+      'mkt.publishedBody':'Your post is live on {platforms} and queued to {audience}.','mkt.publishAnother':'Draft another',
+      'mkt.needSelection':'Pick at least one goal, audience and platform first',
+      'mkt.publishToast':'Published — post is live and the audience is queued',
+      'mkt.suggestionsTitle':'AI marketing suggestions','mkt.suggestionsSub':'Tap any suggestion to jump to where you act on it.',
+      'mkt.handle':'Handle','mkt.viewContent':'View published content','mkt.hideContent':'Hide',
+      'mkt.publishedContent':'Published content','mkt.onPlatform':'Published on {platform}',
     },
   };
   I18N['zh-Hant'] = Object.assign({}, I18N.en, {
@@ -286,6 +318,38 @@
     'toast.replyPostedGoogle':'回覆已發布至Google',
     'rel.dash':'—','rel.tomorrow':'明天','rel.inDays':'{n}天後','rel.minAgo':'{n}分鐘前','rel.hAgo':'{n}小時前',
     'rel.yesterday':'昨天','rel.daysAgo':'{n}天前','rel.weeksAgo':'{n}週前','rel.monthsAgo':'{n}個月前',
+    'nav.operations':'經營','title.operations':'經營 — 財務、物料、員工',
+    'home.advisorTitle':'AI 經營顧問','home.viewInsights':'完整洞察 →',
+    'home.kpiRevenue':'本月營收','home.kpiBookings':'今日預約',
+    'home.kpiFollowup':'待你跟進','home.kpiRating':'口碑評分',
+    'home.aiTasks':'AI 經營任務卡','home.taskTakeover':'需人工接管',
+    'home.taskNegative':'負評待處理','home.openChat':'開啟對話','home.openReview':'查看評價',
+    'ops.finance':'財務','ops.materials':'物料','ops.staff':'員工',
+    'ops.revenue':'營收','ops.expense':'支出','ops.net':'淨利','ops.margin':'利潤率',
+    'ops.periodDay':'日','ops.periodMonth':'月','ops.periodYear':'年',
+    'ops.revVsExp':'營收 vs 支出','ops.expenseBreakdown':'支出明細 — 本月',
+    'ops.recentTx':'近期交易','ops.txItem':'項目','ops.txAmount':'金額',
+    'ops.inventory':'庫存','ops.purchases':'採購訂單','ops.stock':'庫存量',
+    'ops.reorder':'補貨點','ops.matStatus':'狀態','ops.statusOk':'充足','ops.statusLow':'偏低','ops.statusOut':'缺貨',
+    'ops.reorderBtn':'一鍵補貨','ops.reorderToast':'採購單已擬妥——已發給供應商確認',
+    'ops.poQty':'數量','ops.poCost':'金額','ops.poSupplier':'供應商','ops.poStatus':'狀態',
+    'ops.poDelivered':'已到貨','ops.poOrdered':'已下單','ops.poPending':'待處理',
+    'ops.staffRole':'職務','ops.staffPay':'本月薪資','ops.staffShifts':'每週班次',
+    'ops.staffRating':'平均評分','ops.staffRecords':'工作紀錄','ops.roster':'團隊',
+    'ops.weeklyShifts':'本週值班','ops.payrollTotal':'本月薪資總額','ops.legendRev':'營收','ops.legendExp':'支出',
+    'cust.statTotal':'客戶總數','cust.statActive':'活躍','cust.statDormant':'沉睡','cust.statVip':'VIP',
+    'cust.statLtv':'客戶終身價值總額','cust.statAvgLtv':'平均每位客戶','cust.statVisits':'到訪總次數',
+    'cust.bySource':'各來源客戶數',
+    'mkt.wizardTitle':'AI 內容發布向導','mkt.wizardSub':'一次擬定、編輯並跨平台發布貼文。',
+    'mkt.goal':'目標','mkt.audience':'客群','mkt.content':'內容','mkt.platforms':'發布平台',
+    'mkt.multiHint':'可多選','mkt.regenerate':'重新生成','mkt.poster':'已附 AI 海報',
+    'mkt.confirmPublish':'確認發布','mkt.publishedTitle':'已發布',
+    'mkt.publishedBody':'您的貼文已在 {platforms} 發布，並排定傳送給 {audience}。','mkt.publishAnother':'再擬一則',
+    'mkt.needSelection':'請至少選擇一個目標、客群與平台',
+    'mkt.publishToast':'已發布——貼文上線，客群已排入',
+    'mkt.suggestionsTitle':'AI 營銷建議','mkt.suggestionsSub':'點任一建議即可跳到處理頁面。',
+    'mkt.handle':'去處理','mkt.viewContent':'查看發布內容','mkt.hideContent':'收起',
+    'mkt.publishedContent':'已發布內容','mkt.onPlatform':'發布於 {platform}',
   });
   I18N['zh-Hans'] = Object.assign({}, I18N.en, {
     'nav.today':'今天','nav.inbox':'收件箱','nav.customers':'客户','nav.marketing':'营销','nav.social':'社交',
@@ -422,6 +486,38 @@
     'toast.replyPostedGoogle':'回复已发布至Google',
     'rel.dash':'—','rel.tomorrow':'明天','rel.inDays':'{n}天后','rel.minAgo':'{n}分钟前','rel.hAgo':'{n}小时前',
     'rel.yesterday':'昨天','rel.daysAgo':'{n}天前','rel.weeksAgo':'{n}周前','rel.monthsAgo':'{n}个月前',
+    'nav.operations':'经营','title.operations':'经营 — 财务、物料、员工',
+    'home.advisorTitle':'AI 经营顾问','home.viewInsights':'完整洞察 →',
+    'home.kpiRevenue':'本月营收','home.kpiBookings':'今日预约',
+    'home.kpiFollowup':'待你跟进','home.kpiRating':'口碑评分',
+    'home.aiTasks':'AI 经营任务卡','home.taskTakeover':'需人工接管',
+    'home.taskNegative':'负评待处理','home.openChat':'打开对话','home.openReview':'查看评价',
+    'ops.finance':'财务','ops.materials':'物料','ops.staff':'员工',
+    'ops.revenue':'营收','ops.expense':'支出','ops.net':'净利','ops.margin':'利润率',
+    'ops.periodDay':'日','ops.periodMonth':'月','ops.periodYear':'年',
+    'ops.revVsExp':'营收 vs 支出','ops.expenseBreakdown':'支出明细 — 本月',
+    'ops.recentTx':'近期交易','ops.txItem':'项目','ops.txAmount':'金额',
+    'ops.inventory':'库存','ops.purchases':'采购订单','ops.stock':'库存量',
+    'ops.reorder':'补货点','ops.matStatus':'状态','ops.statusOk':'充足','ops.statusLow':'偏低','ops.statusOut':'缺货',
+    'ops.reorderBtn':'一键补货','ops.reorderToast':'采购单已拟好——已发给供应商确认',
+    'ops.poQty':'数量','ops.poCost':'金额','ops.poSupplier':'供应商','ops.poStatus':'状态',
+    'ops.poDelivered':'已到货','ops.poOrdered':'已下单','ops.poPending':'待处理',
+    'ops.staffRole':'职务','ops.staffPay':'本月薪资','ops.staffShifts':'每周班次',
+    'ops.staffRating':'平均评分','ops.staffRecords':'工作记录','ops.roster':'团队',
+    'ops.weeklyShifts':'本周值班','ops.payrollTotal':'本月薪资总额','ops.legendRev':'营收','ops.legendExp':'支出',
+    'cust.statTotal':'客户总数','cust.statActive':'活跃','cust.statDormant':'沉睡','cust.statVip':'VIP',
+    'cust.statLtv':'客户终身价值总额','cust.statAvgLtv':'平均每位客户','cust.statVisits':'到访总次数',
+    'cust.bySource':'各来源客户数',
+    'mkt.wizardTitle':'AI 内容发布向导','mkt.wizardSub':'一次拟定、编辑并跨平台发布贴文。',
+    'mkt.goal':'目标','mkt.audience':'客群','mkt.content':'内容','mkt.platforms':'发布平台',
+    'mkt.multiHint':'可多选','mkt.regenerate':'重新生成','mkt.poster':'已附 AI 海报',
+    'mkt.confirmPublish':'确认发布','mkt.publishedTitle':'已发布',
+    'mkt.publishedBody':'您的贴文已在 {platforms} 发布，并排定发送给 {audience}。','mkt.publishAnother':'再拟一则',
+    'mkt.needSelection':'请至少选择一个目标、客群与平台',
+    'mkt.publishToast':'已发布——贴文上线，客群已排入',
+    'mkt.suggestionsTitle':'AI 营销建议','mkt.suggestionsSub':'点任一建议即可跳到处理页面。',
+    'mkt.handle':'去处理','mkt.viewContent':'查看发布内容','mkt.hideContent':'收起',
+    'mkt.publishedContent':'已发布内容','mkt.onPlatform':'发布于 {platform}',
   });
   function t(key, vars) {
     const dict = I18N[state.lang] || I18N.en;
@@ -472,7 +568,12 @@
     setupStep: 0,
     setupPlaying: false,
     setupToken: 0,
+    opsTab:'finance',       // finance | materials | staff
+    finPeriod:'month',      // day | month | year
+    wiz: null,              // publish-wizard working state (lazy-init per industry)
+    campOpen: {},           // expanded completed-campaign ids
   };
+  const freshWiz = () => ({ goals: {}, audiences: {}, platforms: {}, variantIdx: 0, content: null, published: false });
 
   // ---------- formatting ----------
   // All clock times shown in the merchant's timezone (SGT), whoever views the demo.
@@ -509,8 +610,9 @@
     setup:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4.5h8M12.5 4.5H14M2 11.5h3M7.5 11.5H14"/><circle cx="10.5" cy="4.5" r="1.7"/><circle cx="5.5" cy="11.5" r="1.7"/></svg>',
     social:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="3.5" r="1.8"/><circle cx="4" cy="8" r="1.8"/><circle cx="12" cy="12.5" r="1.8"/><path d="M5.7 7.2l4.6-2.6M5.7 8.8l4.6 2.6"/></svg>',
     trust:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1.8l5 2v3.7c0 3.2-2.1 5.6-5 6.7-2.9-1.1-5-3.5-5-6.7V3.8z" stroke-linejoin="round"/><path d="M5.8 7.8l1.6 1.6 2.8-3"/></svg>',
+    operations:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13.5h12" /><rect x="3" y="8" width="2.4" height="4"/><rect x="6.8" y="5" width="2.4" height="7"/><rect x="10.6" y="9.5" width="2.4" height="2.5"/></svg>',
   };
-  const NAV_IDS = ['today','inbox','customers','marketing','social','reputation','brain','insights','trust','setup'];
+  const NAV_IDS = ['today','inbox','customers','marketing','social','reputation','brain','insights','operations','trust','setup'];
 
   // ---------- shared bits ----------
   function toast(msg) {
@@ -529,9 +631,54 @@
   const chIcon = { WhatsApp:'WA', Instagram:'IG', Google:'G','QR code':'QR', Referral:'REF' };
 
   // ---------- Today ----------
+  function homeKpis() {
+    const cx = D.cxSummary;
+    const cards = [
+      { label: t('home.kpiRevenue'), val: money(D.finance.monthRevenue), goto:'operations', optab:'finance' },
+      { label: t('home.kpiBookings'), val: D.todayBookings, goto:'inbox' },
+      { label: t('home.kpiFollowup'), val: D.followUpCount, goto:'customers' },
+      { label: t('home.kpiRating'), val: cx.rating + ' ★', goto:'reputation' },
+    ];
+    return `<div class="kpi-row">${cards.map((k) => `
+      <button class="kpi-card" data-goto="${k.goto}"${k.optab? ` data-goto-optab="${k.optab}"`:''}>
+        <span class="kpi-label">${esc(k.label)}</span>
+        <span class="kpi-val">${esc(k.val)}</span>
+        <span class="kpi-go" aria-hidden="true">→</span>
+      </button>`).join('')}</div>`;
+  }
+  function aiTaskCards() {
+    const takeover = convoList().find((c) => c.aiStatus ==='escalated') || convoList().find((c) => c.aiStatus ==='human');
+    const neg = D.reviews.find((r) => r.rating <= 2);
+    return `
+      <h2 class="sec">${t('home.aiTasks')}</h2>
+      <div class="grid c2">
+        ${takeover? `<button class="tcard" data-goto="inbox" data-goto-conv="${takeover.id}">
+          <span class="tcard-k">${t('home.taskTakeover')}</span>
+          <b>${esc(takeover.name)}</b>
+          <span class="tcard-pv">${esc(td(takeover.preview))}</span>
+          <span class="tcard-cta">${t('home.openChat')} →</span>
+        </button>`:''}
+        ${neg? `<button class="tcard neg" data-goto="reputation">
+          <span class="tcard-k">${t('home.taskNegative')}</span>
+          <b>${esc(neg.name)} <span class="stars" style="color:var(--crit)">${'★'.repeat(neg.rating)}${'☆'.repeat(5 - neg.rating)}</span></b>
+          <span class="tcard-pv">${esc(neg.text)}</span>
+          <span class="tcard-cta">${t('home.openReview')} →</span>
+        </button>`:''}
+      </div>`;
+  }
   function vToday() {
     const pending = D.approvals.filter((a) =>!state.done[a.id]);
     return `
+      <div class="card advisor">
+        <div class="advisor-badge"><span class="advisor-dot"></span>${t('home.advisorTitle')}</div>
+        <p class="advisor-summary">${esc(td(D.advisor.summary))}</p>
+        <div class="advisor-foot">
+          <span class="advisor-metric"><b>${esc(D.advisor.metricValue)}</b> <span>${esc(td(D.advisor.metricLabel))}</span></span>
+          <button class="btn sm" data-goto="insights">${t('home.viewInsights')}</button>
+        </div>
+      </div>
+      ${homeKpis()}
+      ${aiTaskCards()}
       <div class="card brief">
         <h3>${esc(td(D.brief.headline))}</h3>
         <p>${esc(td(D.brief.body))}</p>
@@ -737,6 +884,36 @@
       </div>`;
   }
 
+  function custStats() {
+    const cs = D.customers;
+    const total = cs.length;
+    const active = cs.filter((c) => c.lifecycle ==='Active' || c.lifecycle ==='VIP' || c.lifecycle ==='Converted').length;
+    const dormant = cs.filter((c) => c.lifecycle ==='Dormant').length;
+    const vip = cs.filter((c) => c.lifecycle ==='VIP').length;
+    const totalLtv = cs.reduce((a, c) => a + (c.ltv || 0), 0);
+    const totalVisits = cs.reduce((a, c) => a + (c.visits || 0), 0);
+    const bySource = {};
+    cs.forEach((c) => { bySource[c.channel] = (bySource[c.channel] || 0) + 1; });
+    const srcMax = Math.max(...Object.values(bySource));
+    return `
+      <div class="stat-row s6">
+        <div class="stat"><b>${total}</b><span>${t('cust.statTotal')}</span></div>
+        <div class="stat"><b>${active}</b><span>${t('cust.statActive')}</span></div>
+        <div class="stat"><b>${dormant}</b><span>${t('cust.statDormant')}</span></div>
+        <div class="stat"><b>${vip}</b><span>${t('cust.statVip')}</span></div>
+        <div class="stat"><b>${money(totalLtv)}</b><span>${t('cust.statLtv')}</span></div>
+        <div class="stat"><b>${totalVisits}</b><span>${t('cust.statVisits')}</span></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h4 style="margin:0 0 8px;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted)">${t('cust.bySource')}</h4>
+        ${Object.entries(bySource).sort((a, b) => b[1] - a[1]).map(([src, n]) => `
+          <div class="theme-row">
+            <span style="min-width:130px">${esc(chLabel(src))}</span>
+            <span class="bar" style="width:${Math.round((n / srcMax) * 150)}px"></span>
+            <span class="n">${n}</span>
+          </div>`).join('')}
+      </div>`;
+  }
   function vCustomers() {
     if (state.custId) return vCustomerDetail(D.customers.find((c) => c.id === state.custId));
     const chFiltered = state.custChannel? D.customers.filter((c) => c.channel === state.custChannel): D.customers;
@@ -744,6 +921,8 @@
 .filter((c) => state.custFilter ==='All' || c.lifecycle === state.custFilter)
 .sort((a, b) => b.ltv - a.ltv);
     return `
+      <h2 class="sec">${t('nav.customers')}</h2>
+      ${custStats()}
       ${taskCentre()}
       <h2 class="sec">${t('customers.base')}</h2>
       ${state.custChannel? `<div style="margin-bottom:10px"><button class="fbtn on" data-clear-channel>${t('customers.sourceChip', { channel: chLabel(state.custChannel), n: chFiltered.length })} ✕</button></div>`:''}
@@ -807,11 +986,55 @@
     const active = D.campaigns.filter((c) => st(c)!=='completed');
     const past = D.campaigns.filter((c) => st(c) ==='completed');
     return `
+      ${publishWizard()}
+      ${suggestionsSection()}
       <h2 class="sec">${t('marketing.needsDecision')}</h2>
       ${active.map((c) => campHtml(c, st(c))).join('')}
       <h2 class="sec">${t('marketing.recentlyCompleted')}</h2>
       ${past.map((c) => campHtml(c,'completed')).join('')}
       ${referralSection()}`;
+  }
+  function publishWizard() {
+    if (!state.wiz) state.wiz = freshWiz();
+    const w = state.wiz, pw = D.publishWizard;
+    const content = w.content!= null? w.content: pw.variants[w.variantIdx];
+    if (w.published) {
+      const plats = Object.keys(w.platforms).filter((k) => w.platforms[k]).map((k) => td(k)).join(', ');
+      const auds = Object.keys(w.audiences).filter((k) => w.audiences[k]).map((k) => td(k)).join(', ');
+      return `<div class="card wizard done">
+        <span class="wiz-done-ic">✓</span>
+        <h3 style="margin:6px 0 4px">${t('mkt.publishedTitle')}</h3>
+        <p style="margin:0 0 10px;color:var(--ink-2)">${t('mkt.publishedBody', { platforms: plats, audience: auds })}</p>
+        <div class="wiz-preview">“${esc(content)}”</div>
+        <div style="margin-top:12px"><button class="btn" data-wiz-reset>${t('mkt.publishAnother')}</button></div>
+      </div>`;
+    }
+    const chips = (list, kind, sel) => list.map((o) => `<button class="wchip ${sel[o]?'on':''}" data-wiz-toggle="${kind}" data-wiz-val="${esc(o)}">${esc(td(o))}</button>`).join('');
+    return `<div class="card wizard">
+      <h3 style="margin:0 0 2px">${t('mkt.wizardTitle')}</h3>
+      <p class="wiz-sub">${t('mkt.wizardSub')}</p>
+      <div class="wiz-field"><label>${t('mkt.goal')} <span>· ${t('mkt.multiHint')}</span></label><div class="wchips">${chips(pw.goals,'goals', w.goals)}</div></div>
+      <div class="wiz-field"><label>${t('mkt.audience')} <span>· ${t('mkt.multiHint')}</span></label><div class="wchips">${chips(pw.audiences,'audiences', w.audiences)}</div></div>
+      <div class="wiz-field"><label>${t('mkt.content')}</label>
+        <textarea id="wizContent" class="wiz-textarea" rows="4">${esc(content)}</textarea>
+        <div class="wiz-row"><button class="btn sm" data-wiz-regen>↻ ${t('mkt.regenerate')}</button><span class="wiz-poster">${t('mkt.poster')}</span></div>
+      </div>
+      <div class="wiz-field"><label>${t('mkt.platforms')} <span>· ${t('mkt.multiHint')}</span></label><div class="wchips">${chips(pw.platforms,'platforms', w.platforms)}</div></div>
+      <div class="wiz-actions"><button class="btn pri" data-wiz-publish>${t('mkt.confirmPublish')}</button></div>
+    </div>`;
+  }
+  function suggestionsSection() {
+    return `
+      <h2 class="sec">${t('mkt.suggestionsTitle')}</h2>
+      <p class="sec-sub">${t('mkt.suggestionsSub')}</p>
+      <div class="card" style="padding:4px 14px">
+        ${D.marketingSuggestions.map((s) => `
+          <div class="sugg-row ${s.tone ==='bad'?'bad':''}">
+            <span class="sugg-dot"></span>
+            <span class="sugg-text">${esc(td(s.text))}</span>
+            <button class="btn sm" data-goto="${s.goto.view}"${s.goto.filter? ` data-goto-filter="${s.goto.filter}"`:''}>${t('mkt.handle')} →</button>
+          </div>`).join('')}
+      </div>`;
   }
   function referralSection() {
     const r = D.referrals;
@@ -867,6 +1090,12 @@
             <button class="btn">${t('marketing.editAudience')}</button>
             <button class="btn">${t('marketing.skipWeek')}</button>
           </div>`:''}
+        ${status ==='completed'? `
+          <div style="margin-top:10px"><button class="btn sm" data-camp-toggle="${c.id}">${state.campOpen[c.id]? t('mkt.hideContent'): t('mkt.viewContent')} →</button></div>
+          ${state.campOpen[c.id]? `<div class="camp-published">
+            <div class="cp-head">${t('mkt.onPlatform', { platform: esc(td(c.channel)) })} · ${esc(td(c.schedule))}</div>
+            <div class="cp-body">${esc(c.copy)}</div>
+          </div>`:''}`:''}
       </div>`;
   }
 
@@ -1299,6 +1528,144 @@
     </svg>`;
   }
 
+  // ---------- Operations (finance / materials / staff) ----------
+  const kMoney = (n) => Math.abs(n) >= 1000? '$' + (n / 1000).toFixed(n % 1000 === 0? 0: 1) + 'k': money(n);
+  function finBars() {
+    const p = D.finance.periods[state.finPeriod];
+    const W = 460, H = 190, L = 40, R = 10, T = 14, B = 26;
+    const n = p.cols.length;
+    const max = Math.max(...p.revenue, ...p.expense) * 1.05;
+    const gw = (W - L - R) / n;
+    const bw = Math.min(18, gw / 3);
+    const y = (v) => T + (1 - v / max) * (H - T - B);
+    const grid = [0, max / 2, max].map((v) => `<line class="grid-line" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 6}" y="${y(v) + 3.5}" text-anchor="end">${kMoney(Math.round(v))}</text>`).join('');
+    const bars = p.cols.map((c, i) => {
+      const cx = L + gw * i + gw / 2;
+      const rev = p.revenue[i], exp = p.expense[i];
+      return `
+        <rect x="${cx - bw - 1}" y="${y(rev)}" width="${bw}" height="${y(0) - y(rev)}" rx="3" fill="var(--chart-1)" data-tip="${esc(c)} · ${t('ops.revenue')} ${money(rev)}"/>
+        <rect x="${cx + 1}" y="${y(exp)}" width="${bw}" height="${y(0) - y(exp)}" rx="3" fill="var(--serious)" data-tip="${esc(c)} · ${t('ops.expense')} ${money(exp)}"/>
+        <text x="${cx}" y="${H - 8}" text-anchor="middle">${esc(td(c))}</text>`;
+    }).join('');
+    return `<svg class="viz" viewBox="0 0 ${W} ${H}">${grid}<line class="axis" x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}"/>${bars}</svg>
+      <div style="display:flex;gap:14px;font-size:11.5px;color:var(--muted);margin-top:2px">
+        <span><span class="dot" style="background:var(--chart-1)"></span> ${t('ops.legendRev')}</span>
+        <span><span class="dot" style="background:var(--serious)"></span> ${t('ops.legendExp')}</span>
+      </div>`;
+  }
+  function opsFinance() {
+    const f = D.finance;
+    const maxExp = Math.max(...f.expenseBreakdown.map((e) => e.amount));
+    return `
+      <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat"><b>${money(f.monthRevenue)}</b><span>${t('ops.revenue')}</span></div>
+        <div class="stat"><b>${money(f.monthExpense)}</b><span>${t('ops.expense')}</span></div>
+        <div class="stat"><b>${money(f.monthNet)}</b><span>${t('ops.net')}</span></div>
+        <div class="stat"><b>${esc(f.margin)}</b><span>${t('ops.margin')}</span></div>
+      </div>
+      <div class="grid c2" style="margin-top:14px;align-items:start">
+        <div class="card chart-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <h3 style="margin:0">${t('ops.revVsExp')}</h3>
+            <div class="spacer"></div>
+            <div class="seg sm">
+              ${['day','month','year'].map((pp) => `<button class="${state.finPeriod === pp?'on':''}" data-fin-period="${pp}">${t('ops.period' + pp[0].toUpperCase() + pp.slice(1))}</button>`).join('')}
+            </div>
+          </div>
+          ${finBars()}
+        </div>
+        <div class="card chart-card">
+          <h3>${t('ops.expenseBreakdown')}</h3>
+          <div style="margin-top:8px">
+            ${f.expenseBreakdown.map((e) => `
+              <div class="theme-row">
+                <span style="min-width:150px">${esc(td(e.cat))}</span>
+                <span class="bar" style="width:${Math.round((e.amount / maxExp) * 160)}px;background:var(--serious)"></span>
+                <span class="n">${money(e.amount)}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+      <h2 class="sec">${t('ops.recentTx')}</h2>
+      <div class="card tbl-wrap" style="padding:6px 10px">
+        <table class="tbl">
+          <thead><tr><th>${t('insights.colDate')}</th><th>${t('ops.txItem')}</th><th class="num">${t('ops.txAmount')}</th></tr></thead>
+          <tbody>${f.transactions.map((x) => `<tr>
+            <td style="color:var(--muted);white-space:nowrap">${fmtRel(x.date)}</td>
+            <td>${esc(td(x.item))}</td>
+            <td class="num" style="color:${x.type ==='in'?'var(--good-text)':'var(--crit)'}">${x.type ==='in'?'+':'−'}${money(x.amount)}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`;
+  }
+  const MAT_STATUS = { ok:['ops.statusOk','st-good'], low:['ops.statusLow','human'], out:['ops.statusOut','esc'] };
+  function opsMaterials() {
+    const m = D.materials;
+    const poKey = { delivered:'ops.poDelivered', ordered:'ops.poOrdered', pending:'ops.poPending' };
+    return `
+      <h2 class="sec">${t('ops.inventory')}</h2>
+      <div class="card tbl-wrap" style="padding:6px 10px">
+        <table class="tbl">
+          <thead><tr><th>${t('ops.txItem')}</th><th class="num">${t('ops.stock')}</th><th class="num">${t('ops.reorder')}</th><th>${t('ops.matStatus')}</th><th></th></tr></thead>
+          <tbody>${m.inventory.map((it) => `<tr>
+            <td><b>${esc(td(it.name))}</b></td>
+            <td class="num">${it.stock} ${esc(td(it.unit))}</td>
+            <td class="num">${it.reorder}</td>
+            <td><span class="tagchip ${MAT_STATUS[it.status][1]}">${t(MAT_STATUS[it.status][0])}</span></td>
+            <td>${it.status!=='ok'? `<button class="btn sm" data-reorder="${esc(it.name)}">${t('ops.reorderBtn')}</button>`:''}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <h2 class="sec">${t('ops.purchases')}</h2>
+      <div class="card tbl-wrap" style="padding:6px 10px">
+        <table class="tbl">
+          <thead><tr><th>${t('ops.txItem')}</th><th>${t('ops.poQty')}</th><th class="num">${t('ops.poCost')}</th><th>${t('ops.poSupplier')}</th><th>${t('ops.poStatus')}</th></tr></thead>
+          <tbody>${m.purchases.map((po) => `<tr>
+            <td><b>${esc(td(po.item))}</b><br><span style="color:var(--muted);font-size:12px">${fmtRel(po.date)}</span></td>
+            <td>${esc(td(po.qty))}</td>
+            <td class="num">${money(po.cost)}</td>
+            <td>${esc(td(po.supplier))}</td>
+            <td><span class="tagchip ${po.status ==='delivered'?'st-good': po.status ==='ordered'?'ai':''}">${t(poKey[po.status])}</span></td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`;
+  }
+  function opsStaff() {
+    const s = D.staff;
+    const payroll = s.roster.reduce((a, r) => a + r.pay, 0);
+    return `
+      <div class="stat-row" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat"><b>${s.roster.length}</b><span>${t('ops.roster')}</span></div>
+        <div class="stat"><b>${money(payroll)}</b><span>${t('ops.payrollTotal')}</span></div>
+        <div class="stat"><b>${s.roster.reduce((a, r) => a + r.records, 0)}</b><span>${t('ops.staffRecords')}</span></div>
+      </div>
+      <h2 class="sec">${t('ops.roster')}</h2>
+      <div class="card tbl-wrap" style="padding:6px 10px">
+        <table class="tbl">
+          <thead><tr><th>${t('trust.person')}</th><th>${t('ops.staffRole')}</th><th class="num">${t('ops.staffPay')}</th><th class="num">${t('ops.staffShifts')}</th><th class="num">${t('ops.staffRating')}</th><th class="num">${t('ops.staffRecords')}</th></tr></thead>
+          <tbody>${s.roster.map((r) => `<tr>
+            <td><b>${esc(r.name)}</b></td><td>${esc(td(r.role))}</td>
+            <td class="num">${money(r.pay)}</td><td class="num">${r.shiftsWeek}</td>
+            <td class="num">${esc(r.rating)}</td><td class="num">${r.records}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <h2 class="sec">${t('ops.weeklyShifts')}</h2>
+      <div class="card tbl-wrap" style="padding:10px 12px">
+        <table class="tbl shifts">
+          <thead><tr><th></th>${s.shifts.days.map((d) => `<th class="num">${esc(td(d))}</th>`).join('')}</tr></thead>
+          <tbody>${s.shifts.rows.map((r) => `<tr><td><b>${esc(r.name)}</b></td>${r.on.map((o) => `<td class="num">${o? '<span class="shift-on">●</span>':'<span class="shift-off">·</span>'}</td>`).join('')}</tr>`).join('')}</tbody>
+        </table>
+      </div>`;
+  }
+  function vOperations() {
+    const tabs = [['finance','ops.finance'],['materials','ops.materials'],['staff','ops.staff']];
+    const body = state.opsTab ==='materials'? opsMaterials(): state.opsTab ==='staff'? opsStaff(): opsFinance();
+    return `
+      <div class="tabbtns">${tabs.map(([id, k]) => `<button class="tabbtn ${state.opsTab === id?'on':''}" data-ops-tab="${id}">${t(k)}</button>`).join('')}</div>
+      ${body}`;
+  }
+
   // ---------- guided tour ----------
   const TOUR = [
     { view:'today', n: 1 }, { view:'inbox', n: 2 }, { view:'inbox', n: 3 }, { view:'customers', n: 4 },
@@ -1359,7 +1726,7 @@
   function render() {
     renderSide();
     renderTop();
-    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, trust: vTrust, setup: vSetup };
+    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, operations: vOperations, trust: vTrust, setup: vSetup };
     const el = $('#view');
     el.innerHTML = views[state.view]();
     // animate only on navigation, not on in-view state changes (approve, sim ticks…)
@@ -1392,8 +1759,13 @@
     state.convId = D.conversations[0].id;
     state.custId = null;
     state.custFilter ='All';
+    state.custChannel = null;
     state.mobilePane ='list';
     state.phoneView = null;
+    state.wiz = null;          // wizard copy variants are per-industry
+    state.campOpen = {};
+    state.opsTab ='finance';
+    state.finPeriod ='month';
     render();
     toast(t('toast.switchedTemplate', { industry: t(id ==='pets'?'industry.pets':'industry.beauty') }));
   }
@@ -1403,9 +1775,42 @@
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel]');
+    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-camp-toggle]');
     if (!el) return;
+    // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
+    if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined) && state.wiz) {
+      const ta = $('#wizContent'); if (ta) state.wiz.content = ta.value;
+    }
     if (el.dataset.industry) switchIndustry(el.dataset.industry);
+    else if (el.dataset.goto) {
+      state.view = el.dataset.goto; state.custId = null; state.custChannel = null;
+      state.custFilter = el.dataset.gotoFilter || 'All';
+      state.mobilePane = el.dataset.gotoConv? 'thread':'list'; state.phoneView = null;
+      if (el.dataset.gotoOptab) state.opsTab = el.dataset.gotoOptab;
+      if (el.dataset.gotoConv) state.convId = el.dataset.gotoConv;
+      render(); window.scrollTo(0, 0);
+    }
+    else if (el.dataset.opsTab) { state.opsTab = el.dataset.opsTab; render(); }
+    else if (el.dataset.finPeriod) { state.finPeriod = el.dataset.finPeriod; render(); }
+    else if (el.dataset.reorder!== undefined) { toast(t('ops.reorderToast')); }
+    else if (el.dataset.wizToggle!== undefined) {
+      const kind = el.dataset.wizToggle, val = el.dataset.wizVal;
+      state.wiz[kind][val] =!state.wiz[kind][val];
+      render();
+    }
+    else if (el.dataset.wizRegen!== undefined) {
+      state.wiz.variantIdx = (state.wiz.variantIdx + 1) % D.publishWizard.variants.length;
+      state.wiz.content = D.publishWizard.variants[state.wiz.variantIdx];
+      render();
+    }
+    else if (el.dataset.wizPublish!== undefined) {
+      const w = state.wiz;
+      const has = (o) => Object.values(o).some(Boolean);
+      if (!has(w.goals) || !has(w.audiences) || !has(w.platforms)) { toast(t('mkt.needSelection')); return; }
+      w.published = true; toast(t('mkt.publishToast')); render();
+    }
+    else if (el.dataset.wizReset!== undefined) { state.wiz = freshWiz(); render(); }
+    else if (el.dataset.campToggle) { const id = el.dataset.campToggle; state.campOpen[id] =!state.campOpen[id]; render(); }
     else if (el.dataset.lang) { if (state.lang!== el.dataset.lang) { state.lang = el.dataset.lang; document.documentElement.lang = state.lang; render(); } }
     else if (el.dataset.tourStart!== undefined) { state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }
     else if (el.dataset.tourNext!== undefined) {

@@ -11,6 +11,7 @@ planning, and building the product described in the RFP — **demo-first**.
 | `PLAN.md` | Evaluation, demo scope, data design, and roadmap to MVP |
 | `gm-review.md` | GM-perspective evaluation: RFP coverage matrix + iteration priorities |
 | `pilot-baseline.md` | Fill-in sheet to measure a merchant *before* go-live, so pilot results are provable |
+| `feedback-response.md` | Stakeholder feedback (生活类 Agent) mapped item-by-item to the changes made |
 | `demo/` | The clickable owner-console demo (no build tools, no dependencies) |
 | `scripts/build.mjs` | Bundles the demo into one self-contained HTML file |
 | `dist/rook-demo.html` | The bundled demo — open it in any browser |
@@ -75,3 +76,14 @@ breaking.
 - **Insights** — funnel, channel attribution, forecast, a strategy card that
   ties back to the pending campaign, and unit economics (cost per AI-handled
   conversation / per AI-won booking).
+- **Operations** (stakeholder feedback) — Finance (revenue/expense with
+  day/month/year toggle, breakdown, transactions), Materials (inventory with
+  low-stock flags + reorder, purchase orders), Staff (pay, weekly shift grid,
+  performance, work records).
+- **Home** now opens with an AI-advisor hero and a clickable KPI row
+  (revenue → Operations, bookings → Inbox, follow-up → Customers, rating →
+  Reputation), plus AI operations task cards that jump to the chat or review.
+- **Marketing** now has a working content-publishing wizard (multi-select
+  goal / audience / platform, editable copy with regenerate, confirm &
+  publish), an actionable AI-suggestions list that deep-links to where you act,
+  and expandable campaign history.
