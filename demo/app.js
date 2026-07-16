@@ -139,6 +139,7 @@
       'ask.p.zones':'We’re island-wide with two vans (north/west and north-east). Send your postal code and I’ll check the routing and offer a time window (Sentosa has a $15 surcharge).',
       'ask.p.deposit':'A $20 deposit confirms your van slot and is refundable up to 24 hours before. Unpaid holds auto-release after 12 hours.',
       'ask.p.ex1':'How much to groom a large dog?','ask.p.ex2':'Do you need vaccination records?','ask.p.ex3':'Which areas do you cover?',
+      'print.export':'Export summary','print.title':'This week with Rook','print.subtitle':'AI Growth Team · weekly owner summary','print.foot':'Rook demo — simulated data. Generated',
       'insights.leadsBookingsTitle':'Leads & bookings — last 30 days',
       'insights.leadsBookingsSub':'Daily counts across all channels',
       'insights.funnelTitle':'Sales funnel — last 30 days','insights.funnelSub':'From first contact to repeat booking',
@@ -354,6 +355,7 @@
     'ask.p.zones':'我們服務全島，共兩台車（西北區與東北區）。請提供郵遞區號，我會查看路線並提供時段（聖淘沙加收 $15）。',
     'ask.p.deposit':'$20 訂金即可確認車位，出發前 24 小時可退。未付款的保留將於 12 小時後自動釋出。',
     'ask.p.ex1':'大型犬美容多少錢？','ask.p.ex2':'需要疫苗紀錄嗎？','ask.p.ex3':'你們服務哪些區域？',
+    'print.export':'匯出摘要','print.title':'本週 Rook 摘要','print.subtitle':'AI 成長團隊 · 每週店主摘要','print.foot':'Rook 示範——模擬資料。產生於',
     'insights.leadsBookingsTitle':'商機與預約 — 近30天',
     'insights.leadsBookingsSub':'各通路每日數據',
     'insights.funnelTitle':'銷售漏斗 — 近30天','insights.funnelSub':'從首次接觸到重複預約',
@@ -568,6 +570,7 @@
     'ask.p.zones':'我们服务全岛，共两台车（西北区与东北区）。请提供邮政编码，我会查看路线并提供时段（圣淘沙加收 $15）。',
     'ask.p.deposit':'$20 订金即可确认车位，出发前 24 小时可退。未付款的保留将于 12 小时后自动释出。',
     'ask.p.ex1':'大型犬美容多少钱？','ask.p.ex2':'需要疫苗记录吗？','ask.p.ex3':'你们服务哪些区域？',
+    'print.export':'导出摘要','print.title':'本周 Rook 摘要','print.subtitle':'AI 增长团队 · 每周店主摘要','print.foot':'Rook 演示——模拟数据。生成于',
     'insights.leadsBookingsTitle':'商机与预约 — 近30天',
     'insights.leadsBookingsSub':'各渠道每日数据',
     'insights.funnelTitle':'销售漏斗 — 近30天','insights.funnelSub':'从首次接触到重复预约',
@@ -856,9 +859,48 @@
         </button>`:''}
       </div>`;
   }
+  function printSheet() {
+    const cx = D.cxSummary;
+    const kpis = [
+      [t('home.kpiRevenue'), money(D.finance.monthRevenue)],
+      [t('home.kpiBookings'), D.todayBookings],
+      [t('home.kpiFollowup'), D.followUpCount],
+      [t('home.kpiRating'), cx.rating + ' ★'],
+    ];
+    return applyBrand(`
+      <div class="ps-head">
+        <div><div class="ps-mark"><span class="mark">♜</span> Rook</div><div class="ps-sub">${t('print.subtitle')}</div></div>
+        <div class="ps-biz"><b>${esc(bName())}</b><span>${esc(bTag())}</span></div>
+      </div>
+      <h1 class="ps-title">${t('print.title')}</h1>
+      <div class="ps-kpis">${kpis.map(([l, v]) => `<div class="ps-kpi"><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join('')}</div>
+      <div class="ps-block"><div class="ps-h">${t('home.advisorTitle')}</div>
+        <p class="ps-advisor">${esc(td(D.advisor.summary))}</p>
+        <div class="ps-upside">${esc(D.advisor.metricValue)} · ${esc(td(D.advisor.metricLabel))}</div>
+      </div>
+      <div class="ps-block"><div class="ps-h">${esc(td(D.activityLabel))}</div>
+        <div class="ps-acts">${D.aiActivity.map((a) => `<div class="ps-act"><b>${a.n}</b><span>${esc(td(a.label))}</span></div>`).join('')}</div>
+      </div>
+      <div class="ps-block"><div class="ps-h">${t('today.opportunities')}</div>
+        <ul class="ps-opps">${D.opportunities.slice(0, 4).map((o) => `<li><b>${esc(td(o.who))}</b> — ${esc(td(o.why))} <span>${esc(td(o.value))}</span></li>`).join('')}</ul>
+      </div>
+      <div class="ps-foot">${t('print.foot')} ${esc(D.merchant.nowLabel)}</div>`);
+  }
+  function doPrint() {
+    const prev = document.getElementById('printSheet');
+    if (prev) prev.remove();
+    const host = document.createElement('div');
+    host.id ='printSheet'; host.className ='print-sheet';
+    host.innerHTML = printSheet();
+    document.body.appendChild(host);
+    const cleanup = () => { const h = document.getElementById('printSheet'); if (h) h.remove(); window.removeEventListener('afterprint', cleanup); };
+    window.addEventListener('afterprint', cleanup);
+    window.print();
+  }
   function vToday() {
     const pending = D.approvals.filter((a) =>!state.done[a.id]);
     return `
+      <div class="today-actions"><button class="btn sm" data-print>${t('print.export')}</button></div>
       <div class="card advisor">
         <div class="advisor-badge"><span class="advisor-dot"></span>${t('home.advisorTitle')}</div>
         <p class="advisor-summary">${esc(td(D.advisor.summary))}</p>
@@ -2188,7 +2230,7 @@
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
     if (e.target.classList && e.target.classList.contains('intro-ovl')) { dismissIntro(); return; }
-    const el = e.target.closest('[data-ask-send],[data-ask-example],[data-intro-open],[data-intro-dismiss],[data-intro-tour],[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset],[data-brand-apply],[data-brand-reset]');
+    const el = e.target.closest('[data-print],[data-ask-send],[data-ask-example],[data-intro-open],[data-intro-dismiss],[data-intro-tour],[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset],[data-brand-apply],[data-brand-reset]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
     if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
@@ -2215,6 +2257,7 @@
     else if (el.dataset.brandReset!== undefined) { state.brand = null; savePrefs(); render(); toast(t('setup.brandResetToast')); }
     else if (el.dataset.askSend!== undefined) { const n = $('#askInput'); askAI(n? n.value:''); }
     else if (el.dataset.askExample!== undefined) { askAI(el.dataset.askExample); }
+    else if (el.dataset.print!== undefined) { doPrint(); }
     else if (el.dataset.reset!== undefined) { resetDemo(); }
     else if (el.dataset.uploadRemove!== undefined) { state.uploads.splice(+el.dataset.uploadRemove, 1); savePrefs(); render(); }
     else if (el.dataset.uploadSample!== undefined) {

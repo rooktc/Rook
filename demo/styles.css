@@ -622,6 +622,39 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 }
 .ask-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
+/* ---- export / print weekly summary ---- */
+.today-actions { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+@media screen { .print-sheet { display: none; } }
+@media print {
+  @page { margin: 14mm; }
+  body { background: #fff; }
+  body > *:not(#printSheet) { display: none !important; }
+  #printSheet { display: block; color: #10233f; font: 12px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  #printSheet .ps-head { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #2563eb; padding-bottom: 10px; }
+  #printSheet .ps-mark { font-size: 18px; font-weight: 700; }
+  #printSheet .ps-mark .mark { color: #2563eb; }
+  #printSheet .ps-sub { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-top: 2px; }
+  #printSheet .ps-biz { text-align: right; }
+  #printSheet .ps-biz b { display: block; font-size: 15px; }
+  #printSheet .ps-biz span { font-size: 11px; color: #64748b; }
+  #printSheet .ps-title { font-size: 22px; margin: 16px 0 12px; }
+  #printSheet .ps-kpis { display: flex; gap: 10px; margin-bottom: 16px; }
+  #printSheet .ps-kpi { flex: 1; border: 1px solid #dbe3ef; border-radius: 8px; padding: 10px 12px; }
+  #printSheet .ps-kpi span { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; }
+  #printSheet .ps-kpi b { font-size: 20px; }
+  #printSheet .ps-block { margin-bottom: 14px; break-inside: avoid; }
+  #printSheet .ps-h { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: #2563eb; font-weight: 700; margin-bottom: 6px; }
+  #printSheet .ps-advisor { margin: 0 0 4px; }
+  #printSheet .ps-upside { font-weight: 700; color: #027a02; }
+  #printSheet .ps-acts { display: flex; flex-wrap: wrap; gap: 14px; }
+  #printSheet .ps-act b { font-size: 18px; margin-right: 5px; }
+  #printSheet .ps-act span { color: #475569; }
+  #printSheet .ps-opps { margin: 0; padding-left: 18px; }
+  #printSheet .ps-opps li { margin-bottom: 4px; }
+  #printSheet .ps-opps span { color: #475569; }
+  #printSheet .ps-foot { margin-top: 18px; padding-top: 8px; border-top: 1px solid #dbe3ef; font-size: 10px; color: #94a3b8; }
+}
+
 /* ---- customer phone view ---- */
 .phone-ovl {
   position: fixed; inset: 0; z-index: 45;
