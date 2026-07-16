@@ -590,6 +590,17 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .sec-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 10px; }
 .sec-row .sec { margin: 0; }
 
+/* ---- personalisation form ---- */
+.brand-card { margin-top: 14px; }
+.brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.brand-grid label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.brand-grid input {
+  font: inherit; font-weight: 500; color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px 10px;
+}
+.brand-grid input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+@media (max-width: 760px) { .brand-grid { grid-template-columns: 1fr; } }
+
 /* ---- customer phone view ---- */
 .phone-ovl {
   position: fixed; inset: 0; z-index: 45;

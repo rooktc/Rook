@@ -594,6 +594,17 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .sec-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 10px; }
 .sec-row .sec { margin: 0; }
 
+/* ---- personalisation form ---- */
+.brand-card { margin-top: 14px; }
+.brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.brand-grid label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.brand-grid input {
+  font: inherit; font-weight: 500; color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px 10px;
+}
+.brand-grid input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+@media (max-width: 760px) { .brand-grid { grid-template-columns: 1fr; } }
+
 /* ---- customer phone view ---- */
 .phone-ovl {
   position: fixed; inset: 0; z-index: 45;
@@ -2860,7 +2871,11 @@ window.DATA_TRX = {
       'setup.filesReady':'{n} file(s) ready','setup.useSample':'Use sample files','setup.removeFile':'Remove file',
       'brain.addDocs':'Add documents','aria.paletteGroup':'Colour theme',
       'palette.azure':'Azure','palette.indigo':'Indigo','palette.sky':'Sky',
-      'demo.reset':'Reset demo','demo.resetHint':'Clear saved language, colour and uploaded files, and reload',
+      'demo.reset':'Reset demo','demo.resetHint':'Clear saved language, colour, branding and uploaded files, and reload',
+      'setup.brandHeading':'Make it their business','setup.brandName':'Business name','setup.brandTagline':'Tagline','setup.brandOwner':'Owner first name',
+      'setup.brandSub':'Set the shop name, tagline and owner so a prospect sees their own brand across the whole console. Applies live; nothing leaves the browser.',
+      'setup.brandApply':'Apply branding','setup.brandReset':'Reset to sample',
+      'setup.brandToast':'Branding applied across the console','setup.brandResetToast':'Branding reset to the sample business',
       'insights.leadsBookingsTitle':'Leads & bookings — last 30 days',
       'insights.leadsBookingsSub':'Daily counts across all channels',
       'insights.funnelTitle':'Sales funnel — last 30 days','insights.funnelSub':'From first contact to repeat booking',
@@ -3046,7 +3061,11 @@ window.DATA_TRX = {
     'setup.filesReady':'已就緒 {n} 個檔案','setup.useSample':'使用範例檔案','setup.removeFile':'移除檔案',
     'brain.addDocs':'新增文件','aria.paletteGroup':'配色主題',
     'palette.azure':'天藍','palette.indigo':'靛藍','palette.sky':'晴藍',
-    'demo.reset':'重置示範','demo.resetHint':'清除已儲存的語言、配色與上傳檔案並重新載入',
+    'demo.reset':'重置示範','demo.resetHint':'清除已儲存的語言、配色、品牌與上傳檔案並重新載入',
+    'setup.brandHeading':'換成客戶的品牌','setup.brandName':'店名','setup.brandTagline':'標語','setup.brandOwner':'店主名字',
+    'setup.brandSub':'設定店名、標語與店主名稱，讓潛在客戶在整個主控台看到自己的品牌。即時套用，資料不會離開瀏覽器。',
+    'setup.brandApply':'套用品牌','setup.brandReset':'還原為範例',
+    'setup.brandToast':'品牌已套用至整個主控台','setup.brandResetToast':'品牌已還原為範例商家',
     'insights.leadsBookingsTitle':'商機與預約 — 近30天',
     'insights.leadsBookingsSub':'各通路每日數據',
     'insights.funnelTitle':'銷售漏斗 — 近30天','insights.funnelSub':'從首次接觸到重複預約',
@@ -3231,7 +3250,11 @@ window.DATA_TRX = {
     'setup.filesReady':'已就绪 {n} 个文件','setup.useSample':'使用示例文件','setup.removeFile':'移除文件',
     'brain.addDocs':'添加文件','aria.paletteGroup':'配色主题',
     'palette.azure':'天蓝','palette.indigo':'靛蓝','palette.sky':'晴蓝',
-    'demo.reset':'重置演示','demo.resetHint':'清除已保存的语言、配色与上传文件并重新加载',
+    'demo.reset':'重置演示','demo.resetHint':'清除已保存的语言、配色、品牌与上传文件并重新加载',
+    'setup.brandHeading':'换成客户的品牌','setup.brandName':'店名','setup.brandTagline':'标语','setup.brandOwner':'店主名字',
+    'setup.brandSub':'设置店名、标语与店主名称，让潜在客户在整个控制台看到自己的品牌。即时应用，数据不会离开浏览器。',
+    'setup.brandApply':'应用品牌','setup.brandReset':'还原为示例',
+    'setup.brandToast':'品牌已应用至整个控制台','setup.brandResetToast':'品牌已还原为示例商家',
     'insights.leadsBookingsTitle':'商机与预约 — 近30天',
     'insights.leadsBookingsSub':'各渠道每日数据',
     'insights.funnelTitle':'销售漏斗 — 近30天','insights.funnelSub':'从首次接触到重复预约',
@@ -3372,6 +3395,7 @@ window.DATA_TRX = {
     setupToken: 0,
     uploads: [],            // documents the owner has added on the Setup view
     palette:'azure',        // colour theme: azure | indigo | sky
+    brand: null,            // {name, tagline, ownerFirst} personalisation override
     opsTab:'finance',       // finance | materials | staff
     finPeriod:'month',      // day | month | year
     wiz: null,              // publish-wizard working state (lazy-init per industry)
@@ -3385,7 +3409,7 @@ window.DATA_TRX = {
   // blocked localStorage (private mode, file://) never breaks the app.
   const PREF_KEY ='rook.prefs.v1';
   function savePrefs() {
-    try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang: state.lang, palette: state.palette, uploads: state.uploads })); } catch (e) {}
+    try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang: state.lang, palette: state.palette, uploads: state.uploads, brand: state.brand })); } catch (e) {}
   }
   function loadPrefs() {
     try {
@@ -3395,11 +3419,33 @@ window.DATA_TRX = {
       if (p.lang && I18N[p.lang]) state.lang = p.lang;
       if (['azure','indigo','sky'].includes(p.palette)) state.palette = p.palette;
       if (Array.isArray(p.uploads)) state.uploads = p.uploads.filter((f) => f && typeof f.name ==='string');
+      if (p.brand && typeof p.brand ==='object' && (p.brand.name || p.brand.tagline || p.brand.ownerFirst)) {
+        state.brand = { name: p.brand.name ||'', tagline: p.brand.tagline ||'', ownerFirst: p.brand.ownerFirst ||'' };
+      }
     } catch (e) {}
   }
   function resetDemo() {
     try { localStorage.removeItem(PREF_KEY); } catch (e) {}
     location.reload();
+  }
+
+  // ---------- personalisation (branding) ----------
+  // A salesperson can make the console read as the prospect's own shop. Name
+  // and tagline are branded at source; the owner's first name is scattered
+  // through data strings, so it's substituted over rendered HTML.
+  const bName = () => (state.brand && state.brand.name) || D.merchant.name;
+  const bTag = () => (state.brand && state.brand.tagline) || td(D.merchant.tagline);
+  const bOwnerFirst = () => (state.brand && state.brand.ownerFirst) || D.merchant.owner.split(' ')[0];
+  const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  function applyBrand(html) {
+    const b = state.brand;
+    if (!b) return html;
+    let out = html;
+    const sName = D.merchant.name;
+    if (b.name && b.name!== sName) out = out.split(sName).join(esc(b.name));
+    const sOwner = D.merchant.owner.split(' ')[0];
+    if (b.ownerFirst && b.ownerFirst!== sOwner) out = out.replace(new RegExp('\\b' + reEsc(sOwner) + '\\b','g'), esc(b.ownerFirst));
+    return out;
   }
 
   // ---------- formatting ----------
@@ -3670,8 +3716,8 @@ window.DATA_TRX = {
       <div class="phone-ovl" data-close-phone>
         <div class="phone" role="dialog" aria-label="${esc(opts.aria || t('phone.customerViewAria'))}">
           <div class="ph-note">${esc(opts.note || t('phone.defaultNoteTemplate', { name: conv.name }))}</div>
-          <div class="ph-head"><span class="ph-avatar">${esc((opts.header || D.merchant.name)[0])}</span>
-            <div><b>${esc(opts.header || D.merchant.name)}</b><span>${t('phone.online')}</span></div>
+          <div class="ph-head"><span class="ph-avatar">${esc((opts.header || bName())[0])}</span>
+            <div><b>${esc(opts.header || bName())}</b><span>${t('phone.online')}</span></div>
             <button class="btn sm" data-close-phone-btn>${t('phone.close')}</button>
           </div>
           <div class="ph-msgs">${bubbles}</div>
@@ -4242,6 +4288,22 @@ window.DATA_TRX = {
         ${list}
       </div>`;
   }
+  function brandCard() {
+    return `
+      <div class="card brand-card">
+        <h3 class="up-head">${t('setup.brandHeading')}</h3>
+        <p class="dz-hint" style="margin:0 0 12px;max-width:60ch">${t('setup.brandSub')}</p>
+        <div class="brand-grid">
+          <label>${t('setup.brandName')}<input id="brandName" type="text" value="${esc(bName())}" autocomplete="off"></label>
+          <label>${t('setup.brandTagline')}<input id="brandTagline" type="text" value="${esc(bTag())}" autocomplete="off"></label>
+          <label>${t('setup.brandOwner')}<input id="brandOwner" type="text" value="${esc(bOwnerFirst())}" autocomplete="off"></label>
+        </div>
+        <div class="up-actions">
+          <button class="btn pri" data-brand-apply>${t('setup.brandApply')}</button>
+          ${state.brand? `<button class="btn" data-brand-reset>${t('setup.brandReset')}</button>`:''}
+        </div>
+      </div>`;
+  }
   function vSetup() {
     const ob = D.onboarding;
     const s = state.setupStep;
@@ -4261,6 +4323,7 @@ window.DATA_TRX = {
         <h3>${t('setup.heading')}</h3>
         <p>${esc(td(ob.intro))}</p>
       </div>
+      ${brandCard()}
       ${uploadCard()}
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div class="card ob-stage ${s >= 1?'on':''}">
@@ -4648,7 +4711,7 @@ window.DATA_TRX = {
           ${IC[id]}${t('nav.' + id)}
           ${id ==='inbox' && unread? `<span class="bdg">${unread}</span>`:''}
         </button>`).join('')}
-      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(td(D.merchant.hours))}
+      <div class="side-foot"><b>${esc(bName())}</b><br>${esc(D.merchant.address)}<br>${esc(td(D.merchant.hours))}
         <br><button class="reset-link" data-reset title="${t('demo.resetHint')}">${t('demo.reset')}</button></div>`;
     $('#tabbar').innerHTML = NAV_IDS.map((id) => `
       <button class="${state.view === id?'on':''}" data-nav="${id}">${IC[id]}${t('nav.' + id)}</button>`).join('');
@@ -4656,7 +4719,7 @@ window.DATA_TRX = {
   function renderTop() {
     $('#topbar').innerHTML = `
       <h1>${t('title.' + state.view)}</h1>
-      <span class="sub">${esc(D.merchant.name)} · ${esc(td(D.merchant.tagline))}</span>
+      <span class="sub">${esc(bName())} · ${esc(bTag())}</span>
       <div class="spacer"></div>
       <div class="top-right">
         <div class="seg" role="group" aria-label="${t('aria.langGroup')}">
@@ -4682,7 +4745,7 @@ window.DATA_TRX = {
     renderTop();
     const views = { today: vToday, inbox: vInbox, bookings: vBookings, followup: vFollowup, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, operations: vOperations, trust: vTrust, setup: vSetup };
     const el = $('#view');
-    el.innerHTML = views[state.view]();
+    el.innerHTML = applyBrand(views[state.view]());
     // animate only on navigation, not on in-view state changes (approve, sim ticks…)
     el.classList.remove('enter');
     if (lastView!== state.view) {
@@ -4730,7 +4793,7 @@ window.DATA_TRX = {
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset]');
+    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset],[data-brand-apply],[data-brand-reset]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
     if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
@@ -4744,6 +4807,14 @@ window.DATA_TRX = {
         render();
       }
     }
+    else if (el.dataset.brandApply!== undefined) {
+      const gv = (id) => { const n = $('#' + id); return n? n.value.trim():''; };
+      const name = gv('brandName'), tagline = gv('brandTagline'), ownerFirst = gv('brandOwner');
+      if (!name && !tagline && !ownerFirst) { state.brand = null; }
+      else { state.brand = { name, tagline, ownerFirst }; }
+      savePrefs(); render(); toast(t('setup.brandToast'));
+    }
+    else if (el.dataset.brandReset!== undefined) { state.brand = null; savePrefs(); render(); toast(t('setup.brandResetToast')); }
     else if (el.dataset.reset!== undefined) { resetDemo(); }
     else if (el.dataset.uploadRemove!== undefined) { state.uploads.splice(+el.dataset.uploadRemove, 1); savePrefs(); render(); }
     else if (el.dataset.uploadSample!== undefined) {
