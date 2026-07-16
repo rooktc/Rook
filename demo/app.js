@@ -114,6 +114,13 @@
       'setup.brandSub':'Set the shop name, tagline and owner so a prospect sees their own brand across the whole console. Applies live; nothing leaves the browser.',
       'setup.brandApply':'Apply branding','setup.brandReset':'Reset to sample',
       'setup.brandToast':'Branding applied across the console','setup.brandResetToast':'Branding reset to the sample business',
+      'intro.aria':'Welcome to Rook','intro.title':'A 24/7 AI growth team for your shop',
+      'intro.body':'Rook answers customer messages, follows up on leads, handles reviews and runs campaigns — grounded in your own prices and policies, with you approving anything sensitive. This is the owner’s console.',
+      'intro.b1t':'Switch industry.','intro.b1':'Top bar — the same console configured for a beauty studio or a mobile pet groomer.',
+      'intro.b2t':'Switch language.','intro.b2':'English, Traditional or Simplified Chinese — interface and content both translate.',
+      'intro.b3t':'Switch colour.','intro.b3':'Three blue themes via the dots in the top bar.',
+      'intro.simNote':'Everything here is realistic but simulated demo data — no live messaging or real customers.',
+      'intro.explore':'Explore on my own','intro.tour':'Take the 2-minute tour','intro.help':'About this demo',
       'insights.leadsBookingsTitle':'Leads & bookings — last 30 days',
       'insights.leadsBookingsSub':'Daily counts across all channels',
       'insights.funnelTitle':'Sales funnel — last 30 days','insights.funnelSub':'From first contact to repeat booking',
@@ -304,6 +311,13 @@
     'setup.brandSub':'設定店名、標語與店主名稱，讓潛在客戶在整個主控台看到自己的品牌。即時套用，資料不會離開瀏覽器。',
     'setup.brandApply':'套用品牌','setup.brandReset':'還原為範例',
     'setup.brandToast':'品牌已套用至整個主控台','setup.brandResetToast':'品牌已還原為範例商家',
+    'intro.aria':'歡迎使用 Rook','intro.title':'為您的店舖打造的 24/7 AI 成長團隊',
+    'intro.body':'Rook 會回覆顧客訊息、跟進商機、處理評價並執行行銷活動——全部依據您自己的價格與政策，敏感事項則由您核准。這是店主的主控台。',
+    'intro.b1t':'切換行業。','intro.b1':'頂部工具列——同一套主控台可配置為美容工作室或到府寵物美容。',
+    'intro.b2t':'切換語言。','intro.b2':'英文、繁體或簡體中文——介面與內容皆會翻譯。',
+    'intro.b3t':'切換配色。','intro.b3':'透過頂部工具列的圓點選擇三種藍色主題。',
+    'intro.simNote':'此處所有內容皆為逼真但模擬的示範資料——沒有真實訊息或顧客。',
+    'intro.explore':'我自己探索','intro.tour':'進行 2 分鐘導覽','intro.help':'關於此示範',
     'insights.leadsBookingsTitle':'商機與預約 — 近30天',
     'insights.leadsBookingsSub':'各通路每日數據',
     'insights.funnelTitle':'銷售漏斗 — 近30天','insights.funnelSub':'從首次接觸到重複預約',
@@ -493,6 +507,13 @@
     'setup.brandSub':'设置店名、标语与店主名称，让潜在客户在整个控制台看到自己的品牌。即时应用，数据不会离开浏览器。',
     'setup.brandApply':'应用品牌','setup.brandReset':'还原为示例',
     'setup.brandToast':'品牌已应用至整个控制台','setup.brandResetToast':'品牌已还原为示例商家',
+    'intro.aria':'欢迎使用 Rook','intro.title':'为您的店铺打造的 24/7 AI 增长团队',
+    'intro.body':'Rook 会回复顾客消息、跟进商机、处理评价并执行营销活动——全部依据您自己的价格与政策，敏感事项则由您批准。这是店主的控制台。',
+    'intro.b1t':'切换行业。','intro.b1':'顶部工具栏——同一套控制台可配置为美容工作室或上门宠物美容。',
+    'intro.b2t':'切换语言。','intro.b2':'英文、繁体或简体中文——界面与内容都会翻译。',
+    'intro.b3t':'切换配色。','intro.b3':'通过顶部工具栏的圆点选择三种蓝色主题。',
+    'intro.simNote':'此处所有内容均为逼真但模拟的演示数据——没有真实消息或顾客。',
+    'intro.explore':'自行探索','intro.tour':'进行 2 分钟导览','intro.help':'关于此演示',
     'insights.leadsBookingsTitle':'商机与预约 — 近30天',
     'insights.leadsBookingsSub':'各渠道每日数据',
     'insights.funnelTitle':'销售漏斗 — 近30天','insights.funnelSub':'从首次接触到重复预约',
@@ -634,6 +655,8 @@
     uploads: [],            // documents the owner has added on the Setup view
     palette:'azure',        // colour theme: azure | indigo | sky
     brand: null,            // {name, tagline, ownerFirst} personalisation override
+    intro: false,           // first-open welcome overlay showing
+    introSeen: false,       // persisted: has the welcome been dismissed once
     opsTab:'finance',       // finance | materials | staff
     finPeriod:'month',      // day | month | year
     wiz: null,              // publish-wizard working state (lazy-init per industry)
@@ -647,7 +670,7 @@
   // blocked localStorage (private mode, file://) never breaks the app.
   const PREF_KEY ='rook.prefs.v1';
   function savePrefs() {
-    try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang: state.lang, palette: state.palette, uploads: state.uploads, brand: state.brand })); } catch (e) {}
+    try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang: state.lang, palette: state.palette, uploads: state.uploads, brand: state.brand, introSeen: state.introSeen })); } catch (e) {}
   }
   function loadPrefs() {
     try {
@@ -660,6 +683,7 @@
       if (p.brand && typeof p.brand ==='object' && (p.brand.name || p.brand.tagline || p.brand.ownerFirst)) {
         state.brand = { name: p.brand.name ||'', tagline: p.brand.tagline ||'', ownerFirst: p.brand.ownerFirst ||'' };
       }
+      if (p.introSeen) state.introSeen = true;
     } catch (e) {}
   }
   function resetDemo() {
@@ -1923,6 +1947,27 @@
     { view:'marketing', n: 5 }, { view:'social', n: 6 }, { view:'trust', n: 7 }, { view:'insights', n: 8 },
     { view:'setup', n: 9 },
   ];
+  function introCard() {
+    return `
+      <div class="intro-ovl" data-intro-backdrop>
+        <div class="intro" role="dialog" aria-modal="true" aria-label="${t('intro.aria')}">
+          <div class="intro-mark"><span class="mark" aria-hidden="true">♜</span><b>Rook</b><span class="intro-tag">${t('logo.tagline')}</span></div>
+          <h2>${t('intro.title')}</h2>
+          <p>${t('intro.body')}</p>
+          <ul class="intro-list">
+            <li><b>${t('intro.b1t')}</b> ${t('intro.b1')}</li>
+            <li><b>${t('intro.b2t')}</b> ${t('intro.b2')}</li>
+            <li><b>${t('intro.b3t')}</b> ${t('intro.b3')}</li>
+          </ul>
+          <div class="intro-note">${t('intro.simNote')}</div>
+          <div class="intro-actions">
+            <button class="btn" data-intro-dismiss>${t('intro.explore')}</button>
+            <button class="btn pri" data-intro-tour>${t('intro.tour')}</button>
+          </div>
+        </div>
+      </div>`;
+  }
+  function dismissIntro() { state.intro = false; state.introSeen = true; savePrefs(); render(); }
   function tourCard() {
     const s = TOUR[state.tour - 1];
     return `
@@ -1971,6 +2016,7 @@
         <div class="seg pal" role="group" aria-label="${t('aria.paletteGroup')}">
           ${['azure','indigo','sky'].map((p) => `<button class="pal-dot pal-${p} ${state.palette === p?'on':''}" data-palette="${p}" title="${t('palette.' + p)}" aria-label="${t('palette.' + p)}"><span></span></button>`).join('')}
         </div>
+        <button class="btn sm icon-btn" data-intro-open title="${t('intro.help')}" aria-label="${t('intro.help')}">?</button>
         <button class="btn sm" data-tour-start>${state.tour? '● ' + t('tour.running'): '▶ ' + t('tour.button')}</button>
         <span class="chip time">${esc(D.merchant.nowLabel)}</span>
         <span class="chip sim">${t('sim.badge')}</span>
@@ -1998,6 +2044,9 @@
     const oldTour = $('.tour');
     if (oldTour) oldTour.remove();
     if (state.tour) document.body.insertAdjacentHTML('beforeend', tourCard());
+    const oldIntro = $('.intro-ovl');
+    if (oldIntro) oldIntro.remove();
+    if (state.intro) document.body.insertAdjacentHTML('beforeend', introCard());
     bindHover();
     bindUpload();
   }
@@ -2031,13 +2080,17 @@
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset],[data-brand-apply],[data-brand-reset]');
+    if (e.target.classList && e.target.classList.contains('intro-ovl')) { dismissIntro(); return; }
+    const el = e.target.closest('[data-intro-open],[data-intro-dismiss],[data-intro-tour],[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset],[data-brand-apply],[data-brand-reset]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
     if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
       const ta = $('#wizContent'); if (ta) state.wiz.content = ta.value;
     }
-    if (el.dataset.palette) {
+    if (el.dataset.introOpen!== undefined) { state.intro = true; render(); }
+    else if (el.dataset.introDismiss!== undefined) { dismissIntro(); }
+    else if (el.dataset.introTour!== undefined) { state.intro = false; state.introSeen = true; savePrefs(); state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }
+    else if (el.dataset.palette) {
       if (state.palette!== el.dataset.palette) {
         state.palette = el.dataset.palette;
         document.documentElement.dataset.palette = state.palette;
@@ -2210,6 +2263,7 @@
   }
 
   loadPrefs();
+  if (!state.introSeen) state.intro = true;
   document.documentElement.dataset.palette = state.palette;
   document.documentElement.lang = state.lang;
   render();
