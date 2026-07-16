@@ -454,6 +454,35 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .cp-head { background: var(--surface-2); padding: 7px 12px; font-size: 11.5px; color: var(--muted); border-bottom: 1px solid var(--line); }
 .cp-body { padding: 12px 14px; font-size: 13.5px; color: var(--ink); line-height: 1.55; }
 
+/* ---- bookings page ---- */
+.linklike { border: 0; background: none; padding: 0; color: var(--accent); font: inherit; font-weight: 650; cursor: pointer; }
+.linklike:hover { text-decoration: underline; }
+
+/* ---- follow-up page ---- */
+.fu-row { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.fu-row:last-child { border-bottom: 0; }
+.fu-dot { flex: none; width: 8px; height: 8px; border-radius: 99px; background: var(--warn); margin-top: 5px; }
+.fu-body { flex: 1; min-width: 0; }
+.fu-reason { font-size: 13px; color: var(--ink-2); margin-top: 3px; max-width: 72ch; }
+.fu-due { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.fu-row .btn { flex: none; }
+
+/* ---- reputation: platform aggregate ---- */
+.plat-pill { font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; padding: 3px 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ---- wizard: poster selection ---- */
+.posters { display: flex; gap: 10px; flex-wrap: wrap; }
+.poster-card { position: relative; width: 130px; height: 84px; border-radius: 10px; border: 2px solid var(--line-strong); cursor: pointer; text-align: left; padding: 9px 10px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; overflow: hidden; background: linear-gradient(135deg, hsl(var(--ph), 55%, 42%), hsl(var(--ph), 60%, 30%)); transition: transform 0.1s, box-shadow 0.15s; }
+.poster-card:hover { transform: translateY(-1px); }
+.poster-card.sel { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.poster-card b { font-size: 12.5px; line-height: 1.2; text-shadow: 0 1px 3px rgba(0,0,0,0.35); }
+.poster-sub { font-size: 10.5px; opacity: 0.9; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.poster-tag { position: absolute; top: 7px; left: 9px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(0,0,0,0.28); padding: 2px 6px; border-radius: 99px; }
+.poster-check { position: absolute; top: 6px; right: 7px; width: 18px; height: 18px; border-radius: 99px; background: var(--accent); color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+.wiz-final { display: flex; gap: 14px; align-items: stretch; justify-content: center; flex-wrap: wrap; }
+.wiz-final .poster-card { width: 150px; height: 96px; cursor: default; }
+.wiz-final .wiz-preview { flex: 1; min-width: 240px; margin: 0; }
+
 /* ---- setup / onboarding ---- */
 .ob-stage { position: relative; opacity: 0.55; transition: opacity 0.3s; }
 .ob-stage.on { opacity: 1; }
@@ -957,10 +986,10 @@ window.DEMOS = (() => {
 
     const reviews = [
       { id:'rv-dana', name:'Dana L.', rating: 2, time: hoursAgo(13.4), source:'Google', text:'Gel extensions chipped within 3 days. Staff are lovely but for the price I expected the set to last. Disappointed this time.', replyStatus:'pending', reply:'Dana, thank you for telling us — this isn’t the standard we hold ourselves to, and I’m sorry. I’ve reached out personally: we’d love to re-do the set with our senior stylist at no charge. — Rachel, owner', linked:'Recovery ticket RT-114 · same customer as open complaint' },
-      { id:'rv-1', name:'Jasmine K.', rating: 5, time: daysAgo(11, 19, 40), source:'Google', text:'Joanne did my BIAB perfectly again. Booking over WhatsApp took literally 30 seconds.', replyStatus:'posted', reply:'Thank you Jasmine! Joanne will be so happy to hear this' },
-      { id:'rv-2', name:'Wei Ting T.', rating: 5, time: daysAgo(4, 12, 15), source:'Google', text:'Replied to my message at 11pm and got me a slot the next morning. The facial was amazing too.', replyStatus:'posted', reply:'That’s exactly what we’re here for — day or night! See you at your next glow-up' },
-      { id:'rv-3', name:'Farhana M.', rating: 4, time: daysAgo(7, 17, 0), source:'Google', text:'Great lashes, cosy studio. Parking around Duxton is a pain though.', replyStatus:'posted', reply:'Thank you Farhana! Tip for next time: Tanjong Pagar Plaza carpark is 4 min away and much easier' },
-      { id:'rv-4', name:'Anjali P.', rating: 5, time: daysAgo(15, 14, 0), source:'Google', text:'The birthday brow treat was such a nice surprise. Feels like they actually remember you.', replyStatus:'posted', reply:'Happy birthday again, Anjali!' },
+      { id:'rv-1', name:'Jasmine K.', rating: 5, time: daysAgo(11, 19, 40), source:'Facebook', text:'Joanne did my BIAB perfectly again. Booking over WhatsApp took literally 30 seconds.', replyStatus:'pending', reply:'Thank you Jasmine! Joanne will be so happy to hear this' },
+      { id:'rv-2', name:'Wei Ting T.', rating: 5, time: daysAgo(4, 12, 15), source:'Instagram', text:'Replied to my message at 11pm and got me a slot the next morning. The facial was amazing too.', replyStatus:'posted', reply:'That’s exactly what we’re here for — day or night! See you at your next glow-up' },
+      { id:'rv-3', name:'Farhana M.', rating: 4, time: daysAgo(7, 17, 0), source:'Google', text:'Great lashes, cosy studio. Parking around Duxton is a pain though.', replyStatus:'pending', reply:'Thank you Farhana! Tip for next time: Tanjong Pagar Plaza carpark is 4 min away and much easier' },
+      { id:'rv-4', name:'Anjali P.', rating: 5, time: daysAgo(15, 14, 0), source:'Facebook', text:'The birthday brow treat was such a nice surprise. Feels like they actually remember you.', replyStatus:'posted', reply:'Happy birthday again, Anjali!' },
     ];
     const cxSummary = {
       rating: 4.8, count: 187, invited30d: 41, received30d: 17, openTickets: 1,
@@ -1396,10 +1425,10 @@ window.DEMOS = (() => {
 
     const reviews = [
       { id:'rv-p-ravi', name:'Ravi K.', rating: 2, time: hoursAgo(12.6), source:'Google', text:'Been using them a year but last groom Toby’s nail was cut too short and bled. Groomers are usually careful — this visit wasn’t.', replyStatus:'pending', reply:'Ravi, I’m truly sorry — Toby’s safety is the whole point of what we do, and we fell short. I’ve called you directly; the vet check is on us and Mei, our senior groomer, will handle Toby’s next visit personally. — Daniel, owner', linked:'Recovery ticket RT-52 · same customer as open complaint' },
-      { id:'rv-p-1', name:'Adeline W.', rating: 5, time: daysAgo(3, 16, 20), source:'Google', text:'They groomed our super anxious cat in our living room. No cage, no car ride, no drama. Life-changing honestly.', replyStatus:'posted', reply:'This is exactly why we go to you instead Thank you Adeline!' },
-      { id:'rv-p-2', name:'Imran H.', rating: 5, time: daysAgo(9, 13, 0), source:'Google', text:'Two GSDs de-shedded in one visit. The van is spotless and they text you when they’re 15 min away. Zero fuss.', replyStatus:'posted', reply:'Rocky and Bella were stars as always See you next quarter, Imran!' },
-      { id:'rv-p-3', name:'Joyce F.', rating: 4, time: daysAgo(80, 11, 0), source:'Google', text:'Bobo looks great every time. Only wish there were more east-side slots on weekends.', replyStatus:'posted', reply:'Thank you Joyce! We hear you on east-side weekends — we’re adding a Bedok loop soon' },
-      { id:'rv-p-4', name:'Wei Ting T.', rating: 5, time: daysAgo(6, 18, 30), source:'Google', text:'Booked over WhatsApp at 11pm, van came Saturday. The reminder when they were 15 mins away was a nice touch.', replyStatus:'posted', reply:'Night-owl bookings are our specialty Thank you!' },
+      { id:'rv-p-1', name:'Adeline W.', rating: 5, time: daysAgo(3, 16, 20), source:'Facebook', text:'They groomed our super anxious cat in our living room. No cage, no car ride, no drama. Life-changing honestly.', replyStatus:'pending', reply:'This is exactly why we go to you instead Thank you Adeline!' },
+      { id:'rv-p-2', name:'Imran H.', rating: 5, time: daysAgo(9, 13, 0), source:'Instagram', text:'Two GSDs de-shedded in one visit. The van is spotless and they text you when they’re 15 min away. Zero fuss.', replyStatus:'posted', reply:'Rocky and Bella were stars as always See you next quarter, Imran!' },
+      { id:'rv-p-3', name:'Joyce F.', rating: 4, time: daysAgo(80, 11, 0), source:'Google', text:'Bobo looks great every time. Only wish there were more east-side slots on weekends.', replyStatus:'pending', reply:'Thank you Joyce! We hear you on east-side weekends — we’re adding a Bedok loop soon' },
+      { id:'rv-p-4', name:'Wei Ting T.', rating: 5, time: daysAgo(6, 18, 30), source:'Facebook', text:'Booked over WhatsApp at 11pm, van came Saturday. The reminder when they were 15 mins away was a nice touch.', replyStatus:'posted', reply:'Night-owl bookings are our specialty Thank you!' },
     ];
     const cxSummary = {
       rating: 4.9, count: 214, invited30d: 38, received30d: 15, openTickets: 1,
@@ -1665,7 +1694,34 @@ window.DEMOS = (() => {
         'Beat the haze with a hydrating glow-up. Weekday-afternoon facials are 20% off this week — quiet, unhurried, just you. Tap to book.',
         'Midweek reset, on us: 20% off Signature Facials Tue–Thu. Slots are filling fast — reply to grab yours.',
       ],
+      posters:[
+        { title:'Rainy-week facial', tag:'Soft / calm', hue:180 },
+        { title:'20% off — bold', tag:'High-contrast promo', hue:22 },
+        { title:'Glow close-up', tag:'Editorial / minimal', hue:330 },
+      ],
     },
+    bookings: [
+      { time:'10:30 AM', customer:'Chen Meiling', service:'BIAB Structured Manicure', staff:'Joanne', status:'confirmed' },
+      { time:'11:00 AM', customer:'Aisha Binte Rahman', service:'Hydrating Signature Facial', staff:'Joanne', status:'confirmed' },
+      { time:'12:00 PM', customer:'Hannah Teo', service:'Brow Lamination', staff:'Ms Lee', status:'confirmed' },
+      { time:'1:30 PM', customer:'Nurul Huda', service:'Lash Fill', staff:'Ms Lee', status:'deposit-unpaid' },
+      { time:'2:00 PM', customer:'Ong Li Wei', service:'Deep Cleanse Facial', staff:'Joanne', status:'confirmed' },
+      { time:'3:30 PM', customer:'Jasmine Koh', service:'BIAB Structured Manicure', staff:'Joanne', status:'confirmed' },
+      { time:'5:00 PM', customer:'Devi Chandran', service:'Gel Extensions', staff:'Ms Lee', status:'deposit-unpaid' },
+      { time:'6:30 PM', customer:'Grace Fu Wenli', service:'Facial Package (5 sessions)', staff:'Joanne', status:'confirmed' },
+    ],
+    followups: [
+      { customer:'@sitiblooms', reason:'Asked volume-lash price 11h ago on IG, no reply yet', channel:'Instagram', due:'Nudge at 6 PM', convId:'v-siti' },
+      { customer:'Priya Nair', reason:'Bridal group quote held — confirm 2 stylists by 10 AM', channel:'WhatsApp', due:'Today 10:00 AM', convId:'v-priya' },
+      { customer:'Farah Osman', reason:'VIP dormant 9 weeks (usual cycle 3) — win-back with lash-fill offer', channel:'WhatsApp', due:'Today', convId: null },
+      { customer:'Nurul Huda', reason:'Deposit unpaid for tomorrow — reminder sent, call if unpaid by 6 PM', channel:'WhatsApp', due:'Today 6:00 PM', convId: null },
+      { customer:'Devi Chandran', reason:'Deposit unpaid for Mon — reminder sent', channel:'WhatsApp', due:'Today 6:00 PM', convId: null },
+      { customer:'Marcus Wee', reason:'FAQ answered, no booking yet — offer a Sunday slot', channel:'Google', due:'Auto-close 48h', convId:'v-marcus' },
+      { customer:'Wei Ting T.', reason:'Left a 5★ review — invite to the referral programme', channel:'Google', due:'This week', convId: null },
+      { customer:'Ong Li Wei', reason:'Prefers weekday AM — offer next available Tue slot', channel:'Google', due:'This week', convId: null },
+      { customer:'Jasmine Koh', reason:'Confirm merge of @jasmineeats profile', channel:'Instagram', due:'Today', convId: null },
+      { customer:'Grace Fu Wenli', reason:'Birthday 14 Jul — send VIP birthday voucher', channel:'Referral', due:'Before 14 Jul', convId: null },
+    ],
   });
   Object.assign(pets, {
     advisor: {
@@ -1742,7 +1798,32 @@ window.DEMOS = (() => {
         'Less fur at home, one cool dog. Weekday de-shed sessions are 15% off this week — we come to you, the fur stays in our van.',
         'Beat the heat, keep the coat healthy: 15% off de-shedding Tue–Thu. Van slots filling — reply to lock yours in.',
       ],
+      posters:[
+        { title:'Heatwave coat-care', tag:'Cool / breezy', hue:200 },
+        { title:'15% off — bold', tag:'High-contrast promo', hue:22 },
+        { title:'Happy dog close-up', tag:'Warm / friendly', hue:40 },
+      ],
     },
+    bookings: [
+      { time:'9:30 AM', customer:'Elaine Sng', service:'Full Groom — Small Dog (Muffin)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'10:00 AM', customer:'Sarah Goh', service:'Full Groom ×2 (Biscuit + Momo)', staff:'Van 2 · Arif', status:'deposit-unpaid' },
+      { time:'11:00 AM', customer:'Jon Lau', service:'Nail Trim & Ear Clean (Pepper)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'12:30 PM', customer:'Imran Hakim', service:'De-shed ×2 (Rocky + Bella)', staff:'Van 2 · Kelvin', status:'confirmed' },
+      { time:'2:00 PM', customer:'Melissa Chng', service:'Full Groom — Small Dog (Latte)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'2:30 PM', customer:'@huskydad_sg', service:'Full Groom L + De-shedding', staff:'Van 2 · Kelvin', status:'deposit-unpaid' },
+      { time:'3:30 PM', customer:'Adeline W.', service:'Cat Full Groom (home visit)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'5:00 PM', customer:'Wei Ting T.', service:'Bath & Tidy', staff:'Van 2 · Arif', status:'confirmed' },
+    ],
+    followups: [
+      { customer:'@huskydad_sg', reason:'Asked husky de-shed price on IG — guided to WhatsApp, no reply yet', channel:'Instagram', due:'Nudge at 6 PM', convId:'vp-husky' },
+      { customer:'Mdm Lim 林太太', reason:'Anxious Persian + sedation question — assessment call needed', channel:'WhatsApp', due:'Today', convId:'vp-mdmlim' },
+      { customer:'Sarah Goh', reason:'Sat double-groom deposit unpaid 8h — call if unpaid by 6 PM', channel:'WhatsApp', due:'Today 6:00 PM', convId:'vp-sarah' },
+      { customer:'Joyce Foo', reason:'Bobo dormant 11 weeks (cycle 8) — win-back offer', channel:'Google', due:'Today', convId: null },
+      { customer:'Ravi Kumar', reason:'Complaint call before 11 AM — Toby’s nail, vet-bill decision', channel:'WhatsApp', due:'Today 11:00 AM', convId:'vp-ravi' },
+      { customer:'Paws Haven Shelter', reason:'Rescue-discount partnership enquiry — flagged as community campaign', channel:'Instagram', due:'This week', convId: null },
+      { customer:'Adeline W.', reason:'Left a 5★ review — invite to the referral programme', channel:'Google', due:'This week', convId: null },
+      { customer:'Melissa Chng', reason:'Confirm merge of @latte.maltipoo profile', channel:'Instagram', due:'Today', convId: null },
+    ],
   });
 
   return { beauty, pets };
@@ -2539,6 +2620,46 @@ window.DATA_TRX = {
 'Heatwave incoming — help your pup beat it. 15% off de-shedding & summer trims on weekday routes next week. Reply YES and we’ll bring a van to you.': ['高溫來襲——幫毛孩降降溫。下週平日路線的去毛與夏季修剪85折。回覆 YES，我們就開車到府。','高温来袭——帮毛孩降降温。下周工作日路线的去毛与夏季修剪85折。回复 YES，我们就开车上门。'],
 'Less fur at home, one cool dog. Weekday de-shed sessions are 15% off this week — we come to you, the fur stays in our van.': ['家裡毛更少，狗狗更清爽。本週平日去毛護理85折——我們到府服務，毛髮都留在車上。','家里毛更少，狗狗更清爽。本周工作日去毛护理85折——我们上门服务，毛发都留在车上。'],
 'Beat the heat, keep the coat healthy: 15% off de-shedding Tue–Thu. Van slots filling — reply to lock yours in.': ['消暑又護毛：週二至週四去毛85折。服務車時段快滿——回覆即可鎖定您的名額。','消暑又护毛：周二至周四去毛85折。服务车时段快满——回复即可锁定您的名额。'],
+/* ---------- conformance gap round: bookings / follow-ups / posters ---------- */
+'Facial Package (5 sessions)': ['臉部護理套組（5 次）','面部护理套餐（5 次）'],
+'Full Groom — Small Dog (Muffin)': ['全套美容——小型犬（Muffin）','全套美容——小型犬（Muffin）'],
+'Full Groom ×2 (Biscuit + Momo)': ['全套美容 ×2（Biscuit + Momo）','全套美容 ×2（Biscuit + Momo）'],
+'Nail Trim & Ear Clean (Pepper)': ['剪指甲＋清耳（Pepper）','剪指甲＋清耳（Pepper）'],
+'De-shed ×2 (Rocky + Bella)': ['去毛 ×2（Rocky + Bella）','去毛 ×2（Rocky + Bella）'],
+'Full Groom — Small Dog (Latte)': ['全套美容——小型犬（Latte）','全套美容——小型犬（Latte）'],
+'Cat Full Groom (home visit)': ['貓咪全套美容（到府）','猫咪全套美容（上门）'],
+'Van 1': ['1號車','1号车'], 'Van 2': ['2號車','2号车'],
+'Nudge at 6 PM': ['下午6點提醒','下午6点提醒'],
+'Auto-close 48h': ['48小時後自動結束','48小时后自动关闭'],
+'Before 14 Jul': ['7月14日前','7月14日前'],
+'Asked volume-lash price 11h ago on IG, no reply yet': ['11小時前在IG詢問濃密睫毛價格，尚未回覆','11小时前在IG询问浓密睫毛价格，尚未回复'],
+'Bridal group quote held — confirm 2 stylists by 10 AM': ['婚禮團體報價已保留——上午10點前確認2位美容師','婚礼团体报价已保留——上午10点前确认2位美容师'],
+'VIP dormant 9 weeks (usual cycle 3) — win-back with lash-fill offer': ['VIP已沉睡9週（平常週期3週）——以睫毛補接優惠召回','VIP已沉睡9周（平常周期3周）——以睫毛补接优惠召回'],
+'Deposit unpaid for tomorrow — reminder sent, call if unpaid by 6 PM': ['明天的訂金未付——提醒已發送，若6點前未付則致電','明天的订金未付——提醒已发送，若6点前未付则致电'],
+'Deposit unpaid for Mon — reminder sent': ['週一的訂金未付——提醒已發送','周一的订金未付——提醒已发送'],
+'FAQ answered, no booking yet — offer a Sunday slot': ['已回答常見問題但尚未預約——提供週日時段','已回答常见问题但尚未预约——提供周日时段'],
+'Left a 5★ review — invite to the referral programme': ['留下5★評價——邀請加入轉介計畫','留下5★评价——邀请加入转介绍计划'],
+'Prefers weekday AM — offer next available Tue slot': ['偏好平日上午——提供下一個週二時段','偏好工作日上午——提供下一个周二时段'],
+'Confirm merge of @jasmineeats profile': ['確認合併 @jasmineeats 檔案','确认合并 @jasmineeats 档案'],
+'Birthday 14 Jul — send VIP birthday voucher': ['7月14日生日——發送VIP生日禮券','7月14日生日——发送VIP生日礼券'],
+'Asked husky de-shed price on IG — guided to WhatsApp, no reply yet': ['在IG詢問哈士奇去毛價格——已引導至WhatsApp，尚未回覆','在IG询问哈士奇去毛价格——已引导至WhatsApp，尚未回复'],
+'Anxious Persian + sedation question — assessment call needed': ['焦慮的波斯貓＋鎮靜劑詢問——需要評估電話','焦虑的波斯猫＋镇静剂询问——需要评估电话'],
+'Sat double-groom deposit unpaid 8h — call if unpaid by 6 PM': ['週六雙寵美容訂金已8小時未付——若6點前未付則致電','周六双宠美容订金已8小时未付——若6点前未付则致电'],
+'Bobo dormant 11 weeks (cycle 8) — win-back offer': ['Bobo已沉睡11週（週期8週）——召回優惠','Bobo已沉睡11周（周期8周）——召回优惠'],
+'Complaint call before 11 AM — Toby’s nail, vet-bill decision': ['上午11點前的客訴電話——Toby的指甲、獸醫費用決定','上午11点前的投诉电话——Toby的指甲、兽医费用决定'],
+'Rescue-discount partnership enquiry — flagged as community campaign': ['救援折扣合作洽詢——已標記為社區活動','救援折扣合作咨询——已标记为社区活动'],
+'Confirm merge of @latte.maltipoo profile': ['確認合併 @latte.maltipoo 檔案','确认合并 @latte.maltipoo 档案'],
+'Rainy-week facial': ['雨季臉部護理','雨季面部护理'],
+'Soft / calm': ['柔和／平靜','柔和／平静'],
+'20% off — bold': ['8折——醒目','8折——醒目'],
+'High-contrast promo': ['高對比促銷','高对比促销'],
+'Glow close-up': ['煥膚特寫','焕肤特写'],
+'Editorial / minimal': ['雜誌感／簡約','杂志感／简约'],
+'Heatwave coat-care': ['高溫毛髮護理','高温毛发护理'],
+'Cool / breezy': ['清涼／舒爽','清凉／舒爽'],
+'15% off — bold': ['85折——醒目','85折——醒目'],
+'Happy dog close-up': ['開心狗狗特寫','开心狗狗特写'],
+'Warm / friendly': ['溫暖／親切','温暖／亲切'],
 };
 
 </script>
@@ -2726,6 +2847,15 @@ window.DATA_TRX = {
       'mkt.suggestionsTitle':'AI marketing suggestions','mkt.suggestionsSub':'Tap any suggestion to jump to where you act on it.',
       'mkt.handle':'Handle','mkt.viewContent':'View published content','mkt.hideContent':'Hide',
       'mkt.publishedContent':'Published content','mkt.onPlatform':'Published on {platform}',
+      'nav.back':'← Back to home',
+      'title.bookings':'Today’s bookings','title.followup':'To follow up',
+      'bk.count':'{n} bookings today','bk.time':'Time','bk.customer':'Customer','bk.service':'Service','bk.staff':'Staff','bk.status':'Status',
+      'bk.confirmed':'Confirmed','bk.depositUnpaid':'Deposit unpaid','bk.viewInInbox':'Open chat',
+      'fu.count':'{n} customers to follow up','fu.reason':'Why','fu.due':'When','fu.open':'Open chat','fu.act':'Act',
+      'rep.overall':'Overall rating · {n} reviews','rep.byPlatform':'Reviews by platform','rep.replyAll':'Reply to all pending',
+      'rep.replyAllToast':'AI replies posted to {n} pending reviews','rep.pending':'{n} pending',
+      'cust.spendHistory':'Spend history','cust.shService':'Service','cust.shAmount':'Amount','cust.shTotal':'Total spent',
+      'mkt.posterLabel':'Poster','mkt.posterHint':'· pick one','mkt.posterPreview':'AI poster',
     },
   };
   I18N['zh-Hant'] = Object.assign({}, I18N.en, {
@@ -2895,6 +3025,15 @@ window.DATA_TRX = {
     'mkt.suggestionsTitle':'AI 營銷建議','mkt.suggestionsSub':'點任一建議即可跳到處理頁面。',
     'mkt.handle':'去處理','mkt.viewContent':'查看發布內容','mkt.hideContent':'收起',
     'mkt.publishedContent':'已發布內容','mkt.onPlatform':'發布於 {platform}',
+    'nav.back':'← 返回今天',
+    'title.bookings':'今日預約','title.followup':'待你跟進',
+    'bk.count':'今日共 {n} 筆預約','bk.time':'時間','bk.customer':'客戶','bk.service':'服務項目','bk.staff':'服務人員','bk.status':'狀態',
+    'bk.confirmed':'已確認','bk.depositUnpaid':'訂金未付','bk.viewInInbox':'開啟對話',
+    'fu.count':'共 {n} 位客戶待跟進','fu.reason':'跟進原因','fu.due':'時間','fu.open':'開啟對話','fu.act':'去處理',
+    'rep.overall':'綜合評分 · {n} 則評價','rep.byPlatform':'各平台評價','rep.replyAll':'一鍵回覆全部待處理',
+    'rep.replyAllToast':'已為 {n} 則待處理評價發布 AI 回覆','rep.pending':'{n} 則待處理',
+    'cust.spendHistory':'消費記錄','cust.shService':'服務項目','cust.shAmount':'金額','cust.shTotal':'累計消費',
+    'mkt.posterLabel':'海報','mkt.posterHint':'· 擇一','mkt.posterPreview':'AI 海報',
   });
   I18N['zh-Hans'] = Object.assign({}, I18N.en, {
     'nav.today':'今天','nav.inbox':'收件箱','nav.customers':'客户','nav.marketing':'营销','nav.social':'社交',
@@ -3063,6 +3202,15 @@ window.DATA_TRX = {
     'mkt.suggestionsTitle':'AI 营销建议','mkt.suggestionsSub':'点任一建议即可跳到处理页面。',
     'mkt.handle':'去处理','mkt.viewContent':'查看发布内容','mkt.hideContent':'收起',
     'mkt.publishedContent':'已发布内容','mkt.onPlatform':'发布于 {platform}',
+    'nav.back':'← 返回今天',
+    'title.bookings':'今日预约','title.followup':'待你跟进',
+    'bk.count':'今日共 {n} 笔预约','bk.time':'时间','bk.customer':'客户','bk.service':'服务项目','bk.staff':'服务人员','bk.status':'状态',
+    'bk.confirmed':'已确认','bk.depositUnpaid':'订金未付','bk.viewInInbox':'打开对话',
+    'fu.count':'共 {n} 位客户待跟进','fu.reason':'跟进原因','fu.due':'时间','fu.open':'打开对话','fu.act':'去处理',
+    'rep.overall':'综合评分 · {n} 则评价','rep.byPlatform':'各平台评价','rep.replyAll':'一键回复全部待处理',
+    'rep.replyAllToast':'已为 {n} 则待处理评价发布 AI 回复','rep.pending':'{n} 则待处理',
+    'cust.spendHistory':'消费记录','cust.shService':'服务项目','cust.shAmount':'金额','cust.shTotal':'累计消费',
+    'mkt.posterLabel':'海报','mkt.posterHint':'· 择一','mkt.posterPreview':'AI 海报',
   });
   function t(key, vars) {
     const dict = I18N[state.lang] || I18N.en;
@@ -3118,7 +3266,7 @@ window.DATA_TRX = {
     wiz: null,              // publish-wizard working state (lazy-init per industry)
     campOpen: {},           // expanded completed-campaign ids
   };
-  const freshWiz = () => ({ goals: {}, audiences: {}, platforms: {}, variantIdx: 0, content: null, published: false });
+  const freshWiz = () => ({ goals: {}, audiences: {}, platforms: {}, variantIdx: 0, content: null, poster: 0, published: false });
 
   // ---------- formatting ----------
   // All clock times shown in the merchant's timezone (SGT), whoever views the demo.
@@ -3180,8 +3328,8 @@ window.DATA_TRX = {
     const cx = D.cxSummary;
     const cards = [
       { label: t('home.kpiRevenue'), val: money(D.finance.monthRevenue), goto:'operations', optab:'finance' },
-      { label: t('home.kpiBookings'), val: D.todayBookings, goto:'inbox' },
-      { label: t('home.kpiFollowup'), val: D.followUpCount, goto:'customers' },
+      { label: t('home.kpiBookings'), val: D.todayBookings, goto:'bookings' },
+      { label: t('home.kpiFollowup'), val: D.followUpCount, goto:'followup' },
       { label: t('home.kpiRating'), val: cx.rating + ' ★', goto:'reputation' },
     ];
     return `<div class="kpi-row">${cards.map((k) => `
@@ -3252,6 +3400,55 @@ window.DATA_TRX = {
             <button class="btn sm" data-hold="${a.id}">${t('today.hold')}</button>
           </div>
         </div>`).join('')}`;
+  }
+
+  // ---------- Bookings page (今日預約) ----------
+  const BK_STATUS = { confirmed:['bk.confirmed','st-good'], 'deposit-unpaid':['bk.depositUnpaid','human'] };
+  function vBookings() {
+    const bk = D.bookings;
+    const cust = (name) => D.customers.find((c) => c.name === name || c.name.includes(name));
+    return `
+      <button class="btn sm" data-goto="today">${t('nav.back')}</button>
+      <h2 class="sec" style="margin-top:12px">${t('bk.count', { n: bk.length })}</h2>
+      <div class="card tbl-wrap" style="padding:6px 10px">
+        <table class="tbl">
+          <thead><tr><th>${t('bk.time')}</th><th>${t('bk.customer')}</th><th>${t('bk.service')}</th><th>${t('bk.staff')}</th><th>${t('bk.status')}</th><th></th></tr></thead>
+          <tbody>${bk.map((b) => {
+            const c = cust(b.customer);
+            const conv = D.conversations.find((v) => v.name === b.customer || (v.name && v.name.includes(b.customer)));
+            return `<tr>
+              <td style="white-space:nowrap;font-variant-numeric:tabular-nums"><b>${esc(b.time)}</b></td>
+              <td>${c? `<button class="linklike" data-cust="${c.id}">${esc(b.customer)}</button>`: esc(b.customer)}</td>
+              <td>${esc(td(b.service))}</td>
+              <td style="white-space:nowrap">${esc(td(b.staff))}</td>
+              <td><span class="tagchip ${BK_STATUS[b.status][1]}">${t(BK_STATUS[b.status][0])}</span></td>
+              <td>${conv? `<button class="btn sm" data-goto="inbox" data-goto-conv="${conv.id}">${t('bk.viewInInbox')}</button>`:''}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>
+      </div>`;
+  }
+
+  // ---------- Follow-up page (待你跟進) ----------
+  function vFollowup() {
+    const fu = D.followups;
+    return `
+      <button class="btn sm" data-goto="today">${t('nav.back')}</button>
+      <h2 class="sec" style="margin-top:12px">${t('fu.count', { n: fu.length })}</h2>
+      <div class="card" style="padding:4px 14px">
+        ${fu.map((f) => `
+          <div class="fu-row">
+            <span class="fu-dot"></span>
+            <div class="fu-body">
+              <b>${esc(f.customer)}</b> <span class="tagchip">${chIcon[f.channel] || f.channel}</span>
+              <div class="fu-reason">${esc(td(f.reason))}</div>
+              <div class="fu-due">${esc(td(f.due))}</div>
+            </div>
+            ${f.convId
+              ? `<button class="btn sm" data-goto="inbox" data-goto-conv="${f.convId}">${t('fu.open')}</button>`
+              : `<button class="btn sm" data-toast="${esc(t('toast.held'))}">${t('fu.act')}</button>`}
+          </div>`).join('')}
+      </div>`;
   }
 
   // ---------- Inbox ----------
@@ -3521,7 +3718,31 @@ window.DATA_TRX = {
             ${timeline.map((tl) => `<li><time>${fmtRel(tl.time)} · ${esc(td(tl.kind))}</time>${td(tl.text)}</li>`).join('')}
           </ul>
         </div>
-      </div>`;
+      </div>
+      ${(() => {
+        const sh = spendHistory(c);
+        if (!sh.rows.length) return '';
+        return `<div class="card" style="margin-top:12px">
+          <h4 style="margin:0 0 8px">${t('cust.spendHistory')} <span style="font-weight:400;color:var(--muted);font-size:12px">· ${t('cust.shTotal')} ${money(sh.total)}</span></h4>
+          <div class="tbl-wrap"><table class="tbl">
+            <thead><tr><th>${t('insights.colDate')}</th><th>${t('cust.shService')}</th><th class="num">${t('cust.shAmount')}</th></tr></thead>
+            <tbody>${sh.rows.map((r) => `<tr><td style="white-space:nowrap;color:var(--muted)">${fmtRel(r.date)}</td><td>${esc(td(r.service))}</td><td class="num">${money(r.amount)}</td></tr>`).join('')}</tbody>
+          </table></div>
+        </div>`;
+      })()}`;
+  }
+  function spendHistory(c) {
+    if (!c.visits) return { rows: [], total: 0 };
+    const svc = (D.services || []).find((s) => s.name === c.pref || c.pref.includes(s.name) || s.name.includes(c.pref));
+    const unit = svc? svc.price: (c.ltv && c.visits? Math.round(c.ltv / c.visits): 60);
+    const n = Math.min(c.visits, 5);
+    const last = c.lastVisit? new Date(c.lastVisit): new Date(NOW - 20 * 864e5);
+    const vary = [0, -6, 8, -4, 12];
+    const rows = [];
+    for (let i = 0; i < n; i++) {
+      rows.push({ date: new Date(+last - i * 24 * 864e5).toISOString(), service: c.pref, amount: Math.max(20, unit + vary[i % vary.length]) });
+    }
+    return { rows, total: c.ltv || rows.reduce((a, r) => a + r.amount, 0) };
   }
   const daysAgoIso = (d) => new Date(NOW - d * 864e5).toISOString();
 
@@ -3546,15 +3767,25 @@ window.DATA_TRX = {
     if (w.published) {
       const plats = Object.keys(w.platforms).filter((k) => w.platforms[k]).map((k) => td(k)).join(', ');
       const auds = Object.keys(w.audiences).filter((k) => w.audiences[k]).map((k) => td(k)).join(', ');
+      const chosen = pw.posters[w.poster] || pw.posters[0];
       return `<div class="card wizard done">
         <span class="wiz-done-ic">✓</span>
         <h3 style="margin:6px 0 4px">${t('mkt.publishedTitle')}</h3>
         <p style="margin:0 0 10px;color:var(--ink-2)">${t('mkt.publishedBody', { platforms: plats, audience: auds })}</p>
-        <div class="wiz-preview">“${esc(content)}”</div>
+        <div class="wiz-final">
+          <div class="poster-card sel" style="--ph:${chosen.hue}"><span class="poster-tag">${t('mkt.posterPreview')}</span><b>${esc(td(chosen.title))}</b></div>
+          <div class="wiz-preview">“${esc(content)}”</div>
+        </div>
         <div style="margin-top:12px"><button class="btn" data-wiz-reset>${t('mkt.publishAnother')}</button></div>
       </div>`;
     }
     const chips = (list, kind, sel) => list.map((o) => `<button class="wchip ${sel[o]?'on':''}" data-wiz-toggle="${kind}" data-wiz-val="${esc(o)}">${esc(td(o))}</button>`).join('');
+    const posters = pw.posters.map((po, i) => `
+      <button class="poster-card ${w.poster === i?'sel':''}" data-wiz-poster="${i}" style="--ph:${po.hue}">
+        <span class="poster-tag">${t('mkt.posterPreview')}</span>
+        <b>${esc(td(po.title))}</b><span class="poster-sub">${esc(td(po.tag))}</span>
+        ${w.poster === i? '<span class="poster-check">✓</span>':''}
+      </button>`).join('');
     return `<div class="card wizard">
       <h3 style="margin:0 0 2px">${t('mkt.wizardTitle')}</h3>
       <p class="wiz-sub">${t('mkt.wizardSub')}</p>
@@ -3562,8 +3793,9 @@ window.DATA_TRX = {
       <div class="wiz-field"><label>${t('mkt.audience')} <span>· ${t('mkt.multiHint')}</span></label><div class="wchips">${chips(pw.audiences,'audiences', w.audiences)}</div></div>
       <div class="wiz-field"><label>${t('mkt.content')}</label>
         <textarea id="wizContent" class="wiz-textarea" rows="4">${esc(content)}</textarea>
-        <div class="wiz-row"><button class="btn sm" data-wiz-regen>↻ ${t('mkt.regenerate')}</button><span class="wiz-poster">${t('mkt.poster')}</span></div>
+        <div class="wiz-row"><button class="btn sm" data-wiz-regen>↻ ${t('mkt.regenerate')}</button></div>
       </div>
+      <div class="wiz-field"><label>${t('mkt.posterLabel')} <span>${t('mkt.posterHint')}</span></label><div class="posters">${posters}</div></div>
       <div class="wiz-field"><label>${t('mkt.platforms')} <span>· ${t('mkt.multiHint')}</span></label><div class="wchips">${chips(pw.platforms,'platforms', w.platforms)}</div></div>
       <div class="wiz-actions"><button class="btn pri" data-wiz-publish>${t('mkt.confirmPublish')}</button></div>
     </div>`;
@@ -3647,12 +3879,21 @@ window.DATA_TRX = {
   // ---------- Reputation ----------
   function vReputation() {
     const cx = D.cxSummary;
+    const pendingReviews = D.reviews.filter((r) => r.replyStatus!=='posted' && !state.reviewPosted[r.id]);
+    const byPlatform = {};
+    D.reviews.forEach((r) => { byPlatform[r.source] = (byPlatform[r.source] || 0) + 1; });
     return `
       <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
-        <div class="stat"><b>${cx.rating} ★</b><span>${t('reputation.googleRating', { n: cx.count })}</span></div>
+        <div class="stat"><b>${cx.rating} ★</b><span>${t('rep.overall', { n: cx.count })}</span></div>
         <div class="stat"><b>${cx.invited30d}</b><span>${t('reputation.invites30')}</span></div>
         <div class="stat"><b>${cx.received30d}</b><span>${t('reputation.new30')}</span></div>
         <div class="stat"><b>${cx.openTickets}</b><span>${t('reputation.openTickets')}</span></div>
+      </div>
+      <div class="card" style="margin-top:12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <b style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted)">${t('rep.byPlatform')}</b>
+        ${Object.entries(byPlatform).map(([src, n]) => `<span class="plat-pill">${esc(src)} · ${n}</span>`).join('')}
+        <div class="spacer" style="flex:1"></div>
+        ${pendingReviews.length? `<button class="btn sm pri" data-reply-all>${t('rep.replyAll')} (${t('rep.pending', { n: pendingReviews.length })})</button>`:''}
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div>
@@ -4271,7 +4512,7 @@ window.DATA_TRX = {
   function render() {
     renderSide();
     renderTop();
-    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, operations: vOperations, trust: vTrust, setup: vSetup };
+    const views = { today: vToday, inbox: vInbox, bookings: vBookings, followup: vFollowup, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, operations: vOperations, trust: vTrust, setup: vSetup };
     const el = $('#view');
     el.innerHTML = views[state.view]();
     // animate only on navigation, not on in-view state changes (approve, sim ticks…)
@@ -4320,10 +4561,10 @@ window.DATA_TRX = {
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-camp-toggle]');
+    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
-    if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined) && state.wiz) {
+    if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
       const ta = $('#wizContent'); if (ta) state.wiz.content = ta.value;
     }
     if (el.dataset.industry) switchIndustry(el.dataset.industry);
@@ -4354,7 +4595,14 @@ window.DATA_TRX = {
       if (!has(w.goals) || !has(w.audiences) || !has(w.platforms)) { toast(t('mkt.needSelection')); return; }
       w.published = true; toast(t('mkt.publishToast')); render();
     }
+    else if (el.dataset.wizPoster!== undefined) { state.wiz.poster = +el.dataset.wizPoster; render(); }
     else if (el.dataset.wizReset!== undefined) { state.wiz = freshWiz(); render(); }
+    else if (el.dataset.replyAll!== undefined) {
+      const pend = D.reviews.filter((r) => r.replyStatus!=='posted' && !state.reviewPosted[r.id]);
+      pend.forEach((r) => { state.reviewPosted[r.id] = true; });
+      toast(t('rep.replyAllToast', { n: pend.length }));
+      render();
+    }
     else if (el.dataset.campToggle) { const id = el.dataset.campToggle; state.campOpen[id] =!state.campOpen[id]; render(); }
     else if (el.dataset.lang) { if (state.lang!== el.dataset.lang) { state.lang = el.dataset.lang; document.documentElement.lang = state.lang; render(); } }
     else if (el.dataset.tourStart!== undefined) { state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }

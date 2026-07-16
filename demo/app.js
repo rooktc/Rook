@@ -181,6 +181,15 @@
       'mkt.suggestionsTitle':'AI marketing suggestions','mkt.suggestionsSub':'Tap any suggestion to jump to where you act on it.',
       'mkt.handle':'Handle','mkt.viewContent':'View published content','mkt.hideContent':'Hide',
       'mkt.publishedContent':'Published content','mkt.onPlatform':'Published on {platform}',
+      'nav.back':'← Back to home',
+      'title.bookings':'Today’s bookings','title.followup':'To follow up',
+      'bk.count':'{n} bookings today','bk.time':'Time','bk.customer':'Customer','bk.service':'Service','bk.staff':'Staff','bk.status':'Status',
+      'bk.confirmed':'Confirmed','bk.depositUnpaid':'Deposit unpaid','bk.viewInInbox':'Open chat',
+      'fu.count':'{n} customers to follow up','fu.reason':'Why','fu.due':'When','fu.open':'Open chat','fu.act':'Act',
+      'rep.overall':'Overall rating · {n} reviews','rep.byPlatform':'Reviews by platform','rep.replyAll':'Reply to all pending',
+      'rep.replyAllToast':'AI replies posted to {n} pending reviews','rep.pending':'{n} pending',
+      'cust.spendHistory':'Spend history','cust.shService':'Service','cust.shAmount':'Amount','cust.shTotal':'Total spent',
+      'mkt.posterLabel':'Poster','mkt.posterHint':'· pick one','mkt.posterPreview':'AI poster',
     },
   };
   I18N['zh-Hant'] = Object.assign({}, I18N.en, {
@@ -350,6 +359,15 @@
     'mkt.suggestionsTitle':'AI 營銷建議','mkt.suggestionsSub':'點任一建議即可跳到處理頁面。',
     'mkt.handle':'去處理','mkt.viewContent':'查看發布內容','mkt.hideContent':'收起',
     'mkt.publishedContent':'已發布內容','mkt.onPlatform':'發布於 {platform}',
+    'nav.back':'← 返回今天',
+    'title.bookings':'今日預約','title.followup':'待你跟進',
+    'bk.count':'今日共 {n} 筆預約','bk.time':'時間','bk.customer':'客戶','bk.service':'服務項目','bk.staff':'服務人員','bk.status':'狀態',
+    'bk.confirmed':'已確認','bk.depositUnpaid':'訂金未付','bk.viewInInbox':'開啟對話',
+    'fu.count':'共 {n} 位客戶待跟進','fu.reason':'跟進原因','fu.due':'時間','fu.open':'開啟對話','fu.act':'去處理',
+    'rep.overall':'綜合評分 · {n} 則評價','rep.byPlatform':'各平台評價','rep.replyAll':'一鍵回覆全部待處理',
+    'rep.replyAllToast':'已為 {n} 則待處理評價發布 AI 回覆','rep.pending':'{n} 則待處理',
+    'cust.spendHistory':'消費記錄','cust.shService':'服務項目','cust.shAmount':'金額','cust.shTotal':'累計消費',
+    'mkt.posterLabel':'海報','mkt.posterHint':'· 擇一','mkt.posterPreview':'AI 海報',
   });
   I18N['zh-Hans'] = Object.assign({}, I18N.en, {
     'nav.today':'今天','nav.inbox':'收件箱','nav.customers':'客户','nav.marketing':'营销','nav.social':'社交',
@@ -518,6 +536,15 @@
     'mkt.suggestionsTitle':'AI 营销建议','mkt.suggestionsSub':'点任一建议即可跳到处理页面。',
     'mkt.handle':'去处理','mkt.viewContent':'查看发布内容','mkt.hideContent':'收起',
     'mkt.publishedContent':'已发布内容','mkt.onPlatform':'发布于 {platform}',
+    'nav.back':'← 返回今天',
+    'title.bookings':'今日预约','title.followup':'待你跟进',
+    'bk.count':'今日共 {n} 笔预约','bk.time':'时间','bk.customer':'客户','bk.service':'服务项目','bk.staff':'服务人员','bk.status':'状态',
+    'bk.confirmed':'已确认','bk.depositUnpaid':'订金未付','bk.viewInInbox':'打开对话',
+    'fu.count':'共 {n} 位客户待跟进','fu.reason':'跟进原因','fu.due':'时间','fu.open':'打开对话','fu.act':'去处理',
+    'rep.overall':'综合评分 · {n} 则评价','rep.byPlatform':'各平台评价','rep.replyAll':'一键回复全部待处理',
+    'rep.replyAllToast':'已为 {n} 则待处理评价发布 AI 回复','rep.pending':'{n} 则待处理',
+    'cust.spendHistory':'消费记录','cust.shService':'服务项目','cust.shAmount':'金额','cust.shTotal':'累计消费',
+    'mkt.posterLabel':'海报','mkt.posterHint':'· 择一','mkt.posterPreview':'AI 海报',
   });
   function t(key, vars) {
     const dict = I18N[state.lang] || I18N.en;
@@ -573,7 +600,7 @@
     wiz: null,              // publish-wizard working state (lazy-init per industry)
     campOpen: {},           // expanded completed-campaign ids
   };
-  const freshWiz = () => ({ goals: {}, audiences: {}, platforms: {}, variantIdx: 0, content: null, published: false });
+  const freshWiz = () => ({ goals: {}, audiences: {}, platforms: {}, variantIdx: 0, content: null, poster: 0, published: false });
 
   // ---------- formatting ----------
   // All clock times shown in the merchant's timezone (SGT), whoever views the demo.
@@ -635,8 +662,8 @@
     const cx = D.cxSummary;
     const cards = [
       { label: t('home.kpiRevenue'), val: money(D.finance.monthRevenue), goto:'operations', optab:'finance' },
-      { label: t('home.kpiBookings'), val: D.todayBookings, goto:'inbox' },
-      { label: t('home.kpiFollowup'), val: D.followUpCount, goto:'customers' },
+      { label: t('home.kpiBookings'), val: D.todayBookings, goto:'bookings' },
+      { label: t('home.kpiFollowup'), val: D.followUpCount, goto:'followup' },
       { label: t('home.kpiRating'), val: cx.rating + ' ★', goto:'reputation' },
     ];
     return `<div class="kpi-row">${cards.map((k) => `
@@ -707,6 +734,55 @@
             <button class="btn sm" data-hold="${a.id}">${t('today.hold')}</button>
           </div>
         </div>`).join('')}`;
+  }
+
+  // ---------- Bookings page (今日預約) ----------
+  const BK_STATUS = { confirmed:['bk.confirmed','st-good'], 'deposit-unpaid':['bk.depositUnpaid','human'] };
+  function vBookings() {
+    const bk = D.bookings;
+    const cust = (name) => D.customers.find((c) => c.name === name || c.name.includes(name));
+    return `
+      <button class="btn sm" data-goto="today">${t('nav.back')}</button>
+      <h2 class="sec" style="margin-top:12px">${t('bk.count', { n: bk.length })}</h2>
+      <div class="card tbl-wrap" style="padding:6px 10px">
+        <table class="tbl">
+          <thead><tr><th>${t('bk.time')}</th><th>${t('bk.customer')}</th><th>${t('bk.service')}</th><th>${t('bk.staff')}</th><th>${t('bk.status')}</th><th></th></tr></thead>
+          <tbody>${bk.map((b) => {
+            const c = cust(b.customer);
+            const conv = D.conversations.find((v) => v.name === b.customer || (v.name && v.name.includes(b.customer)));
+            return `<tr>
+              <td style="white-space:nowrap;font-variant-numeric:tabular-nums"><b>${esc(b.time)}</b></td>
+              <td>${c? `<button class="linklike" data-cust="${c.id}">${esc(b.customer)}</button>`: esc(b.customer)}</td>
+              <td>${esc(td(b.service))}</td>
+              <td style="white-space:nowrap">${esc(td(b.staff))}</td>
+              <td><span class="tagchip ${BK_STATUS[b.status][1]}">${t(BK_STATUS[b.status][0])}</span></td>
+              <td>${conv? `<button class="btn sm" data-goto="inbox" data-goto-conv="${conv.id}">${t('bk.viewInInbox')}</button>`:''}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>
+      </div>`;
+  }
+
+  // ---------- Follow-up page (待你跟進) ----------
+  function vFollowup() {
+    const fu = D.followups;
+    return `
+      <button class="btn sm" data-goto="today">${t('nav.back')}</button>
+      <h2 class="sec" style="margin-top:12px">${t('fu.count', { n: fu.length })}</h2>
+      <div class="card" style="padding:4px 14px">
+        ${fu.map((f) => `
+          <div class="fu-row">
+            <span class="fu-dot"></span>
+            <div class="fu-body">
+              <b>${esc(f.customer)}</b> <span class="tagchip">${chIcon[f.channel] || f.channel}</span>
+              <div class="fu-reason">${esc(td(f.reason))}</div>
+              <div class="fu-due">${esc(td(f.due))}</div>
+            </div>
+            ${f.convId
+              ? `<button class="btn sm" data-goto="inbox" data-goto-conv="${f.convId}">${t('fu.open')}</button>`
+              : `<button class="btn sm" data-toast="${esc(t('toast.held'))}">${t('fu.act')}</button>`}
+          </div>`).join('')}
+      </div>`;
   }
 
   // ---------- Inbox ----------
@@ -976,7 +1052,31 @@
             ${timeline.map((tl) => `<li><time>${fmtRel(tl.time)} · ${esc(td(tl.kind))}</time>${td(tl.text)}</li>`).join('')}
           </ul>
         </div>
-      </div>`;
+      </div>
+      ${(() => {
+        const sh = spendHistory(c);
+        if (!sh.rows.length) return '';
+        return `<div class="card" style="margin-top:12px">
+          <h4 style="margin:0 0 8px">${t('cust.spendHistory')} <span style="font-weight:400;color:var(--muted);font-size:12px">· ${t('cust.shTotal')} ${money(sh.total)}</span></h4>
+          <div class="tbl-wrap"><table class="tbl">
+            <thead><tr><th>${t('insights.colDate')}</th><th>${t('cust.shService')}</th><th class="num">${t('cust.shAmount')}</th></tr></thead>
+            <tbody>${sh.rows.map((r) => `<tr><td style="white-space:nowrap;color:var(--muted)">${fmtRel(r.date)}</td><td>${esc(td(r.service))}</td><td class="num">${money(r.amount)}</td></tr>`).join('')}</tbody>
+          </table></div>
+        </div>`;
+      })()}`;
+  }
+  function spendHistory(c) {
+    if (!c.visits) return { rows: [], total: 0 };
+    const svc = (D.services || []).find((s) => s.name === c.pref || c.pref.includes(s.name) || s.name.includes(c.pref));
+    const unit = svc? svc.price: (c.ltv && c.visits? Math.round(c.ltv / c.visits): 60);
+    const n = Math.min(c.visits, 5);
+    const last = c.lastVisit? new Date(c.lastVisit): new Date(NOW - 20 * 864e5);
+    const vary = [0, -6, 8, -4, 12];
+    const rows = [];
+    for (let i = 0; i < n; i++) {
+      rows.push({ date: new Date(+last - i * 24 * 864e5).toISOString(), service: c.pref, amount: Math.max(20, unit + vary[i % vary.length]) });
+    }
+    return { rows, total: c.ltv || rows.reduce((a, r) => a + r.amount, 0) };
   }
   const daysAgoIso = (d) => new Date(NOW - d * 864e5).toISOString();
 
@@ -1001,15 +1101,25 @@
     if (w.published) {
       const plats = Object.keys(w.platforms).filter((k) => w.platforms[k]).map((k) => td(k)).join(', ');
       const auds = Object.keys(w.audiences).filter((k) => w.audiences[k]).map((k) => td(k)).join(', ');
+      const chosen = pw.posters[w.poster] || pw.posters[0];
       return `<div class="card wizard done">
         <span class="wiz-done-ic">✓</span>
         <h3 style="margin:6px 0 4px">${t('mkt.publishedTitle')}</h3>
         <p style="margin:0 0 10px;color:var(--ink-2)">${t('mkt.publishedBody', { platforms: plats, audience: auds })}</p>
-        <div class="wiz-preview">“${esc(content)}”</div>
+        <div class="wiz-final">
+          <div class="poster-card sel" style="--ph:${chosen.hue}"><span class="poster-tag">${t('mkt.posterPreview')}</span><b>${esc(td(chosen.title))}</b></div>
+          <div class="wiz-preview">“${esc(content)}”</div>
+        </div>
         <div style="margin-top:12px"><button class="btn" data-wiz-reset>${t('mkt.publishAnother')}</button></div>
       </div>`;
     }
     const chips = (list, kind, sel) => list.map((o) => `<button class="wchip ${sel[o]?'on':''}" data-wiz-toggle="${kind}" data-wiz-val="${esc(o)}">${esc(td(o))}</button>`).join('');
+    const posters = pw.posters.map((po, i) => `
+      <button class="poster-card ${w.poster === i?'sel':''}" data-wiz-poster="${i}" style="--ph:${po.hue}">
+        <span class="poster-tag">${t('mkt.posterPreview')}</span>
+        <b>${esc(td(po.title))}</b><span class="poster-sub">${esc(td(po.tag))}</span>
+        ${w.poster === i? '<span class="poster-check">✓</span>':''}
+      </button>`).join('');
     return `<div class="card wizard">
       <h3 style="margin:0 0 2px">${t('mkt.wizardTitle')}</h3>
       <p class="wiz-sub">${t('mkt.wizardSub')}</p>
@@ -1017,8 +1127,9 @@
       <div class="wiz-field"><label>${t('mkt.audience')} <span>· ${t('mkt.multiHint')}</span></label><div class="wchips">${chips(pw.audiences,'audiences', w.audiences)}</div></div>
       <div class="wiz-field"><label>${t('mkt.content')}</label>
         <textarea id="wizContent" class="wiz-textarea" rows="4">${esc(content)}</textarea>
-        <div class="wiz-row"><button class="btn sm" data-wiz-regen>↻ ${t('mkt.regenerate')}</button><span class="wiz-poster">${t('mkt.poster')}</span></div>
+        <div class="wiz-row"><button class="btn sm" data-wiz-regen>↻ ${t('mkt.regenerate')}</button></div>
       </div>
+      <div class="wiz-field"><label>${t('mkt.posterLabel')} <span>${t('mkt.posterHint')}</span></label><div class="posters">${posters}</div></div>
       <div class="wiz-field"><label>${t('mkt.platforms')} <span>· ${t('mkt.multiHint')}</span></label><div class="wchips">${chips(pw.platforms,'platforms', w.platforms)}</div></div>
       <div class="wiz-actions"><button class="btn pri" data-wiz-publish>${t('mkt.confirmPublish')}</button></div>
     </div>`;
@@ -1102,12 +1213,21 @@
   // ---------- Reputation ----------
   function vReputation() {
     const cx = D.cxSummary;
+    const pendingReviews = D.reviews.filter((r) => r.replyStatus!=='posted' && !state.reviewPosted[r.id]);
+    const byPlatform = {};
+    D.reviews.forEach((r) => { byPlatform[r.source] = (byPlatform[r.source] || 0) + 1; });
     return `
       <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
-        <div class="stat"><b>${cx.rating} ★</b><span>${t('reputation.googleRating', { n: cx.count })}</span></div>
+        <div class="stat"><b>${cx.rating} ★</b><span>${t('rep.overall', { n: cx.count })}</span></div>
         <div class="stat"><b>${cx.invited30d}</b><span>${t('reputation.invites30')}</span></div>
         <div class="stat"><b>${cx.received30d}</b><span>${t('reputation.new30')}</span></div>
         <div class="stat"><b>${cx.openTickets}</b><span>${t('reputation.openTickets')}</span></div>
+      </div>
+      <div class="card" style="margin-top:12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <b style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted)">${t('rep.byPlatform')}</b>
+        ${Object.entries(byPlatform).map(([src, n]) => `<span class="plat-pill">${esc(src)} · ${n}</span>`).join('')}
+        <div class="spacer" style="flex:1"></div>
+        ${pendingReviews.length? `<button class="btn sm pri" data-reply-all>${t('rep.replyAll')} (${t('rep.pending', { n: pendingReviews.length })})</button>`:''}
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div>
@@ -1726,7 +1846,7 @@
   function render() {
     renderSide();
     renderTop();
-    const views = { today: vToday, inbox: vInbox, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, operations: vOperations, trust: vTrust, setup: vSetup };
+    const views = { today: vToday, inbox: vInbox, bookings: vBookings, followup: vFollowup, customers: vCustomers, marketing: vMarketing, social: vSocial, reputation: vReputation, brain: vBrain, insights: vInsights, operations: vOperations, trust: vTrust, setup: vSetup };
     const el = $('#view');
     el.innerHTML = views[state.view]();
     // animate only on navigation, not on in-view state changes (approve, sim ticks…)
@@ -1775,10 +1895,10 @@
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-camp-toggle]');
+    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
-    if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined) && state.wiz) {
+    if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
       const ta = $('#wizContent'); if (ta) state.wiz.content = ta.value;
     }
     if (el.dataset.industry) switchIndustry(el.dataset.industry);
@@ -1809,7 +1929,14 @@
       if (!has(w.goals) || !has(w.audiences) || !has(w.platforms)) { toast(t('mkt.needSelection')); return; }
       w.published = true; toast(t('mkt.publishToast')); render();
     }
+    else if (el.dataset.wizPoster!== undefined) { state.wiz.poster = +el.dataset.wizPoster; render(); }
     else if (el.dataset.wizReset!== undefined) { state.wiz = freshWiz(); render(); }
+    else if (el.dataset.replyAll!== undefined) {
+      const pend = D.reviews.filter((r) => r.replyStatus!=='posted' && !state.reviewPosted[r.id]);
+      pend.forEach((r) => { state.reviewPosted[r.id] = true; });
+      toast(t('rep.replyAllToast', { n: pend.length }));
+      render();
+    }
     else if (el.dataset.campToggle) { const id = el.dataset.campToggle; state.campOpen[id] =!state.campOpen[id]; render(); }
     else if (el.dataset.lang) { if (state.lang!== el.dataset.lang) { state.lang = el.dataset.lang; document.documentElement.lang = state.lang; render(); } }
     else if (el.dataset.tourStart!== undefined) { state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }

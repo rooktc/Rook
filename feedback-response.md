@@ -78,13 +78,29 @@ groomer) and all three languages (EN / 繁中 / 简中):
   works); an actionable suggestions list; expandable campaign history.
 - **Customers** — the statistics band.
 
-## Deliberately deferred (noted, not built)
+## Conformance pass — every literal requirement now met
 
-- A separate multi-platform review **aggregation** page (feedback 一4 hints at
-  it). Reputation already unifies reviews; a true multi-platform inbox with
-  per-platform reply routing is a Phase-2 integration, not a demo view.
-- Poster/image generation in the publish wizard (feedback 四 mentions 海报).
-  The wizard drafts and "attaches" a poster placeholder; real image generation
-  needs the LLM/image pipeline, same gate as the live-inquiry simulation.
-- Payroll math, real inventory reorder automation, and shift scheduling logic
-  are shown as realistic simulated data, not computed engines.
+A second, adversarial pass audited each item against the client's *literal*
+wording and closed the five gaps where the first build only approximated it:
+
+1. **今日預約 → a real bookings page** — the KPI now opens a dedicated
+   "Today's bookings" page (time, customer, service, staff/van, status,
+   deep-link into the chat), not the Inbox.
+2. **待你跟進 → a real follow-up page** — a dedicated follow-up queue with the
+   reason, channel, timing and a per-row action, not the customer list.
+3. **口碑評分 → multi-platform aggregation + 一键回复** — Reputation now shows
+   reviews across Google / Facebook / Instagram with a per-platform breakdown,
+   and a working "Reply to all pending" (一键回复) in addition to individual
+   replies.
+4. **历史消费记录** — the customer detail now shows a per-customer spend
+   history (date, service, amount) with a running total.
+5. **点击选择文案海报内容** — the publish wizard now offers **selectable AI
+   poster options** (not a static label); the chosen poster is carried into
+   the published post alongside the copy and platforms.
+
+### Still simulated (not computed engines)
+
+Payroll math, inventory-reorder automation, shift scheduling, and real poster
+*image* generation are shown as realistic simulated data / placeholders — the
+same LLM/integration gate as the live-inquiry simulation. Every UI the client
+asked for is present and interactive.

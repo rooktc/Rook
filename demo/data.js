@@ -346,10 +346,10 @@ window.DEMOS = (() => {
 
     const reviews = [
       { id:'rv-dana', name:'Dana L.', rating: 2, time: hoursAgo(13.4), source:'Google', text:'Gel extensions chipped within 3 days. Staff are lovely but for the price I expected the set to last. Disappointed this time.', replyStatus:'pending', reply:'Dana, thank you for telling us — this isn’t the standard we hold ourselves to, and I’m sorry. I’ve reached out personally: we’d love to re-do the set with our senior stylist at no charge. — Rachel, owner', linked:'Recovery ticket RT-114 · same customer as open complaint' },
-      { id:'rv-1', name:'Jasmine K.', rating: 5, time: daysAgo(11, 19, 40), source:'Google', text:'Joanne did my BIAB perfectly again. Booking over WhatsApp took literally 30 seconds.', replyStatus:'posted', reply:'Thank you Jasmine! Joanne will be so happy to hear this' },
-      { id:'rv-2', name:'Wei Ting T.', rating: 5, time: daysAgo(4, 12, 15), source:'Google', text:'Replied to my message at 11pm and got me a slot the next morning. The facial was amazing too.', replyStatus:'posted', reply:'That’s exactly what we’re here for — day or night! See you at your next glow-up' },
-      { id:'rv-3', name:'Farhana M.', rating: 4, time: daysAgo(7, 17, 0), source:'Google', text:'Great lashes, cosy studio. Parking around Duxton is a pain though.', replyStatus:'posted', reply:'Thank you Farhana! Tip for next time: Tanjong Pagar Plaza carpark is 4 min away and much easier' },
-      { id:'rv-4', name:'Anjali P.', rating: 5, time: daysAgo(15, 14, 0), source:'Google', text:'The birthday brow treat was such a nice surprise. Feels like they actually remember you.', replyStatus:'posted', reply:'Happy birthday again, Anjali!' },
+      { id:'rv-1', name:'Jasmine K.', rating: 5, time: daysAgo(11, 19, 40), source:'Facebook', text:'Joanne did my BIAB perfectly again. Booking over WhatsApp took literally 30 seconds.', replyStatus:'pending', reply:'Thank you Jasmine! Joanne will be so happy to hear this' },
+      { id:'rv-2', name:'Wei Ting T.', rating: 5, time: daysAgo(4, 12, 15), source:'Instagram', text:'Replied to my message at 11pm and got me a slot the next morning. The facial was amazing too.', replyStatus:'posted', reply:'That’s exactly what we’re here for — day or night! See you at your next glow-up' },
+      { id:'rv-3', name:'Farhana M.', rating: 4, time: daysAgo(7, 17, 0), source:'Google', text:'Great lashes, cosy studio. Parking around Duxton is a pain though.', replyStatus:'pending', reply:'Thank you Farhana! Tip for next time: Tanjong Pagar Plaza carpark is 4 min away and much easier' },
+      { id:'rv-4', name:'Anjali P.', rating: 5, time: daysAgo(15, 14, 0), source:'Facebook', text:'The birthday brow treat was such a nice surprise. Feels like they actually remember you.', replyStatus:'posted', reply:'Happy birthday again, Anjali!' },
     ];
     const cxSummary = {
       rating: 4.8, count: 187, invited30d: 41, received30d: 17, openTickets: 1,
@@ -785,10 +785,10 @@ window.DEMOS = (() => {
 
     const reviews = [
       { id:'rv-p-ravi', name:'Ravi K.', rating: 2, time: hoursAgo(12.6), source:'Google', text:'Been using them a year but last groom Toby’s nail was cut too short and bled. Groomers are usually careful — this visit wasn’t.', replyStatus:'pending', reply:'Ravi, I’m truly sorry — Toby’s safety is the whole point of what we do, and we fell short. I’ve called you directly; the vet check is on us and Mei, our senior groomer, will handle Toby’s next visit personally. — Daniel, owner', linked:'Recovery ticket RT-52 · same customer as open complaint' },
-      { id:'rv-p-1', name:'Adeline W.', rating: 5, time: daysAgo(3, 16, 20), source:'Google', text:'They groomed our super anxious cat in our living room. No cage, no car ride, no drama. Life-changing honestly.', replyStatus:'posted', reply:'This is exactly why we go to you instead Thank you Adeline!' },
-      { id:'rv-p-2', name:'Imran H.', rating: 5, time: daysAgo(9, 13, 0), source:'Google', text:'Two GSDs de-shedded in one visit. The van is spotless and they text you when they’re 15 min away. Zero fuss.', replyStatus:'posted', reply:'Rocky and Bella were stars as always See you next quarter, Imran!' },
-      { id:'rv-p-3', name:'Joyce F.', rating: 4, time: daysAgo(80, 11, 0), source:'Google', text:'Bobo looks great every time. Only wish there were more east-side slots on weekends.', replyStatus:'posted', reply:'Thank you Joyce! We hear you on east-side weekends — we’re adding a Bedok loop soon' },
-      { id:'rv-p-4', name:'Wei Ting T.', rating: 5, time: daysAgo(6, 18, 30), source:'Google', text:'Booked over WhatsApp at 11pm, van came Saturday. The reminder when they were 15 mins away was a nice touch.', replyStatus:'posted', reply:'Night-owl bookings are our specialty Thank you!' },
+      { id:'rv-p-1', name:'Adeline W.', rating: 5, time: daysAgo(3, 16, 20), source:'Facebook', text:'They groomed our super anxious cat in our living room. No cage, no car ride, no drama. Life-changing honestly.', replyStatus:'pending', reply:'This is exactly why we go to you instead Thank you Adeline!' },
+      { id:'rv-p-2', name:'Imran H.', rating: 5, time: daysAgo(9, 13, 0), source:'Instagram', text:'Two GSDs de-shedded in one visit. The van is spotless and they text you when they’re 15 min away. Zero fuss.', replyStatus:'posted', reply:'Rocky and Bella were stars as always See you next quarter, Imran!' },
+      { id:'rv-p-3', name:'Joyce F.', rating: 4, time: daysAgo(80, 11, 0), source:'Google', text:'Bobo looks great every time. Only wish there were more east-side slots on weekends.', replyStatus:'pending', reply:'Thank you Joyce! We hear you on east-side weekends — we’re adding a Bedok loop soon' },
+      { id:'rv-p-4', name:'Wei Ting T.', rating: 5, time: daysAgo(6, 18, 30), source:'Facebook', text:'Booked over WhatsApp at 11pm, van came Saturday. The reminder when they were 15 mins away was a nice touch.', replyStatus:'posted', reply:'Night-owl bookings are our specialty Thank you!' },
     ];
     const cxSummary = {
       rating: 4.9, count: 214, invited30d: 38, received30d: 15, openTickets: 1,
@@ -1054,7 +1054,34 @@ window.DEMOS = (() => {
         'Beat the haze with a hydrating glow-up. Weekday-afternoon facials are 20% off this week — quiet, unhurried, just you. Tap to book.',
         'Midweek reset, on us: 20% off Signature Facials Tue–Thu. Slots are filling fast — reply to grab yours.',
       ],
+      posters:[
+        { title:'Rainy-week facial', tag:'Soft / calm', hue:180 },
+        { title:'20% off — bold', tag:'High-contrast promo', hue:22 },
+        { title:'Glow close-up', tag:'Editorial / minimal', hue:330 },
+      ],
     },
+    bookings: [
+      { time:'10:30 AM', customer:'Chen Meiling', service:'BIAB Structured Manicure', staff:'Joanne', status:'confirmed' },
+      { time:'11:00 AM', customer:'Aisha Binte Rahman', service:'Hydrating Signature Facial', staff:'Joanne', status:'confirmed' },
+      { time:'12:00 PM', customer:'Hannah Teo', service:'Brow Lamination', staff:'Ms Lee', status:'confirmed' },
+      { time:'1:30 PM', customer:'Nurul Huda', service:'Lash Fill', staff:'Ms Lee', status:'deposit-unpaid' },
+      { time:'2:00 PM', customer:'Ong Li Wei', service:'Deep Cleanse Facial', staff:'Joanne', status:'confirmed' },
+      { time:'3:30 PM', customer:'Jasmine Koh', service:'BIAB Structured Manicure', staff:'Joanne', status:'confirmed' },
+      { time:'5:00 PM', customer:'Devi Chandran', service:'Gel Extensions', staff:'Ms Lee', status:'deposit-unpaid' },
+      { time:'6:30 PM', customer:'Grace Fu Wenli', service:'Facial Package (5 sessions)', staff:'Joanne', status:'confirmed' },
+    ],
+    followups: [
+      { customer:'@sitiblooms', reason:'Asked volume-lash price 11h ago on IG, no reply yet', channel:'Instagram', due:'Nudge at 6 PM', convId:'v-siti' },
+      { customer:'Priya Nair', reason:'Bridal group quote held — confirm 2 stylists by 10 AM', channel:'WhatsApp', due:'Today 10:00 AM', convId:'v-priya' },
+      { customer:'Farah Osman', reason:'VIP dormant 9 weeks (usual cycle 3) — win-back with lash-fill offer', channel:'WhatsApp', due:'Today', convId: null },
+      { customer:'Nurul Huda', reason:'Deposit unpaid for tomorrow — reminder sent, call if unpaid by 6 PM', channel:'WhatsApp', due:'Today 6:00 PM', convId: null },
+      { customer:'Devi Chandran', reason:'Deposit unpaid for Mon — reminder sent', channel:'WhatsApp', due:'Today 6:00 PM', convId: null },
+      { customer:'Marcus Wee', reason:'FAQ answered, no booking yet — offer a Sunday slot', channel:'Google', due:'Auto-close 48h', convId:'v-marcus' },
+      { customer:'Wei Ting T.', reason:'Left a 5★ review — invite to the referral programme', channel:'Google', due:'This week', convId: null },
+      { customer:'Ong Li Wei', reason:'Prefers weekday AM — offer next available Tue slot', channel:'Google', due:'This week', convId: null },
+      { customer:'Jasmine Koh', reason:'Confirm merge of @jasmineeats profile', channel:'Instagram', due:'Today', convId: null },
+      { customer:'Grace Fu Wenli', reason:'Birthday 14 Jul — send VIP birthday voucher', channel:'Referral', due:'Before 14 Jul', convId: null },
+    ],
   });
   Object.assign(pets, {
     advisor: {
@@ -1131,7 +1158,32 @@ window.DEMOS = (() => {
         'Less fur at home, one cool dog. Weekday de-shed sessions are 15% off this week — we come to you, the fur stays in our van.',
         'Beat the heat, keep the coat healthy: 15% off de-shedding Tue–Thu. Van slots filling — reply to lock yours in.',
       ],
+      posters:[
+        { title:'Heatwave coat-care', tag:'Cool / breezy', hue:200 },
+        { title:'15% off — bold', tag:'High-contrast promo', hue:22 },
+        { title:'Happy dog close-up', tag:'Warm / friendly', hue:40 },
+      ],
     },
+    bookings: [
+      { time:'9:30 AM', customer:'Elaine Sng', service:'Full Groom — Small Dog (Muffin)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'10:00 AM', customer:'Sarah Goh', service:'Full Groom ×2 (Biscuit + Momo)', staff:'Van 2 · Arif', status:'deposit-unpaid' },
+      { time:'11:00 AM', customer:'Jon Lau', service:'Nail Trim & Ear Clean (Pepper)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'12:30 PM', customer:'Imran Hakim', service:'De-shed ×2 (Rocky + Bella)', staff:'Van 2 · Kelvin', status:'confirmed' },
+      { time:'2:00 PM', customer:'Melissa Chng', service:'Full Groom — Small Dog (Latte)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'2:30 PM', customer:'@huskydad_sg', service:'Full Groom L + De-shedding', staff:'Van 2 · Kelvin', status:'deposit-unpaid' },
+      { time:'3:30 PM', customer:'Adeline W.', service:'Cat Full Groom (home visit)', staff:'Van 1 · Mei', status:'confirmed' },
+      { time:'5:00 PM', customer:'Wei Ting T.', service:'Bath & Tidy', staff:'Van 2 · Arif', status:'confirmed' },
+    ],
+    followups: [
+      { customer:'@huskydad_sg', reason:'Asked husky de-shed price on IG — guided to WhatsApp, no reply yet', channel:'Instagram', due:'Nudge at 6 PM', convId:'vp-husky' },
+      { customer:'Mdm Lim 林太太', reason:'Anxious Persian + sedation question — assessment call needed', channel:'WhatsApp', due:'Today', convId:'vp-mdmlim' },
+      { customer:'Sarah Goh', reason:'Sat double-groom deposit unpaid 8h — call if unpaid by 6 PM', channel:'WhatsApp', due:'Today 6:00 PM', convId:'vp-sarah' },
+      { customer:'Joyce Foo', reason:'Bobo dormant 11 weeks (cycle 8) — win-back offer', channel:'Google', due:'Today', convId: null },
+      { customer:'Ravi Kumar', reason:'Complaint call before 11 AM — Toby’s nail, vet-bill decision', channel:'WhatsApp', due:'Today 11:00 AM', convId:'vp-ravi' },
+      { customer:'Paws Haven Shelter', reason:'Rescue-discount partnership enquiry — flagged as community campaign', channel:'Instagram', due:'This week', convId: null },
+      { customer:'Adeline W.', reason:'Left a 5★ review — invite to the referral programme', channel:'Google', due:'This week', convId: null },
+      { customer:'Melissa Chng', reason:'Confirm merge of @latte.maltipoo profile', channel:'Instagram', due:'Today', convId: null },
+    ],
   });
 
   return { beauty, pets };
