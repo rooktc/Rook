@@ -2242,7 +2242,11 @@
     if (state.tour) document.body.insertAdjacentHTML('beforeend', tourCard());
     const oldIntro = $('.intro-ovl');
     if (oldIntro) oldIntro.remove();
-    if (state.intro) document.body.insertAdjacentHTML('beforeend', introCard());
+    if (state.intro) {
+      document.body.insertAdjacentHTML('beforeend', introCard());
+      const introBtn = $('.intro [data-intro-tour]');
+      if (introBtn) introBtn.focus();
+    }
     bindHover();
     bindUpload();
     bindAsk();
@@ -2408,6 +2412,14 @@
     else if (el.dataset.cust) { state.custId = el.dataset.cust; render(); window.scrollTo(0, 0); }
     else if (el.dataset.backCust!== undefined) { state.custId = null; render(); }
     else if (el.dataset.toast) toast(el.dataset.toast);
+  });
+
+  // Escape closes the top-most transient layer (overlay > phone > tour).
+  document.addEventListener('keydown', (e) => {
+    if (e.key!=='Escape') return;
+    if (state.intro) { dismissIntro(); }
+    else if (state.phoneView) { state.phoneView = null; render(); }
+    else if (state.tour) { state.tour = 0; render(); }
   });
 
   // ---------- document upload ----------
