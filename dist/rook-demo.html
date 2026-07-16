@@ -605,6 +605,27 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .brand-grid input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 @media (max-width: 760px) { .brand-grid { grid-template-columns: 1fr; } }
 
+/* ---- ask the assistant (grounded Q&A tester) ---- */
+.ask-ex { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+.chip-btn {
+  border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink-2);
+  border-radius: 99px; padding: 5px 12px; font: inherit; font-size: 12px; cursor: pointer;
+}
+.chip-btn:hover { border-color: var(--accent); color: var(--accent); }
+.ask-log { max-height: 340px; overflow-y: auto; padding: 4px 2px; margin-bottom: 12px; gap: 8px; }
+.ask-log .msg { max-width: 82%; padding: 8px 12px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+.ask-log .msg.cust { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-bottom-right-radius: 3px; }
+.ask-log .msg.ai { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 3px; }
+.ask-log .cite { display: inline-block; margin-top: 6px; font-size: 11px; color: var(--muted); }
+.ask-log .cite-k { font-weight: 700; color: var(--accent); margin-right: 4px; }
+.ask-log .cite.esc .cite-k { color: var(--warn); }
+.ask-row { display: flex; gap: 10px; }
+.ask-row input {
+  flex: 1; font: inherit; color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 9px; padding: 9px 12px;
+}
+.ask-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
 /* ---- customer phone view ---- */
 .phone-ovl {
   position: fixed; inset: 0; z-index: 45;
@@ -2912,6 +2933,24 @@ window.DATA_TRX = {
       'intro.b3t':'Switch colour.','intro.b3':'Three blue themes via the dots in the top bar.',
       'intro.simNote':'Everything here is realistic but simulated demo data — no live messaging or real customers.',
       'intro.explore':'Explore on my own','intro.tour':'Take the 2-minute tour','intro.help':'About this demo',
+      'ask.title':'Ask the assistant a question','ask.send':'Ask','ask.placeholder':'e.g. How much is a gel manicure?',
+      'ask.sub':'Type anything a customer might ask. The AI answers only from this shop’s knowledge, cites its source, and hands off to staff instead of guessing when it doesn’t know.',
+      'ask.escChip':'Handed to staff — the AI won’t guess',
+      'ask.fallback':'I don’t have a confirmed answer for that in the shop’s knowledge, so I’ve passed it to the team — they’ll follow up with you personally.',
+      'ask.b.price':'Our Classic Gel Manicure is $68, BIAB is $88, and Gel Extensions are $118. Your first visit gets 15% off (not stackable).',
+      'ask.b.hours':'We’re open Tue–Sun, 10:30 AM–8:30 PM, and closed on Mondays.',
+      'ask.b.book':'Happy to book you in — a $20 deposit holds the slot and comes off your final bill. What day works, and which service?',
+      'ask.b.men':'Yes — we do men’s manicures and facials; around 1 in 5 of our manicure clients are men.',
+      'ask.b.preg':'Lash and brow treatments are fine with a patch test, and we avoid certain facial acids during pregnancy. Please check with your doctor too — we can’t give medical assurances.',
+      'ask.b.obj':'I understand. Our gel is a Japanese brand with free removal, and your first visit is 15% off — that often makes it better value than it first looks. Shall I hold a slot for you?',
+      'ask.b.ex1':'How much is a gel manicure?','ask.b.ex2':'What time do you open on Sunday?','ask.b.ex3':'Do you do men’s facials?',
+      'ask.p.price':'Grooming is priced by size and coat — a full groom runs about $78 for small dogs up to $138 for large dogs. Two or more pets at one address get 10% off.',
+      'ask.p.vax':'For a first visit we’ll need proof of core vaccinations — just send a photo of the vaccination booklet after booking.',
+      'ask.p.injury':'I’m so sorry to hear that. If there’s any bleeding, limping or distress, please watch closely and see a vet if it persists — I’m passing this to the owner right now to contact you.',
+      'ask.p.sedation':'We never sedate, for the pet’s safety. Anxious, aggressive or senior pets need a quick groomer assessment call before we book.',
+      'ask.p.zones':'We’re island-wide with two vans (north/west and north-east). Send your postal code and I’ll check the routing and offer a time window (Sentosa has a $15 surcharge).',
+      'ask.p.deposit':'A $20 deposit confirms your van slot and is refundable up to 24 hours before. Unpaid holds auto-release after 12 hours.',
+      'ask.p.ex1':'How much to groom a large dog?','ask.p.ex2':'Do you need vaccination records?','ask.p.ex3':'Which areas do you cover?',
       'insights.leadsBookingsTitle':'Leads & bookings — last 30 days',
       'insights.leadsBookingsSub':'Daily counts across all channels',
       'insights.funnelTitle':'Sales funnel — last 30 days','insights.funnelSub':'From first contact to repeat booking',
@@ -3109,6 +3148,24 @@ window.DATA_TRX = {
     'intro.b3t':'切換配色。','intro.b3':'透過頂部工具列的圓點選擇三種藍色主題。',
     'intro.simNote':'此處所有內容皆為逼真但模擬的示範資料——沒有真實訊息或顧客。',
     'intro.explore':'我自己探索','intro.tour':'進行 2 分鐘導覽','intro.help':'關於此示範',
+    'ask.title':'向助理提問','ask.send':'提問','ask.placeholder':'例如：光療指甲多少錢？',
+    'ask.sub':'輸入任何顧客可能會問的問題。AI 只會根據本店的知識回答、標註來源，遇到不確定的問題會轉交員工而非臆測。',
+    'ask.escChip':'已轉交員工——AI 不會臆測',
+    'ask.fallback':'本店知識中沒有這個問題的確切答案，因此我已轉交團隊——他們會親自跟進您。',
+    'ask.b.price':'經典光療指甲 $68、BIAB $88、光療延甲 $118。首次到訪可享 85 折（不可疊加）。',
+    'ask.b.hours':'我們週二至週日 10:30–20:30 營業，週一公休。',
+    'ask.b.book':'很樂意為您預約——$20 訂金即可保留時段，並會從最終帳單中扣抵。請問哪天方便、想做哪項服務？',
+    'ask.b.men':'當然——我們提供男士美甲與臉部護理；約每 5 位美甲客人就有 1 位是男性。',
+    'ask.b.preg':'睫毛與眉部服務在做過皮膚測試後可進行，孕期我們會避免某些臉部酸類。也請您先諮詢醫生——我們無法提供醫療保證。',
+    'ask.b.obj':'我理解。我們使用日本品牌光療膠並提供免費卸甲，首次到訪還有 85 折——通常比表面看起來更划算。要我為您保留時段嗎？',
+    'ask.b.ex1':'光療指甲多少錢？','ask.b.ex2':'週日幾點開門？','ask.b.ex3':'有做男士臉部護理嗎？',
+    'ask.p.price':'美容依體型與毛況計價——完整美容小型犬約 $78，大型犬最高 $138。同一地址 2 隻以上寵物可享 9 折。',
+    'ask.p.vax':'首次到訪需提供核心疫苗接種證明——預約後傳一張疫苗手冊照片即可。',
+    'ask.p.injury':'非常抱歉聽到這個情況。若有出血、跛行或不適，請密切觀察，症狀持續請就醫——我現在就轉交店主與您聯繫。',
+    'ask.p.sedation':'為了寵物安全，我們絕不使用鎮靜。焦慮、具攻擊性或高齡的寵物，預約前需先安排美容師評估通話。',
+    'ask.p.zones':'我們服務全島，共兩台車（西北區與東北區）。請提供郵遞區號，我會查看路線並提供時段（聖淘沙加收 $15）。',
+    'ask.p.deposit':'$20 訂金即可確認車位，出發前 24 小時可退。未付款的保留將於 12 小時後自動釋出。',
+    'ask.p.ex1':'大型犬美容多少錢？','ask.p.ex2':'需要疫苗紀錄嗎？','ask.p.ex3':'你們服務哪些區域？',
     'insights.leadsBookingsTitle':'商機與預約 — 近30天',
     'insights.leadsBookingsSub':'各通路每日數據',
     'insights.funnelTitle':'銷售漏斗 — 近30天','insights.funnelSub':'從首次接觸到重複預約',
@@ -3305,6 +3362,24 @@ window.DATA_TRX = {
     'intro.b3t':'切换配色。','intro.b3':'通过顶部工具栏的圆点选择三种蓝色主题。',
     'intro.simNote':'此处所有内容均为逼真但模拟的演示数据——没有真实消息或顾客。',
     'intro.explore':'自行探索','intro.tour':'进行 2 分钟导览','intro.help':'关于此演示',
+    'ask.title':'向助理提问','ask.send':'提问','ask.placeholder':'例如：光疗指甲多少钱？',
+    'ask.sub':'输入任何顾客可能会问的问题。AI 只会根据本店的知识回答、标注来源，遇到不确定的问题会转交员工而非臆测。',
+    'ask.escChip':'已转交员工——AI 不会臆测',
+    'ask.fallback':'本店知识中没有这个问题的确切答案，因此我已转交团队——他们会亲自跟进您。',
+    'ask.b.price':'经典光疗指甲 $68、BIAB $88、光疗延甲 $118。首次到访可享 85 折（不可叠加）。',
+    'ask.b.hours':'我们周二至周日 10:30–20:30 营业，周一公休。',
+    'ask.b.book':'很乐意为您预约——$20 订金即可保留时段，并会从最终账单中扣抵。请问哪天方便、想做哪项服务？',
+    'ask.b.men':'当然——我们提供男士美甲与面部护理；约每 5 位美甲客人就有 1 位是男性。',
+    'ask.b.preg':'睫毛与眉部服务在做过皮肤测试后可进行，孕期我们会避免某些面部酸类。也请您先咨询医生——我们无法提供医疗保证。',
+    'ask.b.obj':'我理解。我们使用日本品牌光疗胶并提供免费卸甲，首次到访还有 85 折——通常比表面看起来更划算。要我为您保留时段吗？',
+    'ask.b.ex1':'光疗指甲多少钱？','ask.b.ex2':'周日几点开门？','ask.b.ex3':'有做男士面部护理吗？',
+    'ask.p.price':'美容按体型与毛况计价——完整美容小型犬约 $78，大型犬最高 $138。同一地址 2 只以上宠物可享 9 折。',
+    'ask.p.vax':'首次到访需提供核心疫苗接种证明——预约后发一张疫苗手册照片即可。',
+    'ask.p.injury':'非常抱歉听到这个情况。若有出血、跛行或不适，请密切观察，症状持续请就医——我现在就转交店主与您联系。',
+    'ask.p.sedation':'为了宠物安全，我们绝不使用镇静。焦虑、具攻击性或高龄的宠物，预约前需先安排美容师评估通话。',
+    'ask.p.zones':'我们服务全岛，共两台车（西北区与东北区）。请提供邮政编码，我会查看路线并提供时段（圣淘沙加收 $15）。',
+    'ask.p.deposit':'$20 订金即可确认车位，出发前 24 小时可退。未付款的保留将于 12 小时后自动释出。',
+    'ask.p.ex1':'大型犬美容多少钱？','ask.p.ex2':'需要疫苗记录吗？','ask.p.ex3':'你们服务哪些区域？',
     'insights.leadsBookingsTitle':'商机与预约 — 近30天',
     'insights.leadsBookingsSub':'各渠道每日数据',
     'insights.funnelTitle':'销售漏斗 — 近30天','insights.funnelSub':'从首次接触到重复预约',
@@ -3448,6 +3523,7 @@ window.DATA_TRX = {
     brand: null,            // {name, tagline, ownerFirst} personalisation override
     intro: false,           // first-open welcome overlay showing
     introSeen: false,       // persisted: has the welcome been dismissed once
+    askLog: [],             // "ask the assistant" tester transcript (per industry)
     opsTab:'finance',       // finance | materials | staff
     finPeriod:'month',      // day | month | year
     wiz: null,              // publish-wizard working state (lazy-init per industry)
@@ -4272,9 +4348,59 @@ window.DATA_TRX = {
   }
 
   // ---------- Brain ----------
+  // "Ask the assistant" — keyword → grounded answer + citation, else escalate.
+  // Demonstrates the grounding story interactively without a live LLM.
+  const ASK = {
+    beauty: [
+      { kw: ['price','cost','how much','$','expensive','cheap','rate','charge'], aKey:'ask.b.price', kb:'kb-price' },
+      { kw: ['hour','open','close','when','sunday','monday','today'], aKey:'ask.b.hours', kb:'kb-faq04' },
+      { kw: ['book','appointment','appt','slot','available','reserve','deposit'], aKey:'ask.b.book', kb:'kb-r03' },
+      { kw: ['men','man','male','guy','husband','boyfriend'], aKey:'ask.b.men', kb:'kb-faq04' },
+      { kw: ['pregnan','expecting'], aKey:'ask.b.preg', kb:'kb-preg' },
+      { kw: ['discount','worth','promo','cheaper','too much','value'], aKey:'ask.b.obj', kb:'kb-obj' },
+    ],
+    pets: [
+      { kw: ['price','cost','how much','$','rate','large','small','size','charge'], aKey:'ask.p.price', kb:'kb-p-price' },
+      { kw: ['vaccin','vax','jab','shot'], aKey:'ask.p.vax', kb:'kb-p-vax' },
+      { kw: ['injur','bleed','hurt','limp','wound','cut','distress'], aKey:'ask.p.injury', kb:'kb-p-s01' },
+      { kw: ['sedat','anxious','aggressive','senior','bite'], aKey:'ask.p.sedation', kb:'kb-p-s02' },
+      { kw: ['area','zone','postal','where','come to','cover','location','sentosa'], aKey:'ask.p.zones', kb:'kb-p-zones' },
+      { kw: ['deposit','hold','cancel','refund'], aKey:'ask.p.deposit', kb:'kb-p-d02' },
+    ],
+  };
+  const kbTitle = (id) => { const k = D.knowledge.find((x) => x.id === id); return k? td(k.title):''; };
+  function askAI(text) {
+    const q = (text ||'').trim();
+    if (!q) return;
+    const low = q.toLowerCase();
+    const hit = (ASK[state.industry] || []).find((e) => e.kw.some((k) => low.includes(k)));
+    state.askLog.push(hit? { q, key: hit.aKey, kb: hit.kb }: { q, escalate: true });
+    render();
+  }
+  function askSection() {
+    const ex = state.industry ==='pets'? ['ask.p.ex1','ask.p.ex2','ask.p.ex3']: ['ask.b.ex1','ask.b.ex2','ask.b.ex3'];
+    const log = state.askLog.map((it) => {
+      const ai = it.escalate
+? `<div class="msg ai">${t('ask.fallback')}<br><span class="cite esc"><span class="cite-k">●</span> ${t('ask.escChip')}</span></div>`
+: `<div class="msg ai">${t(it.key)}<br><span class="cite"><span class="cite-k">${t('msg.source')}</span> ${esc(kbTitle(it.kb))}</span></div>`;
+      return `<div class="msg cust">${esc(it.q)}</div>${ai}`;
+    }).join('');
+    return `
+      <div class="card ask-card">
+        <h3 class="up-head">${t('ask.title')}</h3>
+        <p class="dz-hint" style="margin:0 0 12px;max-width:66ch">${t('ask.sub')}</p>
+        <div class="ask-ex">${ex.map((k) => `<button class="chip-btn" data-ask-example="${esc(t(k))}">${t(k)}</button>`).join('')}</div>
+        ${log? `<div class="msgs ask-log">${log}</div>`:''}
+        <div class="ask-row">
+          <input id="askInput" type="text" placeholder="${esc(t('ask.placeholder'))}" autocomplete="off" aria-label="${t('ask.title')}">
+          <button class="btn pri" data-ask-send>${t('ask.send')}</button>
+        </div>
+      </div>`;
+  }
   function vBrain() {
     return `
-      <div class="grid c2" style="align-items:start">
+      ${askSection()}
+      <div class="grid c2" style="align-items:start;margin-top:14px">
         <div>
           <div class="sec-row">
             <h2 class="sec" style="margin:0">${t('brain.knowledge')}</h2>
@@ -4840,6 +4966,7 @@ window.DATA_TRX = {
     if (state.intro) document.body.insertAdjacentHTML('beforeend', introCard());
     bindHover();
     bindUpload();
+    bindAsk();
   }
 
   function switchIndustry(id) {
@@ -4862,6 +4989,7 @@ window.DATA_TRX = {
     state.campOpen = {};
     state.opsTab ='finance';
     state.finPeriod ='month';
+    state.askLog = [];
     render();
     toast(t('toast.switchedTemplate', { industry: t(id ==='pets'?'industry.pets':'industry.beauty') }));
   }
@@ -4872,7 +5000,7 @@ window.DATA_TRX = {
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
     if (e.target.classList && e.target.classList.contains('intro-ovl')) { dismissIntro(); return; }
-    const el = e.target.closest('[data-intro-open],[data-intro-dismiss],[data-intro-tour],[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset],[data-brand-apply],[data-brand-reset]');
+    const el = e.target.closest('[data-ask-send],[data-ask-example],[data-intro-open],[data-intro-dismiss],[data-intro-tour],[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset],[data-brand-apply],[data-brand-reset]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
     if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
@@ -4897,6 +5025,8 @@ window.DATA_TRX = {
       savePrefs(); render(); toast(t('setup.brandToast'));
     }
     else if (el.dataset.brandReset!== undefined) { state.brand = null; savePrefs(); render(); toast(t('setup.brandResetToast')); }
+    else if (el.dataset.askSend!== undefined) { const n = $('#askInput'); askAI(n? n.value:''); }
+    else if (el.dataset.askExample!== undefined) { askAI(el.dataset.askExample); }
     else if (el.dataset.reset!== undefined) { resetDemo(); }
     else if (el.dataset.uploadRemove!== undefined) { state.uploads.splice(+el.dataset.uploadRemove, 1); savePrefs(); render(); }
     else if (el.dataset.uploadSample!== undefined) {
@@ -5016,6 +5146,13 @@ window.DATA_TRX = {
     ['dragenter','dragover'].forEach((ev) => dz.addEventListener(ev, (e) => { stop(e); dz.classList.add('drag'); }));
     ['dragleave','dragend'].forEach((ev) => dz.addEventListener(ev, (e) => { stop(e); dz.classList.remove('drag'); }));
     dz.addEventListener('drop', (e) => { stop(e); dz.classList.remove('drag'); addUploads(e.dataTransfer && e.dataTransfer.files); });
+  }
+  function bindAsk() {
+    const inp = $('#askInput');
+    if (!inp) return;
+    inp.addEventListener('keydown', (e) => { if (e.key ==='Enter') { e.preventDefault(); askAI(inp.value); } });
+    const log = $('.ask-log');
+    if (log) log.scrollTop = log.scrollHeight;
   }
 
   // ---------- chart hover ----------

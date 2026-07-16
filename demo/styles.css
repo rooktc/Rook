@@ -601,6 +601,27 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .brand-grid input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 @media (max-width: 760px) { .brand-grid { grid-template-columns: 1fr; } }
 
+/* ---- ask the assistant (grounded Q&A tester) ---- */
+.ask-ex { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+.chip-btn {
+  border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink-2);
+  border-radius: 99px; padding: 5px 12px; font: inherit; font-size: 12px; cursor: pointer;
+}
+.chip-btn:hover { border-color: var(--accent); color: var(--accent); }
+.ask-log { max-height: 340px; overflow-y: auto; padding: 4px 2px; margin-bottom: 12px; gap: 8px; }
+.ask-log .msg { max-width: 82%; padding: 8px 12px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+.ask-log .msg.cust { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-bottom-right-radius: 3px; }
+.ask-log .msg.ai { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 3px; }
+.ask-log .cite { display: inline-block; margin-top: 6px; font-size: 11px; color: var(--muted); }
+.ask-log .cite-k { font-weight: 700; color: var(--accent); margin-right: 4px; }
+.ask-log .cite.esc .cite-k { color: var(--warn); }
+.ask-row { display: flex; gap: 10px; }
+.ask-row input {
+  flex: 1; font: inherit; color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 9px; padding: 9px 12px;
+}
+.ask-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
 /* ---- customer phone view ---- */
 .phone-ovl {
   position: fixed; inset: 0; z-index: 45;
