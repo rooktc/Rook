@@ -40,6 +40,28 @@ configuration:
 
 Press **Tour** in the top bar for a guided 9-step walkthrough.
 
+**Demo / sales-readiness features (T1):**
+
+- **Welcome overlay** on first open (reopen via the **?** in the top bar) —
+  orients a cold viewer, then hands off to the tour or free exploration.
+- **Colour theme** — white + blue, with three switchable accent palettes
+  (Azure / Indigo / Sky) via the dots in the top bar; light and dark.
+- **Personalisation** (Setup ▸ *Make it their business*) — set business name,
+  tagline and owner and the whole console re-brands live, across both industry
+  templates and all three languages.
+- **Document upload** (Setup) — a real drag-and-drop zone that feeds the
+  onboarding walkthrough; also reachable from **Brain ▸ Add documents**.
+- **Ask the assistant** (Brain) — type any question and the AI answers only
+  from the shop's knowledge with a **Source** citation, or hands off to staff
+  instead of guessing. Demonstrates grounding interactively.
+- **PDPA & data-protection card** (Trust) — Singapore PDPA obligations mapped
+  to product controls, for buyer due-diligence.
+- **Export summary** (Today) — a branded, print-ready one-page weekly summary
+  via the browser's Save-as-PDF.
+- **Persistence** — language, palette, branding and uploads survive a reload;
+  **Reset demo** (sidebar) clears them. **Escape** closes overlays.
+- Horizontal-overflow-clean on phone widths.
+
 **Language switcher** (top bar) — English, Traditional Chinese, and Simplified
 Chinese. Both the interface (navigation, buttons, headers, chart labels,
 tooltips, toasts) and the console-facing data layer (daily brief,
