@@ -626,6 +626,16 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 }
 .ask-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
+/* ---- PDPA / data-protection card ---- */
+.pdpa-sub { margin: -4px 0 14px; font-size: 13px; color: var(--ink-2); max-width: 78ch; }
+.pdpa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+.pdpa-row { display: flex; gap: 10px; align-items: flex-start; }
+.pdpa-row b { display: block; font-size: 13px; margin-bottom: 1px; }
+.pdpa-row > div span { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.pdpa-check { flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 99px; background: var(--accent-soft); color: var(--accent-soft-ink); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.pdpa-note { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); }
+@media (max-width: 760px) { .pdpa-grid { grid-template-columns: 1fr; } }
+
 /* ---- export / print weekly summary ---- */
 .today-actions { display: flex; justify-content: flex-end; margin-bottom: 10px; }
 @media screen { .print-sheet { display: none; } }
@@ -2931,6 +2941,17 @@ window.DATA_TRX = {
       'trust.outreachRules':'Outreach rules — enforced before every send','trust.whoCanDo':'Who can do what',
       'trust.person':'Person','trust.role':'Role','trust.permissions':'Permissions','trust.whyExists':'Why this exists',
       'trust.whyExistsBody':"Singapore's PDPA and DNC rules apply to every marketing send. Rook records consent with source and time, checks it before each message, and keeps this audit trail so any reply, send or data access can be explained after the fact — including the ones it refused.",
+      'trust.pdpa.title':'PDPA & data protection (Singapore)',
+      'trust.pdpa.sub':'How Rook is built to meet Singapore’s Personal Data Protection Act. Shown for buyer due-diligence — each obligation maps to a control in the product.',
+      'trust.pdpa.k1':'Consent','trust.pdpa.v1':'No customer is messaged for marketing without recorded consent; every send checks consent and the Do-Not-Call registry first.',
+      'trust.pdpa.k2':'Purpose limitation','trust.pdpa.v2':'Customer data is used only to answer that customer and manage their bookings — never sold or repurposed.',
+      'trust.pdpa.k3':'Notification','trust.pdpa.v3':'At first contact, customers are told what is collected and why, with a link to the merchant’s privacy notice.',
+      'trust.pdpa.k4':'Access & correction','trust.pdpa.v4':'Owners can export or correct any individual’s data on request; the audit trail logs every data request.',
+      'trust.pdpa.k5':'Protection','trust.pdpa.v5':'Encrypted in transit and at rest, with role-based access — staff see only what their role allows.',
+      'trust.pdpa.k6':'Retention','trust.pdpa.v6':'Data is kept only as long as needed for the relationship, then purged on a configurable schedule.',
+      'trust.pdpa.k7':'Data residency','trust.pdpa.v7':'Customer personal data is stored in-region; any sub-processor (messaging or AI provider) is disclosed and bound to comparable protection.',
+      'trust.pdpa.k8':'Breach response','trust.pdpa.v8':'A breach-notification process alerts the PDPC and affected individuals within the required timeframe.',
+      'trust.pdpa.note':'Demo copy for illustration — not legal advice. Final controls are confirmed with the merchant in the pilot data-processing agreement.',
       'audit.ai':'AI action','audit.check':'Compliance check','audit.handoff':'Hand-off','audit.denied':'Denied',
       'audit.change':'Change held','audit.data':'Data request',
       'brain.knowledge':'Knowledge the AI can use','brain.ownerGated':'Owner-gated','brain.cited':'cited {n}× / 30d',
@@ -3147,6 +3168,17 @@ window.DATA_TRX = {
     'trust.outreachRules':'觸及規則——每次傳送前強制執行','trust.whoCanDo':'權限一覽',
     'trust.person':'人員','trust.role':'角色','trust.permissions':'權限','trust.whyExists':'為何需要這項功能',
     'trust.whyExistsBody':'新加坡的《個人資料保護法》（PDPA）及「拒絕來電」登記（DNC）適用於每一次行銷發送。Rook會記錄客戶授權的來源與時間，並在每次傳送訊息前進行核查，同時保留完整的稽核紀錄，讓任何回覆、傳送或資料存取都有據可查——包括AI拒絕執行的操作。',
+    'trust.pdpa.title':'PDPA 與資料保護（新加坡）',
+    'trust.pdpa.sub':'Rook 如何依據新加坡《個人資料保護法》而設計。供買方盡職調查之用——每項義務皆對應產品中的一項控制措施。',
+    'trust.pdpa.k1':'徵得同意','trust.pdpa.v1':'未取得同意紀錄，不會向任何客戶發送行銷訊息；每次發送前皆先核查同意狀態與「拒絕來電」登記。',
+    'trust.pdpa.k2':'目的限制','trust.pdpa.v2':'客戶資料僅用於回覆該客戶及管理其預約——絕不出售或另作他用。',
+    'trust.pdpa.k3':'告知','trust.pdpa.v3':'首次接觸時即告知客戶所收集的資料與用途，並附上商家隱私權聲明連結。',
+    'trust.pdpa.k4':'查閱與更正','trust.pdpa.v4':'店主可應要求匯出或更正任何個人的資料；稽核紀錄會記載每一次資料請求。',
+    'trust.pdpa.k5':'保護','trust.pdpa.v5':'傳輸與儲存皆加密，並採角色權限控管——員工僅能看到其職務範圍內的資料。',
+    'trust.pdpa.k6':'保留限制','trust.pdpa.v6':'資料僅在關係所需期間內保留，之後依可設定的排程清除。',
+    'trust.pdpa.k7':'資料落地','trust.pdpa.v7':'客戶個人資料儲存於本地區；任何次要處理方（訊息或 AI 供應商）皆會揭露並受同等保護約束。',
+    'trust.pdpa.k8':'外洩應變','trust.pdpa.v8':'外洩通報流程會在規定時限內通知 PDPC 及受影響的個人。',
+    'trust.pdpa.note':'示範用說明文字——非法律意見。最終控制措施將於試行階段的資料處理協議中與商家確認。',
     'audit.ai':'AI操作','audit.check':'合規檢查','audit.handoff':'轉交人工','audit.denied':'已拒絕',
     'audit.change':'變更待核准','audit.data':'數據請求',
     'brain.knowledge':'AI可使用的知識','brain.ownerGated':'需店主核准','brain.cited':'30天內引用{n}次',
@@ -3362,6 +3394,17 @@ window.DATA_TRX = {
     'trust.outreachRules':'触达规则——每次发送前强制执行','trust.whoCanDo':'权限一览',
     'trust.person':'人员','trust.role':'角色','trust.permissions':'权限','trust.whyExists':'为何需要这个功能',
     'trust.whyExistsBody':'新加坡的《个人资料保护法》（PDPA）及"谢绝来电"登记（DNC）适用于每一次营销发送。Rook会记录客户授权的来源与时间，并在每次发送消息前进行核查，同时保留完整的审计日志，让任何回复、发送或数据访问都有据可查——包括AI拒绝执行的操作。',
+    'trust.pdpa.title':'PDPA 与数据保护（新加坡）',
+    'trust.pdpa.sub':'Rook 如何依据新加坡《个人资料保护法》而设计。供买方尽职调查之用——每项义务均对应产品中的一项控制措施。',
+    'trust.pdpa.k1':'征得同意','trust.pdpa.v1':'未取得同意记录，不会向任何客户发送营销消息；每次发送前均先核查同意状态与"谢绝来电"登记。',
+    'trust.pdpa.k2':'目的限制','trust.pdpa.v2':'客户数据仅用于回复该客户及管理其预约——绝不出售或另作他用。',
+    'trust.pdpa.k3':'告知','trust.pdpa.v3':'首次接触时即告知客户所收集的数据与用途，并附上商家隐私声明链接。',
+    'trust.pdpa.k4':'查阅与更正','trust.pdpa.v4':'店主可应要求导出或更正任何个人的数据；审计日志会记载每一次数据请求。',
+    'trust.pdpa.k5':'保护','trust.pdpa.v5':'传输与存储均加密，并采用角色权限管控——员工仅能看到其职责范围内的数据。',
+    'trust.pdpa.k6':'保留限制','trust.pdpa.v6':'数据仅在关系所需期间内保留，之后按可配置的计划清除。',
+    'trust.pdpa.k7':'数据落地','trust.pdpa.v7':'客户个人数据存储于本地区；任何次级处理方（消息或 AI 供应商）均会披露并受同等保护约束。',
+    'trust.pdpa.k8':'泄露应对','trust.pdpa.v8':'泄露通报流程会在规定时限内通知 PDPC 及受影响的个人。',
+    'trust.pdpa.note':'示例说明文字——非法律意见。最终控制措施将于试点阶段的数据处理协议中与商家确认。',
     'audit.ai':'AI操作','audit.check':'合规检查','audit.handoff':'转交人工','audit.denied':'已拒绝',
     'audit.change':'变更待批准','audit.data':'数据请求',
     'brain.knowledge':'AI可使用的知识','brain.ownerGated':'需店主批准','brain.cited':'30天内引用{n}次',
@@ -4384,10 +4427,23 @@ window.DATA_TRX = {
     const m = AUDIT_KEY[tag];
     return m? `<span class="tagchip ${m[0]}">${t(m[1])}</span>`:'';
   };
+  const PDPA_ROWS = ['1','2','3','4','5','6','7','8'];
+  function pdpaCard() {
+    return `
+      <div class="card pdpa-card">
+        <h2 class="sec" style="margin-top:0">${t('trust.pdpa.title')}</h2>
+        <p class="pdpa-sub">${t('trust.pdpa.sub')}</p>
+        <div class="pdpa-grid">
+          ${PDPA_ROWS.map((n) => `<div class="pdpa-row"><span class="pdpa-check">✓</span><div><b>${t('trust.pdpa.k' + n)}</b><span>${t('trust.pdpa.v' + n)}</span></div></div>`).join('')}
+        </div>
+        <div class="pdpa-note">${t('trust.pdpa.note')}</div>
+      </div>`;
+  }
   function vTrust() {
     const tr = D.trust;
     return `
-      <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
+      ${pdpaCard()}
+      <div class="stat-row" style="grid-template-columns:repeat(4,1fr);margin-top:14px">
         ${tr.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(td(s.label))}</span><div class="kpi-delta" style="color:var(--muted)">${esc(td(s.sub))}</div></div>`).join('')}
       </div>
       <div class="grid c2" style="margin-top:14px;align-items:start">
@@ -4403,7 +4459,7 @@ window.DATA_TRX = {
           </div>
         </div>
         <div>
-          <h2 class="sec">Outreach rules — enforced before every send</h2>
+          <h2 class="sec">${t('trust.outreachRules')}</h2>
           <div class="card">
             <ul class="strategy" style="margin:0;padding-left:18px">${tr.rules.map((r) => `<li>${esc(td(r))}</li>`).join('')}</ul>
           </div>
