@@ -12,6 +12,7 @@ planning, and building the product described in the RFP — **demo-first**.
 | `gm-review.md` | GM-perspective evaluation: RFP coverage matrix + iteration priorities |
 | `pilot-baseline.md` | Fill-in sheet to measure a merchant *before* go-live, so pilot results are provable |
 | `feedback-response.md` | Stakeholder feedback (生活类 Agent) mapped item-by-item to the changes made |
+| `production-readiness.md` | Demo → client-ready: the three tiers (sales demo / pilot / production), the simulated→real gap map, PDPA & WhatsApp/BSP dependencies, architecture, and a phased plan |
 | `demo/` | The clickable owner-console demo (no build tools, no dependencies) |
 | `scripts/build.mjs` | Bundles the demo into one self-contained HTML file |
 | `dist/rook-demo.html` | The bundled demo — open it in any browser |

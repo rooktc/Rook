@@ -109,6 +109,7 @@
       'setup.filesReady':'{n} file(s) ready','setup.useSample':'Use sample files','setup.removeFile':'Remove file',
       'brain.addDocs':'Add documents','aria.paletteGroup':'Colour theme',
       'palette.azure':'Azure','palette.indigo':'Indigo','palette.sky':'Sky',
+      'demo.reset':'Reset demo','demo.resetHint':'Clear saved language, colour and uploaded files, and reload',
       'insights.leadsBookingsTitle':'Leads & bookings — last 30 days',
       'insights.leadsBookingsSub':'Daily counts across all channels',
       'insights.funnelTitle':'Sales funnel — last 30 days','insights.funnelSub':'From first contact to repeat booking',
@@ -294,6 +295,7 @@
     'setup.filesReady':'已就緒 {n} 個檔案','setup.useSample':'使用範例檔案','setup.removeFile':'移除檔案',
     'brain.addDocs':'新增文件','aria.paletteGroup':'配色主題',
     'palette.azure':'天藍','palette.indigo':'靛藍','palette.sky':'晴藍',
+    'demo.reset':'重置示範','demo.resetHint':'清除已儲存的語言、配色與上傳檔案並重新載入',
     'insights.leadsBookingsTitle':'商機與預約 — 近30天',
     'insights.leadsBookingsSub':'各通路每日數據',
     'insights.funnelTitle':'銷售漏斗 — 近30天','insights.funnelSub':'從首次接觸到重複預約',
@@ -478,6 +480,7 @@
     'setup.filesReady':'已就绪 {n} 个文件','setup.useSample':'使用示例文件','setup.removeFile':'移除文件',
     'brain.addDocs':'添加文件','aria.paletteGroup':'配色主题',
     'palette.azure':'天蓝','palette.indigo':'靛蓝','palette.sky':'晴蓝',
+    'demo.reset':'重置演示','demo.resetHint':'清除已保存的语言、配色与上传文件并重新加载',
     'insights.leadsBookingsTitle':'商机与预约 — 近30天',
     'insights.leadsBookingsSub':'各渠道每日数据',
     'insights.funnelTitle':'销售漏斗 — 近30天','insights.funnelSub':'从首次接触到重复预约',
@@ -624,6 +627,29 @@
     campOpen: {},           // expanded completed-campaign ids
   };
   const freshWiz = () => ({ goals: {}, audiences: {}, platforms: {}, variantIdx: 0, content: null, poster: 0, published: false });
+
+  // ---------- preference persistence ----------
+  // Only lightweight preferences persist across reloads; demo interaction
+  // state (approvals, replies, sims) stays fresh each load. try/catch so a
+  // blocked localStorage (private mode, file://) never breaks the app.
+  const PREF_KEY ='rook.prefs.v1';
+  function savePrefs() {
+    try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang: state.lang, palette: state.palette, uploads: state.uploads })); } catch (e) {}
+  }
+  function loadPrefs() {
+    try {
+      const raw = localStorage.getItem(PREF_KEY);
+      if (!raw) return;
+      const p = JSON.parse(raw);
+      if (p.lang && I18N[p.lang]) state.lang = p.lang;
+      if (['azure','indigo','sky'].includes(p.palette)) state.palette = p.palette;
+      if (Array.isArray(p.uploads)) state.uploads = p.uploads.filter((f) => f && typeof f.name ==='string');
+    } catch (e) {}
+  }
+  function resetDemo() {
+    try { localStorage.removeItem(PREF_KEY); } catch (e) {}
+    location.reload();
+  }
 
   // ---------- formatting ----------
   // All clock times shown in the merchant's timezone (SGT), whoever views the demo.
@@ -1871,7 +1897,8 @@
           ${IC[id]}${t('nav.' + id)}
           ${id ==='inbox' && unread? `<span class="bdg">${unread}</span>`:''}
         </button>`).join('')}
-      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(td(D.merchant.hours))}</div>`;
+      <div class="side-foot"><b>${esc(D.merchant.name)}</b><br>${esc(D.merchant.address)}<br>${esc(td(D.merchant.hours))}
+        <br><button class="reset-link" data-reset title="${t('demo.resetHint')}">${t('demo.reset')}</button></div>`;
     $('#tabbar').innerHTML = NAV_IDS.map((id) => `
       <button class="${state.view === id?'on':''}" data-nav="${id}">${IC[id]}${t('nav.' + id)}</button>`).join('');
   }
@@ -1952,7 +1979,7 @@
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample]');
+    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample],[data-reset]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
     if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
@@ -1962,12 +1989,15 @@
       if (state.palette!== el.dataset.palette) {
         state.palette = el.dataset.palette;
         document.documentElement.dataset.palette = state.palette;
+        savePrefs();
         render();
       }
     }
-    else if (el.dataset.uploadRemove!== undefined) { state.uploads.splice(+el.dataset.uploadRemove, 1); render(); }
+    else if (el.dataset.reset!== undefined) { resetDemo(); }
+    else if (el.dataset.uploadRemove!== undefined) { state.uploads.splice(+el.dataset.uploadRemove, 1); savePrefs(); render(); }
     else if (el.dataset.uploadSample!== undefined) {
       state.uploads = D.onboarding.files.map((f, i) => ({ name: f.name, size: (i + 2) * 268 * 1024 + i * 7331 }));
+      savePrefs();
       render();
     }
     else if (el.dataset.industry) switchIndustry(el.dataset.industry);
@@ -2007,7 +2037,7 @@
       render();
     }
     else if (el.dataset.campToggle) { const id = el.dataset.campToggle; state.campOpen[id] =!state.campOpen[id]; render(); }
-    else if (el.dataset.lang) { if (state.lang!== el.dataset.lang) { state.lang = el.dataset.lang; document.documentElement.lang = state.lang; render(); } }
+    else if (el.dataset.lang) { if (state.lang!== el.dataset.lang) { state.lang = el.dataset.lang; document.documentElement.lang = state.lang; savePrefs(); render(); } }
     else if (el.dataset.tourStart!== undefined) { state.tour = 1; state.view = TOUR[0].view; render(); window.scrollTo(0, 0); }
     else if (el.dataset.tourNext!== undefined) {
       if (state.tour >= TOUR.length) { state.tour = 0; render(); toast(t('tour.doneToast')); }
@@ -2069,6 +2099,7 @@
   function addUploads(fileList) {
     if (!fileList || !fileList.length) return;
     for (const f of fileList) state.uploads.push({ name: f.name, size: f.size });
+    savePrefs();
     render();
   }
   document.addEventListener('change', (e) => {
@@ -2118,6 +2149,8 @@
     }
   }
 
+  loadPrefs();
   document.documentElement.dataset.palette = state.palette;
+  document.documentElement.lang = state.lang;
   render();
 })();
