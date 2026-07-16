@@ -102,6 +102,13 @@
       'setup.step4Title':'Go live on WhatsApp','setup.waitsFor3':'Waits for step 3.',
       'setup.liveNow':'Live — answering as of now',
       'setup.doneToast':'Onboarding done — the AI is live and every answer is grounded',
+      'setup.uploadHeading':'Upload your documents','setup.dzTitle':'Drag files here, or click to browse',
+      'setup.dzHint':'Price lists, menus, FAQs, chat screenshots, policies — PDF, Word or images, up to 25 MB each',
+      'setup.dzEmpty':'Nothing uploaded yet. Add your files, or start from a sample set.',
+      'setup.buildKb':'Build knowledge base','setup.building':'Building…',
+      'setup.filesReady':'{n} file(s) ready','setup.useSample':'Use sample files','setup.removeFile':'Remove file',
+      'brain.addDocs':'Add documents','aria.paletteGroup':'Colour theme',
+      'palette.azure':'Azure','palette.indigo':'Indigo','palette.sky':'Sky',
       'insights.leadsBookingsTitle':'Leads & bookings — last 30 days',
       'insights.leadsBookingsSub':'Daily counts across all channels',
       'insights.funnelTitle':'Sales funnel — last 30 days','insights.funnelSub':'From first contact to repeat booking',
@@ -280,6 +287,13 @@
     'setup.step4Title':'在WhatsApp上線','setup.waitsFor3':'等待第3步完成。',
     'setup.liveNow':'已上線——即刻開始回覆',
     'setup.doneToast':'上線完成——AI已就緒，且每個回答都有據可查',
+    'setup.uploadHeading':'上傳您的文件','setup.dzTitle':'將檔案拖曳到此，或點擊瀏覽',
+    'setup.dzHint':'價目表、菜單、常見問題、對話截圖、政策——支援 PDF、Word 或圖片，單檔至多 25 MB',
+    'setup.dzEmpty':'尚未上傳任何檔案。請新增您的檔案，或先從範例開始。',
+    'setup.buildKb':'建立知識庫','setup.building':'建立中…',
+    'setup.filesReady':'已就緒 {n} 個檔案','setup.useSample':'使用範例檔案','setup.removeFile':'移除檔案',
+    'brain.addDocs':'新增文件','aria.paletteGroup':'配色主題',
+    'palette.azure':'天藍','palette.indigo':'靛藍','palette.sky':'晴藍',
     'insights.leadsBookingsTitle':'商機與預約 — 近30天',
     'insights.leadsBookingsSub':'各通路每日數據',
     'insights.funnelTitle':'銷售漏斗 — 近30天','insights.funnelSub':'從首次接觸到重複預約',
@@ -457,6 +471,13 @@
     'setup.step4Title':'在WhatsApp上线','setup.waitsFor3':'等待第3步完成。',
     'setup.liveNow':'已上线——即刻开始回复',
     'setup.doneToast':'上线完成——AI已就绪，且每个回答都有据可查',
+    'setup.uploadHeading':'上传您的文件','setup.dzTitle':'将文件拖到此处，或点击浏览',
+    'setup.dzHint':'价目表、菜单、常见问题、对话截图、政策——支持 PDF、Word 或图片，单个文件最大 25 MB',
+    'setup.dzEmpty':'尚未上传任何文件。请添加您的文件，或先从示例开始。',
+    'setup.buildKb':'构建知识库','setup.building':'构建中…',
+    'setup.filesReady':'已就绪 {n} 个文件','setup.useSample':'使用示例文件','setup.removeFile':'移除文件',
+    'brain.addDocs':'添加文件','aria.paletteGroup':'配色主题',
+    'palette.azure':'天蓝','palette.indigo':'靛蓝','palette.sky':'晴蓝',
     'insights.leadsBookingsTitle':'商机与预约 — 近30天',
     'insights.leadsBookingsSub':'各渠道每日数据',
     'insights.funnelTitle':'销售漏斗 — 近30天','insights.funnelSub':'从首次接触到重复预约',
@@ -595,6 +616,8 @@
     setupStep: 0,
     setupPlaying: false,
     setupToken: 0,
+    uploads: [],            // documents the owner has added on the Setup view
+    palette:'azure',        // colour theme: azure | indigo | sky
     opsTab:'finance',       // finance | materials | staff
     finPeriod:'month',      // day | month | year
     wiz: null,              // publish-wizard working state (lazy-init per industry)
@@ -1377,7 +1400,10 @@
     return `
       <div class="grid c2" style="align-items:start">
         <div>
-          <h2 class="sec">${t('brain.knowledge')}</h2>
+          <div class="sec-row">
+            <h2 class="sec" style="margin:0">${t('brain.knowledge')}</h2>
+            <button class="btn sm" data-nav="setup">↥ ${t('brain.addDocs')}</button>
+          </div>
           ${D.knowledge.map((k) => `
             <div class="kb">
               <div class="head">
@@ -1410,6 +1436,35 @@
   // setupStep milestones: 0 idle · 1-3 files upload · 4 building · 5-10 items
   // · 11 review note · 12 test Q · 13 typing · 14 answer · 15 live
   const SETUP_LAST = 15;
+  const humanSize = (b) => b < 1024? b +' B': b < 1048576? Math.round(b / 1024) +' KB': (b / 1048576).toFixed(1) +' MB';
+  function uploadCard() {
+    const has = state.uploads.length > 0;
+    const list = has? `<div class="up-list">
+        ${state.uploads.map((f, i) => `<div class="up-row">
+          <span class="up-doc">▤</span>
+          <span class="up-name">${esc(f.name)}</span>
+          <span class="up-size">${humanSize(f.size)}</span>
+          <button class="up-x" data-upload-remove="${i}" aria-label="${t('setup.removeFile')}">✕</button>
+        </div>`).join('')}
+      </div>
+      <div class="up-actions">
+        <button class="btn pri" data-setup-play ${state.setupPlaying?'disabled':''}>${state.setupPlaying? t('setup.building'): t('setup.buildKb')}</button>
+        <span class="up-count">${t('setup.filesReady', { n: state.uploads.length })}</span>
+      </div>`
+: `<p class="dz-empty">${t('setup.dzEmpty')}</p>
+      <div class="up-actions"><button class="btn" data-upload-sample>${t('setup.useSample')}</button></div>`;
+    return `
+      <div class="card upload-card">
+        <h3 class="up-head">${t('setup.uploadHeading')}</h3>
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="uploadInput" multiple hidden>
+          <span class="dz-icon">↥</span>
+          <b>${t('setup.dzTitle')}</b>
+          <span class="dz-hint">${t('setup.dzHint')}</span>
+        </label>
+        ${list}
+      </div>`;
+  }
   function vSetup() {
     const ob = D.onboarding;
     const s = state.setupStep;
@@ -1428,10 +1483,8 @@
       <div class="card brief">
         <h3>${t('setup.heading')}</h3>
         <p>${esc(td(ob.intro))}</p>
-        <div style="margin-top:12px">
-          <button class="btn pri" data-setup-play ${state.setupPlaying?'disabled':''}>${s > 0 &&!state.setupPlaying? '↻ ' + t('setup.replay'): state.setupPlaying? t('setup.playing'): '▶ ' + t('setup.play')}</button>
-        </div>
       </div>
+      ${uploadCard()}
       <div class="grid c2" style="margin-top:14px;align-items:start">
         <div class="card ob-stage ${s >= 1?'on':''}">
           <div class="ob-num">1</div><h3>${t('setup.step1Title')}</h3>
@@ -1836,6 +1889,9 @@
         <div class="seg" role="group" aria-label="${t('aria.industryGroup')}">
           ${INDUSTRIES.map((ind) => `<button class="${state.industry === ind.id?'on':''}" data-industry="${ind.id}">${t('industry.' + ind.id)}</button>`).join('')}
         </div>
+        <div class="seg pal" role="group" aria-label="${t('aria.paletteGroup')}">
+          ${['azure','indigo','sky'].map((p) => `<button class="pal-dot pal-${p} ${state.palette === p?'on':''}" data-palette="${p}" title="${t('palette.' + p)}" aria-label="${t('palette.' + p)}"><span></span></button>`).join('')}
+        </div>
         <button class="btn sm" data-tour-start>${state.tour? '● ' + t('tour.running'): '▶ ' + t('tour.button')}</button>
         <span class="chip time">${esc(D.merchant.nowLabel)}</span>
         <span class="chip sim">${t('sim.badge')}</span>
@@ -1864,6 +1920,7 @@
     if (oldTour) oldTour.remove();
     if (state.tour) document.body.insertAdjacentHTML('beforeend', tourCard());
     bindHover();
+    bindUpload();
   }
 
   function switchIndustry(id) {
@@ -1895,13 +1952,25 @@
     const closePhone = e.target.closest('[data-close-phone-btn]') ||
       (e.target.classList && e.target.classList.contains('phone-ovl')? e.target: null);
     if (closePhone) { state.phoneView = null; render(); return; }
-    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all]');
+    const el = e.target.closest('[data-nav],[data-conv],[data-open-conv],[data-takeover],[data-simulate],[data-approve],[data-hold],[data-approve-camp],[data-post-reply],[data-filter],[data-cust],[data-back-cust],[data-back],[data-toast],[data-industry],[data-lang],[data-phone],[data-setup-play],[data-brief-phone],[data-tour-start],[data-tour-next],[data-tour-back],[data-tour-end],[data-drill],[data-clear-channel],[data-goto],[data-ops-tab],[data-fin-period],[data-reorder],[data-wiz-toggle],[data-wiz-regen],[data-wiz-publish],[data-wiz-reset],[data-wiz-poster],[data-camp-toggle],[data-reply-all],[data-palette],[data-upload-remove],[data-upload-sample]');
     if (!el) return;
     // preserve any in-progress wizard edits before a re-render (except regenerate, which replaces)
     if ((el.dataset.wizToggle!== undefined || el.dataset.wizPublish!== undefined || el.dataset.wizPoster!== undefined) && state.wiz) {
       const ta = $('#wizContent'); if (ta) state.wiz.content = ta.value;
     }
-    if (el.dataset.industry) switchIndustry(el.dataset.industry);
+    if (el.dataset.palette) {
+      if (state.palette!== el.dataset.palette) {
+        state.palette = el.dataset.palette;
+        document.documentElement.dataset.palette = state.palette;
+        render();
+      }
+    }
+    else if (el.dataset.uploadRemove!== undefined) { state.uploads.splice(+el.dataset.uploadRemove, 1); render(); }
+    else if (el.dataset.uploadSample!== undefined) {
+      state.uploads = D.onboarding.files.map((f, i) => ({ name: f.name, size: (i + 2) * 268 * 1024 + i * 7331 }));
+      render();
+    }
+    else if (el.dataset.industry) switchIndustry(el.dataset.industry);
     else if (el.dataset.goto) {
       state.view = el.dataset.goto; state.custId = null; state.custChannel = null;
       state.custFilter = el.dataset.gotoFilter || 'All';
@@ -1996,6 +2065,24 @@
     else if (el.dataset.toast) toast(el.dataset.toast);
   });
 
+  // ---------- document upload ----------
+  function addUploads(fileList) {
+    if (!fileList || !fileList.length) return;
+    for (const f of fileList) state.uploads.push({ name: f.name, size: f.size });
+    render();
+  }
+  document.addEventListener('change', (e) => {
+    if (e.target && e.target.id ==='uploadInput') addUploads(e.target.files);
+  });
+  function bindUpload() {
+    const dz = $('#dropzone');
+    if (!dz) return;
+    const stop = (e) => { e.preventDefault(); e.stopPropagation(); };
+    ['dragenter','dragover'].forEach((ev) => dz.addEventListener(ev, (e) => { stop(e); dz.classList.add('drag'); }));
+    ['dragleave','dragend'].forEach((ev) => dz.addEventListener(ev, (e) => { stop(e); dz.classList.remove('drag'); }));
+    dz.addEventListener('drop', (e) => { stop(e); dz.classList.remove('drag'); addUploads(e.dataTransfer && e.dataTransfer.files); });
+  }
+
   // ---------- chart hover ----------
   const tip = $('#tooltip');
   function bindHover() {
@@ -2031,5 +2118,6 @@
     }
   }
 
+  document.documentElement.dataset.palette = state.palette;
   render();
 })();
