@@ -3,9 +3,10 @@
    Sources: LANXIN brand deck (20pp), LANXIN Agent product plan (incl. the
    20 TEST customers), flora-visage.com audit dated 2026-07-16.
    Deterministic: fixed "now" + seeded PRNG. No network, no real customer data.
-   All single-session rates are SIMULATED PLACEHOLDERS pending owner
-   confirmation; membership prices and the zodiac-oil price are from the
-   client's own materials. */
+   Journey pricing is the client's published programme model (Bloom·归息
+   $1,380/3mo · Flow·归衡 $1,999/3mo · Radiance·归元 $6,980/yr) plus the
+   published zodiac-oil price; ancillary session rates remain SIMULATED
+   PLACEHOLDERS pending owner confirmation. */
 window.DEMOS = (() => {
   const NOW = new Date('2026-07-10T08:05:00+08:00'); // Friday morning SGT
   const MS_H = 3600e3, MS_D = 24 * MS_H;
@@ -103,9 +104,9 @@ window.DEMOS = (() => {
     // placeholders (client master table marks them 待确认). Membership and
     // zodiac-oil prices are the client's own published figures.
     const services = [
-      { id:'rest', name:'归息 REST · Deep Sleep & Stress Recovery', price: 268, mins: 120, cycle:'3–4 weeks' },
-      { id:'balance', name:'归衡 BALANCE · Women’s Balance Ritual', price: 288, mins: 120, cycle:'3–4 weeks' },
-      { id:'renew', name:'归元 RENEW · Flagship Renewal Journey', price: 428, mins: 180, cycle:'6–8 weeks' },
+      { id:'rest', name:'归息 REST · Deep Sleep & Stress Recovery', price: 1380, mins: 120, cycle:'3-month programme (Bloom)' },
+      { id:'balance', name:'归衡 BALANCE · Women’s Balance Ritual', price: 1999, mins: 120, cycle:'3-month programme (Flow)' },
+      { id:'renew', name:'归元 RENEW · Flagship Renewal Journey', price: 6980, mins: 180, cycle:'12-month programme (Radiance)' },
       { id:'aroma', name:'Aromatherapy Session', price: 198, mins: 90, cycle:'2–3 weeks' },
       { id:'energy', name:'Energy Healing Session', price: 228, mins: 90, cycle:'3–4 weeks' },
       { id:'blend', name:'Private Oil Blending (1-on-1)', price: 138, mins: 60, cycle:'as needed' },
@@ -153,12 +154,12 @@ window.DEMOS = (() => {
         id:'vl-ava', customerId:'cl-ava', name:'林雅雯 Ava Lin', channel:'WhatsApp',
         preview:'已预约：周日 11:00 AM 归息 REST', time: hoursAgo(6.85), unread: true,
         aiStatus:'ai', score: 84, intent:'Sleep & stress → booked',
-        fields: { Service:'归息 REST (120 min)','Date needed':'Sun 12 Jul, 11:00 AM', Concern:'Sleep quality · work stress', Language:'中文', Urgency:'Normal' },
+        fields: { Service:'归息 REST first experience (120 min)','Date needed':'Sun 12 Jul, 11:00 AM', Concern:'Sleep quality · work stress', Language:'中文', Urgency:'Normal' },
         handoff: null,
         nextAction:'Send arrival guide + scent-preference note before Sunday (automated).',
         messages: [
           { from:'cust', time: hoursAgo(6.9), text:'你好，这么晚打扰了。最近一直睡不好，凌晨会醒，白天上班完全没精神。朋友说你们有帮助睡眠的项目？' },
-          { from:'ai', time: hoursAgo(6.89), text:'您好，谢谢您愿意告诉我这些，深夜发消息也没关系，我一直在的。听起来您最近确实很辛苦。我们的「归息 REST」正是为睡眠与压力恢复设计的：120分钟，包含呼吸引导、身体放松、深度芳疗和颂钵音疗。单次 $268，首次体验有会员礼遇。想了解更多吗？', cite:'Service guide v1 · 归息 REST' },
+          { from:'ai', time: hoursAgo(6.89), text:'您好，谢谢您愿意告诉我这些，深夜发消息也没关系，我一直在的。听起来您最近确实很辛苦。我们的「归息 REST」正是为睡眠与压力恢复设计的恢复计划：以3个月为一个周期（$1,380/3个月，即 Bloom 会员），每次120分钟，包含呼吸引导、身体放松、深度芳疗和颂钵音疗。首次体验享限时折扣礼遇。想先约一次体验看看吗？', cite:'Service guide v1 · 归息 REST' },
           { from:'cust', time: hoursAgo(6.87), text:'听起来不错。周末有位子吗？' },
           { from:'ai', time: hoursAgo(6.86), text:'这周日（7月12日）上午 11:00 或下午 3:30 都可以，做完刚好安安静静地过个下午。您方便哪个时段？' },
           { from:'cust', time: hoursAgo(6.855), text:'11点吧，谢谢' },
@@ -168,14 +169,14 @@ window.DEMOS = (() => {
       },
       {
         id:'vl-fatimah', customerId:'cl-fatimah', name:'Fatimah Rahman', channel:'WhatsApp',
-        preview:'Combo request — single rates quoted, package price held for Rachel', time: hoursAgo(3.2), unread: true,
+        preview:'Combo request — rates shared, package price held for Rachel', time: hoursAgo(3.2), unread: true,
         aiStatus:'escalated', score: 76, intent:'Combo quote · pending owner',
         fields: { Service:'Energy Healing + 归息 REST (same afternoon)','Date needed':'Sat 18 Jul, afternoon', Budget:'“under $450 if combined”', Language:'English', Urgency:'Normal' },
         handoff:'Same-day combinations and package pricing are owner-confirmed only (R-02). Single rates quoted; combo request held with a task for Rachel.',
         nextAction:'Rachel to confirm the combo price and Saturday slot by 10 AM, then release the quote.',
         messages: [
           { from:'cust', time: hoursAgo(3.4), text:'Hi! I’m interested in the energy healing session, how much is it? And could I do it together with the REST one on the same afternoon? Hoping under $450 if combined' },
-          { from:'ai', time: hoursAgo(3.38), text:'Hi Fatimah! Individually they’re: Energy Healing $228 (90 min) and 归息 REST $268 (120 min). Doing both in one afternoon is possible — but combined scheduling and any package pricing are confirmed personally by Rachel, our founder, so I won’t guess a bundle price. I’ve noted your Saturday preference and she’ll come back to you this morning with the exact quote.', cite:'Price list v1 · R-02 combinations' },
+          { from:'ai', time: hoursAgo(3.38), text:'Hi Fatimah! Energy Healing is $228 (90 min). 归息 REST runs as a 3-month programme ($1,380/3 months, our Bloom membership), with a first-experience session to start. Pairing both in one afternoon is possible — but combined scheduling and any package pricing are confirmed personally by Rachel, our founder, so I won’t guess a bundle price. I’ve noted your Saturday preference and she’ll come back to you this morning with the exact quote.', cite:'Price list v1 · R-02 combinations' },
           { from:'cust', time: hoursAgo(3.3), text:'ok! saturday after 2pm works best for me' },
           { from:'ai', time: hoursAgo(3.2), text:'Noted — Saturday 18 Jul after 2 PM. Rachel will confirm the combined arrangement and price with you by 10 AM today. Thank you for your patience, Fatimah.' },
           { from:'sys', time: hoursAgo(3.2), text:'Escalated per R-02 (combination pricing). Task created for Rachel with requested date + budget. No bundle price improvised.' },
@@ -270,7 +271,7 @@ window.DEMOS = (() => {
     };
 
     const opportunities = [
-      { convId:'vl-fatimah', who:'Fatimah Rahman', why:'Asked to combine Energy Healing + REST — single rates quoted, combo price needs your confirmation by 10 AM', kind:'decision', value:'$496' },
+      { convId:'vl-fatimah', who:'Fatimah Rahman', why:'Asked to pair Energy Healing with a 归息 first experience — programme explained, package price needs your confirmation by 10 AM', kind:'decision', value:'Quote pending' },
       { convId:'vl-shufen', who:'吴淑芬 Shufen Ng', why:'Post-session dizziness reported — call before 11:30 AM; recovery script ready, marketing suppressed', kind:'critical', value:'LTV $1,830' },
       { convId: null, who:'Denise Yeo (Meridian Legal)', why:'Corporate wellness afternoon for 8 — women-only policy fits; group >4 needs your quote', kind:'decision', value:'Quote pending' },
       { convId: null, who:'Elaine Chua', why:'Bloom membership renews in 14 days — renewal message drafted with July tea-salon invite', kind:'suggestion', value:'$1,380' },
@@ -286,9 +287,9 @@ window.DEMOS = (() => {
     ];
 
     const approvals = [
-      { id:'ap-campaign', type:'Campaign', title:'Rainy-season sleep ritual — REST off-peak', detail:'Send to 21 consented customers · est. 4–6 bookings ($1,072–$1,608)', action: { campaign:'mk-rain' }, toast:'Campaign approved — sending Sat 10:00 AM to 21 customers' },
+      { id:'ap-campaign', type:'Campaign', title:'Rainy-season sleep ritual — REST off-peak', detail:'Send to 21 consented customers · est. 4–6 first experiences → 2–3 programme starts ($2,760–$4,140)', action: { campaign:'mk-rain' }, toast:'Campaign approved — sending Sat 10:00 AM to 21 customers' },
       { id:'ap-review', type:'Review reply', title:'Reply to S. Ng (2★ Google review)', detail:'Personal apology + scent-adjustment promise drafted; posting is held for your approval', action: { review:'rv-shufen' }, toast:'Reply posted to Google' },
-      { id:'ap-price', type:'Knowledge', title:'Price list v2 — single-session rates', detail:'归息/归衡/归元 session rates drafted (currently simulated placeholders) — go live only after your review', action: { knowledge:'kb-price' }, toast:'Price list v2 is live — the AI will quote confirmed rates immediately' },
+      { id:'ap-price', type:'Knowledge', title:'Price list v2 — ancillary session rates', detail:'Aromatherapy / energy-healing / blending / tea / consultation rates drafted (currently simulated placeholders) — go live only after your review', action: { knowledge:'kb-price' }, toast:'Price list v2 is live — the AI will quote confirmed rates immediately' },
       { id:'ap-merge', type:'Identity', title:'Merge @teawithangel → 赵安琪 Angel Zhao', detail:'Same phone on IG profile and booking record — confirm to merge', action: {}, toast:'Profiles merged — history from both channels kept' },
     ];
 
@@ -315,7 +316,7 @@ window.DEMOS = (() => {
         audience:'21 consented customers with sleep/stress tags or REST history. Excludes: complaint holds, service-only consent, unsubscribed, contacted <14 days.',
         channel:'WhatsApp template', schedule:'Sat 10:00 AM',
         copy:'When the rain won’t stop and your mind won’t either — a 120-minute REST ritual to end the week gently. Weekday slots 11 AM–3 PM next week. Reply YES and we’ll hold one for you.',
-        estimate: { reach: 21, bookings:'4–6', revenue:'$1,072–$1,608', cost:'$2.30 (WhatsApp fees)' },
+        estimate: { reach: 21, bookings:'4–6', revenue:'$2,760–$4,140 (2–3 programme starts)', cost:'$2.30 (WhatsApp fees)' },
       },
       {
         id:'mk-renew', name:'Membership renewals — July cohort', status:'scheduled',
@@ -383,8 +384,8 @@ window.DEMOS = (() => {
     };
 
     const knowledge = [
-      { id:'kb-price', title:'Price list', category:'Services & pricing', version:'v1 live · v2 pending approval', approvedVersion:'v2 live', updated: daysAgo(1, 18, 0), owner:'Rachel Fu', sensitive: true, cites30d: 168, excerpt:'All journey and session rates, durations, add-ons. Single-session rates for 归息/归衡/归元 are simulated placeholders pending owner confirmation; membership and zodiac-oil prices are published. Sensitive — owner approval required before the AI quotes changes.' },
-      { id:'kb-member', title:'Membership terms · Bloom / Flow / Radiance', category:'Membership', version:'v3', updated: daysAgo(18), owner:'Rachel Fu', sensitive: true, cites30d: 74, excerpt:'Bloom S$1,380/3mo · Flow S$1,999/3mo (adds one REST monthly, salon invites) · Radiance S$6,980/yr (adds quarterly RENEW, 1-on-1 consultant, annual retreat). Entitlement usage tracked per member.' },
+      { id:'kb-price', title:'Price list', category:'Services & pricing', version:'v1 live · v2 pending approval', approvedVersion:'v2 live', updated: daysAgo(1, 18, 0), owner:'Rachel Fu', sensitive: true, cites30d: 168, excerpt:'All programme and session rates, durations, add-ons. Journey programmes are published: 归息·Bloom $1,380/3mo · 归衡·Flow $1,999/3mo · 归元·Radiance $6,980/yr; zodiac oils S$29.90. Ancillary session rates (aromatherapy, energy healing, blending, tea, consultation) are simulated placeholders pending owner confirmation. Sensitive — owner approval required before the AI quotes changes.' },
+      { id:'kb-member', title:'Membership terms · Bloom / Flow / Radiance', category:'Membership', version:'v3', updated: daysAgo(18), owner:'Rachel Fu', sensitive: true, cites30d: 74, excerpt:'Each journey is a membership programme: Bloom·归息 S$1,380/3mo · Flow·归衡 S$1,999/3mo (adds one REST care monthly, salon invites) · Radiance·归元 S$6,980/yr (adds quarterly RENEW flagship, 1-on-1 consultant, annual retreat). Entitlement usage tracked per member.' },
       { id:'kb-r02', title:'R-02 · Combinations & package pricing', category:'Rules centre', version:'v1', updated: daysAgo(26), owner:'Rachel Fu', sensitive: true, cites30d: 5, excerpt:'The AI quotes single-session rates only. Same-day combinations, packages and bespoke quotes are owner-confirmed — the AI holds the request and creates a task, never improvises a bundle price.' },
       { id:'kb-r05', title:'R-05 · Groups & the women-only space', category:'Rules centre', version:'v2', updated: daysAgo(33), owner:'Rachel Fu', sensitive: true, cites30d: 8, excerpt:'LANXIN is a women-only sanctuary. Tea ceremony seats up to 4 guests; groups over 4 need owner confirmation. Partners may purchase gift journeys but do not join sessions.' },
       { id:'kb-safety', title:'Safety boundaries', category:'Safety', version:'v2', updated: daysAgo(21), owner:'Rachel Fu', sensitive: true, cites30d: 11, excerpt:'Pregnancy, medication, allergies, chronic conditions or crisis signals: the AI never assesses or promises outcomes, recommends qualified professionals where appropriate, and hands the thread to Rachel immediately.' },
@@ -434,9 +435,9 @@ window.DEMOS = (() => {
       { name:'Referral', leads: 5, booked: 3 },
     ];
     const topServices = [
-      { name:'归息 REST', bookings: 14, revenue: 3752 },
-      { name:'归衡 BALANCE', bookings: 9, revenue: 2592 },
-      { name:'归元 RENEW', bookings: 6, revenue: 2568 },
+      { name:'归元 RENEW (Radiance)', bookings: 1, revenue: 6980 },
+      { name:'归息 REST (Bloom)', bookings: 3, revenue: 4140 },
+      { name:'归衡 BALANCE (Flow)', bookings: 2, revenue: 3998 },
       { name:'Aromatherapy Session', bookings: 11, revenue: 2178 },
       { name:'Tea Ceremony', bookings: 12, revenue: 1056 },
     ];
@@ -451,7 +452,7 @@ window.DEMOS = (() => {
       title:'This week: convert the renewal window and fill weekday late-mornings',
       points: [
 'Three memberships renew within 14 days ($4,140) — renewal messages convert best with the July tea-salon invite attached; both are drafted and waiting.',
-'Weekday 11 AM–3 PM is 55% empty while weekends book out — approve the rainy-season REST campaign (est. $1,072–$1,608) to shift demand into the quiet hours.',
+'Weekday 11 AM–3 PM is 55% empty while weekends book out — approve the rainy-season REST campaign (est. 2–3 programme starts, $2,760–$4,140) to shift demand into the quiet hours.',
 'Instagram brings 20% of leads but converts at half the WhatsApp rate — zodiac-oil buyers who visit the studio convert to journeys at 3×; keep guiding DMs to WhatsApp.',
 'Basis: last 30 days of bookings, June campaign results, NEA monsoon outlook. Forecast confidence: ±20%.',
       ],
@@ -461,7 +462,7 @@ window.DEMOS = (() => {
       note:'Single-practitioner studio today — Rook is ready for more staff the day they’re hired (roster pending owner).',
       cols: ['Practitioner','Journeys','Revenue','Avg rating','Rebook rate'],
       rows: [
-        ['Rachel Fu','52','$12,146','4.9 ★','58%'],
+        ['Rachel Fu','52','$18,352','4.9 ★','58%'],
         ['Therapist (hiring)','—','—','—','—'],
       ],
     };
@@ -540,7 +541,7 @@ window.DEMOS = (() => {
     const tasks = [
       { title:'Call 吴淑芬 — recovery ticket RT-201, script drafted', who:'Rachel', due:'Today 11:30 AM', status:'today', source:'Reputation Agent' },
       { title:'Confirm combo quote for Fatimah (Energy Healing + REST, Sat PM)', who:'Rachel', due:'Today 10:00 AM', status:'today', source:'Sales Agent' },
-      { title:'Review Price list v2 — single-session rates', who:'Rachel', due:'Today', status:'today', source:'Business Brain' },
+      { title:'Review Price list v2 — ancillary session rates', who:'Rachel', due:'Today', status:'today', source:'Business Brain' },
       { title:'Quote the Meridian Legal corporate afternoon (8 guests)', who:'Rachel', due:'Today', status:'today', source:'Sales Agent' },
       { title:'Prep Chloe Koh birthday gift box — herbal blend + card', who:'Rachel', due:'Wed 15 Jul', status:'scheduled', source:'CRM Agent' },
       { title:'Draft answer: “Do you sell gift cards?” (asked 3×)', who:'Rachel', due:'This week', status:'scheduled', source:'Business Brain' },

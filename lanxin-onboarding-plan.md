@@ -1,5 +1,13 @@
 # LANXIN House — applying the client's brand to the Rook demo
 
+> **Executed.** Decisions taken: LANXIN-only build with an expanded customer
+> base; 简体中文 default; LANXIN House as the merchant name. **Pricing update
+> from the client (post-plan):** the three journeys are sold as membership
+> programmes — 归息·Bloom S$1,380/3个月, 归衡·Flow S$1,999/3个月,
+> 归元·Radiance S$6,980/年 — now reflected throughout; only ancillary session
+> rates (aromatherapy, energy healing, blending, tea, consultation) remain
+> simulated placeholders pending owner confirmation.
+
 Scope per the client: **no product changes** — only the brain/database
 (`demo/data.js` + `demo/i18n-data.js` + the template registry) is updated so
 the console runs on LANXIN House's real data.

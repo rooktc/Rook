@@ -33,9 +33,11 @@ body-mind sanctuary, The Central SOHO 1, Singapore) — built from the client's
 own brand deck, Agent product plan (including its 20 TEST customers, expanded
 with more scenarios), and the flora-visage.com site audit. See
 `lanxin-onboarding-plan.md` for the source review and fact boundaries.
-Membership and zodiac-oil prices are the client's published figures;
-single-session rates are clearly-flagged simulated placeholders pending owner
-confirmation. The console opens in 简体中文 (EN / 繁中 one click away).
+Journey pricing follows the client's published programme model (Bloom·归息
+S$1,380/3mo · Flow·归衡 S$1,999/3mo · Radiance·归元 S$6,980/yr) plus the
+published zodiac-oil price; ancillary session rates are clearly-flagged
+simulated placeholders pending owner confirmation. The console opens in
+简体中文 (EN / 繁中 one click away).
 
 Press **Tour** in the top bar for a guided 9-step walkthrough.
 
