@@ -2,10 +2,9 @@
 (() => {
   const DEMOS = window.DEMOS;
   const INDUSTRIES = [
-    { id:'beauty', label:'Beauty studio' },
-    { id:'pets', label:'Mobile pet groomer' },
+    { id:'lanxin', label:'LANXIN House' },
   ];
-  let D = DEMOS.beauty;
+  let D = DEMOS.lanxin;
   const NOW = new Date(D.merchant.now);
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -21,7 +20,7 @@
       'title.brain':'Business brain','title.insights':'Business insight','title.trust':'Trust, permissions & audit',
       'title.setup':'Setup — day one',
       'logo.tagline':'AI growth team',
-      'industry.beauty':'Beauty studio','industry.pets':'Mobile pet groomer',
+      'industry.lanxin':'LANXIN House',
       'tour.button':'Tour','tour.running':'Tour running','sim.badge':'Simulated data',
       'aria.industryGroup':'Demo industry','aria.langGroup':'Language',
       'today.briefButton':'See it as your 7 AM WhatsApp','today.opportunities':"Today's opportunities",
@@ -57,7 +56,7 @@
       'customers.timelineDefault3':'Received June win-back campaign',
       'lc.all':'All','lc.newLead':'New lead','lc.evaluating':'Evaluating','lc.converted':'Converted',
       'lc.active':'Active','lc.vip':'VIP','lc.dormant':'Dormant','lc.churnRisk':'Churn risk',
-      'channel.qr':'QR code','channel.qrWalkin':'QR / walk-in','channel.vetQr':'Vet-clinic QR','channel.referral':'Referral',
+      'channel.qr':'QR code','channel.qrWalkin':'QR / walk-in','channel.referral':'Referral','channel.web':'Website',
       'marketing.needsDecision':'Needs a decision / upcoming','marketing.recentlyCompleted':'Recently completed',
       'marketing.reach':'reach (consented)','marketing.estBookings':'est. bookings','marketing.estRevenue':'est. revenue',
       'marketing.sendCost':'send cost','marketing.sent':'sent','marketing.replies':'replies',
@@ -127,30 +126,24 @@
       'setup.brandToast':'Branding applied across the console','setup.brandResetToast':'Branding reset to the sample business',
       'intro.aria':'Welcome to Rook','intro.title':'A 24/7 AI growth team for your shop',
       'intro.body':'Rook answers customer messages, follows up on leads, handles reviews and runs campaigns — grounded in your own prices and policies, with you approving anything sensitive. This is the owner’s console.',
-      'intro.b1t':'Switch industry.','intro.b1':'Top bar — the same console configured for a beauty studio or a mobile pet groomer.',
+      'intro.b1t':'Configured for LANXIN House.','intro.b1':'Every screen runs on the sanctuary’s own services, membership tiers, policies and voice — from the brand deck and agent plan.',
       'intro.b2t':'Switch language.','intro.b2':'English, Traditional or Simplified Chinese — interface and content both translate.',
       'intro.b3t':'Switch colour.','intro.b3':'Three blue themes via the dots in the top bar.',
       'intro.simNote':'Everything here is realistic but simulated demo data — no live messaging or real customers.',
       'intro.explore':'Explore on my own','intro.tour':'Take the 2-minute tour','intro.help':'About this demo',
-      'ask.title':'Ask the assistant a question','ask.send':'Ask','ask.clear':'Clear','ask.placeholder':'e.g. How much is a gel manicure?',
+      'ask.title':'Ask the assistant a question','ask.send':'Ask','ask.clear':'Clear','ask.placeholder':'e.g. How much is the REST session?',
       'customers.noMatch':'No customers match this filter.',
       'ask.sub':'Type anything a customer might ask. The AI answers only from this shop’s knowledge, cites its source, and hands off to staff instead of guessing when it doesn’t know.',
       'ask.escChip':'Handed to staff — the AI won’t guess',
       'ask.fallback':'I don’t have a confirmed answer for that in the shop’s knowledge, so I’ve passed it to the team — they’ll follow up with you personally.',
-      'ask.b.price':'Our Classic Gel Manicure is $68, BIAB is $88, and Gel Extensions are $118. Your first visit gets 15% off (not stackable).',
-      'ask.b.hours':'We’re open Tue–Sun, 10:30 AM–8:30 PM, and closed on Mondays.',
-      'ask.b.book':'Happy to book you in — a $20 deposit holds the slot and comes off your final bill. What day works, and which service?',
-      'ask.b.men':'Yes — we do men’s manicures and facials; around 1 in 5 of our manicure clients are men.',
-      'ask.b.preg':'Lash and brow treatments are fine with a patch test, and we avoid certain facial acids during pregnancy. Please check with your doctor too — we can’t give medical assurances.',
-      'ask.b.obj':'I understand. Our gel is a Japanese brand with free removal, and your first visit is 15% off — that often makes it better value than it first looks. Shall I hold a slot for you?',
-      'ask.b.ex1':'How much is a gel manicure?','ask.b.ex2':'What time do you open on Sunday?','ask.b.ex3':'Do you do men’s facials?',
-      'ask.p.price':'Grooming is priced by size and coat — a full groom runs about $78 for small dogs up to $138 for large dogs. Two or more pets at one address get 10% off.',
-      'ask.p.vax':'For a first visit we’ll need proof of core vaccinations — just send a photo of the vaccination booklet after booking.',
-      'ask.p.injury':'I’m so sorry to hear that. If there’s any bleeding, limping or distress, please watch closely and see a vet if it persists — I’m passing this to the owner right now to contact you.',
-      'ask.p.sedation':'We never sedate, for the pet’s safety. Anxious, aggressive or senior pets need a quick groomer assessment call before we book.',
-      'ask.p.zones':'We’re island-wide with two vans (north/west and north-east). Send your postal code and I’ll check the routing and offer a time window (Sentosa has a $15 surcharge).',
-      'ask.p.deposit':'A $20 deposit confirms your van slot and is refundable up to 24 hours before. Unpaid holds auto-release after 12 hours.',
-      'ask.p.ex1':'How much to groom a large dog?','ask.p.ex2':'Do you need vaccination records?','ask.p.ex3':'Which areas do you cover?',
+      'ask.l.price':'Our journeys are: 归息 REST $268 (120 min), 归衡 BALANCE $288 (120 min), and the 归元 RENEW flagship $428 (180 min). Aromatherapy is $198, Energy Healing $228, private oil blending $138, and Zodiac Lucky Oils are S$29.90 a bottle. Your first visit begins with a private consult and welcome tea.',
+      'ask.l.hours':'We’re at 6 Eu Tong Sen Street, #09-18 The Central SOHO 1 (Clarke Quay MRT, exit G) — open daily 10 AM–7 PM, by appointment. Arrive 10 minutes early; your welcome tea will be ready.',
+      'ask.l.book':'Happy to arrange it — we’re by appointment, daily 10 AM–7 PM. A $20 deposit holds your room and comes off the bill, refundable up to 24 hours before. Which day feels right, and which journey?',
+      'ask.l.member':'Bloom is S$1,380 per quarter (member pricing, a birthday herbal box, a welcome scent set). Flow, S$1,999 per quarter, adds one REST session monthly and our tea and floral salons. Radiance, S$6,980 a year, adds a quarterly RENEW, a dedicated 1-on-1 consultant, and the annual retreat.',
+      'ask.l.zodiac':'The Zodiac Lucky Oils are S$29.90 a bottle — twelve natural blends, one for each sign. Lovely as a small gift; you can pick one up at the studio or add it to any visit.',
+      'ask.l.safety':'Thank you for telling me — for anything involving pregnancy, medication, allergies or a health condition, I don’t make judgements or promises. I’ve passed your note to Rachel, our founder, who will reply personally; and please do keep your doctor’s guidance first. If you’d like, a gentle private consultation is a good first step.',
+      'ask.l.tea':'The Song-dynasty tea ceremony is hosted by Rachel herself — an intangible-heritage practice she trained in. S$88 per guest, about 90 minutes, up to 4 guests, tea and refreshments included. Many guests come in pairs; it’s a quiet, beautiful hour.',
+      'ask.l.ex1':'How much is the REST session?','ask.l.ex2':'Where are you located?','ask.l.ex3':'What do Flow members get?',
       'print.export':'Export summary','print.title':'This week with Rook','print.subtitle':'AI Growth Team · weekly owner summary','print.foot':'Rook demo — simulated data. Generated',
       'insights.leadsBookingsTitle':'Leads & bookings — last 30 days',
       'insights.leadsBookingsSub':'Daily counts across all channels',
@@ -190,7 +183,7 @@
       'tour.step8.title':'Data becomes strategy',
       'tour.step8.text':'Funnel, channel attribution (click a bar to see those customers), a 7-day forecast, unit economics, and a strategy card that says what to do this week — with its basis shown.',
       'tour.step9.title':'Day one takes 20 minutes',
-      'tour.step9.text':'Press play: files in, Business Brain built, sensitive items approved, live on WhatsApp. Then switch the industry at the top — same platform, different configuration.',
+      'tour.step9.text':'Press play: files in, Business Brain built, sensitive items approved, live on WhatsApp. Everything in this console was built from LANXIN House’s own brand deck, service bible and chat history.',
       'toast.switchedTemplate':'Switched template — same platform, configured for a {industry}',
       'toast.takenOverSys':'You took over — AI paused on this thread. It will keep logging and suggest replies.',
       'toast.handedBackSys':'Handed back to AI — it has the full context of your messages.',
@@ -249,7 +242,7 @@
     'title.marketing':'行銷自動化','title.social':'社群與品牌','title.reputation':'口碑與體驗',
     'title.brain':'業務知識庫','title.insights':'業務洞察','title.trust':'信任、權限與稽核',
     'title.setup':'設定 — 第一天','logo.tagline':'AI 增長團隊',
-    'industry.beauty':'美容工作室','industry.pets':'到府寵物美容',
+    'industry.lanxin':'LANXIN House 澜昕',
     'tour.button':'導覽','tour.running':'導覽進行中','sim.badge':'模擬數據',
     'aria.industryGroup':'示範行業','aria.langGroup':'語言',
     'today.briefButton':'查看您早上7點收到的WhatsApp訊息','today.opportunities':'今日商機',
@@ -285,7 +278,7 @@
     'customers.timelineDefault3':'收到6月的召回活動',
     'lc.all':'全部','lc.newLead':'新商機','lc.evaluating':'評估中','lc.converted':'已轉化',
     'lc.active':'活躍','lc.vip':'VIP','lc.dormant':'沉睡客戶','lc.churnRisk':'流失風險',
-    'channel.qr':'QR碼','channel.qrWalkin':'QR碼/到店','channel.vetQr':'獸醫診所QR碼','channel.referral':'轉介',
+    'channel.qr':'QR碼','channel.qrWalkin':'QR碼/到店','channel.referral':'轉介','channel.web':'網站',
     'marketing.needsDecision':'待決定/即將進行','marketing.recentlyCompleted':'近期已完成',
     'marketing.reach':'觸及人數（已授權）','marketing.estBookings':'預估預約數','marketing.estRevenue':'預估營收',
     'marketing.sendCost':'傳送成本','marketing.sent':'已傳送','marketing.replies':'回覆數',
@@ -355,30 +348,24 @@
     'setup.brandToast':'品牌已套用至整個主控台','setup.brandResetToast':'品牌已還原為範例商家',
     'intro.aria':'歡迎使用 Rook','intro.title':'為您的店舖打造的 24/7 AI 成長團隊',
     'intro.body':'Rook 會回覆顧客訊息、跟進商機、處理評價並執行行銷活動——全部依據您自己的價格與政策，敏感事項則由您核准。這是店主的主控台。',
-    'intro.b1t':'切換行業。','intro.b1':'頂部工具列——同一套主控台可配置為美容工作室或到府寵物美容。',
+    'intro.b1t':'為 LANXIN House 量身配置。','intro.b1':'每個畫面都基於澜昕自己的服務、會員體系、政策與品牌語氣——取自品牌手冊與 Agent 方案。',
     'intro.b2t':'切換語言。','intro.b2':'英文、繁體或簡體中文——介面與內容皆會翻譯。',
     'intro.b3t':'切換配色。','intro.b3':'透過頂部工具列的圓點選擇三種藍色主題。',
     'intro.simNote':'此處所有內容皆為逼真但模擬的示範資料——沒有真實訊息或顧客。',
     'intro.explore':'我自己探索','intro.tour':'進行 2 分鐘導覽','intro.help':'關於此示範',
-    'ask.title':'向助理提問','ask.send':'提問','ask.clear':'清除','ask.placeholder':'例如：光療指甲多少錢？',
+    'ask.title':'向助理提問','ask.send':'提問','ask.clear':'清除','ask.placeholder':'例如：歸息一次多少錢？',
     'customers.noMatch':'沒有符合此篩選條件的客戶。',
     'ask.sub':'輸入任何顧客可能會問的問題。AI 只會根據本店的知識回答、標註來源，遇到不確定的問題會轉交員工而非臆測。',
     'ask.escChip':'已轉交員工——AI 不會臆測',
     'ask.fallback':'本店知識中沒有這個問題的確切答案，因此我已轉交團隊——他們會親自跟進您。',
-    'ask.b.price':'經典光療指甲 $68、BIAB $88、光療延甲 $118。首次到訪可享 85 折（不可疊加）。',
-    'ask.b.hours':'我們週二至週日 10:30–20:30 營業，週一公休。',
-    'ask.b.book':'很樂意為您預約——$20 訂金即可保留時段，並會從最終帳單中扣抵。請問哪天方便、想做哪項服務？',
-    'ask.b.men':'當然——我們提供男士美甲與臉部護理；約每 5 位美甲客人就有 1 位是男性。',
-    'ask.b.preg':'睫毛與眉部服務在做過皮膚測試後可進行，孕期我們會避免某些臉部酸類。也請您先諮詢醫生——我們無法提供醫療保證。',
-    'ask.b.obj':'我理解。我們使用日本品牌光療膠並提供免費卸甲，首次到訪還有 85 折——通常比表面看起來更划算。要我為您保留時段嗎？',
-    'ask.b.ex1':'光療指甲多少錢？','ask.b.ex2':'週日幾點開門？','ask.b.ex3':'有做男士臉部護理嗎？',
-    'ask.p.price':'美容依體型與毛況計價——完整美容小型犬約 $78，大型犬最高 $138。同一地址 2 隻以上寵物可享 9 折。',
-    'ask.p.vax':'首次到訪需提供核心疫苗接種證明——預約後傳一張疫苗手冊照片即可。',
-    'ask.p.injury':'非常抱歉聽到這個情況。若有出血、跛行或不適，請密切觀察，症狀持續請就醫——我現在就轉交店主與您聯繫。',
-    'ask.p.sedation':'為了寵物安全，我們絕不使用鎮靜。焦慮、具攻擊性或高齡的寵物，預約前需先安排美容師評估通話。',
-    'ask.p.zones':'我們服務全島，共兩台車（西北區與東北區）。請提供郵遞區號，我會查看路線並提供時段（聖淘沙加收 $15）。',
-    'ask.p.deposit':'$20 訂金即可確認車位，出發前 24 小時可退。未付款的保留將於 12 小時後自動釋出。',
-    'ask.p.ex1':'大型犬美容多少錢？','ask.p.ex2':'需要疫苗紀錄嗎？','ask.p.ex3':'你們服務哪些區域？',
+    'ask.l.price':'我們的恢復旅程：歸息 REST $268（120分鐘）、歸衡 BALANCE $288（120分鐘）、旗艦歸元 RENEW $428（180分鐘）。精油芳療 $198、能量療癒 $228、一對一私訂精油 $138，十二星座開運精油每瓶 S$29.90。首次到訪會先有私密諮詢與迎賓茶。',
+    'ask.l.hours':'我們位於 6 Eu Tong Sen Street, #09-18 The Central SOHO 1（克拉碼頭地鐵站G出口），每日 10:00–19:00，採預約制。請提早10分鐘到，迎賓茶會先備好。',
+    'ask.l.book':'很樂意為您安排——我們採預約制，每日 10:00–19:00。$20 訂金即可保留您的房間，會從帳單中扣抵，24小時前可全額退。想選哪一天、哪一段旅程呢？',
+    'ask.l.member':'Bloom 每季 S$1,380（會員價、生日草本禮盒、入會香氛套裝）。Flow 每季 S$1,999，另含每月一次歸息與茶道花藝沙龍。Radiance 每年 S$6,980，再加每季一次歸元、一對一專屬顧問，以及年度海外禪修。',
+    'ask.l.zodiac':'十二星座開運精油每瓶 S$29.90——十二款天然調配，每個星座一款。很適合作為小禮物；可以到店選購，或在任何一次到訪時帶走。',
+    'ask.l.safety':'謝謝您告訴我——凡涉及孕期、用藥、過敏或身體狀況，我不會作判斷或承諾。我已把您的情況轉給創辦人澜昕老師，她會親自回覆您；也請以醫生的建議為先。若您願意，先來一次輕鬆的私人諮詢會是很好的開始。',
+    'ask.l.tea':'宋代點茶體驗由澜昕老師親自主持——她是非遺宋代點茶的習修者。每位 S$88，約90分鐘，至多4位，含茶點。許多客人結伴前來，是很安靜、很美的一小時。',
+    'ask.l.ex1':'歸息一次多少錢？','ask.l.ex2':'你們在哪裡？','ask.l.ex3':'Flow 會員有什麼權益？',
     'print.export':'匯出摘要','print.title':'本週 Rook 摘要','print.subtitle':'AI 成長團隊 · 每週店主摘要','print.foot':'Rook 示範——模擬資料。產生於',
     'insights.leadsBookingsTitle':'商機與預約 — 近30天',
     'insights.leadsBookingsSub':'各通路每日數據',
@@ -418,7 +405,7 @@
     'tour.step8.title':'數據轉化為策略',
     'tour.step8.text':'銷售漏斗、通路歸因（點擊柱狀圖可查看對應客戶）、7天預測、單位經濟效益，以及一張說明本週該做什麼的策略卡片——並附上其依據。',
     'tour.step9.title':'第一天只需20分鐘',
-    'tour.step9.text':'按下播放：上傳文件、自動建立業務知識庫、核准敏感內容、在WhatsApp上線。然後在頂部切換行業——同一個平台，不同的設定。',
+    'tour.step9.text':'按下播放：上傳文件、自動建立業務知識庫、核准敏感內容、在WhatsApp上線。這套主控台的一切，都來自 LANXIN House 自己的品牌手冊、服務標準與聊天紀錄。',
     'toast.switchedTemplate':'已切換範本——同一平台，設定為{industry}',
     'toast.takenOverSys':'您已接手處理——AI在此對話中暫停，它會持續記錄並提供回覆建議。',
     'toast.handedBackSys':'已交還給AI——AI已掌握您訊息的完整脈絡。',
@@ -476,7 +463,7 @@
     'title.marketing':'营销自动化','title.social':'社交媒体与品牌','title.reputation':'口碑与体验',
     'title.brain':'业务知识库','title.insights':'业务洞察','title.trust':'信任、权限与审计',
     'title.setup':'设置 — 第一天','logo.tagline':'AI 增长团队',
-    'industry.beauty':'美容工作室','industry.pets':'上门宠物美容',
+    'industry.lanxin':'LANXIN House 澜昕',
     'tour.button':'导览','tour.running':'导览进行中','sim.badge':'模拟数据',
     'aria.industryGroup':'演示行业','aria.langGroup':'语言',
     'today.briefButton':'查看您早上7点收到的WhatsApp消息','today.opportunities':'今日商机',
@@ -512,7 +499,7 @@
     'customers.timelineDefault3':'收到6月的召回活动',
     'lc.all':'全部','lc.newLead':'新商机','lc.evaluating':'评估中','lc.converted':'已转化',
     'lc.active':'活跃','lc.vip':'VIP','lc.dormant':'沉睡客户','lc.churnRisk':'流失风险',
-    'channel.qr':'二维码','channel.qrWalkin':'二维码/到店','channel.vetQr':'兽医诊所二维码','channel.referral':'转介绍',
+    'channel.qr':'二维码','channel.qrWalkin':'二维码/到店','channel.referral':'转介绍','channel.web':'网站',
     'marketing.needsDecision':'待决定/即将进行','marketing.recentlyCompleted':'近期已完成',
     'marketing.reach':'触达人数（已授权）','marketing.estBookings':'预估预约数','marketing.estRevenue':'预估营收',
     'marketing.sendCost':'发送成本','marketing.sent':'已发送','marketing.replies':'回复数',
@@ -582,30 +569,24 @@
     'setup.brandToast':'品牌已应用至整个控制台','setup.brandResetToast':'品牌已还原为示例商家',
     'intro.aria':'欢迎使用 Rook','intro.title':'为您的店铺打造的 24/7 AI 增长团队',
     'intro.body':'Rook 会回复顾客消息、跟进商机、处理评价并执行营销活动——全部依据您自己的价格与政策，敏感事项则由您批准。这是店主的控制台。',
-    'intro.b1t':'切换行业。','intro.b1':'顶部工具栏——同一套控制台可配置为美容工作室或上门宠物美容。',
+    'intro.b1t':'为 LANXIN House 量身配置。','intro.b1':'每个画面都基于澜昕自己的服务、会员体系、政策与品牌语气——取自品牌手册与 Agent 方案。',
     'intro.b2t':'切换语言。','intro.b2':'英文、繁体或简体中文——界面与内容都会翻译。',
     'intro.b3t':'切换配色。','intro.b3':'通过顶部工具栏的圆点选择三种蓝色主题。',
     'intro.simNote':'此处所有内容均为逼真但模拟的演示数据——没有真实消息或顾客。',
     'intro.explore':'自行探索','intro.tour':'进行 2 分钟导览','intro.help':'关于此演示',
-    'ask.title':'向助理提问','ask.send':'提问','ask.clear':'清除','ask.placeholder':'例如：光疗指甲多少钱？',
+    'ask.title':'向助理提问','ask.send':'提问','ask.clear':'清除','ask.placeholder':'例如：归息一次多少钱？',
     'customers.noMatch':'没有符合此筛选条件的客户。',
     'ask.sub':'输入任何顾客可能会问的问题。AI 只会根据本店的知识回答、标注来源，遇到不确定的问题会转交员工而非臆测。',
     'ask.escChip':'已转交员工——AI 不会臆测',
     'ask.fallback':'本店知识中没有这个问题的确切答案，因此我已转交团队——他们会亲自跟进您。',
-    'ask.b.price':'经典光疗指甲 $68、BIAB $88、光疗延甲 $118。首次到访可享 85 折（不可叠加）。',
-    'ask.b.hours':'我们周二至周日 10:30–20:30 营业，周一公休。',
-    'ask.b.book':'很乐意为您预约——$20 订金即可保留时段，并会从最终账单中扣抵。请问哪天方便、想做哪项服务？',
-    'ask.b.men':'当然——我们提供男士美甲与面部护理；约每 5 位美甲客人就有 1 位是男性。',
-    'ask.b.preg':'睫毛与眉部服务在做过皮肤测试后可进行，孕期我们会避免某些面部酸类。也请您先咨询医生——我们无法提供医疗保证。',
-    'ask.b.obj':'我理解。我们使用日本品牌光疗胶并提供免费卸甲，首次到访还有 85 折——通常比表面看起来更划算。要我为您保留时段吗？',
-    'ask.b.ex1':'光疗指甲多少钱？','ask.b.ex2':'周日几点开门？','ask.b.ex3':'有做男士面部护理吗？',
-    'ask.p.price':'美容按体型与毛况计价——完整美容小型犬约 $78，大型犬最高 $138。同一地址 2 只以上宠物可享 9 折。',
-    'ask.p.vax':'首次到访需提供核心疫苗接种证明——预约后发一张疫苗手册照片即可。',
-    'ask.p.injury':'非常抱歉听到这个情况。若有出血、跛行或不适，请密切观察，症状持续请就医——我现在就转交店主与您联系。',
-    'ask.p.sedation':'为了宠物安全，我们绝不使用镇静。焦虑、具攻击性或高龄的宠物，预约前需先安排美容师评估通话。',
-    'ask.p.zones':'我们服务全岛，共两台车（西北区与东北区）。请提供邮政编码，我会查看路线并提供时段（圣淘沙加收 $15）。',
-    'ask.p.deposit':'$20 订金即可确认车位，出发前 24 小时可退。未付款的保留将于 12 小时后自动释出。',
-    'ask.p.ex1':'大型犬美容多少钱？','ask.p.ex2':'需要疫苗记录吗？','ask.p.ex3':'你们服务哪些区域？',
+    'ask.l.price':'我们的恢复旅程：归息 REST $268（120分钟）、归衡 BALANCE $288（120分钟）、旗舰归元 RENEW $428（180分钟）。精油芳疗 $198、能量疗愈 $228、一对一私订精油 $138，十二星座开运精油每瓶 S$29.90。首次到访会先有私密咨询与迎宾茶。',
+    'ask.l.hours':'我们位于 6 Eu Tong Sen Street, #09-18 The Central SOHO 1（克拉码头地铁站G出口），每日 10:00–19:00，采预约制。请提早10分钟到，迎宾茶会先备好。',
+    'ask.l.book':'很乐意为您安排——我们采预约制，每日 10:00–19:00。$20 订金即可保留您的房间，会从账单中扣抵，24小时前可全额退。想选哪一天、哪一段旅程呢？',
+    'ask.l.member':'Bloom 每季 S$1,380（会员价、生日草本礼盒、入会香氛套装）。Flow 每季 S$1,999，另含每月一次归息与茶道花艺沙龙。Radiance 每年 S$6,980，再加每季一次归元、一对一专属顾问，以及年度海外禅修。',
+    'ask.l.zodiac':'十二星座开运精油每瓶 S$29.90——十二款天然调配，每个星座一款。很适合作为小礼物；可以到店选购，或在任何一次到访时带走。',
+    'ask.l.safety':'谢谢您告诉我——凡涉及孕期、用药、过敏或身体状况，我不会作判断或承诺。我已把您的情况转给创始人澜昕老师，她会亲自回复您；也请以医生的建议为先。若您愿意，先来一次轻松的私人咨询会是很好的开始。',
+    'ask.l.tea':'宋代点茶体验由澜昕老师亲自主持——她是非遗宋代点茶的习修者。每位 S$88，约90分钟，至多4位，含茶点。许多客人结伴前来，是很安静、很美的一小时。',
+    'ask.l.ex1':'归息一次多少钱？','ask.l.ex2':'你们在哪里？','ask.l.ex3':'Flow 会员有什么权益？',
     'print.export':'导出摘要','print.title':'本周 Rook 摘要','print.subtitle':'AI 增长团队 · 每周店主摘要','print.foot':'Rook 演示——模拟数据。生成于',
     'insights.leadsBookingsTitle':'商机与预约 — 近30天',
     'insights.leadsBookingsSub':'各渠道每日数据',
@@ -645,7 +626,7 @@
     'tour.step8.title':'数据转化为策略',
     'tour.step8.text':'销售漏斗、渠道归因（点击柱状图可查看对应客户）、7天预测、单位经济效益，以及一张说明本周该做什么的策略卡片——并附上其依据。',
     'tour.step9.title':'第一天只需20分钟',
-    'tour.step9.text':'按下播放：上传文件、自动建立业务知识库、批准敏感内容、在WhatsApp上线。然后在顶部切换行业——同一个平台，不同的配置。',
+    'tour.step9.text':'按下播放：上传文件、自动建立业务知识库、批准敏感内容、在WhatsApp上线。这套控制台的一切，都来自 LANXIN House 自己的品牌手册、服务标准与聊天记录。',
     'toast.switchedTemplate':'已切换模板——同一平台，配置为{industry}',
     'toast.takenOverSys':'您已接手处理——AI在此对话中暂停，它会持续记录并提供回复建议。',
     'toast.handedBackSys':'已交还给AI——AI已掌握您消息的完整脉络。',
@@ -720,14 +701,14 @@
   const LIFECYCLE_KEY = { All:'lc.all','New lead':'lc.newLead',Evaluating:'lc.evaluating',Converted:'lc.converted',
     Active:'lc.active',VIP:'lc.vip',Dormant:'lc.dormant','Churn risk':'lc.churnRisk' };
   const lcLabel = (v) => t(LIFECYCLE_KEY[v] || v);
-  const CHANNEL_KEY = { 'QR code':'channel.qr','QR / walk-in':'channel.qrWalkin','Vet-clinic QR':'channel.vetQr','Referral':'channel.referral' };
+  const CHANNEL_KEY = { 'QR code':'channel.qr','QR / walk-in':'channel.qrWalkin','Referral':'channel.referral','Web':'channel.web' };
   const chLabel = (v) => t(CHANNEL_KEY[v] || v);
 
   const state = {
-    lang:'en',
-    industry:'beauty',
+    lang:'zh-Hans',
+    industry:'lanxin',
     view:'today',
-    convId:'v-priya',
+    convId:'vl-ava',
     mobilePane:'list',
     custFilter:'All',
     custChannel: null,
@@ -1630,21 +1611,14 @@
   // "Ask the assistant" — keyword → grounded answer + citation, else escalate.
   // Demonstrates the grounding story interactively without a live LLM.
   const ASK = {
-    beauty: [
-      { kw: ['price','cost','how much','$','expensive','cheap','rate','charge'], aKey:'ask.b.price', kb:'kb-price' },
-      { kw: ['hour','open','close','when','sunday','monday','today'], aKey:'ask.b.hours', kb:'kb-faq04' },
-      { kw: ['book','appointment','appt','slot','available','reserve','deposit'], aKey:'ask.b.book', kb:'kb-r03' },
-      { kw: ['men','man','male','guy','husband','boyfriend'], aKey:'ask.b.men', kb:'kb-faq04' },
-      { kw: ['pregnan','expecting'], aKey:'ask.b.preg', kb:'kb-preg' },
-      { kw: ['discount','worth','promo','cheaper','too much','value'], aKey:'ask.b.obj', kb:'kb-obj' },
-    ],
-    pets: [
-      { kw: ['price','cost','how much','$','rate','large','small','size','charge'], aKey:'ask.p.price', kb:'kb-p-price' },
-      { kw: ['vaccin','vax','jab','shot'], aKey:'ask.p.vax', kb:'kb-p-vax' },
-      { kw: ['injur','bleed','hurt','limp','wound','cut','distress'], aKey:'ask.p.injury', kb:'kb-p-s01' },
-      { kw: ['sedat','anxious','aggressive','senior','bite'], aKey:'ask.p.sedation', kb:'kb-p-s02' },
-      { kw: ['area','zone','postal','where','come to','cover','location','sentosa'], aKey:'ask.p.zones', kb:'kb-p-zones' },
-      { kw: ['deposit','hold','cancel','refund'], aKey:'ask.p.deposit', kb:'kb-p-d02' },
+    lanxin: [
+      { kw: ['pregnan','怀孕','孕','medication','药','medical','allerg','过敏','insomnia treat','cure','治','diagnos'], aKey:'ask.l.safety', kb:'kb-safety' },
+      { kw: ['member','bloom','flow','radiance','会员','會員'], aKey:'ask.l.member', kb:'kb-member' },
+      { kw: ['zodiac','star sign','libra','pisces','星座','精油瓶'], aKey:'ask.l.zodiac', kb:'kb-price' },
+      { kw: ['tea','点茶','點茶','茶道','ceremony'], aKey:'ask.l.tea', kb:'kb-price' },
+      { kw: ['price','cost','how much','$','rate','charge','多少钱','多少錢','价格','價格','收费','收費'], aKey:'ask.l.price', kb:'kb-price' },
+      { kw: ['hour','open','close','where','address','location','mrt','地址','几点','幾點','营业','營業'], aKey:'ask.l.hours', kb:'kb-arrival' },
+      { kw: ['book','appointment','appt','slot','available','reserve','deposit','预约','預約','订金','訂金'], aKey:'ask.l.book', kb:'kb-fj' },
     ],
   };
   const kbTitle = (id) => { const k = D.knowledge.find((x) => x.id === id); return k? td(k.title):''; };
@@ -1657,7 +1631,7 @@
     render();
   }
   function askSection() {
-    const ex = state.industry ==='pets'? ['ask.p.ex1','ask.p.ex2','ask.p.ex3']: ['ask.b.ex1','ask.b.ex2','ask.b.ex3'];
+    const ex = ['ask.l.ex1','ask.l.ex2','ask.l.ex3'];
     const log = state.askLog.map((it) => {
       const ai = it.escalate
 ? `<div class="msg ai">${t('ask.fallback')}<br><span class="cite esc"><span class="cite-k">●</span> ${t('ask.escChip')}</span></div>`
@@ -1940,7 +1914,7 @@
     </svg>`;
   }
 
-  const DRILL_MAP = {'QR / walk-in':'QR code','Vet-clinic QR':'QR code' };
+  const DRILL_MAP = {'QR / walk-in':'QR code' };
   function channelChart() {
     const W = 460, rowH = 30, gap = 6, L = 88, R = 92;
     const max = Math.max(...D.channels.map((c) => c.leads));
@@ -2274,7 +2248,7 @@
     state.finPeriod ='month';
     state.askLog = [];
     render();
-    toast(t('toast.switchedTemplate', { industry: t(id ==='pets'?'industry.pets':'industry.beauty') }));
+    toast(t('toast.switchedTemplate', { industry: t('industry.' + id) }));
   }
 
   // ---------- events ----------

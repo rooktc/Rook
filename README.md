@@ -28,15 +28,14 @@ Everything in the demo is **simulated, deterministic data**, frozen at
 Fri 10 Jul 2026, 8:05 AM SGT. There is no backend and no live LLM; the
 "Simulate a live inquiry" and onboarding sequences are scripted.
 
-The demo ships **two industry templates** (switcher in the top bar) to prove
-the RFP's horizontal-platform claim — same console, same modules, different
-configuration:
-
-- **Glow Theory Studio** — in-store beauty (nails/lashes/facials, Tanjong
-  Pagar): group bookings, deposits, off-peak campaigns.
-- **Whisker & Wag** — mobile pet grooming (on-site/dispatch): postal-code →
-  van routing, time windows, pet-safety hand-offs (injury reports, sedation
-  questions), vaccination rules.
+The demo is configured for the client brand **LANXIN House** (women-only
+body-mind sanctuary, The Central SOHO 1, Singapore) — built from the client's
+own brand deck, Agent product plan (including its 20 TEST customers, expanded
+with more scenarios), and the flora-visage.com site audit. See
+`lanxin-onboarding-plan.md` for the source review and fact boundaries.
+Membership and zodiac-oil prices are the client's published figures;
+single-session rates are clearly-flagged simulated placeholders pending owner
+confirmation. The console opens in 简体中文 (EN / 繁中 one click away).
 
 Press **Tour** in the top bar for a guided 9-step walkthrough.
 
