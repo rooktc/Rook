@@ -1,6 +1,9 @@
-# 4Dlabs 官網初稿 (draft v0.1)
+# 4Dlabs 官網初稿 (draft v0.2)
 
-依《4Dlabs 官網修改建議書》(v1.0, 2026-07-31) 製作的網站初稿。
+依《4Dlabs 官網修改建議書》(v1.0, 2026-07-31) 製作的網站初稿，並經兩輪
+設計審查迭代（多代理驗收 59 項 → 修正；藝術指導 delta 複審 → 修正），
+向一線 AI 官網（Scale / Physical Intelligence / Figure）的工藝標準對齊，
+同時保留原稿的液態金屬 monochrome 藝術方向。
 純靜態、無建置工具——直接用瀏覽器開啟 `index.html` 即可預覽。
 
 ```sh
@@ -14,6 +17,25 @@ open 4dlabs-site/index.html
 | `index.html` | 全站單頁（語意化 HTML、SEO/OG meta、favicon 內嵌） |
 | `styles.css` | Design tokens、CTA 系統、RWD（375/768/1280/1536 已驗證無水平溢出） |
 | `app.js` | 漸進增強：手機選單、B2B accordion、捲動 reveal（尊重 `prefers-reduced-motion`） |
+| `fonts/space-grotesk-latin.woff2` | 展示字體（variable 300–700，OFL 授權，自託管零外部請求） |
+| `fonts/inter-latin.woff2` | 內文字體（Inter variable，OFL 授權，自託管） |
+
+## 視覺系統（v0.2 迭代後）
+
+- **原稿風格保留**：液態金屬 monochrome、全大寫寬字距展示標題、等高線
+  背景語言、膠片顆粒、鉻金屬漸層文字（H1／統計數字／結尾標題）、
+  Hero「雙手＋方塊」構圖佔位、線框幾何圖示家族。內文維持 sentence case
+  與 WCAG AA 可讀性（建議書 P0）。
+- **字體**：展示層 Space Grotesk（標題／按鈕／導覽／數字），內文 Inter——
+  兩者皆自託管，任何平台都不落入系統 fallback。
+- **Logo**：線框等距方塊 monogram（導覽／footer／favicon 一致，呼應 Hero 幾何）。
+- **背景**：單一 `#0A0A0A` 連續場域＋一致 hairline 分隔（不用斑馬紋色帶）；
+  中段區塊帶低透明度等高線氛圍。
+- **CTA 紀律**：cyan 實心＝貢獻者轉換動線（nav／hero「Start contributing」、
+  「Join alpha」）；B 端一律描邊；三級文字連結為銀色、hover 才轉 cyan；
+  每屏至多一個 accent 焦點。
+- **編號系統**：全站統一 mono 小徽章、補零（01–05 管線、01/02 產品、
+  01–03 步驟、01–06 B2B）。
 
 ## 建議書對照：這一版做了什麼
 

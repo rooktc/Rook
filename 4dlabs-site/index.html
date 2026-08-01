@@ -11,7 +11,7 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0A'/%3E%3Cpath d='M9 21V11l7 10 7-10v10' stroke='%232AD4FF' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0A'/%3E%3Cpath d='M16 6.5 L24.5 11.25 V20.75 L16 25.5 L7.5 20.75 V11.25 Z M7.5 11.25 L16 16 L24.5 11.25 M16 16 V25.5' fill='none' stroke='%232AD4FF' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
   <header class="site-header" id="top">
     <nav class="nav container" aria-label="Main">
       <a class="brand" href="#top" aria-label="4Dlabs home">
-        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 21V11l7 10 7-10v10" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 7.5 L23.5 11.75 V20.25 L16 24.5 L8.5 20.25 V11.75 Z M8.5 11.75 L16 16 L23.5 11.75 M16 16 V24.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
         <span class="brand-name">4Dlabs</span>
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
@@ -53,13 +53,31 @@
          ⑥ stats bar ⑦ backers row
          ============================================================ -->
     <section class="hero">
-      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg" aria-hidden="true">
+        <svg class="contour contour-l" viewBox="0 0 280 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g fill="none" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1">
+            <path d="M236,-20 C146,90 246,210 166,330 C106,430 206,530 146,660"/>
+            <path d="M254,-20 C164,90 264,210 184,330 C124,430 224,530 164,660"/>
+            <path d="M272,-20 C182,90 282,210 202,330 C142,430 242,530 182,660"/>
+            <path d="M218,-20 C128,90 228,210 148,330 C88,430 188,530 128,660"/>
+            <path d="M200,-20 C110,90 210,210 130,330 C70,430 170,530 110,660"/>
+            <path d="M182,-20 C92,90 192,210 112,330 C52,430 152,530 92,660"/>
+          </g>
+        </svg>
+        <svg class="contour contour-r" viewBox="0 0 280 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g fill="none" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1">
+            <path d="M236,-20 C146,90 246,210 166,330 C106,430 206,530 146,660"/>
+            <path d="M254,-20 C164,90 264,210 184,330 C124,430 224,530 164,660"/>
+            <path d="M272,-20 C182,90 282,210 202,330 C142,430 242,530 182,660"/>
+            <path d="M218,-20 C128,90 228,210 148,330 C88,430 188,530 128,660"/>
+            <path d="M200,-20 C110,90 210,210 130,330 C70,430 170,530 110,660"/>
+            <path d="M182,-20 C92,90 192,210 112,330 C52,430 152,530 92,660"/>
+          </g>
+        </svg>
+      </div>
       <div class="container hero-inner">
-        <p class="eyebrow hero-eyebrow">
-          <svg class="eyebrow-logo" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.4 10.4 8 5.6l2.6 4.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Backed by YZi Labs
-        </p>
-        <h1 class="hero-title">From <span class="q">“</span>Seeing<span class="q">”</span> to <span class="q">“</span>Doing<span class="q">”</span></h1>
+        <p class="eyebrow hero-eyebrow">Backed by YZi Labs</p>
+        <h1 class="hero-title metal">From <span class="q">“</span>Seeing<span class="q">”</span> to <span class="q">“</span>Doing<span class="q">”</span></h1>
         <p class="hero-sub">Turn real-world human demonstrations into robot-ready training data&nbsp;— anyone with a phone can contribute.</p>
         <div class="cta-row">
           <a class="btn btn-accent btn-lg" href="#contribute">Start contributing</a>
@@ -70,22 +88,91 @@
              The frame below is a stand-in; drop the production render/video here. -->
         <figure class="hero-visual" aria-label="Hero visual placeholder">
           <div class="asset-slot hero-asset">
-            <svg class="hero-art" viewBox="0 0 720 300" role="img" aria-label="Placeholder for the existing hero render: a human hand and a robotic hand reaching toward a floating data cube">
+            <svg class="hero-art" viewBox="0 0 760 340" role="img" aria-label="Placeholder for the existing hero render: a human hand and a robotic hand reaching toward a floating chrome data cube">
               <defs>
-                <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#3a3a40"/><stop offset=".5" stop-color="#77777e"/><stop offset="1" stop-color="#2a2a2e"/>
+                <linearGradient id="hxTop" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#F0F0F4"/><stop offset="1" stop-color="#A4A4AE"/>
                 </linearGradient>
+                <linearGradient id="hxR" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#8E8E98"/><stop offset="1" stop-color="#45454E"/>
+                </linearGradient>
+                <linearGradient id="hxL" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#5C5C66"/><stop offset="1" stop-color="#2A2A32"/>
+                </linearGradient>
+                <linearGradient id="hxHandL" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#585862"/><stop offset="1" stop-color="#DADAE2"/>
+                </linearGradient>
+                <linearGradient id="hxHandR" x1="1" y1="0" x2="0" y2="0">
+                  <stop offset="0" stop-color="#585862"/><stop offset="1" stop-color="#DADAE2"/>
+                </linearGradient>
+                <radialGradient id="hxGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.16"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+                </radialGradient>
               </defs>
-              <g fill="none" stroke="url(#hg)" stroke-width="1.6">
-                <path d="M40 210c60-16 120-34 168-40M64 236c62-22 118-38 158-48M100 258c52-22 96-36 130-46" opacity=".8"/>
-                <path d="M680 210c-60-16-120-34-168-40M656 236c-62-22-118-38-158-48M620 258c-52-22-96-36-130-46" opacity=".8"/>
-                <g stroke="#9a9aa2">
-                  <path d="M360 96l64 36v72l-64 36-64-36v-72z"/>
-                  <path d="M296 132l64 36 64-36M360 168v72"/>
-                </g>
-                <path d="M360 60v22M414 84l14-10M306 84l-14-10" stroke="#5ad9f0" opacity=".7"/>
+
+              <!-- floor rings -->
+              <ellipse cx="380" cy="294" rx="292" ry="34" fill="none" stroke="#222228"/>
+              <ellipse cx="380" cy="294" rx="188" ry="22" fill="none" stroke="#1C1C22"/>
+              <ellipse cx="380" cy="272" rx="130" ry="18" fill="url(#hxGlow)"/>
+
+              <!-- human hand — flowing contour strokes (left) -->
+              <g fill="none" stroke="url(#hxHandL)" stroke-width="1.4" opacity=".85" stroke-linecap="round">
+                <path d="M18,238 C110,230 200,212 262,196 C284,190 296,184 304,178"/>
+                <path d="M18,256 C116,246 206,226 268,206 C288,199 300,192 307,186"/>
+                <path d="M24,274 C126,262 214,238 276,216 C293,209 303,201 309,194"/>
+                <path d="M38,292 C140,278 226,250 284,226 C299,219 307,210 312,202"/>
+                <path d="M62,308 C160,294 240,262 292,236 C304,229 311,219 315,210"/>
+                <path d="M304,178 L296,164 M307,186 L322,176 M309,194 L326,188" stroke-width="1.1"/>
               </g>
-              <g fill="#5b5b62"><circle cx="250" cy="120" r="2"/><circle cx="470" cy="110" r="2"/><circle cx="210" cy="170" r="1.5"/><circle cx="510" cy="170" r="1.5"/><circle cx="330" cy="70" r="1.5"/><circle cx="410" cy="64" r="1.5"/></g>
+
+              <!-- robot hand — segmented strokes with joints (right) -->
+              <g fill="none" stroke="url(#hxHandR)" stroke-width="1.4" opacity=".85" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M742,238 L650,222 L574,204 L516,190 L458,178"/>
+                <path d="M742,256 L654,240 L578,220 L520,203 L455,188"/>
+                <path d="M736,274 L656,256 L582,236 L524,217 L452,198"/>
+                <path d="M722,292 L652,274 L584,252 L528,231 L450,209"/>
+                <path d="M698,308 L646,290 L586,266 L532,244 L448,220"/>
+                <circle cx="650" cy="222" r="2.6"/><circle cx="574" cy="204" r="2.6"/>
+                <circle cx="654" cy="240" r="2.6"/><circle cx="578" cy="220" r="2.6"/>
+                <circle cx="656" cy="256" r="2.6"/><circle cx="582" cy="236" r="2.6"/>
+                <path d="M458,178 L466,164 M455,188 L438,180 M452,198 L436,192" stroke-width="1.1"/>
+              </g>
+
+              <!-- contact spark between fingertips and cube -->
+              <g stroke="#EAEAEE" stroke-width="1" opacity=".9">
+                <path d="M330,170 v-9 M330,170 l8,5 M330,170 l-8,5"/>
+                <path d="M432,176 v-8 M432,176 l7,4 M432,176 l-7,4" opacity=".7"/>
+              </g>
+
+              <!-- chrome cube + satellites -->
+              <g class="hero-cube">
+                <polygon points="380,92 450,130 380,168 310,130" fill="url(#hxTop)"/>
+                <polygon points="450,130 450,210 380,248 380,168" fill="url(#hxR)"/>
+                <polygon points="310,130 310,210 380,248 380,168" fill="url(#hxL)"/>
+                <path d="M310,130 L380,92 L450,130" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="1"/>
+                <path d="M310,130 L310,210 L380,248 L450,210 L450,130" fill="none" stroke="#FFFFFF" stroke-opacity=".1"/>
+                <g fill="none" stroke="#8A8A94" stroke-width="1">
+                  <polygon points="514,104 532,113 514,122 496,113"/>
+                  <path d="M496,113 L496,131 L514,140 L532,131 L532,113 M514,122 L514,140"/>
+                </g>
+                <g fill="none" stroke="#63636D" stroke-width="1">
+                  <polygon points="250,176 264,183 250,190 236,183"/>
+                  <path d="M236,183 L236,197 L250,204 L264,197 L264,183 M250,190 L250,204"/>
+                </g>
+              </g>
+
+              <!-- HUD marks + drift particles -->
+              <g stroke="#4A4A54" stroke-width="1">
+                <path d="M175,118 h14"/>
+                <path d="M581,94 h14"/>
+                <path d="M296,58 h12"/>
+                <path d="M472,50 h12"/>
+              </g>
+              <g fill="#5A5A64">
+                <circle cx="218" cy="150" r="1.6"/><circle cx="545" cy="166" r="1.6"/>
+                <circle cx="352" cy="52" r="1.4"/><circle cx="420" cy="62" r="1.4"/>
+                <circle cx="162" cy="200" r="1.2"/><circle cx="600" cy="196" r="1.2"/>
+              </g>
             </svg>
             <span class="asset-tag">Asset slot — <span lang="zh-Hant">沿用現有 Hero 雙手＋方塊渲染</span> / demo video</span>
           </div>
@@ -102,12 +189,6 @@
         </dl>
         <p class="stats-note">Sample figures for layout review — wire to live metrics before launch.</p>
 
-        <!-- ⑦ Backers row -->
-        <div class="backers-row" role="group" aria-label="Backers">
-          <span class="backers-label">Backed by</span>
-          <span class="backer-logo">YZi Labs</span>
-          <span class="backer-logo backer-muted">More to announce</span>
-        </div>
       </div>
     </section>
 
@@ -116,11 +197,13 @@
          (left narrative, right pipeline diagram), results language.
          ============================================================ -->
     <section class="section" id="data-engine">
+      <div class="container">
+        <p class="eyebrow center">Core technology</p>
+        <h2 class="center">4D Fusion Data Engine</h2>
+        <p class="section-lede center">One pipeline from a phone clip to a robot-ready dataset: egocentric video, hand pose, depth and scene geometry fused into time-aligned 4D episodes.</p>
+      </div>
       <div class="container split">
         <div class="split-copy">
-          <p class="eyebrow">4D Fusion Data Engine</p>
-          <h2>One pipeline from a phone clip to a robot-ready dataset</h2>
-          <p class="lede">The engine fuses egocentric video, hand pose, depth and scene geometry into time-aligned 4D episodes — captured in the real world, processed automatically, and delivered in training-ready formats.</p>
           <ul class="check-list">
             <li><strong>Capture anywhere.</strong> Phones, DexUmi hardware and Ego Suite glasses feed one ingestion pipeline.</li>
             <li><strong>Automatic 4D reconstruction.</strong> Scene geometry, hand–object contact and action segments are extracted without manual labelling.</li>
@@ -157,7 +240,7 @@
           <article class="card">
             <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M10 26V14a3 3 0 0 1 6 0v-3a3 3 0 0 1 6 0v5m0 0v-2a3 3 0 0 1 6 0v6a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <h4>Hand–object interaction capture</h4>
-            <p>Fine-grained hand pose and contact states — the action labels robot manipulation policies actually train on.</p>
+            <p>Fine-grained hand pose and contact states — the labels manipulation policies train&nbsp;on.</p>
           </article>
           <article class="card">
             <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 16h22M16 5c4 3.5 4 18.5 0 22M16 5c-4 3.5-4 18.5 0 22" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -166,7 +249,7 @@
           </article>
         </div>
         <div class="cta-row center">
-          <a class="btn btn-outline" href="#contribute">Start contributing</a>
+          <a class="btn btn-outline" href="#contribute">How contribution works</a>
           <a class="btn btn-ghost" href="#for-business">License this data →</a>
         </div>
       </div>
@@ -177,10 +260,19 @@
          fake buttons) + real CTAs. P1: flagship Ego Suite gets its
          own full-width feature block.
          ============================================================ -->
-    <section class="section section-alt" id="products">
+    <section class="section section-alt has-atmo" id="products">
+      <svg class="contour contour-l" viewBox="0 0 280 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1">
+          <path d="M236,-20 C146,90 246,210 166,330 C106,430 206,530 146,660"/>
+          <path d="M254,-20 C164,90 264,210 184,330 C124,430 224,530 164,660"/>
+          <path d="M218,-20 C128,90 228,210 148,330 C88,430 188,530 128,660"/>
+          <path d="M200,-20 C110,90 210,210 130,330 C70,430 170,530 110,660"/>
+        </g>
+      </svg>
       <div class="container">
-        <p class="eyebrow center">Product matrix</p>
-        <h2 class="center">Hardware and apps that feed the data engine</h2>
+        <p class="eyebrow center">Products</p>
+        <h2 class="center">Product matrix</h2>
+        <p class="section-lede center">Hardware and apps that feed the data engine — every product is a capture surface for the same 4D pipeline.</p>
 
         <!-- Flagship: full-width feature row -->
         <article class="flagship">
@@ -194,15 +286,28 @@
             <p class="product-fit"><strong>For</strong> power contributors &amp; field teams · <strong>Collects</strong> egocentric video + gaze + hand pose + depth · <strong>Outputs</strong> long-horizon daily-task episodes</p>
             <div class="cta-row">
               <!-- TODO: swap mailto for the real waitlist form when it exists -->
-              <a class="btn btn-accent" href="mailto:bd@4dlabs.ai?subject=Ego%20Suite%20waitlist">Join waitlist</a>
+              <a class="btn btn-outline" href="mailto:bd@4dlabs.ai?subject=Ego%20Suite%20waitlist">Join waitlist</a>
               <a class="btn btn-ghost" href="mailto:bd@4dlabs.ai?subject=Ego%20Suite%20spec%20sheet">Request spec sheet →</a>
             </div>
           </div>
           <div class="asset-slot flagship-visual">
-            <svg viewBox="0 0 320 140" role="img" aria-label="Line drawing of Ego Suite smart glasses">
-              <g fill="none" stroke="#9a9aa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M40 62h240M52 62c-6 0-10 4-10 10v14c0 12 10 22 22 22h34c12 0 22-10 22-22V74c0-6 5-10 10-10h60c5 0 10 4 10 10v12c0 12 10 22 22 22h34c12 0 22-10 22-22V72c0-6-4-10-10-10"/>
-                <circle cx="96" cy="82" r="5" stroke="#5ad9f0"/><circle cx="224" cy="82" r="5" stroke="#5ad9f0"/>
+            <svg viewBox="0 0 320 150" role="img" aria-label="Stylised render of Ego Suite smart glasses with a chrome frame">
+              <defs>
+                <linearGradient id="egF" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#DCDCE4"/><stop offset=".55" stop-color="#84848E"/><stop offset="1" stop-color="#4C4C56"/>
+                </linearGradient>
+                <linearGradient id="egL" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#26262E"/><stop offset=".5" stop-color="#0E0E14"/><stop offset="1" stop-color="#2E2E38"/>
+                </linearGradient>
+              </defs>
+              <g stroke-linecap="round">
+                <path d="M50,62 L28,52 M270,62 L292,52" stroke="url(#egF)" stroke-width="5" fill="none"/>
+                <rect x="50" y="56" width="90" height="50" rx="22" fill="url(#egL)" stroke="url(#egF)" stroke-width="3.5"/>
+                <rect x="180" y="56" width="90" height="50" rx="22" fill="url(#egL)" stroke="url(#egF)" stroke-width="3.5"/>
+                <path d="M140,68 c8,-9 32,-9 40,0" fill="none" stroke="url(#egF)" stroke-width="4"/>
+                <path d="M64,98 L106,62" stroke="#FFFFFF" stroke-width="7" opacity=".1"/>
+                <path d="M194,98 L236,62" stroke="#FFFFFF" stroke-width="7" opacity=".1"/>
+                <circle cx="160" cy="58" r="2.6" fill="#2AD4FF"/>
               </g>
             </svg>
             <span class="asset-tag">Asset slot — Ego Suite <span lang="zh-Hant">實機渲染／實拍</span></span>
@@ -213,12 +318,27 @@
           <article class="card product-card">
             <span class="card-index">01</span>
             <div class="asset-slot product-visual">
-              <svg viewBox="0 0 220 130" role="img" aria-label="Line drawing of the DexUmi handheld capture device">
-                <g fill="none" stroke="#9a9aa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="88" y="70" width="44" height="48" rx="10"/>
-                  <path d="M96 70V46a8 8 0 0 1 16 0v18M112 62V38a8 8 0 0 1 16 0v24M110 118v-6"/>
-                  <circle cx="110" cy="92" r="7" stroke="#5ad9f0"/>
-                </g>
+              <svg viewBox="0 0 220 130" role="img" aria-label="Stylised render of the DexUmi handheld dexterous-capture device">
+                <defs>
+                  <linearGradient id="dxB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#C6C6CE"/><stop offset=".5" stop-color="#8A8A94"/><stop offset="1" stop-color="#50505A"/>
+                  </linearGradient>
+                  <linearGradient id="dxA" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0" stop-color="#8E8E98"/><stop offset="1" stop-color="#E6E6EC"/>
+                  </linearGradient>
+                </defs>
+                <!-- handle -->
+                <rect x="100" y="80" width="20" height="40" rx="9" fill="url(#dxB)"/>
+                <rect x="104" y="84" width="4" height="30" rx="2" fill="#FFFFFF" opacity=".14"/>
+                <!-- head -->
+                <rect x="83" y="56" width="54" height="26" rx="10" fill="url(#dxB)"/>
+                <rect x="87" y="60" width="46" height="7" rx="3.5" fill="#FFFFFF" opacity=".16"/>
+                <!-- parallel jaws -->
+                <path d="M92,58 L92,40 Q92,29 103,27" fill="none" stroke="url(#dxA)" stroke-width="7" stroke-linecap="round"/>
+                <path d="M128,58 L128,40 Q128,29 117,27" fill="none" stroke="url(#dxA)" stroke-width="7" stroke-linecap="round"/>
+                <!-- wrist camera -->
+                <circle cx="110" cy="70" r="7.5" fill="#0E0E14"/>
+                <circle cx="110" cy="70" r="3" fill="#2AD4FF"/>
               </svg>
               <span class="asset-tag">Asset slot — DexUmi <span lang="zh-Hant">實機渲染／實拍</span></span>
             </div>
@@ -232,12 +352,20 @@
           <article class="card product-card">
             <span class="card-index">02</span>
             <div class="asset-slot product-visual">
-              <svg viewBox="0 0 220 130" role="img" aria-label="Line drawing of the EgoDo phone app showing a capture screen">
-                <g fill="none" stroke="#9a9aa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="82" y="14" width="56" height="104" rx="10"/>
-                  <path d="M92 34h36M92 46h24"/>
-                  <circle cx="110" cy="86" r="14" stroke="#5ad9f0"/><circle cx="110" cy="86" r="5" fill="#5ad9f0" stroke="none"/>
-                </g>
+              <svg viewBox="0 0 220 130" role="img" aria-label="Stylised render of the EgoDo phone app showing a capture screen">
+                <defs>
+                  <linearGradient id="phB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#3E3E48"/><stop offset="1" stop-color="#15151B"/>
+                  </linearGradient>
+                </defs>
+                <rect x="82" y="10" width="56" height="110" rx="12" fill="url(#phB)" stroke="#74747E" stroke-width="1.4"/>
+                <rect x="87" y="22" width="46" height="86" rx="6" fill="#0B0B10"/>
+                <rect x="100" y="14" width="20" height="4" rx="2" fill="#0B0B10"/>
+                <rect x="93" y="30" width="28" height="4.5" rx="2.25" fill="#4A4A56"/>
+                <rect x="93" y="39" width="18" height="3.5" rx="1.75" fill="#31313C"/>
+                <circle cx="110" cy="80" r="14" fill="none" stroke="#2AD4FF" stroke-width="2"/>
+                <circle cx="110" cy="80" r="5.5" fill="#2AD4FF"/>
+                <rect x="98" y="112" width="24" height="3" rx="1.5" fill="#3A3A44"/>
               </svg>
               <span class="asset-tag">Asset slot — EgoDo App <span lang="zh-Hant">介面截圖</span></span>
             </div>
@@ -245,7 +373,7 @@
             <h3>EgoDo</h3>
             <p>The contributor app: guided capture missions turn everyday phone video into structured training episodes.</p>
             <p class="product-fit"><strong>For</strong> anyone with a phone · <strong>Collects</strong> egocentric task video · <strong>Outputs</strong> scored, de-identified episodes</p>
-            <a class="btn btn-outline" href="#contribute">Join alpha</a>
+            <a class="btn btn-accent" href="#contribute">Join alpha</a>
           </article>
         </div>
       </div>
@@ -262,17 +390,17 @@
         <p class="section-lede center">Your everyday tasks — cooking, tidying, fixing — are exactly what robots need to learn. Capture them, and get rewarded as the network grows.</p>
         <ol class="steps">
           <li class="step">
-            <span class="step-num">1</span>
+            <span class="step-num">01</span>
             <h3>Download the app</h3>
             <p>Get EgoDo, create an account and pass a two-minute capture tutorial.</p>
           </li>
           <li class="step">
-            <span class="step-num">2</span>
+            <span class="step-num">02</span>
             <h3>Capture everyday tasks</h3>
             <p>Follow guided missions. Faces and private info are automatically de-identified on upload.</p>
           </li>
           <li class="step">
-            <span class="step-num">3</span>
+            <span class="step-num">03</span>
             <h3>Earn points &amp; early access</h3>
             <p>Quality-scored episodes earn contribution points, alpha perks and hardware priority.</p>
           </li>
@@ -290,26 +418,53 @@
          ============================================================ -->
     <section class="section section-alt" id="model-store">
       <div class="container">
-        <p class="eyebrow center">Model Store</p>
-        <h2 class="center">Four model asset classes, trained on real-world data</h2>
+        <p class="eyebrow center">Distribution</p>
+        <h2 class="center">Model Store</h2>
+        <p class="section-lede center">Four model asset classes trained on real-world data — checkpoints, benchmarks and licensing in one place.</p>
         <div class="card-grid cols-4">
           <article class="card card-compact">
-            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <svg class="ms-icon" viewBox="0 0 48 48" aria-hidden="true">
+              <g fill="none" stroke="#C6C6CE" stroke-width="1.5" stroke-linejoin="round">
+                <polygon points="24,5 41,24 24,43 7,24"/>
+                <path d="M7,24 L24,29 L41,24 M24,5 L24,29 M24,29 L24,43" opacity=".65"/>
+              </g>
+            </svg>
             <h3>Perception &amp; scene models</h3>
             <p>4D scene understanding, object geometry and spatial grounding.</p>
           </article>
           <article class="card card-compact">
-            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 24l8-16 8 16M11.5 18h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="ms-icon" viewBox="0 0 48 48" aria-hidden="true">
+              <g fill="none" stroke="#C6C6CE" stroke-width="1.5">
+                <circle cx="24" cy="24" r="18"/>
+                <ellipse cx="24" cy="24" rx="18" ry="7" opacity=".65"/>
+                <ellipse cx="24" cy="24" rx="7" ry="18" opacity=".65"/>
+              </g>
+            </svg>
             <h3>Manipulation skill models</h3>
             <p>Grasping, tool use and fine dexterous skills from human demonstrations.</p>
           </article>
           <article class="card card-compact">
-            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 13h22M13 13v14" stroke="currentColor" stroke-width="1.6"/></svg>
+            <svg class="ms-icon" viewBox="0 0 48 48" aria-hidden="true">
+              <g fill="none" stroke="#C6C6CE" stroke-width="1.5" stroke-linejoin="round">
+                <polygon points="24,4 36,11 24,18 12,11"/>
+                <path d="M12,11 L12,25 L24,32 L36,25 L36,11 M24,18 L24,32" opacity=".8"/>
+                <path d="M12,25 L12,37 L24,44 L36,37 L36,25 M24,32 L24,44" opacity=".55"/>
+              </g>
+            </svg>
             <h3>Industrial task models</h3>
             <p>Inspection, assembly and logistics policies tuned per vertical.</p>
           </article>
           <article class="card card-compact">
-            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 22c3-8 7-12 10-12s7 4 10 12M6 22h20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="ms-icon" viewBox="0 0 48 48" aria-hidden="true">
+              <g fill="none" stroke="#C6C6CE" stroke-width="1.5" stroke-linejoin="round" opacity=".45">
+                <polygon points="30,6 43,13.5 30,21 17,13.5"/>
+                <path d="M17,13.5 L17,28 L30,35.5 L43,28 L43,13.5 M30,21 L30,35.5"/>
+              </g>
+              <g fill="none" stroke="#C6C6CE" stroke-width="1.5" stroke-linejoin="round">
+                <polygon points="18,17 31,24.5 18,32 5,24.5"/>
+                <path d="M5,24.5 L5,39 L18,46.5 L31,39 L31,24.5 M18,32 L18,46.5"/>
+              </g>
+            </svg>
             <h3>Data-augmentation models</h3>
             <p>Sim-augmented variations that multiply real episodes safely.</p>
           </article>
@@ -323,8 +478,8 @@
           <span class="pill">Version history</span>
         </div>
         <div class="cta-row center">
-          <a class="btn btn-accent" href="mailto:bd@4dlabs.ai?subject=Model%20Store%20waitlist">Join model waitlist</a>
-          <a class="btn btn-outline" href="mailto:bd@4dlabs.ai?subject=Model%20spec%20sheets">Request model specs</a>
+          <a class="btn btn-outline" href="mailto:bd@4dlabs.ai?subject=Model%20Store%20waitlist">Join model waitlist</a>
+          <a class="btn btn-ghost" href="mailto:bd@4dlabs.ai?subject=Model%20spec%20sheets">Request model specs →</a>
         </div>
       </div>
     </section>
@@ -333,7 +488,15 @@
          B2B — P1: first item open by default, dataset spec sample
          per vertical, "Request dataset access" CTA everywhere.
          ============================================================ -->
-    <section class="section" id="for-business">
+    <section class="section has-atmo" id="for-business">
+      <svg class="contour contour-r" viewBox="0 0 280 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1">
+          <path d="M236,-20 C146,90 246,210 166,330 C106,430 206,530 146,660"/>
+          <path d="M254,-20 C164,90 264,210 184,330 C124,430 224,530 164,660"/>
+          <path d="M218,-20 C128,90 228,210 148,330 C88,430 188,530 128,660"/>
+          <path d="M200,-20 C110,90 210,210 130,330 C70,430 170,530 110,660"/>
+        </g>
+      </svg>
       <div class="container">
         <p class="eyebrow center">For business</p>
         <h2 class="center">B2B data marketplace &amp; applications</h2>
@@ -392,8 +555,8 @@
 
         <p class="stats-note center">Spec sheets show sample figures for layout review — wire to the live catalogue before launch.</p>
         <div class="cta-row center">
-          <a class="btn btn-accent" href="mailto:bd@4dlabs.ai">Talk to us</a>
-          <a class="btn btn-outline" href="mailto:bd@4dlabs.ai?subject=Data%20spec%20sheets">Request data specs</a>
+          <a class="btn btn-outline" href="mailto:bd@4dlabs.ai">Talk to us</a>
+          <a class="btn btn-ghost" href="mailto:bd@4dlabs.ai?subject=Data%20spec%20sheets">Request data specs →</a>
         </div>
       </div>
     </section>
@@ -404,8 +567,9 @@
          ============================================================ -->
     <section class="section section-alt" id="team">
       <div class="container">
-        <p class="eyebrow center">Team &amp; backers</p>
-        <h2 class="center">Built by people who have shipped embodied AI at scale</h2>
+        <p class="eyebrow center">Company</p>
+        <h2 class="center">Team &amp; backers</h2>
+        <p class="section-lede center">Built by people who have shipped embodied AI at scale.</p>
         <ul class="team-list">
           <li class="team-row"><span class="team-avatar" aria-hidden="true"></span><div><span class="team-name">Founder &amp; CEO — name to add</span><span class="team-bio">PhD in Computer Vision · previously Meta Reality Labs</span></div></li>
           <li class="team-row"><span class="team-avatar" aria-hidden="true"></span><div><span class="team-name">Co-founder &amp; CTO — name to add</span><span class="team-bio">PhD in Robotics · previously SenseTime</span></div></li>
@@ -464,8 +628,17 @@
          ("real-world data" is the bright line), dual CTA.
          ============================================================ -->
     <section class="section final-cta" id="final-cta">
+      <svg class="contour contour-r" viewBox="0 0 280 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="#FFFFFF" stroke-opacity="0.045" stroke-width="1">
+          <path d="M236,-20 C146,90 246,210 166,330 C106,430 206,530 146,660"/>
+          <path d="M254,-20 C164,90 264,210 184,330 C124,430 224,530 164,660"/>
+          <path d="M272,-20 C182,90 282,210 202,330 C142,430 242,530 182,660"/>
+          <path d="M218,-20 C128,90 228,210 148,330 C88,430 188,530 128,660"/>
+          <path d="M200,-20 C110,90 210,210 130,330 C70,430 170,530 110,660"/>
+        </g>
+      </svg>
       <div class="container center">
-        <h2 class="final-title"><span class="dim">Start contributing</span><br><span class="bright">real-world data for Physical AI</span></h2>
+        <h2 class="final-title"><span class="dim">Start contributing</span><span class="bright">real-world data for Physical AI</span></h2>
         <p class="section-lede">Alpha is open with limited seats. Bring your phone; we bring the missions.</p>
         <div class="cta-row center">
           <!-- TODO: swap mailto for the signup form / app-store link when live -->
@@ -484,7 +657,7 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="brand" href="#top" aria-label="4Dlabs home">
-          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 21V11l7 10 7-10v10" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 7.5 L23.5 11.75 V20.25 L16 24.5 L8.5 20.25 V11.75 Z M8.5 11.75 L16 16 L23.5 11.75 M16 16 V24.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
           <span class="brand-name">4Dlabs</span>
         </a>
         <p class="footer-tag">The real-world embodied data layer for Physical AI.</p>
