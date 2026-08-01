@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4Dlabs — The real-world embodied data layer for Physical AI</title>
+  <meta name="description" content="4Dlabs turns real-world human demonstrations into robot-ready training data. Anyone with a phone can contribute. Backed by YZi Labs.">
+  <!-- OG / social cards. TODO before launch: host a real 1200×630 og-cover.png and use absolute URLs. -->
+  <meta property="og:title" content="4Dlabs — From “Seeing” to “Doing”">
+  <meta property="og:description" content="Turn real-world human demonstrations into robot-ready training data — anyone with a phone can contribute.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0A'/%3E%3Cpath d='M9 21V11l7 10 7-10v10' stroke='%232AD4FF' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       NAV — P1: ≤6 items, persistent accent CTA on the right.
+       Dual-audience entries: "Start Contributing" (C-side) + "For Business" (B-side).
+       ============================================================ -->
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Main">
+      <a class="brand" href="#top" aria-label="4Dlabs home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 21V11l7 10 7-10v10" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">4Dlabs</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-links">
+          <li><a href="#data-engine">Data Engine</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#model-store">Model Store</a></li>
+          <li><a href="#for-business">For Business</a></li>
+          <!-- "Docs" returns to the nav once a real docs destination exists (P2). -->
+        </ul>
+        <a class="btn btn-accent btn-nav" href="#contribute">Start contributing</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         HERO — P0 rewrite per proposal §4:
+         ① eyebrow (small) ② H1 unchanged, quote spacing fixed
+         ③ value-prop subtitle ④ dual CTA ⑤ 3D visual (kept)
+         ⑥ stats bar ⑦ backers row
+         ============================================================ -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <p class="eyebrow hero-eyebrow">
+          <svg class="eyebrow-logo" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.4 10.4 8 5.6l2.6 4.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Backed by YZi Labs
+        </p>
+        <h1 class="hero-title">From <span class="q">“</span>Seeing<span class="q">”</span> to <span class="q">“</span>Doing<span class="q">”</span></h1>
+        <p class="hero-sub">Turn real-world human demonstrations into robot-ready training data&nbsp;— anyone with a phone can contribute.</p>
+        <div class="cta-row">
+          <a class="btn btn-accent btn-lg" href="#contribute">Start contributing</a>
+          <a class="btn btn-outline btn-lg" href="#model-store">Explore data &amp; models</a>
+        </div>
+
+        <!-- ⑤ Hero 3D — proposal keeps the existing "hands + cube" render.
+             The frame below is a stand-in; drop the production render/video here. -->
+        <figure class="hero-visual" aria-label="Hero visual placeholder">
+          <div class="asset-slot hero-asset">
+            <svg class="hero-art" viewBox="0 0 720 300" role="img" aria-label="Placeholder for the existing hero render: a human hand and a robotic hand reaching toward a floating data cube">
+              <defs>
+                <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#3a3a40"/><stop offset=".5" stop-color="#77777e"/><stop offset="1" stop-color="#2a2a2e"/>
+                </linearGradient>
+              </defs>
+              <g fill="none" stroke="url(#hg)" stroke-width="1.6">
+                <path d="M40 210c60-16 120-34 168-40M64 236c62-22 118-38 158-48M100 258c52-22 96-36 130-46" opacity=".8"/>
+                <path d="M680 210c-60-16-120-34-168-40M656 236c-62-22-118-38-158-48M620 258c-52-22-96-36-130-46" opacity=".8"/>
+                <g stroke="#9a9aa2">
+                  <path d="M360 96l64 36v72l-64 36-64-36v-72z"/>
+                  <path d="M296 132l64 36 64-36M360 168v72"/>
+                </g>
+                <path d="M360 60v22M414 84l14-10M306 84l-14-10" stroke="#5ad9f0" opacity=".7"/>
+              </g>
+              <g fill="#5b5b62"><circle cx="250" cy="120" r="2"/><circle cx="470" cy="110" r="2"/><circle cx="210" cy="170" r="1.5"/><circle cx="510" cy="170" r="1.5"/><circle cx="330" cy="70" r="1.5"/><circle cx="410" cy="64" r="1.5"/></g>
+            </svg>
+            <span class="asset-tag">Asset slot — <span lang="zh-Hant">沿用現有 Hero 雙手＋方塊渲染</span> / demo video</span>
+          </div>
+        </figure>
+
+        <!-- ⑥ Stats bar — P0 evidence layer.
+             TODO before launch: replace sample figures with live metrics.
+             If no public numbers at launch, swap tiles for Backers + Team + "Alpha — limited seats" (per proposal §3.3-2). -->
+        <dl class="stats-bar" aria-label="Network statistics">
+          <div class="stat"><dt>Contributors</dt><dd>12.8K<span class="stat-plus">+</span></dd></div>
+          <div class="stat"><dt>Episodes collected</dt><dd>340K</dd></div>
+          <div class="stat"><dt>Cities covered</dt><dd>27</dd></div>
+          <div class="stat"><dt>Data classes</dt><dd>4</dd></div>
+        </dl>
+        <p class="stats-note">Sample figures for layout review — wire to live metrics before launch.</p>
+
+        <!-- ⑦ Backers row -->
+        <div class="backers-row" role="group" aria-label="Backers">
+          <span class="backers-label">Backed by</span>
+          <span class="backer-logo">YZi Labs</span>
+          <span class="backer-logo backer-muted">More to announce</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DATA ENGINE — P1 layout break: split two-column
+         (left narrative, right pipeline diagram), results language.
+         ============================================================ -->
+    <section class="section" id="data-engine">
+      <div class="container split">
+        <div class="split-copy">
+          <p class="eyebrow">4D Fusion Data Engine</p>
+          <h2>One pipeline from a phone clip to a robot-ready dataset</h2>
+          <p class="lede">The engine fuses egocentric video, hand pose, depth and scene geometry into time-aligned 4D episodes — captured in the real world, processed automatically, and delivered in training-ready formats.</p>
+          <ul class="check-list">
+            <li><strong>Capture anywhere.</strong> Phones, DexUmi hardware and Ego Suite glasses feed one ingestion pipeline.</li>
+            <li><strong>Automatic 4D reconstruction.</strong> Scene geometry, hand–object contact and action segments are extracted without manual labelling.</li>
+            <li><strong>Quality-gated output.</strong> Every episode is scored, de-identified and versioned before it reaches a training set.</li>
+          </ul>
+
+          <!-- P1: 15–30s demo loop slot (capture → upload → train → robot executes).
+               Short-term: app screen recording + data viz per proposal §3.1-3. -->
+          <div class="asset-slot media-slot">
+            <span class="play-badge" aria-hidden="true">▶</span>
+            <span class="asset-tag">Asset slot — 15–30s demo loop：<span lang="zh-Hant">採集 → 上傳 → 訓練 → 機器人執行</span></span>
+          </div>
+        </div>
+
+        <figure class="split-figure" aria-label="End-to-end pipeline">
+          <ol class="pipeline">
+            <li class="pipe-step"><span class="pipe-num">01</span><div><h3>Capture</h3><p>Contributors record everyday manipulation tasks with a phone or 4Dlabs hardware.</p></div></li>
+            <li class="pipe-step"><span class="pipe-num">02</span><div><h3>Data</h3><p>Raw video, IMU and depth streams are ingested and time-synchronised.</p></div></li>
+            <li class="pipe-step"><span class="pipe-num">03</span><div><h3>Processing</h3><p>4D reconstruction, hand-pose extraction, de-identification and quality scoring.</p></div></li>
+            <li class="pipe-step"><span class="pipe-num">04</span><div><h3>Training</h3><p>Episodes are packaged into curricula for manipulation and world-model training.</p></div></li>
+            <li class="pipe-step"><span class="pipe-num">05</span><div><h3>Distribution</h3><p>Datasets and checkpoints ship through the Model Store and B2B licensing.</p></div></li>
+          </ol>
+        </figure>
+      </div>
+
+      <div class="container modules">
+        <h3 class="modules-title">Three core tech modules</h3>
+        <div class="card-grid cols-3">
+          <article class="card">
+            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l10 6v12l-10 6-10-6V10z M6 10l10 6 10-6 M16 16v12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <h4>4D scene reconstruction</h4>
+            <p>Rebuilds metric geometry and object motion from monocular capture, so every clip becomes a spatial, replayable scene.</p>
+          </article>
+          <article class="card">
+            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M10 26V14a3 3 0 0 1 6 0v-3a3 3 0 0 1 6 0v5m0 0v-2a3 3 0 0 1 6 0v6a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h4>Hand–object interaction capture</h4>
+            <p>Fine-grained hand pose and contact states — the action labels robot manipulation policies actually train on.</p>
+          </article>
+          <article class="card">
+            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 16h22M16 5c4 3.5 4 18.5 0 22M16 5c-4 3.5-4 18.5 0 22" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+            <h4>Cross-embodiment retargeting</h4>
+            <p>Maps human demonstrations onto different robot bodies, so one dataset serves many hardware platforms.</p>
+          </article>
+        </div>
+        <div class="cta-row center">
+          <a class="btn btn-outline" href="#contribute">Start contributing</a>
+          <a class="btn btn-ghost" href="#for-business">License this data →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PRODUCTS — P0: recognisable visuals + status badges (not
+         fake buttons) + real CTAs. P1: flagship Ego Suite gets its
+         own full-width feature block.
+         ============================================================ -->
+    <section class="section section-alt" id="products">
+      <div class="container">
+        <p class="eyebrow center">Product matrix</p>
+        <h2 class="center">Hardware and apps that feed the data engine</h2>
+
+        <!-- Flagship: full-width feature row -->
+        <article class="flagship">
+          <div class="flagship-copy">
+            <div class="badge-row">
+              <span class="badge badge-status">In production</span>
+              <span class="badge badge-flag">Flagship</span>
+            </div>
+            <h3>Ego Suite</h3>
+            <p class="lede">Lightweight smart glasses for all-day egocentric capture — video, gaze, hands and depth in one wearable stream.</p>
+            <p class="product-fit"><strong>For</strong> power contributors &amp; field teams · <strong>Collects</strong> egocentric video + gaze + hand pose + depth · <strong>Outputs</strong> long-horizon daily-task episodes</p>
+            <div class="cta-row">
+              <!-- TODO: swap mailto for the real waitlist form when it exists -->
+              <a class="btn btn-accent" href="mailto:bd@4dlabs.ai?subject=Ego%20Suite%20waitlist">Join waitlist</a>
+              <a class="btn btn-ghost" href="mailto:bd@4dlabs.ai?subject=Ego%20Suite%20spec%20sheet">Request spec sheet →</a>
+            </div>
+          </div>
+          <div class="asset-slot flagship-visual">
+            <svg viewBox="0 0 320 140" role="img" aria-label="Line drawing of Ego Suite smart glasses">
+              <g fill="none" stroke="#9a9aa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M40 62h240M52 62c-6 0-10 4-10 10v14c0 12 10 22 22 22h34c12 0 22-10 22-22V74c0-6 5-10 10-10h60c5 0 10 4 10 10v12c0 12 10 22 22 22h34c12 0 22-10 22-22V72c0-6-4-10-10-10"/>
+                <circle cx="96" cy="82" r="5" stroke="#5ad9f0"/><circle cx="224" cy="82" r="5" stroke="#5ad9f0"/>
+              </g>
+            </svg>
+            <span class="asset-tag">Asset slot — Ego Suite <span lang="zh-Hant">實機渲染／實拍</span></span>
+          </div>
+        </article>
+
+        <div class="card-grid cols-2 product-grid">
+          <article class="card product-card">
+            <span class="card-index">01</span>
+            <div class="asset-slot product-visual">
+              <svg viewBox="0 0 220 130" role="img" aria-label="Line drawing of the DexUmi handheld capture device">
+                <g fill="none" stroke="#9a9aa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="88" y="70" width="44" height="48" rx="10"/>
+                  <path d="M96 70V46a8 8 0 0 1 16 0v18M112 62V38a8 8 0 0 1 16 0v24M110 118v-6"/>
+                  <circle cx="110" cy="92" r="7" stroke="#5ad9f0"/>
+                </g>
+              </svg>
+              <span class="asset-tag">Asset slot — DexUmi <span lang="zh-Hant">實機渲染／實拍</span></span>
+            </div>
+            <span class="badge badge-status">In production</span>
+            <h3>DexUmi</h3>
+            <p>Handheld dexterous-capture hardware that records fingertip-level manipulation without a robot in the loop.</p>
+            <p class="product-fit"><strong>For</strong> labs &amp; data teams · <strong>Collects</strong> dexterous hand–object trajectories · <strong>Outputs</strong> manipulation-policy training sets</p>
+            <a class="btn btn-outline" href="#for-business">Learn more</a>
+          </article>
+
+          <article class="card product-card">
+            <span class="card-index">02</span>
+            <div class="asset-slot product-visual">
+              <svg viewBox="0 0 220 130" role="img" aria-label="Line drawing of the EgoDo phone app showing a capture screen">
+                <g fill="none" stroke="#9a9aa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="82" y="14" width="56" height="104" rx="10"/>
+                  <path d="M92 34h36M92 46h24"/>
+                  <circle cx="110" cy="86" r="14" stroke="#5ad9f0"/><circle cx="110" cy="86" r="5" fill="#5ad9f0" stroke="none"/>
+                </g>
+              </svg>
+              <span class="asset-tag">Asset slot — EgoDo App <span lang="zh-Hant">介面截圖</span></span>
+            </div>
+            <span class="badge badge-status">In production</span>
+            <h3>EgoDo</h3>
+            <p>The contributor app: guided capture missions turn everyday phone video into structured training episodes.</p>
+            <p class="product-fit"><strong>For</strong> anyone with a phone · <strong>Collects</strong> egocentric task video · <strong>Outputs</strong> scored, de-identified episodes</p>
+            <a class="btn btn-outline" href="#contribute">Join alpha</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTRIBUTE — P1: 3-step onboarding + reward framing
+         (points / early access, no token language yet).
+         ============================================================ -->
+    <section class="section" id="contribute">
+      <div class="container">
+        <p class="eyebrow center">Contribute</p>
+        <h2 class="center">Anyone with a phone can contribute</h2>
+        <p class="section-lede center">Your everyday tasks — cooking, tidying, fixing — are exactly what robots need to learn. Capture them, and get rewarded as the network grows.</p>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <h3>Download the app</h3>
+            <p>Get EgoDo, create an account and pass a two-minute capture tutorial.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <h3>Capture everyday tasks</h3>
+            <p>Follow guided missions. Faces and private info are automatically de-identified on upload.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <h3>Earn points &amp; early access</h3>
+            <p>Quality-scored episodes earn contribution points, alpha perks and hardware priority.</p>
+          </li>
+        </ol>
+        <div class="cta-row center">
+          <!-- TODO: swap mailto for the signup form / app-store link when live -->
+          <a class="btn btn-accent btn-lg" href="mailto:alpha@4dlabs.ai?subject=Join%20the%204Dlabs%20alpha">Join alpha</a>
+          <a class="btn btn-ghost" href="#faq">How privacy works →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MODEL STORE — P0: section now ends with its own CTAs.
+         ============================================================ -->
+    <section class="section section-alt" id="model-store">
+      <div class="container">
+        <p class="eyebrow center">Model Store</p>
+        <h2 class="center">Four model asset classes, trained on real-world data</h2>
+        <div class="card-grid cols-4">
+          <article class="card card-compact">
+            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <h3>Perception &amp; scene models</h3>
+            <p>4D scene understanding, object geometry and spatial grounding.</p>
+          </article>
+          <article class="card card-compact">
+            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 24l8-16 8 16M11.5 18h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Manipulation skill models</h3>
+            <p>Grasping, tool use and fine dexterous skills from human demonstrations.</p>
+          </article>
+          <article class="card card-compact">
+            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 13h22M13 13v14" stroke="currentColor" stroke-width="1.6"/></svg>
+            <h3>Industrial task models</h3>
+            <p>Inspection, assembly and logistics policies tuned per vertical.</p>
+          </article>
+          <article class="card card-compact">
+            <svg class="card-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 22c3-8 7-12 10-12s7 4 10 12M6 22h20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Data-augmentation models</h3>
+            <p>Sim-augmented variations that multiply real episodes safely.</p>
+          </article>
+        </div>
+        <div class="pill-row" role="group" aria-label="Distribution capabilities">
+          <span class="pill">Task benchmarks</span>
+          <span class="pill">API access</span>
+          <span class="pill">Fine-tune endpoints</span>
+          <span class="pill">Weights licensing</span>
+          <span class="pill">Eval reports</span>
+          <span class="pill">Version history</span>
+        </div>
+        <div class="cta-row center">
+          <a class="btn btn-accent" href="mailto:bd@4dlabs.ai?subject=Model%20Store%20waitlist">Join model waitlist</a>
+          <a class="btn btn-outline" href="mailto:bd@4dlabs.ai?subject=Model%20spec%20sheets">Request model specs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         B2B — P1: first item open by default, dataset spec sample
+         per vertical, "Request dataset access" CTA everywhere.
+         ============================================================ -->
+    <section class="section" id="for-business">
+      <div class="container">
+        <p class="eyebrow center">For business</p>
+        <h2 class="center">B2B data marketplace &amp; applications</h2>
+        <p class="section-lede center">License task-specific embodied datasets, or commission custom capture campaigns across our contributor network.</p>
+
+        <div class="accordion" id="b2b-accordion">
+          <div class="acc-item is-open">
+            <h3 class="acc-heading"><button class="acc-trigger" aria-expanded="true" aria-controls="acc-panel-1" id="acc-btn-1"><span class="acc-index">01</span> Smart manufacturing &amp; assembly<span class="acc-chevron" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="acc-panel-1" role="region" aria-labelledby="acc-btn-1">
+              <p>Hand-assembly, kitting and tool-use demonstrations captured on tasks modelled on real production lines.</p>
+              <dl class="spec"><div><dt>Modality</dt><dd>Egocentric RGB-D + hand pose + contact</dd></div><div><dt>Scale</dt><dd>50K+ episodes, 120+ task templates</dd></div><div><dt>Annotation</dt><dd>Action segments, object states, QA-scored</dd></div></dl>
+              <a class="btn btn-outline btn-sm" href="mailto:bd@4dlabs.ai?subject=Dataset%20access%3A%20Smart%20manufacturing">Request dataset access</a>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" aria-expanded="true" aria-controls="acc-panel-2" id="acc-btn-2"><span class="acc-index">02</span> Warehouse &amp; logistics<span class="acc-chevron" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="acc-panel-2" role="region" aria-labelledby="acc-btn-2">
+              <p>Pick-pack-sort episodes across varied bins, parcels and shelving layouts.</p>
+              <dl class="spec"><div><dt>Modality</dt><dd>Egocentric video + depth + IMU</dd></div><div><dt>Scale</dt><dd>Custom campaigns from 10K episodes</dd></div><div><dt>Annotation</dt><dd>Grasp points, motion phases</dd></div></dl>
+              <a class="btn btn-outline btn-sm" href="mailto:bd@4dlabs.ai?subject=Dataset%20access%3A%20Warehouse%20%26%20logistics">Request dataset access</a>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" aria-expanded="true" aria-controls="acc-panel-3" id="acc-btn-3"><span class="acc-index">03</span> Household robotics<span class="acc-chevron" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="acc-panel-3" role="region" aria-labelledby="acc-btn-3">
+              <p>Kitchen, laundry and tidying tasks captured in real homes across multiple cities — the long tail robots struggle with.</p>
+              <dl class="spec"><div><dt>Modality</dt><dd>Egocentric RGB + hand pose</dd></div><div><dt>Scale</dt><dd>180K+ episodes</dd></div><div><dt>Annotation</dt><dd>Task graphs, de-identified</dd></div></dl>
+              <a class="btn btn-outline btn-sm" href="mailto:bd@4dlabs.ai?subject=Dataset%20access%3A%20Household%20robotics">Request dataset access</a>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" aria-expanded="true" aria-controls="acc-panel-4" id="acc-btn-4"><span class="acc-index">04</span> Retail &amp; hospitality<span class="acc-chevron" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="acc-panel-4" role="region" aria-labelledby="acc-btn-4">
+              <p>Shelf stocking, order prep and service-counter workflows captured in commercial settings.</p>
+              <dl class="spec"><div><dt>Modality</dt><dd>Egocentric video + scene geometry</dd></div><div><dt>Scale</dt><dd>Campaign-based</dd></div><div><dt>Annotation</dt><dd>Workflow steps, object inventory</dd></div></dl>
+              <a class="btn btn-outline btn-sm" href="mailto:bd@4dlabs.ai?subject=Dataset%20access%3A%20Retail%20%26%20hospitality">Request dataset access</a>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" aria-expanded="true" aria-controls="acc-panel-5" id="acc-btn-5"><span class="acc-index">05</span> Healthcare &amp; lab automation<span class="acc-chevron" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="acc-panel-5" role="region" aria-labelledby="acc-btn-5">
+              <p>Instrument handling and precise bimanual procedures from trained professionals.</p>
+              <dl class="spec"><div><dt>Modality</dt><dd>DexUmi dexterous trajectories</dd></div><div><dt>Scale</dt><dd>Expert-sourced, quality-first</dd></div><div><dt>Annotation</dt><dd>Sub-task labels, force proxies</dd></div></dl>
+              <a class="btn btn-outline btn-sm" href="mailto:bd@4dlabs.ai?subject=Dataset%20access%3A%20Healthcare%20%26%20lab%20automation">Request dataset access</a>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" aria-expanded="true" aria-controls="acc-panel-6" id="acc-btn-6"><span class="acc-index">06</span> Field inspection &amp; maintenance<span class="acc-chevron" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="acc-panel-6" role="region" aria-labelledby="acc-btn-6">
+              <p>Outdoor and infrastructure inspection routines — power, pipelines, facilities — with spatial context.</p>
+              <dl class="spec"><div><dt>Modality</dt><dd>Egocentric RGB-D + GPS-aligned scenes</dd></div><div><dt>Scale</dt><dd>Campaign-based</dd></div><div><dt>Annotation</dt><dd>Defect tags, route maps</dd></div></dl>
+              <a class="btn btn-outline btn-sm" href="mailto:bd@4dlabs.ai?subject=Dataset%20access%3A%20Field%20inspection%20%26%20maintenance">Request dataset access</a>
+            </div>
+          </div>
+        </div>
+
+        <p class="stats-note center">Spec sheets show sample figures for layout review — wire to the live catalogue before launch.</p>
+        <div class="cta-row center">
+          <a class="btn btn-accent" href="mailto:bd@4dlabs.ai">Talk to us</a>
+          <a class="btn btn-outline" href="mailto:bd@4dlabs.ai?subject=Data%20spec%20sheets">Request data specs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TEAM & BACKERS — P0 evidence layer.
+         TODO: real names, bios and photos before launch.
+         ============================================================ -->
+    <section class="section section-alt" id="team">
+      <div class="container">
+        <p class="eyebrow center">Team &amp; backers</p>
+        <h2 class="center">Built by people who have shipped embodied AI at scale</h2>
+        <ul class="team-list">
+          <li class="team-row"><span class="team-avatar" aria-hidden="true"></span><div><span class="team-name">Founder &amp; CEO — name to add</span><span class="team-bio">PhD in Computer Vision · previously Meta Reality Labs</span></div></li>
+          <li class="team-row"><span class="team-avatar" aria-hidden="true"></span><div><span class="team-name">Co-founder &amp; CTO — name to add</span><span class="team-bio">PhD in Robotics · previously SenseTime</span></div></li>
+          <li class="team-row"><span class="team-avatar" aria-hidden="true"></span><div><span class="team-name">Head of Research — name to add</span><span class="team-bio">3D perception &amp; world models · previously Baidu Research</span></div></li>
+          <li class="team-row"><span class="team-avatar" aria-hidden="true"></span><div><span class="team-name">Head of Data — name to add</span><span class="team-bio">Scaled human-data operations for leading AI labs</span></div></li>
+        </ul>
+        <p class="stats-note center">Placeholder rows — drop in real names, bios and photos (proposal §3.3-3).</p>
+        <div class="backers-row center" role="group" aria-label="Investors">
+          <span class="backers-label">Investors</span>
+          <span class="backer-logo">YZi Labs</span>
+          <span class="backer-logo backer-muted">Logo slot</span>
+          <span class="backer-logo backer-muted">Logo slot</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ — P2 (included early: cheap trust win). 6 questions.
+         ============================================================ -->
+    <section class="section" id="faq">
+      <div class="container container-narrow">
+        <p class="eyebrow center">FAQ</p>
+        <h2 class="center">Common questions</h2>
+        <div class="faq-list">
+          <!-- Draft copy — legal review required before launch. -->
+          <details>
+            <summary>How is my privacy protected when I contribute?</summary>
+            <p>Faces, screens, documents and voices are automatically de-identified during upload, before episodes are stored or made available for review or training. You can review your episodes and request deletion in the app; details are in our Data Licensing Terms.</p>
+          </details>
+          <details>
+            <summary>What do I earn for contributing?</summary>
+            <p>Quality-scored episodes earn contribution points, which unlock alpha perks, hardware priority and early access to new capture tracks. Rewards are tied to data quality, not raw volume.</p>
+          </details>
+          <details>
+            <summary>What device do I need?</summary>
+            <p>Any recent iPhone or Android phone works for EgoDo missions. DexUmi hardware and Ego Suite glasses are optional upgrades for advanced capture tracks.</p>
+          </details>
+          <details>
+            <summary>What kind of tasks should I capture?</summary>
+            <p>Everyday manipulation: cooking, tidying, assembling, repairing, sorting. Guided missions in the app tell you exactly what the network needs most right now.</p>
+          </details>
+          <details>
+            <summary>How do companies license 4Dlabs data?</summary>
+            <p>Through dataset licences per vertical, or custom capture campaigns with exclusivity options. Every delivery includes spec sheets, QA reports and clear usage terms.</p>
+          </details>
+          <details>
+            <summary>Is there a token?</summary>
+            <p>Contribution today earns points and early access. If we ever add an on-chain component, we will announce it with full documentation before anything changes.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FINAL CTA — P0 fix: two-line emphasis now matches semantics
+         ("real-world data" is the bright line), dual CTA.
+         ============================================================ -->
+    <section class="section final-cta" id="final-cta">
+      <div class="container center">
+        <h2 class="final-title"><span class="dim">Start contributing</span><br><span class="bright">real-world data for Physical AI</span></h2>
+        <p class="section-lede">Alpha is open with limited seats. Bring your phone; we bring the missions.</p>
+        <div class="cta-row center">
+          <!-- TODO: swap mailto for the signup form / app-store link when live -->
+          <a class="btn btn-accent btn-lg" href="mailto:alpha@4dlabs.ai?subject=Join%20the%204Dlabs%20alpha">Join alpha</a>
+          <a class="btn btn-outline btn-lg" href="mailto:bd@4dlabs.ai">Partner with us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER — P0: full columns incl. Docs/Whitepaper, Careers,
+       Brand Kit, BD email, Data Licensing Terms, socials w/ counts.
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="4Dlabs home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 21V11l7 10 7-10v10" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="brand-name">4Dlabs</span>
+        </a>
+        <p class="footer-tag">The real-world embodied data layer for Physical AI.</p>
+        <ul class="social-row" aria-label="Community">
+          <li><a href="#top" aria-label="4Dlabs on X">X <span class="social-count">— 12.4K</span></a></li>
+          <li><a href="#top" aria-label="4Dlabs on Telegram">Telegram <span class="social-count">— 8.1K</span></a></li>
+          <li><a href="#top" aria-label="4Dlabs on Discord">Discord <span class="social-count">— 5.6K</span></a></li>
+        </ul>
+        <p class="stats-note">Sample member counts — wire to live numbers.</p>
+      </div>
+      <nav class="footer-col" aria-label="Product">
+        <h3>Product</h3>
+        <ul><li><a href="#products">DexUmi</a></li><li><a href="#products">EgoDo</a></li><li><a href="#products">Ego Suite</a></li><li><a href="#model-store">Model Store</a></li><li><a href="#data-engine">Data Engine</a></li></ul>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <h3>Company</h3>
+        <ul><li><a href="#team">Team &amp; backers</a></li><li><a class="link-todo" href="#top">Careers</a></li><li><a class="link-todo" href="#top">Blog</a></li><li><a class="link-todo" href="#top">News &amp; media</a></li><li><a class="link-todo" href="#top">Brand kit</a></li></ul>
+      </nav>
+      <nav class="footer-col" aria-label="Resources">
+        <h3>Resources</h3>
+        <ul><li><a class="link-todo" href="#top">Docs</a></li><li><a class="link-todo" href="#top">Whitepaper</a></li><li><a class="link-todo" href="#top">Data spec sheets</a></li><li><a href="#faq">FAQ</a></li><li><a class="link-todo" href="#top">Research</a></li></ul>
+      </nav>
+      <nav class="footer-col" aria-label="Legal and contact">
+        <h3>Legal &amp; contact</h3>
+        <ul><li><a class="link-todo" href="#top">Terms of service</a></li><li><a class="link-todo" href="#top">Privacy policy</a></li><li><a class="link-todo" href="#top">Data Licensing Terms</a></li><li><a href="mailto:bd@4dlabs.ai">bd@4dlabs.ai</a></li></ul>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> 4Dlabs. All rights reserved.</p>
+      <p class="footer-note">Draft v0.1 — built to the 2026-07-31 revision proposal. Dash-underlined links are placeholder destinations.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
