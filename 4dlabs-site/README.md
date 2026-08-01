@@ -1,4 +1,4 @@
-# 4Dlabs 官網初稿 (draft v0.2)
+# 4Dlabs 官網初稿 (draft v0.3)
 
 依《4Dlabs 官網修改建議書》(v1.0, 2026-07-31) 製作的網站初稿，並經兩輪
 設計審查迭代（多代理驗收 59 項 → 修正；藝術指導 delta 複審 → 修正），
@@ -37,6 +37,34 @@ open 4dlabs-site/index.html
 - **編號系統**：全站統一 mono 小徽章、補零（01–05 管線、01/02 產品、
   01–03 步驟、01–06 B2B）。
 
+
+## v0.3：依《4D Labs 官网模块设计》表逐區對照重建
+
+以模組表（zh/en 雙 sheet）為結構藍本，逐區塊落實並保留建議書要求的
+補充區（Contribute 三步驟、Team & Backers、FAQ）。
+
+| 模組表要求 | 實作 |
+|---|---|
+| 頭部導航：錨點 6 項＋吸頂毛玻璃＋右上唯一強按鈕 Launch App | ✅（Whitepaper/Docs 為虛線佔位連結，待 PDF/GitBook） |
+| 模組1 Hero：主標題＋定位句＋副標（表列原句）＋雙受眾 CTA（Join Alpha／Request Data） | ✅ |
+| 模組2：信任徽標條（YZi Labs＋2–3 預留位）＋數據統計條（5 格滾動數字） | ✅（數字為樣本並標 Alpha in progress；滾動動效尊重 reduced-motion） |
+| 模組3：五層管線（表列逐層文案：多設備採集／鏈上確權／清洗標註質檢／AXON 訓練／分發）＋滾動點亮流光 | ✅ |
+| 模組3：三模組（ViTam 視觸融合／跨實體映射／AXON 世界模型引擎） | ✅ |
+| 模組3：資料品質與可驗證性（自動質檢＋人工抽檢、採集即確權；採集→質檢→確權→入庫流程組） | ✅ |
+| 模組3：相容性徽章（VLA · World Models · Dexterous Manipulation · Generalist Embodied Agents） | ✅ |
+| 模組4：DexUMI（精度下限）／EgoBio（觸覺模態）／Ego 套裝（主力，RGB+IMU+觸覺手套）／手機 3D 掃描（零門檻，代幣收益＋商店徽章/QR 佔位） | ✅（狀態標籤以 Status TBD 佔位待定） |
+| 模組4：採集梯度階梯圖（手機→Ego 套裝→EgoBio→DexUMI，X 規模／Y 精度模態） | ✅（SVG 資訊圖） |
+| 模組5：Model Store 四類資產＋Phase 2 Coming Soon 角標＋六種分發能力 | ✅ |
+| 模組6：六宮格場景卡（工業製造/電力巡檢/醫療輔助/家庭服務/物流倉儲/科研訓練場）＋授權類別＋標竿客戶標籤牆 | ✅（實景圖為落位框） |
+| 模組7：全寬轉化 Banner（表列標語＋Join Alpha＋X/Telegram/Discord icon） | ✅ |
+| 底部：Resources（Whitepaper/Brand kit/Docs）＋Community icon 右下＋法務右下、版權左下 | ✅ |
+| 全局：近黑藍底、點雲/線框美學、線性圖標、Inter/Space Grotesk、三類動效＋reduced-motion | ✅ |
+
+**待客戶確認（表格標註【待定】的項目）**：任務平台 URL（現以
+`https://app.4dlabs.ai` 佔位）、真實營運數據口徑、產品狀態標籤
+（已量產/內測/預約中）、App 上線狀態（商店徽章/QR）、Brand kit 主輔色與
+logo 規範、合作機構 logo。
+
 ## 建議書對照：這一版做了什麼
 
 ### P0（全部實作）
@@ -48,7 +76,7 @@ open 4dlabs-site/index.html
 | Stats bar + Backers 列 | Hero 下方四格數據＋Backed by YZi Labs 列（數字為排版用樣本，已標註待接真實數據；無數字期可換 Backers/Alpha 名額版本） |
 | Team & Backers 區 | 一人一行（PhD／Meta Reality Labs／SenseTime／Baidu 經歷），姓名與照片留槽待填；投資人 logo 列 |
 | 文字系統 tokens | `#F5F5F5 / #B3B3B3 / #8C8C8C` 三階（於各底色皆過 WCAG AA）；段落內文 16px、行高 1.6、≤75ch（規格行／管線說明等標籤層 15px，皆用 secondary 色）；全大寫僅限 eyebrow／標籤且 ≥11px；內文與按鈕 sentence case |
-| 產品區可辨識視覺 + 狀態 badge | 每產品有可辨識線稿佔位（DexUmi 手持硬體／EgoDo App 介面／Ego Suite 眼鏡），實機渲染槽已標註；「In production」改為狀態 badge（附綠點，非按鈕樣式）；每卡有真 CTA |
+| 產品區可辨識視覺 + 狀態 badge | 每產品有可辨識金屬渲染佔位（DexUMI 末端執行器／EgoBio 觸覺陣列／Ego Suite 眼鏡／手機掃描），實機素材槽已標註；狀態 badge 非按鈕樣式；每卡有真 CTA |
 | 結尾 CTA 明暗對齊語意 | 「real-world data for Physical AI」為亮行 |
 | 上線前 QA 基礎 | 單一 h1（真文字）、h1→h2→h3 層級、title/description/OG/favicon、SVG 皆有 aria 標註、skip link、鍵盤焦點樣式 |
 
@@ -73,7 +101,7 @@ open 4dlabs-site/index.html
 
 ## 待補清單（正式上線前）
 
-- [ ] **真實素材**：Hero 雙手渲染（沿用現稿）、產品實機渲染/實拍、EgoDo App 截圖、demo loop 影片——頁面中所有虛線 `Asset slot` 皆為落位框。
+- [ ] **真實素材**：Hero 雙手渲染（沿用現稿）、產品實機渲染/實拍、手機掃描介面截圖、六張場景實拍、demo loop 影片——頁面中所有虛線 `Asset slot` 皆為落位框。
 - [ ] **真實數據**：Stats bar、B2B 規格數字、社群成員數（現為樣本值，頁面已標註 "Sample figures"）。
 - [ ] **團隊姓名/照片/完整履歷**、其他投資人 logo。
 - [ ] **連結目的地**：Docs／Blog／Careers／法務頁為虛線底線佔位連結（`.link-todo`）；Alpha 註冊、各式 waitlist 與規格索取現以 `mailto:`（alpha@ / bd@4dlabs.ai）作為草稿期終點，上線前換成表單／App 下載連結。
