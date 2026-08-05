@@ -1,309 +1,307 @@
 Data Check  ·  5 Aug 2026  ·  history checks: all rows; cross-source: yieldz protocol data + on-chain reads,,,,,,,,,,,
 Tab,Farm,Chain,Protocol,APY Now,7d,Verdict,Cross-Source APY,Source,Flags,Risk,Risk Basis
 USD Farms,For buying PT-jrRoyAPYUSD-05NOV2026,Ethereum,Pendle,19.15412,19.15412,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
-ETH Farms,TAU cbETH Dynamic Looping,Base,Fusion by IPOR,11.33263,11.54168,FLAGGED,0.05,ipor-api,MISMATCH(source 0.05),High,unrated: internal signals only
-USD Farms,TESS USDC wsrUSD Loop,Ethereum,Fusion by IPOR,10.31848,7.98714,FLAGGED,1.602,ipor-api,MISMATCH(source 1.60),Medium (6.0),"score 6.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 red flags; -1 tvl<1M"
-USD Farms,CRV LlamaLend Recovery,Ethereum,Curve DEX,9.61945,6.92671,FLAGGED,6.635,curve-api (total),REWARD-HEAVY(emissions 6.6 of 9.6 unverified); MISMATCH(curve total 6.64),High (3.1),"score 3.1; CRVUSD 6.1 (pharos 7.3, tid 5.0); -2 red flags; -1 tvl<1M"
+ETH Farms,TAU cbETH Dynamic Looping,Base,Fusion by IPOR,11.32437,11.5405,FLAGGED,0.05,ipor-api,MISMATCH(source 0.05),High,unrated: internal signals only
+USD Farms,PT reUSD 10DEC2026,Ethereum,Pendle,10.82332,10.94559,FLAGGED,17.786,pendle-api,STALE(2d old); MISMATCH(source 17.79),High (3.1),"score 3.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0); -2 red flags"
+USD Farms,CRV LlamaLend Recovery,Ethereum,Curve DEX,9.64894,6.93092,FLAGGED,6.612,curve-api (total),REWARD-HEAVY(emissions 6.6 of 9.6 unverified); MISMATCH(curve total 6.61),High (3.1),"score 3.1; CRVUSD 6.1 (pharos 7.3, tid 5.0); -2 red flags; -1 tvl<1M"
 USD Farms,PT Staked NUSD 24SEP2026,Ethereum,Pendle,9.50155,9.56329,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
+USD Farms,PLP reUSD 10DEC2026,Ethereum,Pendle,9.45434,9.27505,FLAGGED,,,STALE(2d old),High (3.1),"score 3.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0); -2 red flags"
 USD Farms,For buying PT-limUSD-26NOV2026,Hyperliquid L1,Pendle,9.13928,9.09422,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
 USD Farms,For LP | Maturity 05NOV2026,Ethereum,Pendle,9.05785,9.20244,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
 USD Farms,For buying PT-sUSDS-26NOV2026,Ethereum,Pendle,8.75864,8.83239,FLAGGED,5.281,pendle-api,STALE(2d old); MISMATCH(source 5.28),Medium (5.8),"score 5.8; SUSDS 7.8 (pharos 7.6, tid 8.0); -2 red flags"
-USD Farms,Reservoir srUSD Looping Ethereum,Ethereum,Fusion by IPOR,8.75286,7.0022,FLAGGED,2.669,ipor-api,MISMATCH(source 2.67),High (1.7),score 1.7; RUSD 4.7 (pharos 4.7); -2 red flags; -1 tvl<1M
-ETH Farms,Base cbETH Loooper,Base,Fusion by IPOR,8.723230000000001,8.91378,FLAGGED,6.211,ipor-api,MISMATCH(source 6.21),High,unrated: internal signals only
+ETH Farms,Base cbETH Loooper,Base,Fusion by IPOR,8.724499999999999,8.91396,FLAGGED,6.188,ipor-api,MISMATCH(source 6.19),High,unrated: internal signals only
 USD Farms,0.01%,Ethereum,Uniswap V4,8.52451,,FLAGGED,,,STALE(6d old); NEW(3d history),High (3.6),"score 3.6; SUSDE 6.6 (pharos 6.7, tid 6.5); USDT 7.8 (pharos 8.7, tid 7.0); worst leg: SUSDE; -2 red flags; -1 tvl<1M"
 USD Farms,PLP Savings USDS 26NOV2026,Ethereum,Pendle,8.47701,8.82236,FLAGGED,,,STALE(2d old),Medium (5.8),"score 5.8; SUSDS 7.8 (pharos 7.6, tid 8.0); -2 red flags"
-USD Farms,For LP | Maturity 22OCT2026,Plasma,Pendle,8.26962,8.37983,FLAGGED,,,STALE(2d old),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
-USD Farms,For buying PT-sUSDe-13AUG2026,Ethereum,Pendle,8.150030000000001,8.12735,FLAGGED,4.245,pendle-api,STALE(2d old); MISMATCH(source 4.25),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
-USD Farms,For LP | Maturity 13AUG2026,Ethereum,Pendle,8.13224,8.15522,FLAGGED,,,STALE(2d old),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
-USD Farms,PT Ethena sUSDE 22OCT2026,Plasma,Pendle,8.030909999999999,8.00863,FLAGGED,4.112,pendle-api,STALE(2d old); MISMATCH(source 4.11),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
-USD Farms,PT Ethena sUSDE 22OCT2026,Monad,Pendle,7.97017,7.84053,FLAGGED,4.112,pendle-api,STALE(2d old); NEW(10d history); MISMATCH(source 4.11),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
+USD Farms,For LP | Maturity 22OCT2026,Plasma,Pendle,8.26946,8.37967,FLAGGED,,,STALE(2d old),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
+USD Farms,For buying PT-sUSDe-13AUG2026,Ethereum,Pendle,8.14987,8.12719,FLAGGED,4.245,pendle-api,STALE(2d old); MISMATCH(source 4.25),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
+USD Farms,For LP | Maturity 13AUG2026,Ethereum,Pendle,8.13208,8.15506,FLAGGED,,,STALE(2d old),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
+USD Farms,PT Ethena sUSDE 22OCT2026,Plasma,Pendle,8.03075,8.00847,FLAGGED,4.112,pendle-api,STALE(2d old); MISMATCH(source 4.11),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
+USD Farms,PT Ethena sUSDE 22OCT2026,Monad,Pendle,7.97001,7.84037,FLAGGED,4.112,pendle-api,STALE(2d old); NEW(10d history); MISMATCH(source 4.11),Medium (4.6),"score 4.6; SUSDE 6.6 (pharos 6.7, tid 6.5); -2 red flags"
 USD Farms,PT Strata Senior NUSD 17SEP2026,Ethereum,Pendle,7.92667,8.09305,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
 USD Farms,PLP Staked Saturn USD 27AUG2026,BSC,Pendle,7.799090000000001,7.85378,FLAGGED,,,STALE(2d old),High (1.5),score 1.5; SUSDAT 3.5 (tid 3.5); -2 red flags
-USD Farms,EDGEUSDC,Base,Morpho Blue,7.79082,8.37429,FLAGGED,5.025,yieldz,MISMATCH(source 5.03),High,unrated: internal signals only
-USD Farms,Base USDC Lending Optimizer,Base,Fusion by IPOR,7.76483,7.57373,FLAGGED,5.719,ipor-api,MISMATCH(source 5.72),Medium (6.0),"score 6.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 red flags; -1 tvl<1M"
+USD Farms,Base USDC Lending Optimizer,Base,Fusion by IPOR,7.78555,7.57669,FLAGGED,5.405,ipor-api,MISMATCH(source 5.41),Medium (6.0),"score 6.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 red flags; -1 tvl<1M"
+USD Farms,EDGEUSDC,Base,Morpho Blue,7.67293,8.35745,FLAGGED,4.746,yieldz,MISMATCH(source 4.75),High,unrated: internal signals only
 USD Farms,PT Saturn USD 27AUG2026,Monad,Pendle,7.59446,7.39662,FLAGGED,11.48,pendle-api,STALE(2d old); MISMATCH(source 11.48),Medium (4.1),"score 4.1; USDAT 6.1 (pharos 6.3, tid 5.5, yearn 6.8); -2 red flags"
 USD Farms,For LP | Maturity 26NOV2026,Hyperliquid L1,Pendle,7.58126,7.9581,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
-USD Farms,yoUSD Looopeer,Base,Fusion by IPOR,6.69434,7.04789,FLAGGED,4.189,ipor-api,MISMATCH(source 4.19),Medium (6.0),"score 6.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 red flags; -1 tvl<1M"
-USD Farms,PT USDai 15OCT2026,Arbitrum,Pendle,6.53856,6.46686,FLAGGED,9.637,pendle-api,STALE(2d old); MISMATCH(source 9.64),High (3.4),"score 3.4; USDAI 5.4 (pharos 4.2, tid 6.5); -2 red flags"
+USD Farms,yoUSD Looopeer,Base,Fusion by IPOR,6.69176,7.04752,FLAGGED,4.188,ipor-api,MISMATCH(source 4.19),Medium (6.0),"score 6.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 red flags; -1 tvl<1M"
+USD Farms,PT USDai 15OCT2026,Arbitrum,Pendle,6.53856,6.46686,FLAGGED,9.638,pendle-api,STALE(2d old); MISMATCH(source 9.64),High (3.4),"score 3.4; USDAI 5.4 (pharos 4.2, tid 6.5); -2 red flags"
 USD Farms,PLP trUSD 26NOV2026,Ethereum,Pendle,6.52399,,FLAGGED,,,STALE(2d old); NEW(5d history),High,unrated: internal signals only
 USD Farms,PLP Staked NUSD 24SEP2026,Ethereum,Pendle,6.39111,6.65375,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
 USD Farms,PLP Saturn USD 27AUG2026,Monad,Pendle,6.29018,5.64626,FLAGGED,,,STALE(2d old),Medium (4.1),"score 4.1; USDAT 6.1 (pharos 6.3, tid 5.5, yearn 6.8); -2 red flags"
-USD Farms,frxUSD/sDOLA,Ethereum,Curve DEX,6.1456,6.30232,FLAGGED,0.787,curve-api (total),MISMATCH(curve total 0.79),High (2.6),"score 2.6; FRXUSD 6.2 (pharos 7.0, tid 5.5); SDOLA 4.6 (pharos 4.8, tid 4.5); worst leg: SDOLA; -2 red flags"
-ETH Farms,Fusion stETH looping Ethereum,Ethereum,Fusion by IPOR,5.72763,6.09746,FLAGGED,3.512,ipor-api,MISMATCH(source 3.51),High,unrated: internal signals only
-ETH Farms,IPOR WstETH Base,Base,Fusion by IPOR,5.01562,5.16528,FLAGGED,2.74,ipor-api,MISMATCH(source 2.74),High,unrated: internal signals only
-ETH Farms,TESS cbETH (Base) Loop Vault,Base,Fusion by IPOR,4.92442,5.05539,FLAGGED,2.56,ipor-api,MISMATCH(source 2.56),High,unrated: internal signals only
-ETH Farms,Base ETH Lending Optimizer,Base,Fusion by IPOR,4.77403,4.69162,FLAGGED,0,ipor-api,MISMATCH(source 0.00),High,unrated: internal signals only
-ETH Farms,For LP | Maturity 30DEC2027,Ethereum,Pendle,4.586320000000001,4.57296,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
-ETH Farms,For buying PT-wstETH-30DEC2027,Ethereum,Pendle,4.48718,4.47657,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
-USD Farms,Convex,Ethereum,Beefy,95.93559,61.02406,CAUTION,,,SPIKE(30d avg 27.5),High (0.8),"score 0.8; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD; -1.5 volatile; -1 tvl<1M"
-USD Farms,CL50 - 0.05%,Base,Aerodrome Slipstream,81.93181,104.53121,CAUTION,,,REWARD-HEAVY(emissions 79.3 of 81.9 unverified),High (1.8),"score 1.8; MSUSD 3.3 (pharos 3.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: MSUSD; -1.5 volatile"
-USD Farms,frxUSD/msUSD,Ethereum,Convex Finance,69.34552,48.13973,CAUTION,21.277,curve-api (total),REWARD-HEAVY(emissions 69.0 of 69.3 unverified),High (3.3),"score 3.3; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD"
-ETH Farms,CL50 - 0.05%,Base,Aerodrome Slipstream,63.37006,114.54159,CAUTION,,,REWARD-HEAVY(emissions 61.9 of 63.4 unverified),High,unrated: internal signals only
-USD Farms,StableV2 AMM - USDC/msUSD,OP Mainnet,Velodrome V2,40.71229,38.61163,CAUTION,,,REWARD-HEAVY(emissions 40.7 of 40.7 unverified),High (2.3),"score 2.3; USDC 9.0 (pharos 9.0, tid 9.0); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD; -1 tvl<1M"
-USD Farms,Stake DAO frxUSD/msUSD Vault,Ethereum,Stake DAO,31.79887,36.1674,CAUTION,4.261,on-chain (curve vp 7d),REWARD-HEAVY(emissions 27.4 of 31.8 unverified),High (3.3),"score 3.3; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD"
-USD Farms,USDG-USDe,Solana,Orca DEX,30.66601,8.40224,CAUTION,,,SPIKE(30d avg 3.8),Medium (5.3),"score 5.3; USDG 7.4 (pharos 7.2, tid 7.0, yearn 8.1); USDE 6.8 (pharos 7.2, tid 6.5); worst leg: USDE; -1.5 volatile"
-USD Farms,GBPM-USDM,Monad,Mento V3,29.33076,28.75079,CAUTION,,,REWARD-HEAVY(emissions 29.2 of 29.3 unverified),High (3.4),"score 3.4; GBPM 4.4 (pharos 4.4); USDM 4.6 (pharos 4.1, tid 5.0); worst leg: GBPM; -1 tvl<1M"
-USD Farms,msUSD/fxUSD,Ethereum,Curve DEX,29.23777,38.88753,CAUTION,29.138,curve-api (total),REWARD-HEAVY(emissions 29.1 of 29.2 unverified),High (0.8),"score 0.8; MSUSD 3.3 (pharos 3.3); FXUSD 7.7 (pharos 7.2, yearn 8.4); worst leg: MSUSD; -1.5 volatile; -1 tvl<1M"
-USD Farms,Mento Fixed Price MM - EURm/USDm,Monad,Mento V3,26.70775,25.8556,CAUTION,,,REWARD-HEAVY(emissions 26.0 of 26.7 unverified),High (3.6),"score 3.6; EURM 6.4 (pharos 6.4); USDM 4.6 (pharos 4.1, tid 5.0); worst leg: USDM; -1 tvl<1M"
-USD Farms,pmUSD/frxUSD,Ethereum,Convex Finance,25.24152,23.76234,CAUTION,13.217,curve-api (total),REWARD-HEAVY(emissions 25.1 of 25.2 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: PMUSD; -1 tvl<1M"
-USD Farms,Stake DAO pmUSD/frxUSD Vault,Ethereum,Stake DAO,23.0369,21.88145,CAUTION,,,REWARD-HEAVY(emissions 22.9 of 23.0 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: PMUSD; -1 tvl<1M"
-USD Farms,pmUSD/crvUSD,Ethereum,Convex Finance,22.67219,21.57299,CAUTION,11.94,curve-api (total),REWARD-HEAVY(emissions 22.6 of 22.7 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: PMUSD; -1 tvl<1M"
-USD Farms,frxUSD/msUSD,Ethereum,Curve DEX,21.55635,23.30655,CAUTION,21.277,curve-api (total),REWARD-HEAVY(emissions 21.2 of 21.6 unverified),High (3.3),"score 3.3; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD"
-USD Farms,pyusd-USDe,Solana,Orca DEX,21.27193,6.16675,CAUTION,,,SPIKE(30d avg 2.3),Medium (5.3),"score 5.3; PYUSD 7.4 (pharos 7.9, tid 7.0); USDE 6.8 (pharos 7.2, tid 6.5); worst leg: USDE; -1.5 volatile"
-USD Farms,Stake DAO pmUSD/crvUSD Vault,Ethereum,Stake DAO,20.80977,19.56299,CAUTION,,,REWARD-HEAVY(emissions 20.7 of 20.8 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: PMUSD; -1 tvl<1M"
-ETH Farms,StableV2 AMM - msETH/WETH,OP Mainnet,Velodrome V2,18.06144,16.80282,CAUTION,,,REWARD-HEAVY(emissions 18.1 of 18.1 unverified),High,unrated: internal signals only
-USD Farms,Curve,Ethereum,Stake DAO,17.48838,20.54015,CAUTION,13.298,curve-api (total),REWARD-HEAVY(emissions 15.4 of 17.5 unverified),High (1.8),"score 1.8; SDUSD 2.8 (pharos 2.8); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: SDUSD; -1 tvl<1M"
-USD Farms,Stable AMM - msUSD/USDC,Base,Aerodrome V1,16.27851,14.72014,CAUTION,,,REWARD-HEAVY(emissions 16.3 of 16.3 unverified),High (3.3),"score 3.3; MSUSD 3.3 (pharos 3.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: MSUSD"
-USD Farms,PLP Ethena sUSDE 22OCT2026,Monad,Pendle,16.16316,19.49298,CAUTION,12.528,pendle-api,NEW(10d history),Medium (6.6),"score 6.6; SUSDE 6.6 (pharos 6.7, tid 6.5)"
-USD Farms,USDC-APXUSD,Solana,Orca DEX,15.29305,,CAUTION,,,NEW(3d history),High (2.3),"score 2.3; USDC 9.0 (pharos 9.0, tid 9.0); APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6); worst leg: APXUSD"
-USD Farms,Stake DAO USD3/frxUSD Vault,Ethereum,Stake DAO,14.87462,12.84735,CAUTION,3.519,on-chain (curve vp 7d),REWARD-HEAVY(emissions 11.5 of 14.9 unverified),Medium (4.8),"score 4.8; FRXUSD 6.2 (pharos 7.0, tid 5.5); USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4); worst leg: USD3"
-USD Farms,sdUSD/frxUSD,Ethereum,Curve DEX,14.86607,17.85035,CAUTION,13.298,curve-api (total),REWARD-HEAVY(emissions 13.3 of 14.9 unverified),High (1.8),"score 1.8; SDUSD 2.8 (pharos 2.8); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: SDUSD; -1 tvl<1M"
-USD Farms,For LP | Maturity 26NOV2026,Ethereum,Pendle,14.55111,,CAUTION,12.627,pendle-api,NEW(5d history),Medium,unrated: internal signals only
-USD Farms,3pool,Monad,Curve DEX,13.67574,14.03184,CAUTION,,,REWARD-HEAVY(emissions 13.7 of 13.7 unverified),Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0); USDC 9.0 (pharos 9.0, tid 9.0); USDT 7.8 (pharos 8.7, tid 7.0); worst leg: AUSD"
-USD Farms,pmUSD/frxUSD,Ethereum,Curve DEX,13.30555,12.63682,CAUTION,13.217,curve-api (total),REWARD-HEAVY(emissions 13.2 of 13.3 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: PMUSD"
+ETH Farms,Autopilot wETH Base,Base,Fusion by IPOR,6.23875,5.56638,FLAGGED,4.254,ipor-api,MISMATCH(source 4.25),High,unrated: internal signals only
+USD Farms,frxUSD/sDOLA,Ethereum,Curve DEX,6.149080000000001,6.30281,FLAGGED,0.785,curve-api (total),MISMATCH(curve total 0.78),High (2.6),"score 2.6; FRXUSD 6.2 (pharos 7.0, tid 5.5); SDOLA 4.6 (pharos 4.8, tid 4.5); worst leg: SDOLA; -2 red flags"
+ETH Farms,Fusion stETH looping Ethereum,Ethereum,Fusion by IPOR,5.70388,6.0975,FLAGGED,3.448,ipor-api,MISMATCH(source 3.45),High,unrated: internal signals only
+ETH Farms,TESS cbETH (Base) Loop Vault,Base,Fusion by IPOR,4.93143,5.05639,FLAGGED,2.556,ipor-api,MISMATCH(source 2.56),High,unrated: internal signals only
+ETH Farms,IPOR WstETH Base,Base,Fusion by IPOR,4.896850000000001,5.15174,FLAGGED,2.742,ipor-api,MISMATCH(source 2.74),High,unrated: internal signals only
+ETH Farms,Base ETH Lending Optimizer,Base,Fusion by IPOR,4.800050000000001,4.69534,FLAGGED,0,ipor-api,MISMATCH(source 0.00),High,unrated: internal signals only
+ETH Farms,For LP | Maturity 30DEC2027,Ethereum,Pendle,4.59032,4.57696,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
+ETH Farms,For buying PT-wstETH-30DEC2027,Ethereum,Pendle,4.49118,4.48057,FLAGGED,,,STALE(2d old),High,unrated: internal signals only
+USD Farms,Convex,Ethereum,Beefy,96.40811,61.09156,CAUTION,,,SPIKE(30d avg 27.6),High (0.8),"score 0.8; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD; -1.5 volatile; -1 tvl<1M"
+USD Farms,CL50 - 0.05%,Base,Aerodrome Slipstream,81.86057,104.52103,CAUTION,,,REWARD-HEAVY(emissions 79.3 of 81.9 unverified),High (1.8),"score 1.8; MSUSD 3.3 (pharos 3.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: MSUSD; -1.5 volatile"
+USD Farms,frxUSD/msUSD,Ethereum,Convex Finance,69.6692,48.18597,CAUTION,21.203,curve-api (total),REWARD-HEAVY(emissions 69.3 of 69.7 unverified),High (3.3),"score 3.3; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD"
+ETH Farms,CL50 - 0.05%,Base,Aerodrome Slipstream,65.7142,114.87647,CAUTION,,,REWARD-HEAVY(emissions 64.3 of 65.7 unverified),High,unrated: internal signals only
+USD Farms,StableV2 AMM - USDC/msUSD,OP Mainnet,Velodrome V2,41.02706,38.6566,CAUTION,,,REWARD-HEAVY(emissions 41.0 of 41.0 unverified),High (2.3),"score 2.3; USDC 9.0 (pharos 9.0, tid 9.0); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD; -1 tvl<1M"
+USD Farms,Stake DAO frxUSD/msUSD Vault,Ethereum,Stake DAO,31.78956,36.16607,CAUTION,4.261,on-chain (curve vp 7d),REWARD-HEAVY(emissions 27.4 of 31.8 unverified),High (3.3),"score 3.3; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD"
+USD Farms,USDG-USDe,Solana,Orca DEX,30.66452,8.40203,CAUTION,,,SPIKE(30d avg 3.8),Medium (5.3),"score 5.3; USDG 7.4 (pharos 7.2, tid 7.0, yearn 8.1); USDE 6.8 (pharos 7.2, tid 6.5); worst leg: USDE; -1.5 volatile"
+USD Farms,msUSD/fxUSD,Ethereum,Curve DEX,29.36701,38.90599,CAUTION,29.036,curve-api (total),REWARD-HEAVY(emissions 29.2 of 29.4 unverified),High (0.8),"score 0.8; MSUSD 3.3 (pharos 3.3); FXUSD 7.7 (pharos 7.2, yearn 8.4); worst leg: MSUSD; -1.5 volatile; -1 tvl<1M"
+USD Farms,GBPM-USDM,Monad,Mento V3,29.33103,28.75083,CAUTION,,,REWARD-HEAVY(emissions 29.2 of 29.3 unverified),High (3.4),"score 3.4; GBPM 4.4 (pharos 4.4); USDM 4.6 (pharos 4.1, tid 5.0); worst leg: GBPM; -1 tvl<1M"
+USD Farms,Mento Fixed Price MM - EURm/USDm,Monad,Mento V3,26.7111,25.85607,CAUTION,,,REWARD-HEAVY(emissions 26.0 of 26.7 unverified),High (3.6),"score 3.6; EURM 6.4 (pharos 6.4); USDM 4.6 (pharos 4.1, tid 5.0); worst leg: USDM; -1 tvl<1M"
+USD Farms,pmUSD/frxUSD,Ethereum,Convex Finance,25.36061,23.77935,CAUTION,13.171,curve-api (total),REWARD-HEAVY(emissions 25.2 of 25.4 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: PMUSD; -1 tvl<1M"
+USD Farms,Stake DAO pmUSD/frxUSD Vault,Ethereum,Stake DAO,23.02919,21.88035,CAUTION,,,REWARD-HEAVY(emissions 22.9 of 23.0 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: PMUSD; -1 tvl<1M"
+USD Farms,pmUSD/crvUSD,Ethereum,Convex Finance,22.77924,21.58828,CAUTION,11.899,curve-api (total),REWARD-HEAVY(emissions 22.7 of 22.8 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: PMUSD; -1 tvl<1M"
+USD Farms,frxUSD/msUSD,Ethereum,Curve DEX,21.6503,23.31997,CAUTION,21.203,curve-api (total),REWARD-HEAVY(emissions 21.3 of 21.7 unverified),High (3.3),"score 3.3; FRXUSD 6.2 (pharos 7.0, tid 5.5); MSUSD 3.3 (pharos 3.3); worst leg: MSUSD"
+USD Farms,pyusd-USDe,Solana,Orca DEX,21.27064,6.16657,CAUTION,,,SPIKE(30d avg 2.3),Medium (5.3),"score 5.3; PYUSD 7.4 (pharos 7.9, tid 7.0); USDE 6.8 (pharos 7.2, tid 6.5); worst leg: USDE; -1.5 volatile"
+USD Farms,Stake DAO pmUSD/crvUSD Vault,Ethereum,Stake DAO,20.80283,19.562,CAUTION,,,REWARD-HEAVY(emissions 20.7 of 20.8 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: PMUSD; -1 tvl<1M"
+ETH Farms,StableV2 AMM - msETH/WETH,OP Mainnet,Velodrome V2,18.09009,16.80691,CAUTION,,,REWARD-HEAVY(emissions 18.1 of 18.1 unverified),High,unrated: internal signals only
+USD Farms,Curve,Ethereum,Stake DAO,17.48309,20.5394,CAUTION,13.251,curve-api (total),REWARD-HEAVY(emissions 15.4 of 17.5 unverified),High (1.8),"score 1.8; SDUSD 2.8 (pharos 2.8); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: SDUSD; -1 tvl<1M"
+USD Farms,Stable AMM - msUSD/USDC,Base,Aerodrome V1,16.33179,14.72775,CAUTION,,,REWARD-HEAVY(emissions 16.3 of 16.3 unverified),High (3.3),"score 3.3; MSUSD 3.3 (pharos 3.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: MSUSD"
+USD Farms,PLP Ethena sUSDE 22OCT2026,Monad,Pendle,16.163,19.49282,CAUTION,12.433,pendle-api,NEW(10d history),Medium (6.6),"score 6.6; SUSDE 6.6 (pharos 6.7, tid 6.5)"
+USD Farms,USDC-APXUSD,Solana,Orca DEX,15.29172,,CAUTION,,,NEW(3d history),High (2.3),"score 2.3; USDC 9.0 (pharos 9.0, tid 9.0); APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6); worst leg: APXUSD"
+USD Farms,sdUSD/frxUSD,Ethereum,Curve DEX,14.92469,17.85872,CAUTION,13.251,curve-api (total),REWARD-HEAVY(emissions 13.3 of 14.9 unverified),High (1.8),"score 1.8; SDUSD 2.8 (pharos 2.8); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: SDUSD; -1 tvl<1M"
+USD Farms,Stake DAO USD3/frxUSD Vault,Ethereum,Stake DAO,14.86883,12.84652,CAUTION,3.494,on-chain (curve vp 7d),REWARD-HEAVY(emissions 11.5 of 14.9 unverified),Medium (4.8),"score 4.8; FRXUSD 6.2 (pharos 7.0, tid 5.5); USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4); worst leg: USD3"
+USD Farms,For LP | Maturity 26NOV2026,Ethereum,Pendle,14.55111,,CAUTION,12.637,pendle-api,NEW(5d history),Medium,unrated: internal signals only
+USD Farms,3pool,Monad,Curve DEX,13.76871,14.04513,CAUTION,,,REWARD-HEAVY(emissions 13.8 of 13.8 unverified),Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0); USDC 9.0 (pharos 9.0, tid 9.0); USDT 7.8 (pharos 8.7, tid 7.0); worst leg: AUSD"
+USD Farms,pmUSD/frxUSD,Ethereum,Curve DEX,13.3642,12.6452,CAUTION,13.171,curve-api (total),REWARD-HEAVY(emissions 13.2 of 13.4 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: PMUSD"
 USD Farms,PT trUSD 26NOV2026,Ethereum,Pendle,12.88164,,CAUTION,12.332,pendle-api,NEW(5d history),Medium,unrated: internal signals only
 USD Farms,For buying PT-strUSD-26NOV2026,Ethereum,Pendle,12.72878,,CAUTION,12.332,pendle-api,NEW(5d history),Medium,unrated: internal signals only
-USD Farms,USDCX-USDT.E,Move,Yuzu Finance,12.622,13.2062,CAUTION,,,REWARD-HEAVY(emissions 12.5 of 12.6 unverified),Medium (5.9),score 5.9; USDCX 5.9 (pharos 5.9)
-USD Farms,USD3/frxUSD,Ethereum,Curve DEX,12.51031,11.25742,CAUTION,9.169,curve-api (total),REWARD-HEAVY(emissions 9.2 of 12.5 unverified),Medium (4.8),"score 4.8; FRXUSD 6.2 (pharos 7.0, tid 5.5); USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4); worst leg: USD3"
-USD Farms,USDp-csbUSDC,Hyperliquid L1,Balancer V3,12.24719,12.25435,CAUTION,,,REWARD-HEAVY(emissions 10.1 of 12.2 unverified),Medium (5.1),"score 5.1; USDP 5.1 (pharos 5.3, tid 5.0)"
-USD Farms,Curve.fi FRAX/USDC,Ethereum,Convex Finance,12.13927,12.46849,CAUTION,6.461,curve-api (total),REWARD-HEAVY(emissions 12.1 of 12.1 unverified),High (3.0),"score 3.0; FRAX 4.0 (pharos 5.7, tid 2.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: FRAX; -1 tvl<1M"
-USD Farms,pmUSD/crvUSD,Ethereum,Curve DEX,12.02162,11.31452,CAUTION,11.94,curve-api (total),REWARD-HEAVY(emissions 11.9 of 12.0 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: PMUSD"
+USD Farms,USDCX-USDT.E,Move,Yuzu Finance,12.72761,13.22129,CAUTION,,,REWARD-HEAVY(emissions 12.6 of 12.7 unverified),Medium (5.9),score 5.9; USDCX 5.9 (pharos 5.9)
+USD Farms,USD3/frxUSD,Ethereum,Curve DEX,12.54918,11.26298,CAUTION,9.137,curve-api (total),REWARD-HEAVY(emissions 9.2 of 12.5 unverified),Medium (4.8),"score 4.8; FRXUSD 6.2 (pharos 7.0, tid 5.5); USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4); worst leg: USD3"
+USD Farms,USDp-csbUSDC,Hyperliquid L1,Balancer V3,12.2472,12.25435,CAUTION,,,REWARD-HEAVY(emissions 10.1 of 12.2 unverified),Medium (5.1),"score 5.1; USDP 5.1 (pharos 5.3, tid 5.0)"
+USD Farms,Curve.fi FRAX/USDC,Ethereum,Convex Finance,12.18669,12.47527,CAUTION,6.425,curve-api (total),REWARD-HEAVY(emissions 12.1 of 12.2 unverified),High (3.0),"score 3.0; FRAX 4.0 (pharos 5.7, tid 2.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: FRAX; -1 tvl<1M"
+USD Farms,pmUSD/crvUSD,Ethereum,Curve DEX,12.07466,11.3221,CAUTION,11.899,curve-api (total),REWARD-HEAVY(emissions 12.0 of 12.1 unverified),High (0.5),"score 0.5; PMUSD 0.5 (pharos 0.5); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: PMUSD"
 USD Farms,R25 Treasury Vault,Sui,Ember Protocol,12,12,CAUTION,,,SELF-REPORTED(flat 30d history),Medium (7.0),"score 7.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 self-reported"
-ETH Farms,Curve.fi Factory Plain Pool: msETH/WETH,Ethereum,Convex Finance,11.78692,13.81713,CAUTION,,,REWARD-HEAVY(emissions 11.7 of 11.8 unverified),Medium,unrated: internal signals only
-USD Farms,Tori Staked trUSD · Junior,Ethereum,Royco V2,11.4663,11.53486,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
-USD Farms,StableV2 AMM - USDC/sUSD,OP Mainnet,Velodrome V2,11.39932,11.01151,CAUTION,,,REWARD-HEAVY(emissions 11.4 of 11.4 unverified),High (3.0),"score 3.0; USDC 9.0 (pharos 9.0, tid 9.0); SUSD 4.5 (pharos 4.5); worst leg: SUSD; -1.5 volatile"
-USD Farms,Staked Avant USD · Junior,Avalanche,Royco V2,11.17775,10.36881,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
-USD Farms,StableV2 AMM - USDC/alUSD,OP Mainnet,Velodrome V2,10.71619,10.5594,CAUTION,,,REWARD-HEAVY(emissions 10.7 of 10.7 unverified),High (3.1),"score 3.1; USDC 9.0 (pharos 9.0, tid 9.0); ALUSD 3.1 (pharos 3.1); worst leg: ALUSD"
+ETH Farms,Curve.fi Factory Plain Pool: msETH/WETH,Ethereum,Convex Finance,11.91369,13.83524,CAUTION,,,REWARD-HEAVY(emissions 11.8 of 11.9 unverified),Medium,unrated: internal signals only
+USD Farms,StableV2 AMM - USDC/sUSD,OP Mainnet,Velodrome V2,11.47421,11.02221,CAUTION,,,REWARD-HEAVY(emissions 11.5 of 11.5 unverified),High (3.0),"score 3.0; USDC 9.0 (pharos 9.0, tid 9.0); SUSD 4.5 (pharos 4.5); worst leg: SUSD; -1.5 volatile"
+USD Farms,Tori Staked trUSD · Junior,Ethereum,Royco V2,11.46279,11.53435,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
+USD Farms,Staked Avant USD · Junior,Avalanche,Royco V2,11.11208,10.35943,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
+USD Farms,StableV2 AMM - USDC/alUSD,OP Mainnet,Velodrome V2,10.78665,10.56946,CAUTION,,,REWARD-HEAVY(emissions 10.8 of 10.8 unverified),High (3.1),"score 3.1; USDC 9.0 (pharos 9.0, tid 9.0); ALUSD 3.1 (pharos 3.1); worst leg: ALUSD"
 USD Farms,USDp-gamiUSDC,Avalanche,Balancer V3,10.68765,9.37256,CAUTION,,,REWARD-HEAVY(emissions 8.9 of 10.7 unverified),Medium (4.1),"score 4.1; USDP 5.1 (pharos 5.3, tid 5.0); -1 tvl<1M"
-USD Farms,TESS USDe sUSDe Loop Vault,Ethereum,Fusion by IPOR,10.25079,,CAUTION,10.255,ipor-api,NEW(3d history),Medium (6.8),"score 6.8; USDE 6.8 (pharos 7.2, tid 6.5)"
-USD Farms,MainMarket,Sui,Current,10.23419,9.91511,CAUTION,,,REWARD-HEAVY(emissions 8.5 of 10.2 unverified),Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,evaUSDC/evaUSDT,Ethereum,Convex Finance,10.07155,10.09122,CAUTION,7.514,curve-api (total),REWARD-HEAVY(emissions 10.1 of 10.1 unverified),Medium,unrated: internal signals only
+USD Farms,MainMarket,Sui,Current,10.26393,9.91936,CAUTION,,,REWARD-HEAVY(emissions 8.5 of 10.3 unverified),Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,TESS USDe sUSDe Loop Vault,Ethereum,Fusion by IPOR,10.25486,,CAUTION,10.255,ipor-api,NEW(3d history),Medium (6.8),"score 6.8; USDE 6.8 (pharos 7.2, tid 6.5)"
+USD Farms,evaUSDC/evaUSDT,Ethereum,Convex Finance,10.11929,10.09804,CAUTION,7.488,curve-api (total),REWARD-HEAVY(emissions 10.1 of 10.1 unverified),Medium,unrated: internal signals only
 USD Farms,COREUSDC,Ethereum,Upshift,10,10,CAUTION,,,SELF-REPORTED(flat 30d history),High,unrated: internal signals only
-USD Farms,AVUSD-AUSD,Monad,Balancer V3,9.96739,9.80831,CAUTION,,,REWARD-HEAVY(emissions 9.2 of 10.0 unverified),Medium (5.2),"score 5.2; AVUSD 5.2 (pharos 6.0, tid 4.5); AUSD 7.1 (pharos 7.3, tid 7.0); worst leg: AVUSD"
-USD Farms,Stake DAO evaUSDC/evaUSDT Vault,Ethereum,Stake DAO,9.78576,9.59845,CAUTION,7.514,curve-api (total),REWARD-HEAVY(emissions 9.8 of 9.8 unverified),Medium,unrated: internal signals only
-ETH Farms,Stake DAO Curve.fi Factory Plain Pool: msETH/WETH Vault,Ethereum,Stake DAO,9.67286,9.21353,CAUTION,,,REWARD-HEAVY(emissions 8.9 of 9.7 unverified),Medium,unrated: internal signals only
-USD Farms,MSUSD-FRAXBP,Ethereum,Convex Finance,9.67148,10.83985,CAUTION,4.882,curve-api (total),REWARD-HEAVY(emissions 9.6 of 9.7 unverified),High (3.3),score 3.3; MSUSD 3.3 (pharos 3.3)
-USD Farms,wnAUSD / wnUSDC / wnUSDT0,Monad,Balancer V3,9.47927,9.49985,CAUTION,,,REWARD-HEAVY(emissions 8.5 of 9.5 unverified),Medium,unrated: internal signals only
-USD Farms,Steakhouse Ethena USDtb,Ethereum,Morpho Blue,9.401720000000001,9.48108,CAUTION,1.579,on-chain (7d realized),REWARD-HEAVY(emissions 7.2 of 9.4 unverified),Medium,unrated: internal signals only
+USD Farms,AVUSD-AUSD,Monad,Balancer V3,9.96857,9.80847,CAUTION,,,REWARD-HEAVY(emissions 9.2 of 10.0 unverified),Medium (5.2),"score 5.2; AVUSD 5.2 (pharos 6.0, tid 4.5); AUSD 7.1 (pharos 7.3, tid 7.0); worst leg: AVUSD"
+USD Farms,Stake DAO evaUSDC/evaUSDT Vault,Ethereum,Stake DAO,9.78371,9.59815,CAUTION,7.488,curve-api (total),REWARD-HEAVY(emissions 9.8 of 9.8 unverified),Medium,unrated: internal signals only
+USD Farms,MSUSD-FRAXBP,Ethereum,Convex Finance,9.71692,10.84634,CAUTION,4.865,curve-api (total),REWARD-HEAVY(emissions 9.6 of 9.7 unverified),High (3.3),score 3.3; MSUSD 3.3 (pharos 3.3)
+ETH Farms,Stake DAO Curve.fi Factory Plain Pool: msETH/WETH Vault,Ethereum,Stake DAO,9.650870000000001,9.21038,CAUTION,,,REWARD-HEAVY(emissions 8.9 of 9.7 unverified),Medium,unrated: internal signals only
+USD Farms,wnAUSD / wnUSDC / wnUSDT0,Monad,Balancer V3,9.485579999999999,9.50075,CAUTION,,,REWARD-HEAVY(emissions 8.5 of 9.5 unverified),Medium,unrated: internal signals only
+USD Farms,Steakhouse Ethena USDtb,Ethereum,Morpho Blue,9.43619,9.486,CAUTION,1.589,on-chain (7d realized),REWARD-HEAVY(emissions 7.2 of 9.4 unverified),Medium,unrated: internal signals only
 USD Farms,IdleCDO AA Tranche - Adaptive FrontierUSDC,Ethereum,Pareto Credit,9.375,9.375,CAUTION,,,SELF-REPORTED(flat 30d history),Medium (7.0),"score 7.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 self-reported"
-USD Farms,Staked Avant USD · Senior,Avalanche,Royco V2,9.26448,8.55878,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
-USD Farms,PLP Staked USN 22JUL2027,Ethereum,Pendle,9.23161,9.49986,CAUTION,8.717,pendle-api,NEW(10d history),Medium (6.1),score 6.1; SUSN 6.1 (pharos 6.1)
+USD Farms,PLP Staked USN 22JUL2027,Ethereum,Pendle,9.23161,9.49986,CAUTION,8.72,pendle-api,NEW(10d history),Medium (6.1),score 6.1; SUSN 6.1 (pharos 6.1)
+USD Farms,Staked Avant USD · Senior,Avalanche,Royco V2,9.21054,8.55108,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
 USD Farms,UPUSDC,Ethereum,Upshift,9.09,9.09,CAUTION,,,SELF-REPORTED(flat 30d history),High,unrated: internal signals only
-USD Farms,DUSD/frxUSD,Ethereum,Convex Finance,8.73306,9.2173,CAUTION,,,REWARD-HEAVY(emissions 8.7 of 8.7 unverified),Medium (4.2),"score 4.2; FRXUSD 6.2 (pharos 7.0, tid 5.5); DUSD 4.2 (pharos 4.2); worst leg: DUSD"
+USD Farms,DUSD/frxUSD,Ethereum,Convex Finance,8.774,9.22315,CAUTION,,,REWARD-HEAVY(emissions 8.8 of 8.8 unverified),Medium (4.2),"score 4.2; FRXUSD 6.2 (pharos 7.0, tid 5.5); DUSD 4.2 (pharos 4.2); worst leg: DUSD"
 USD Farms,PT Staked USN 22JUL2027,Ethereum,Pendle,8.28148,8.97278,CAUTION,8.281,pendle-api,NEW(10d history),Medium (6.1),score 6.1; SUSN 6.1 (pharos 6.1)
 USD Farms,APXUSD-USDC,Ethereum,Curve DEX,7.65,6.60714,CAUTION,,,NEW(7d history),High (2.3),"score 2.3; APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: APXUSD"
-USD Farms,USD1,Ethereum,Dolomite,7.55479,7.5478,CAUTION,,,REWARD-HEAVY(emissions 6.0 of 7.6 unverified),Medium (5.6),score 5.6; USD1 5.6 (pharos 5.6)
-ETH Farms,rETH Liquity LP Carry,Ethereum,Fusion by IPOR,7.514,7.76173,CAUTION,7.763,ipor-api,REWARD-HEAVY(emissions 5.4 of 7.5 unverified),Medium,unrated: internal signals only
-USD Farms,evaUSDC/evaUSDT,Ethereum,Curve DEX,7.50582,7.34773,CAUTION,7.514,curve-api (total),REWARD-HEAVY(emissions 7.5 of 7.5 unverified),Medium,unrated: internal signals only
+USD Farms,USD1,Ethereum,Dolomite,7.61184,7.55595,CAUTION,,,REWARD-HEAVY(emissions 6.1 of 7.6 unverified),Medium (5.6),score 5.6; USD1 5.6 (pharos 5.6)
+USD Farms,evaUSDC/evaUSDT,Ethereum,Curve DEX,7.5392,7.3525,CAUTION,7.488,curve-api (total),REWARD-HEAVY(emissions 7.5 of 7.5 unverified),Medium,unrated: internal signals only
+ETH Farms,rETH Liquity LP Carry,Ethereum,Fusion by IPOR,7.5115,7.76137,CAUTION,7.769,ipor-api,REWARD-HEAVY(emissions 5.4 of 7.5 unverified),Medium,unrated: internal signals only
 USD Farms,Pareto AA Tranche - RockawayXUSDC,Ethereum,Pareto Credit,7.125,7.125,CAUTION,,,SELF-REPORTED(flat 30d history),Medium (7.0),"score 7.0; USDC 9.0 (pharos 9.0, tid 9.0); -2 self-reported"
-USD Farms,Staked USN · Senior,Base,Royco V2,7.08019,8.47091,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
-USD Farms,CL10 - 0.05%,Base,Aerodrome Slipstream,6.93567,5.47459,CAUTION,,,REWARD-HEAVY(emissions 5.1 of 6.9 unverified),High (2.8),"score 2.8; USDC 9.0 (pharos 9.0, tid 9.0); MUSD 5.2 (pharos 5.0, yearn 5.6); worst leg: MUSD; -1.5 volatile; -1 tvl<1M"
-USD Farms,GROVE Farming Pool,Ethereum,Sky Lending,6.89533,6.69037,CAUTION,,,REWARD-HEAVY(emissions 6.9 of 6.9 unverified),Medium (7.9),"score 7.9; USDS 8.2 (pharos 8.1, tid 7.5, yearn 9.6); capped 7.9: not VERIFIED"
-USD Farms,Stake DAO avUSD/frxUSD Vault,Ethereum,Stake DAO,6.86473,6.89221,CAUTION,5.588,curve-api (total),REWARD-HEAVY(emissions 6.8 of 6.9 unverified),Medium (4.2),"score 4.2; FRXUSD 6.2 (pharos 7.0, tid 5.5); AVUSD 5.2 (pharos 6.0, tid 4.5); worst leg: AVUSD; -1 tvl<1M"
-ETH Farms,StableV2 AMM - alETH/WETH,OP Mainnet,Velodrome V2,6.79173,6.54772,CAUTION,,,REWARD-HEAVY(emissions 6.8 of 6.8 unverified),Medium,unrated: internal signals only
-USD Farms,alUSD/frxUSD,Ethereum,Convex Finance,6.69425,6.46008,CAUTION,,,REWARD-HEAVY(emissions 6.7 of 6.7 unverified),High (3.1),"score 3.1; ALUSD 3.1 (pharos 3.1); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: ALUSD"
-USD Farms,reUSD/scrvUSD,Ethereum,Convex Finance,6.56772,7.07862,CAUTION,2.924,curve-api (total),REWARD-HEAVY(emissions 5.9 of 6.6 unverified),Medium (5.1),"score 5.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: REUSD"
-USD Farms,FRAX-USDC,Ethereum,Curve DEX,6.485679999999999,6.70119,CAUTION,6.461,curve-api (total),REWARD-HEAVY(emissions 6.4 of 6.5 unverified),High (4.0),"score 4.0; FRAX 4.0 (pharos 5.7, tid 2.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: FRAX"
-USD Farms,USDC/USDf,Ethereum,Convex Finance,6.33016,6.54739,CAUTION,3.015,curve-api (total),REWARD-HEAVY(emissions 6.3 of 6.3 unverified),Medium (5.0),"score 5.0; USDC 9.0 (pharos 9.0, tid 9.0); USDF 5.0 (pharos 5.0); worst leg: USDF"
-USD Farms,Lista USDT Savings Vault,Ethereum,Lista Lending,6.30075,5.62991,CAUTION,,,REWARD-HEAVY(emissions 5.7 of 6.3 unverified),Medium (7.8),"score 7.8; USDT 7.8 (pharos 8.7, tid 7.0)"
+USD Farms,Staked USN · Senior,Base,Royco V2,7.03696,8.46474,CAUTION,,,NEW(8d history),Medium,unrated: internal signals only
+USD Farms,CL10 - 0.05%,Base,Aerodrome Slipstream,6.95162,5.47687,CAUTION,,,REWARD-HEAVY(emissions 5.1 of 7.0 unverified),High (2.8),"score 2.8; USDC 9.0 (pharos 9.0, tid 9.0); MUSD 5.2 (pharos 5.0, yearn 5.6); worst leg: MUSD; -1.5 volatile; -1 tvl<1M"
+USD Farms,GROVE Farming Pool,Ethereum,Sky Lending,6.91957,6.69384,CAUTION,,,REWARD-HEAVY(emissions 6.9 of 6.9 unverified),Medium (7.9),"score 7.9; USDS 8.2 (pharos 8.1, tid 7.5, yearn 9.6); capped 7.9: not VERIFIED"
+USD Farms,Stake DAO avUSD/frxUSD Vault,Ethereum,Stake DAO,6.86226,6.89186,CAUTION,5.569,curve-api (total),REWARD-HEAVY(emissions 6.8 of 6.9 unverified),Medium (4.2),"score 4.2; FRXUSD 6.2 (pharos 7.0, tid 5.5); AVUSD 5.2 (pharos 6.0, tid 4.5); worst leg: AVUSD; -1 tvl<1M"
+ETH Farms,StableV2 AMM - alETH/WETH,OP Mainnet,Velodrome V2,6.80452,6.54955,CAUTION,,,REWARD-HEAVY(emissions 6.8 of 6.8 unverified),Medium,unrated: internal signals only
+USD Farms,alUSD/frxUSD,Ethereum,Convex Finance,6.72581,6.46459,CAUTION,,,REWARD-HEAVY(emissions 6.7 of 6.7 unverified),High (3.1),"score 3.1; ALUSD 3.1 (pharos 3.1); FRXUSD 6.2 (pharos 7.0, tid 5.5); worst leg: ALUSD"
+USD Farms,reUSD/scrvUSD,Ethereum,Convex Finance,6.59585,7.08264,CAUTION,2.914,curve-api (total),REWARD-HEAVY(emissions 6.0 of 6.6 unverified),Medium (5.1),"score 5.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: REUSD"
+USD Farms,FRAX-USDC,Ethereum,Curve DEX,6.51389,6.70522,CAUTION,6.425,curve-api (total),REWARD-HEAVY(emissions 6.5 of 6.5 unverified),High (4.0),"score 4.0; FRAX 4.0 (pharos 5.7, tid 2.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: FRAX"
+USD Farms,USDC/USDf,Ethereum,Convex Finance,6.36,6.55165,CAUTION,3.005,curve-api (total),REWARD-HEAVY(emissions 6.3 of 6.4 unverified),Medium (5.0),"score 5.0; USDC 9.0 (pharos 9.0, tid 9.0); USDF 5.0 (pharos 5.0); worst leg: USDF"
+USD Farms,Lista USDT Savings Vault,Ethereum,Lista Lending,6.30261,5.63018,CAUTION,,,REWARD-HEAVY(emissions 5.7 of 6.3 unverified),Medium (7.8),"score 7.8; USDT 7.8 (pharos 8.7, tid 7.0)"
+USD Farms,Aave Monad GHO,Monad,Aave V3,6.23385,6.23204,CAUTION,,,REWARD-HEAVY(emissions 4.4 of 6.2 unverified),Medium (7.1),score 7.1; GHO 7.1 (pharos 7.1)
 ETH Farms,HGETH,Ethereum,Upshift,6.15,6.15,CAUTION,,,SELF-REPORTED(flat 30d history),High (1.4),score 1.4; HGETH 3.4 (yearn 3.4); -2 self-reported
-USD Farms,Curve,Ethereum,Stake DAO,6.146400000000001,6.40318,CAUTION,,,REWARD-HEAVY(emissions 5.7 of 6.1 unverified),Medium (7.4),"score 7.4; BOLD 8.4 (pharos 8.4); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: BOLD; -1 tvl<1M"
-ETH Farms,Curve.fi Factory Plain Pool: msETH/WETH,Ethereum,Curve DEX,5.85537,6.28741,CAUTION,5.758,curve-api (total),REWARD-HEAVY(emissions 5.8 of 5.9 unverified),High,unrated: internal signals only
-ETH Farms,RETH-WAETHWETH,Ethereum,Balancer V3,5.540290000000001,5.58154,CAUTION,,,REWARD-HEAVY(emissions 3.9 of 5.5 unverified),Medium,unrated: internal signals only
-ETH Farms,Stake DAO alETH-WETH Vault,Arbitrum,Stake DAO,5.50655,5.48997,CAUTION,5.398,curve-api (total),REWARD-HEAVY(emissions 5.4 of 5.5 unverified),High,unrated: internal signals only
-ETH Farms,alETH-WETH,Arbitrum,Curve DEX,5.41023,5.46616,CAUTION,5.398,curve-api (total),REWARD-HEAVY(emissions 5.4 of 5.4 unverified),High,unrated: internal signals only
-ETH Farms,0.3%,Ethereum,Uniswap V3,5.01846,4.40117,CAUTION,,,REWARD-HEAVY(emissions 5.0 of 5.0 unverified),High,unrated: internal signals only
-ETH Farms,Lista WETH Savings Vault,Ethereum,Lista Lending,4.66462,6.07429,CAUTION,,,REWARD-HEAVY(emissions 4.6 of 4.7 unverified),Medium,unrated: internal signals only
-ETH Farms,Stake DAO superOETHb/WETH Vault,Base,Stake DAO,4.15069,4.27313,CAUTION,,,REWARD-HEAVY(emissions 4.1 of 4.2 unverified),Medium,unrated: internal signals only
-ETH Farms,Volatile AMM - WETH/bsdETH,Base,Aerodrome V1,4.04247,3.93083,CAUTION,,,REWARD-HEAVY(emissions 4.0 of 4.0 unverified),High,unrated: internal signals only
-ETH Farms,Stake DAO ETH+/ETH Vault,Ethereum,Stake DAO,3.72172,4.5132,CAUTION,,,REWARD-HEAVY(emissions 2.8 of 3.7 unverified),Medium (7.9),score 7.9; ETHPLUS 8.9 (yearn 8.9); capped 7.9: not VERIFIED
-ETH Farms,Stable AMM - WETH/msETH,Base,Aerodrome V1,3.64388,3.45195,CAUTION,,,REWARD-HEAVY(emissions 3.6 of 3.6 unverified),Medium,unrated: internal signals only
-USD Farms,JRUSDAT,Ethereum,Strata Markets,54.87187,62.03218,UNVERIFIED,,,,High,unrated: internal signals only
-USD Farms,0.03%,Ethereum,Uniswap V4,36.20226,15.82302,UNVERIFIED,,,,Medium (7.3),"score 7.3; EURC 8.3 (pharos 8.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: EURC; -1 tvl<1M"
-USD Farms,CL50 - 0.0079%,Base,Aerodrome Slipstream,29.63343,25.49044,UNVERIFIED,,,,Medium (7.9),"score 7.9; EURC 8.3 (pharos 8.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: EURC; capped 7.9: not VERIFIED"
-USD Farms,SUSD3,Ethereum,3Jane Lending,14.86604,14.5248,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,CL1 - 0.0009%,Base,Aerodrome Slipstream,14.46088,12.98316,UNVERIFIED,,,,Medium (6.3),"score 6.3; USDC 9.0 (pharos 9.0, tid 9.0); USDT 7.8 (pharos 8.7, tid 7.0); worst leg: USDT; -1.5 volatile"
+USD Farms,Curve,Ethereum,Stake DAO,6.1361,6.40171,CAUTION,,,REWARD-HEAVY(emissions 5.7 of 6.1 unverified),Medium (7.4),"score 7.4; BOLD 8.4 (pharos 8.4); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: BOLD; -1 tvl<1M"
+ETH Farms,Curve.fi Factory Plain Pool: msETH/WETH,Ethereum,Curve DEX,5.877219999999999,6.29054,CAUTION,5.729,curve-api (total),REWARD-HEAVY(emissions 5.8 of 5.9 unverified),High,unrated: internal signals only
+ETH Farms,RETH-WAETHWETH,Ethereum,Balancer V3,5.51832,5.5784,CAUTION,,,REWARD-HEAVY(emissions 3.9 of 5.5 unverified),Medium,unrated: internal signals only
+ETH Farms,Stake DAO alETH-WETH Vault,Arbitrum,Stake DAO,5.50952,5.4904,CAUTION,5.391,curve-api (total),REWARD-HEAVY(emissions 5.4 of 5.5 unverified),High,unrated: internal signals only
+ETH Farms,alETH-WETH,Arbitrum,Curve DEX,5.41309,5.46657,CAUTION,5.391,curve-api (total),REWARD-HEAVY(emissions 5.4 of 5.4 unverified),High,unrated: internal signals only
+ETH Farms,0.3%,Ethereum,Uniswap V3,5.010120000000001,4.39998,CAUTION,,,REWARD-HEAVY(emissions 5.0 of 5.0 unverified),High,unrated: internal signals only
+ETH Farms,Lista WETH Savings Vault,Ethereum,Lista Lending,4.63906,6.07064,CAUTION,,,REWARD-HEAVY(emissions 4.6 of 4.6 unverified),Medium,unrated: internal signals only
+ETH Farms,Stake DAO superOETHb/WETH Vault,Base,Stake DAO,4.14832,4.27279,CAUTION,,,REWARD-HEAVY(emissions 4.1 of 4.1 unverified),Medium,unrated: internal signals only
+ETH Farms,Volatile AMM - WETH/bsdETH,Base,Aerodrome V1,4.03272,3.92944,CAUTION,,,REWARD-HEAVY(emissions 4.0 of 4.0 unverified),High,unrated: internal signals only
+ETH Farms,Stake DAO ETH+/ETH Vault,Ethereum,Stake DAO,3.72115,4.51312,CAUTION,,,REWARD-HEAVY(emissions 2.8 of 3.7 unverified),Medium (7.9),score 7.9; ETHPLUS 8.9 (yearn 8.9); capped 7.9: not VERIFIED
+ETH Farms,Stable AMM - WETH/msETH,Base,Aerodrome V1,3.63561,3.45077,CAUTION,,,REWARD-HEAVY(emissions 3.6 of 3.6 unverified),Medium,unrated: internal signals only
+USD Farms,CL50 - 0.007%,Base,Aerodrome Slipstream,30.36885,25.5955,UNVERIFIED,,,,Medium (7.9),"score 7.9; EURC 8.3 (pharos 8.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: EURC; capped 7.9: not VERIFIED"
+USD Farms,0.03%,Ethereum,Uniswap V4,29.7315,14.89862,UNVERIFIED,,,,Medium (7.3),"score 7.3; EURC 8.3 (pharos 8.3); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: EURC; -1 tvl<1M"
+USD Farms,CL1 - 0.0009%,Base,Aerodrome Slipstream,15.17715,13.08548,UNVERIFIED,,,,Medium (6.3),"score 6.3; USDC 9.0 (pharos 9.0, tid 9.0); USDT 7.8 (pharos 8.7, tid 7.0); worst leg: USDT; -1.5 volatile"
+USD Farms,SUSD3,Ethereum,3Jane Lending,14.87105,14.52552,UNVERIFIED,,,,Medium,unrated: internal signals only
 USD Farms,Re Protocol reUSDe,Ethereum,Re,12.27619,12.26003,UNVERIFIED,,,,High (3.5),score 3.5; REUSDE 3.5 (tid 3.5)
 USD Farms,INTMKSRROYUSDC,Ethereum,Makina,11.75263,6.4693,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,HIGHYIELDTERMAUSD,Ethereum,Steakhouse Financial,11.24873,11.14697,UNVERIFIED,,,,Medium,unrated: internal signals only
+USD Farms,DUSD,Ethereum,Makina,11.56754,7.59239,UNVERIFIED,,,,Medium (4.2),score 4.2; DUSD 4.2 (pharos 4.2)
+USD Farms,HIGHYIELDTERMAUSD,Ethereum,Steakhouse Financial,11.24869,11.14697,UNVERIFIED,,,,Medium,unrated: internal signals only
 USD Farms,Concentrated Liquidity Vault,Sui,Ember Protocol,11.05925,14.66094,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,0.01%,Polygon,Uniswap V3,10.67589,14.66381,UNVERIFIED,,,,Medium (5.3),"score 5.3; USDC 9.0 (pharos 9.0, tid 9.0); USDT 7.8 (pharos 8.7, tid 7.0); worst leg: USDT; -1.5 volatile; -1 tvl<1M"
-USD Farms,MSUSD+FXUSD,Ethereum,fx Protocol,10.64,13.03429,UNVERIFIED,,,,High,unrated: internal signals only
+USD Farms,0.01%,Polygon,Uniswap V3,10.82448,14.68503,UNVERIFIED,,,,Medium (5.3),"score 5.3; USDC 9.0 (pharos 9.0, tid 9.0); USDT 7.8 (pharos 8.7, tid 7.0); worst leg: USDT; -1.5 volatile; -1 tvl<1M"
+USD Farms,MSUSD+FXUSD,Ethereum,fx Protocol,10.61,13.03,UNVERIFIED,,,,High,unrated: internal signals only
 USD Farms,IdleCDO AA Tranche - BastionUSDC,Ethereum,Pareto Credit,10.58468,10.58468,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,USD Vault,Sui,Ember Protocol,10.47529,10.24704,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,DUSD,Ethereum,Makina,10.42209,7.42875,UNVERIFIED,,,,Medium (4.2),score 4.2; DUSD 4.2 (pharos 4.2)
-USD Farms,Curvance AUSD,Monad,Curvance,10.15527,10.22986,UNVERIFIED,,,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
-USD Farms,MainMarket,Sui,Current,10.10063,8.83873,UNVERIFIED,,,,High (3.5),score 3.5; USDSUI 3.5 (pharos 3.5)
+USD Farms,MainMarket,Sui,Current,10.22437,8.85641,UNVERIFIED,,,,High (3.5),score 3.5; USDSUI 3.5 (pharos 3.5)
+USD Farms,Curvance AUSD,Monad,Curvance,10.15529,10.22986,UNVERIFIED,,,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
 USD Farms,Basis Vault,Sui,Ember Protocol,10.08704,10.80546,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,Ember Earn Vault,Sui,Ember Protocol,10.01,9.5075,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,JRMHYPER,Ethereum,Strata Markets,9.95911,10.19014,UNVERIFIED,,,,High,unrated: internal signals only
-USD Farms,0.00%,Ethereum,Uniswap V4,9.66748,9.90824,UNVERIFIED,,,,Medium (6.8),"score 6.8; USDE 6.8 (pharos 7.2, tid 6.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: USDE"
 USD Farms,vUSD/AUSD,Monad,Curvance,9.44069,9.43128,UNVERIFIED,,,,Medium (6.1),"score 6.1; AUSD 7.1 (pharos 7.3, tid 7.0); -1 tvl<1M"
 USD Farms,AGUSDC,Avalanche,Lagoon,9.39005,8.72666,UNVERIFIED,,,,Medium,unrated: internal signals only
 USD Farms,mFONE,Ethereum,Midas RWA,9.25,10.04714,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,savUSD/USDC,Monad,Curvance,9.10969,8.95183,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
+USD Farms,0.00%,Ethereum,Uniswap V4,9.24958,9.90824,UNVERIFIED,,,,Medium (6.8),"score 6.8; USDE 6.8 (pharos 7.2, tid 6.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: USDE"
+USD Farms,savUSD/USDC,Monad,Curvance,9.11335,8.95235,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
 USD Farms,mAPOLLO,Ethereum,Midas RWA,9.09,9.57143,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,mEDGE,Monad,Midas RWA,9.09,8.42429,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
 USD Farms,mEDGE,Ethereum,Midas RWA,9.06,8.41571,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,YBOLD,Ethereum,Yearn Finance,9.05433,9.53503,UNVERIFIED,,,,Medium (7.4),score 7.4; YBOLD 7.4 (pharos 7.4)
-USD Farms,USDC,Hyperliquid L1,HyperLend Pooled,9.04188,8.46708,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,mHYPER,Ethereum,Midas RWA,9.01,8.89714,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,Moo AaveV3 Monad USDC,Monad,Beefy,8.77856,8.11182,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,Felix USDT0,Hyperliquid L1,Morpho Blue,8.75204,6.65751,UNVERIFIED,,,,Medium,unrated: internal signals only
 USD Farms,mRe7YIELD,Ethereum,Midas RWA,8.74,8.74,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,mRE7,Etherlink,Midas RWA,8.74,8.74,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,mRE7,TAC,Midas RWA,8.74,8.74,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
-USD Farms,JRUSDE,Ethereum,Strata Markets,8.72295,9.98002,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,Felix USDT0,Hyperliquid L1,Morpho Blue,8.5032,6.62196,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,PT-AUSD-8OCT2026/AUSD,Monad,Curvance,8.329979999999999,7.48326,UNVERIFIED,,,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
-USD Farms,EVK Vault eUSDC-132,Ethereum,Euler V2,8.273340000000001,8.62062,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
-USD Farms,SYZUSD,Plasma,Yuzu Money,8.27283,8.14417,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,SYZUSD,Monad,Yuzu Money,8.27283,8.14442,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,SYZUSD,Sei,Yuzu Money,8.27283,8.14417,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,SYZUSD,Ethereum,Yuzu Money,8.27283,8.14417,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,EVK Vault eAUSD-16,Monad,Euler V2,8.24053,8.22001,UNVERIFIED,,,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
-USD Farms,FEUSDC,Hyperliquid L1,Morpho Blue,8.11752,8.2574,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,fixed-rate,Ethereum,Strata Markets,8.11136,7.88009,UNVERIFIED,,,,Medium,unrated: internal signals only
+USD Farms,PT-AUSD-8OCT2026/AUSD,Monad,Curvance,8.33354,7.48377,UNVERIFIED,,,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
+USD Farms,SYZUSD,Monad,Yuzu Money,8.2746,8.14442,UNVERIFIED,,,,Medium,unrated: internal signals only
+USD Farms,SYZUSD,Sei,Yuzu Money,8.2746,8.14442,UNVERIFIED,,,,Medium,unrated: internal signals only
+USD Farms,SYZUSD,Ethereum,Yuzu Money,8.2746,8.14442,UNVERIFIED,,,,Medium,unrated: internal signals only
+USD Farms,EVK Vault eAUSD-16,Monad,Euler V2,8.253779999999999,8.2219,UNVERIFIED,,,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
+USD Farms,FEUSDC,Hyperliquid L1,Morpho Blue,8.21656,8.27155,UNVERIFIED,,,,Medium,unrated: internal signals only
 USD Farms,Pareto AA Tranche - FalconXUSDC,Ethereum,Pareto Credit,8.01961,8.18736,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-ETH Farms,Moo Curve msETH-WETH,Ethereum,Beefy,7.78006,8.59204,UNVERIFIED,,,,High,unrated: internal signals only
-USD Farms,GTUSDCC,Hyperliquid L1,Morpho Blue,7.69212,7.61076,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,OnRe Market,Solana,Kamino Lend,7.46418,7.60352,UNVERIFIED,,,,Medium (7.4),"score 7.4; USDG 7.4 (pharos 7.2, tid 7.0, yearn 8.1)"
+USD Farms,GTUSDCC,Hyperliquid L1,Morpho Blue,7.77428,7.6225,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,Moo Curve msETH-WETH,Ethereum,Beefy,7.75775,8.58885,UNVERIFIED,,,,High,unrated: internal signals only
+USD Farms,0.01%,Monad,Uniswap V3,7.5109,8.65229,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,OnRe Market,Solana,Kamino Lend,7.4646,7.60358,UNVERIFIED,,,,Medium (7.4),"score 7.4; USDG 7.4 (pharos 7.2, tid 7.0, yearn 8.1)"
 USD Farms,YVUSD,Ethereum,Yearn Finance,7.44385,7.74244,UNVERIFIED,,,,Medium (7.9),score 7.9; YVUSD 8.1 (yearn 8.1); capped 7.9: not VERIFIED
-USD Farms,Fluid Lite USD Vault,Ethereum,Fluid Lite,7.24,7.38857,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,0.01%,Monad,Uniswap V3,7.22467,8.6114,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,USDC,Ethereum,Dolomite,7.17198,7.27598,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,USDC,Solana,Loopscale,7.15563,7.0582,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,STEAKUSDG,Robinhood Chain,Morpho Blue,7.10525,6.91593,UNVERIFIED,,,,Medium,unrated: internal signals only
-USD Farms,USD3,Ethereum,3Jane Lending,7.0379,6.9226,UNVERIFIED,,,,Medium (4.8),"score 4.8; USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4)"
-USD Farms,Morpho Yearn OG USDC Compounder,Ethereum,Yearn Finance,7.0302,7.02519,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,USDC,Ethereum,Dolomite,7.317,7.2967,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,Fluid Lite USD Vault,Ethereum,Fluid Lite,7.26,7.39143,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,USDC,Solana,Loopscale,7.1735,7.06076,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,STEAKUSDG,Robinhood Chain,Morpho Blue,7.10285,6.91559,UNVERIFIED,,,,Medium,unrated: internal signals only
+USD Farms,USD3,Ethereum,3Jane Lending,7.04263,6.92328,UNVERIFIED,,,,Medium (4.8),"score 4.8; USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4)"
+USD Farms,Morpho Yearn OG USDC Compounder,Ethereum,Yearn Finance,7.03265,7.02554,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,mBASIS,Etherlink,Midas RWA,6.91,6.13714,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,SRMHYPER,Ethereum,Strata Markets,6.5469,6.69614,UNVERIFIED,,,,High,unrated: internal signals only
-USD Farms,Gains Network USDC,Base,Gains Network,6.49349,7.18634,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
-USD Farms,0.01%,Ethereum,Uniswap V3,6.45968,3.45749,UNVERIFIED,,,,Medium (5.3),"score 5.3; USDE 6.8 (pharos 7.2, tid 6.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: USDE; -1.5 volatile"
-USD Farms,USDC-2 yVault,Ethereum,Yearn Finance,6.4522,6.45382,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,0.05%,Ethereum,Uniswap V3,6.52482,6.17616,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,Gains Network USDC,Base,Gains Network,6.51225,7.18902,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
+USD Farms,0.01%,Ethereum,Uniswap V3,6.45357,3.45662,UNVERIFIED,,,,Medium (5.3),"score 5.3; USDE 6.8 (pharos 7.2, tid 6.5); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: USDE; -1.5 volatile"
+USD Farms,Neverland Interest Bearing AUSD,Monad,Neverland,6.36543,5.67014,UNVERIFIED,,,,Medium (6.1),"score 6.1; AUSD 7.1 (pharos 7.3, tid 7.0); -1 tvl<1M"
 USD Farms,Basis Vault,Sui,Ember Protocol,6.36497,8.9469,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
+USD Farms,OnRe Market,Solana,Kamino Lend,6.3122,6.4393,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,Expert Mode,Ethereum,Sky Lending,6.31,6.35857,UNVERIFIED,,,,Medium (7.6),score 7.6; STUSDS 7.6 (pharos 7.6)
-USD Farms,OnRe Market,Solana,Kamino Lend,6.30211,6.43786,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,Re Protocol Deposit Token,Ethereum,Re,6.27561,6.26485,UNVERIFIED,,,,Medium (5.1),"score 5.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0)"
-USD Farms,USDC,Solana,Project 0,6.19043,5.29835,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
+USD Farms,USDC,Solana,Project 0,6.19051,5.29837,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
 USD Farms,mMEV,Etherlink,Midas RWA,6.15,7.55857,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M; capped 7.9: not VERIFIED"
-USD Farms,0.05%,Ethereum,Uniswap V3,6.14603,6.12205,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,mROX,Ethereum,Midas RWA,6.14,7.55571,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
 USD Farms,mMEV,Ethereum,Midas RWA,6.14,7.55571,UNVERIFIED,,,,Medium (7.9),"score 7.9; USDC 9.0 (pharos 9.0, tid 9.0); capped 7.9: not VERIFIED"
-USD Farms,SuperVault,Flare,Superform,6.12975,5.822,UNVERIFIED,,,,High,unrated: internal signals only
-USD Farms,SuperVault,Ethereum,Superform,6.01571,6.0269,UNVERIFIED,,,,Medium,unrated: internal signals only
-ETH Farms,YNETHX,Ethereum,YieldNest,5.96334,4.85206,UNVERIFIED,,,,Medium,unrated: internal signals only
-ETH Farms,0.01%,Ethereum,Uniswap V3,4.99334,3.5515,UNVERIFIED,,,,High,unrated: internal signals only
+USD Farms,StableEarn,Stable,Morpho Blue,6.12682,6.26252,UNVERIFIED,,,,Medium,unrated: internal signals only
+USD Farms,SuperVault,Flare,Superform,6.116029999999999,5.82004,UNVERIFIED,,,,High,unrated: internal signals only
+USD Farms,SuperVault,Ethereum,Superform,6.00765,6.02575,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,YNETHX,Ethereum,YieldNest,5.96322,4.85205,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,0.01%,Ethereum,Uniswap V3,4.9056,3.53897,UNVERIFIED,,,,High,unrated: internal signals only
 ETH Farms,DQAEETH,Ethereum,Makina,4.88015,3.78275,UNVERIFIED,,,,Medium,unrated: internal signals only
-ETH Farms,Instadapp ETH v2,Ethereum,Fluid Lite,4.6487,4.50239,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,Instadapp ETH v2,Ethereum,Fluid Lite,4.63792,4.50085,UNVERIFIED,,,,Medium,unrated: internal signals only
 ETH Farms,ETHPlus,Ethereum,Reserve Protocol,3.96627,5.19541,UNVERIFIED,,,,Medium (7.9),score 7.9; ETHPLUS 8.9 (yearn 8.9); capped 7.9: not VERIFIED
 ETH Farms,LIQUIDETH,Ethereum,ether.fi Liquid,3.39953,3.73435,UNVERIFIED,,,,Medium,unrated: internal signals only
-ETH Farms,weETH/WETH-ng,Ethereum,Convex Finance,3.17918,2.89572,UNVERIFIED,,,,Medium,unrated: internal signals only
-ETH Farms,EVK Vault eWETH-7,Monad,Euler V2,3.16286,3.51416,UNVERIFIED,,,,Medium,unrated: internal signals only
-ETH Farms,EVK Vault eWETH-3,Monad,Euler V2,3.11289,3.03836,UNVERIFIED,,,,Medium,unrated: internal signals only
-ETH Farms,Stake DAO weETH/WETH-ng Vault,Ethereum,Stake DAO,3.08608,2.92501,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,weETH/WETH-ng,Ethereum,Convex Finance,3.17844,2.89561,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,EVK Vault eWETH-7,Monad,Euler V2,3.16255,3.51412,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,EVK Vault eWETH-3,Monad,Euler V2,3.11258,3.03832,UNVERIFIED,,,,Medium,unrated: internal signals only
+ETH Farms,Stake DAO weETH/WETH-ng Vault,Ethereum,Stake DAO,3.10612,2.92788,UNVERIFIED,,,,Medium,unrated: internal signals only
 USD Farms,Concrete Decentralized Finance USDT,Ethereum,Concrete,0,9.09057,UNVERIFIED,,,,High,unrated: internal signals only
 USD Farms,Concrete Frontier USDC,Ethereum,Concrete,0,6.59127,UNVERIFIED,,,,High,unrated: internal signals only
 USD Farms,FLUSD,Ethereum,Lagoon,63.42309,58.9242,VERIFIED,63.211,on-chain (7d realized),,High,unrated: internal signals only
+USD Farms,JRUSDAT,Ethereum,Strata Markets,54.81625,62.02423,VERIFIED,41.598,strata on-chain lens,,High,unrated: internal signals only
 USD Farms,PT sUSD3 17DEC2026,Ethereum,Pendle,23.46059,22.9235,VERIFIED,23.539,pendle-api,,Medium,unrated: internal signals only
-USD Farms,PLP sUSD3 17DEC2026,Ethereum,Pendle,22.06637,21.89494,VERIFIED,22.285,pendle-api,,Medium,unrated: internal signals only
-USD Farms,For buying PT-reUSDe-10DEC2026,Ethereum,Pendle,17.62589,17.81665,VERIFIED,17.836,pendle-api,,High (3.5),score 3.5; REUSDE 3.5 (tid 3.5)
-USD Farms,For LP | Maturity 10DEC2026,Ethereum,Pendle,17.13365,17.8695,VERIFIED,17.297,pendle-api,,High (3.5),score 3.5; REUSDE 3.5 (tid 3.5)
+USD Farms,PLP sUSD3 17DEC2026,Ethereum,Pendle,22.06637,21.89494,VERIFIED,22.286,pendle-api,,Medium,unrated: internal signals only
+USD Farms,For buying PT-reUSDe-10DEC2026,Ethereum,Pendle,17.62589,17.81665,VERIFIED,17.786,pendle-api,,High (3.5),score 3.5; REUSDE 3.5 (tid 3.5)
+USD Farms,For LP | Maturity 10DEC2026,Ethereum,Pendle,17.13365,17.8695,VERIFIED,17.27,pendle-api,,High (3.5),score 3.5; REUSDE 3.5 (tid 3.5)
 USD Farms,PT apyUSD 27AUG2026,Ethereum,Pendle,16.80286,16.58729,VERIFIED,17.436,pendle-api,,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0)"
-USD Farms,PLP apyUSD 27AUG2026,Ethereum,Pendle,16.05655,15.96795,VERIFIED,16.559,pendle-api,,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0)"
-USD Farms,PLP apyUSD 5NOV2026,Ethereum,Pendle,15.53099,15.86981,VERIFIED,15.605,pendle-api,,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0)"
-USD Farms,PT apyUSD 5NOV2026,Ethereum,Pendle,15.04279,14.87857,VERIFIED,15.373,pendle-api,,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0)"
-USD Farms,Bitcoin Dollar USDC,Ethereum,Fusion by IPOR,14.41647,13.36084,VERIFIED,14.417,ipor-api,,Low (8.0),"score 8.0; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M"
+USD Farms,PLP apyUSD 27AUG2026,Ethereum,Pendle,16.05655,15.96795,VERIFIED,16.558,pendle-api,,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0)"
+USD Farms,PLP apyUSD 5NOV2026,Ethereum,Pendle,15.53099,15.86981,VERIFIED,15.602,pendle-api,,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0)"
+USD Farms,PT apyUSD 5NOV2026,Ethereum,Pendle,15.04279,14.87857,VERIFIED,15.374,pendle-api,,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0)"
+USD Farms,Bitcoin Dollar USDC,Ethereum,Fusion by IPOR,14.41662,13.36086,VERIFIED,14.447,ipor-api,,Low (8.0),"score 8.0; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M"
 USD Farms,PT USD3 17DEC2026,Ethereum,Pendle,13.9191,13.69817,VERIFIED,13.895,pendle-api,,Medium (4.8),"score 4.8; USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4)"
 USD Farms,PT Staked Saturn USD 27AUG2026,BSC,Pendle,13.7315,13.73117,VERIFIED,11.48,pendle-api,,High (3.5),score 3.5; SUSDAT 3.5 (tid 3.5)
-USD Farms,Ember Pharos Alpha,Ethereum,Ember Protocol,12.9,12.89999,VERIFIED,12.108,on-chain (7d realized),,Low (9.0),"score 9.0; USDC 9.0 (pharos 9.0, tid 9.0)"
-USD Farms,PLP USD3 17DEC2026,Ethereum,Pendle,12.38277,11.8734,VERIFIED,11.896,pendle-api,,Medium (4.8),"score 4.8; USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4)"
+USD Farms,Ember Pharos Alpha,Ethereum,Ember Protocol,12.9,12.89999,VERIFIED,12.107,on-chain (7d realized),,Low (9.0),"score 9.0; USDC 9.0 (pharos 9.0, tid 9.0)"
+USD Farms,PLP USD3 17DEC2026,Ethereum,Pendle,12.38277,11.8734,VERIFIED,11.858,pendle-api,,Medium (4.8),"score 4.8; USD3 4.8 (pharos 6.7, tid 3.5, yearn 4.4)"
 USD Farms,PT Staked USDat 27AUG2026,Ethereum,Pendle,11.34554,11.15427,VERIFIED,11.48,pendle-api,,High (3.5),score 3.5; SUSDAT 3.5 (tid 3.5)
-USD Farms,PLP Flagship USDC SuperVault 26NOV2026,Ethereum,Pendle,11.3162,9.94441,VERIFIED,9.481,pendle-api,,High,unrated: internal signals only
-USD Farms,PT reUSD 10DEC2026,Ethereum,Pendle,10.82332,10.94559,VERIFIED,10.611,pendle-api,,Medium (5.1),"score 5.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0)"
+USD Farms,PLP Flagship USDC SuperVault 26NOV2026,Ethereum,Pendle,11.3162,9.94441,VERIFIED,9.485,pendle-api,,High,unrated: internal signals only
 USD Farms,TULIPAUSDC,Ethereum,Lagoon,10.75591,11.15127,VERIFIED,15.915,on-chain (7d realized),,Medium,unrated: internal signals only
-USD Farms,Hyperithm USDC Apex,Monad,Morpho Blue,10.44697,9.66817,VERIFIED,12.52,yieldz (base+reward),,Medium,unrated: internal signals only
+USD Farms,Hyperithm USDC Apex,Monad,Morpho Blue,10.45035,9.66865,VERIFIED,9.777,yieldz (base),,Medium,unrated: internal signals only
 USD Farms,GAMILUSPC,Ethereum,Lagoon,10.34048,10.32588,VERIFIED,14.106,on-chain (7d realized),,High,unrated: internal signals only
+USD Farms,JRMHYPER,Ethereum,Strata Markets,9.9591,10.19013,VERIFIED,9.495,strata on-chain lens,,High,unrated: internal signals only
 USD Farms,Ember Earn,Ethereum,Ember Protocol,9.68305,9.69966,VERIFIED,9.22,on-chain (7d realized),,Low (9.0),"score 9.0; USDC 9.0 (pharos 9.0, tid 9.0)"
-USD Farms,TESS sUSDe PYUSD (USDC) Loop Vault,Ethereum,Fusion by IPOR,9.65519,9.63393,VERIFIED,9.654,ipor-api,,Low (8.0),"score 8.0; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M"
-USD Farms,PT Staked USDai 15OCT2026,Arbitrum,Pendle,9.62705,9.68169,VERIFIED,9.637,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
+USD Farms,TESS sUSDe PYUSD (USDC) Loop Vault,Ethereum,Fusion by IPOR,9.65443,9.63382,VERIFIED,9.654,ipor-api,,Low (8.0),"score 8.0; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M"
+USD Farms,PT Staked USDai 15OCT2026,Arbitrum,Pendle,9.62705,9.68169,VERIFIED,9.638,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
 USD Farms,PT earnAUSD 8OCT2026,Monad,Pendle,9.52241,9.45356,VERIFIED,10.532,pendle-api,,Medium,unrated: internal signals only
-USD Farms,PLP reUSD 10DEC2026,Ethereum,Pendle,9.45434,9.27505,VERIFIED,9.252,pendle-api,,Medium (5.1),"score 5.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0)"
-USD Farms,PLP Staked USDai 25FEB2027,Arbitrum,Pendle,9.451580000000002,9.21469,VERIFIED,10.22,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
-USD Farms,For buying PT-savUSD-06AUG2026,Ethereum,Pendle,9.44364,8.42221,VERIFIED,11.512,pendle-api,,High (3.7),"score 3.7; SAVUSD 4.7 (pharos 5.0, tid 4.5); -1 tvl<1M"
-USD Farms,For LP | Maturity 06AUG2026,Ethereum,Pendle,9.38728,8.74496,VERIFIED,10.644,pendle-api,,High (3.7),"score 3.7; SAVUSD 4.7 (pharos 5.0, tid 4.5); -1 tvl<1M"
+USD Farms,PLP Staked USDai 25FEB2027,Arbitrum,Pendle,9.451580000000002,9.21469,VERIFIED,10.207,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
+USD Farms,For buying PT-savUSD-06AUG2026,Ethereum,Pendle,9.44364,8.42221,VERIFIED,11.514,pendle-api,,High (3.7),"score 3.7; SAVUSD 4.7 (pharos 5.0, tid 4.5); -1 tvl<1M"
+USD Farms,For LP | Maturity 06AUG2026,Ethereum,Pendle,9.38728,8.74496,VERIFIED,10.645,pendle-api,,High (3.7),"score 3.7; SAVUSD 4.7 (pharos 5.0, tid 4.5); -1 tvl<1M"
 USD Farms,SYNUSD,Ethereum,Lagoon,9.35089,9.36319,VERIFIED,9.277,on-chain (7d realized),,Medium,unrated: internal signals only
-USD Farms,PT apxUSD 5NOV2026,Ethereum,Pendle,9.34983,8.98556,VERIFIED,9.901,pendle-api,,High (2.3),"score 2.3; APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6)"
-USD Farms,Clearstar Earn USDC,Monad,Euler V2,9.16978,10.1628,VERIFIED,6.223,euler/yieldz,,Low (9.0),"score 9.0; USDC 9.0 (pharos 9.0, tid 9.0)"
+USD Farms,PT apxUSD 5NOV2026,Ethereum,Pendle,9.34983,8.98556,VERIFIED,9.908,pendle-api,,High (2.3),"score 2.3; APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6)"
+USD Farms,Clearstar Earn USDC,Monad,Euler V2,9.16948,10.16275,VERIFIED,7.229,euler/yieldz,,Low (9.0),"score 9.0; USDC 9.0 (pharos 9.0, tid 9.0)"
 USD Farms,YIELDUSDT,Ethereum,Lagoon,9.01239,8.15598,VERIFIED,10.159,on-chain (7d realized),,Medium,unrated: internal signals only
-USD Farms,PT Staked USDai 25FEB2027,Arbitrum,Pendle,9.01236,9.28487,VERIFIED,9.277,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
-USD Farms,MOONUSDC,Ethereum,Lagoon,9.00252,7.9529,VERIFIED,12.806,on-chain (7d realized),,High,unrated: internal signals only
+USD Farms,PT Staked USDai 25FEB2027,Arbitrum,Pendle,9.01236,9.28487,VERIFIED,9.273,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
+USD Farms,MOONUSDC,Ethereum,Lagoon,9.00252,7.9529,VERIFIED,12.805,on-chain (7d realized),,High,unrated: internal signals only
 USD Farms,For buying PT-srUSDat-27AUG2026,Ethereum,Pendle,8.99303,10.6228,VERIFIED,9.158,pendle-api,,High,unrated: internal signals only
-USD Farms,PLP Strata Senior USDat 27AUG2026,Ethereum,Pendle,8.96285,10.21675,VERIFIED,8.955,pendle-api,,High,unrated: internal signals only
-USD Farms,PLP Staked USDai 15OCT2026,Arbitrum,Pendle,8.904409999999999,8.64568,VERIFIED,8.994,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
-USD Farms,PT Staked infiniFi USD 20AUG2026,Ethereum,Pendle,8.85012,8.70439,VERIFIED,8.661,pendle-api,,High,unrated: internal signals only
-USD Farms,PLP Strata Junior USDe 22OCT2026,Ethereum,Pendle,8.72786,9.11753,VERIFIED,8.929,pendle-api,,High,unrated: internal signals only
-USD Farms,PLP earnAUSD 8OCT2026,Monad,Pendle,8.556930000000001,8.52485,VERIFIED,9.359,pendle-api,,Medium,unrated: internal signals only
+USD Farms,PLP Strata Senior USDat 27AUG2026,Ethereum,Pendle,8.96285,10.21675,VERIFIED,8.954,pendle-api,,High,unrated: internal signals only
+USD Farms,PLP Staked USDai 15OCT2026,Arbitrum,Pendle,8.904409999999999,8.64568,VERIFIED,8.964,pendle-api,,Medium (4.2),"score 4.2; SUSDAI 4.2 (pharos 3.2, tid 5.0)"
+USD Farms,PT Staked infiniFi USD 20AUG2026,Ethereum,Pendle,8.85012,8.70439,VERIFIED,8.862,pendle-api,,High,unrated: internal signals only
+USD Farms,PLP Strata Junior USDe 22OCT2026,Ethereum,Pendle,8.72786,9.11753,VERIFIED,8.924,pendle-api,,High,unrated: internal signals only
+USD Farms,JRUSDE,Ethereum,Strata Markets,8.65581,9.97043,VERIFIED,8.134,strata on-chain lens,,Medium,unrated: internal signals only
+USD Farms,PLP earnAUSD 8OCT2026,Monad,Pendle,8.556930000000001,8.52485,VERIFIED,9.361,pendle-api,,Medium,unrated: internal signals only
 USD Farms,PT apxUSD 27AUG2026,Ethereum,Pendle,8.50086,8.47477,VERIFIED,9.154,pendle-api,,High (2.3),"score 2.3; APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6)"
-USD Farms,SIGMAUSDC,Ethereum,Lagoon,8.44026,8.16394,VERIFIED,7.658,on-chain (7d realized),,High,unrated: internal signals only
+USD Farms,SIGMAUSDC,Ethereum,Lagoon,8.44026,8.16394,VERIFIED,7.657,on-chain (7d realized),,High,unrated: internal signals only
 USD Farms,GAMIUSDC,Ethereum,Lagoon,8.34568,8.10815,VERIFIED,8.963,on-chain (7d realized),,Medium,unrated: internal signals only
 USD Farms,Steakhouse Confidential Prime USDC,Ethereum,Morpho Blue,8.29964,8.2995,VERIFIED,8.3,yieldz (base),,Medium,unrated: internal signals only
 USD Farms,Bitwise Premium+,Ethereum,Ember Protocol,8.28443,9.44682,VERIFIED,7.939,on-chain (7d realized),,Medium (7.5),"score 7.5; USDC 9.0 (pharos 9.0, tid 9.0); -1.5 volatile"
-USD Farms,AUGUSTUSDCV2,Ethereum,Morpho Blue,8.21661,6.96873,VERIFIED,6.292,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,8.10305,7.51,VERIFIED,5.147,yieldz (base+reward),,Medium,unrated: internal signals only
+USD Farms,SYZUSD,Plasma,Yuzu Money,8.2746,8.14442,VERIFIED,7.958,on-chain (7d realized),,Medium,unrated: internal signals only
+USD Farms,AUGUSTUSDCV2,Ethereum,Morpho Blue,8.21661,6.96873,VERIFIED,6.352,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,fixed-rate,Ethereum,Strata Markets,8.11136,7.88009,VERIFIED,7.8,strata on-chain lens,,Medium,unrated: internal signals only
+USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,8.10732,7.51061,VERIFIED,5.118,yieldz (base+reward),,Medium,unrated: internal signals only
 USD Farms,PT Strata Junior USDe 22OCT2026,Ethereum,Pendle,8.05857,7.99204,VERIFIED,8.059,pendle-api,,High,unrated: internal signals only
-USD Farms,SATUSDC,Monad,Morpho Blue,7.88095,7.41266,VERIFIED,6.945,yieldz (base+reward),,Medium,unrated: internal signals only
+USD Farms,SATUSDC,Monad,Morpho Blue,7.88434,7.41315,VERIFIED,3.923,yieldz (base),,Medium,unrated: internal signals only
 USD Farms,PT USDC Meta Vault 29OCT2026,Ethereum,Pendle,7.86806,7.90753,VERIFIED,7.868,pendle-api,,Medium,unrated: internal signals only
 USD Farms,PT Flagship USDC SuperVault 26NOV2026,Ethereum,Pendle,7.75373,7.73225,VERIFIED,6.058,pendle-api,,High,unrated: internal signals only
-USD Farms,Apyx apxUSD,Ethereum,Morpho Blue,7.73988,6.50408,VERIFIED,6.874,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Aave Mantle sUSDe,Mantle,Aave V3,7.71795,7.25091,VERIFIED,3.948,yieldz (base+reward),,Medium (6.6),"score 6.6; SUSDE 6.6 (pharos 6.7, tid 6.5)"
+USD Farms,Apyx apxUSD,Ethereum,Morpho Blue,7.73988,6.50408,VERIFIED,6.878,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,Aave Mantle sUSDe,Mantle,Aave V3,7.717790000000001,7.25075,VERIFIED,3.947,yieldz (base+reward),,Medium (6.6),"score 6.6; SUSDE 6.6 (pharos 6.7, tid 6.5)"
 USD Farms,SYNUSD+,Ethereum,Lagoon,7.66209,7.66313,VERIFIED,7.594,on-chain (7d realized),,Medium,unrated: internal signals only
-USD Farms,FAUSDE,Ethereum,Morpho Blue,7.65189,7.74835,VERIFIED,6.924,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,PLP Staked infiniFi USD 20AUG2026,Ethereum,Pendle,7.6464,7.47277,VERIFIED,8.022,pendle-api,,High,unrated: internal signals only
-USD Farms,K3 Capital Earn AUSD,Monad,Euler V2,7.61756,7.56399,VERIFIED,4.971,euler/yieldz,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
-USD Farms,CSUSDC,Ethereum,Morpho Blue,7.60753,7.24234,VERIFIED,6.292,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Alpha USDC Enhanced V2,Ethereum,Morpho Blue,7.54018,7.83894,VERIFIED,7.663,yieldz (base),,High,unrated: internal signals only
+USD Farms,FAUSDE,Ethereum,Morpho Blue,7.65189,7.74835,VERIFIED,6.923,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,PLP Staked infiniFi USD 20AUG2026,Ethereum,Pendle,7.6464,7.47277,VERIFIED,8.201,pendle-api,,High,unrated: internal signals only
+USD Farms,CSUSDC,Ethereum,Morpho Blue,7.63059,7.24563,VERIFIED,6.352,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,K3 Capital Earn AUSD,Monad,Euler V2,7.61756,7.56399,VERIFIED,4.995,euler/yieldz,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
+USD Farms,Alpha USDC Enhanced V2,Ethereum,Morpho Blue,7.54018,7.83894,VERIFIED,7.662,yieldz (base),,High,unrated: internal signals only
 USD Farms,PT Savings Usdd 27AUG2026,Ethereum,Pendle,7.53956,7.57026,VERIFIED,7.672,pendle-api,,High (3.7),score 3.7; SUSDD 3.7 (pharos 3.7)
-USD Farms,apyUSD-apxUSD,Ethereum,Curve DEX,7.36,7.82857,VERIFIED,7.518,on-chain (curve vp 7d),,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0); APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6); worst leg: APYUSD"
-USD Farms,GTUSDCC,Arbitrum,Morpho Blue,7.34129,8.56632,VERIFIED,7.933,on-chain (7d realized),,High,unrated: internal signals only
+USD Farms,apyUSD-apxUSD,Ethereum,Curve DEX,7.36,7.82857,VERIFIED,7.522,on-chain (curve vp 7d),,High (1.8),"score 1.8; APYUSD 1.8 (pharos 0.5, tid 3.0); APXUSD 2.3 (pharos 0.5, tid 3.0, yearn 3.6); worst leg: APYUSD"
 USD Farms,9SUSDC,Ethereum,Lagoon,7.20063,7.03376,VERIFIED,6.409,on-chain (7d realized),,Medium,unrated: internal signals only
-USD Farms,Tesseract USDC Lending Optimizer,Ethereum,Fusion by IPOR,7.14169,6.83429,VERIFIED,7.087,ipor-api,,Low (8.0),"score 8.0; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M"
-USD Farms,M1 USDC,Ethereum,Morpho Blue,7.13456,6.89181,VERIFIED,7.2,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Alpha USDC Core V2,Ethereum,Morpho Blue,7.07195,7.18175,VERIFIED,7.428,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Alpha USDC Prime V2,Ethereum,Morpho Blue,7.01642,8.69134,VERIFIED,7.532,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Moo Balancer Monad wnUSDT0-wnAUSD-wnUSDC,Monad,Beefy,7.00451,7.06636,VERIFIED,7.246,beefy-api,,Medium,unrated: internal signals only
-USD Farms,ROXUSDCY,Ethereum,Morpho Blue,6.9864,6.67912,VERIFIED,6.27,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,REECOUSDC,Ethereum,Morpho Blue,6.88452,6.48735,VERIFIED,6.015,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Fluid Gho Token,Plasma,Fluid Lending,6.79,6.89143,VERIFIED,5.734,yieldz (base+reward),,Medium (7.1),score 7.1; GHO 7.1 (pharos 7.1)
-USD Farms,CSAAUSD,Monad,Morpho Blue,6.78985,6.64449,VERIFIED,5.055,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,For LP | Maturity 08OCT2026,Monad,Pendle,6.78891,6.90519,VERIFIED,6.689,pendle-api,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
-USD Farms,SENPYUSDPRIMEV2,Ethereum,Morpho Blue,6.637790000000001,6.50246,VERIFIED,3.301,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,6.61632,6.01515,VERIFIED,5.747,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,EARNAUSD,Monad,Upshift,6.58878,5.71148,VERIFIED,8.033,on-chain (7d realized),,Medium,unrated: internal signals only
+USD Farms,GTUSDCC,Arbitrum,Morpho Blue,7.18439,8.54391,VERIFIED,7.948,on-chain (7d realized),,High,unrated: internal signals only
+USD Farms,M1 USDC,Ethereum,Morpho Blue,7.13456,6.89181,VERIFIED,7.202,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,Tesseract USDC Lending Optimizer,Ethereum,Fusion by IPOR,7.08652,6.82641,VERIFIED,6.452,ipor-api,,Low (8.0),"score 8.0; USDC 9.0 (pharos 9.0, tid 9.0); -1 tvl<1M"
+USD Farms,Alpha USDC Core V2,Ethereum,Morpho Blue,7.07195,7.18175,VERIFIED,7.423,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,Moo Balancer Monad wnUSDT0-wnAUSD-wnUSDC,Monad,Beefy,7.02527,7.06932,VERIFIED,8.162,beefy-api,,High,unrated: internal signals only
+USD Farms,Alpha USDC Prime V2,Ethereum,Morpho Blue,7.01642,8.69134,VERIFIED,7.727,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,ROXUSDCY,Ethereum,Morpho Blue,6.9864,6.67912,VERIFIED,6.05,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,REECOUSDC,Ethereum,Morpho Blue,6.88452,6.48735,VERIFIED,5.737,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,CSAAUSD,Monad,Morpho Blue,6.79574,6.64533,VERIFIED,5.056,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,For LP | Maturity 08OCT2026,Monad,Pendle,6.78891,6.90519,VERIFIED,6.693,pendle-api,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
+USD Farms,Fluid Gho Token,Plasma,Fluid Lending,6.77,6.88857,VERIFIED,5.731,yieldz (base+reward),,Medium (7.1),score 7.1; GHO 7.1 (pharos 7.1)
+USD Farms,SENPYUSDPRIMEV2,Ethereum,Morpho Blue,6.63778,6.50246,VERIFIED,3.285,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,6.61632,6.01515,VERIFIED,5.594,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,EARNAUSD,Monad,Upshift,6.6067,5.71404,VERIFIED,8.033,on-chain (7d realized),,Medium,unrated: internal signals only
 USD Farms,PT AUSD 8OCT2026,Monad,Pendle,6.58672,6.58187,VERIFIED,6.63,pendle-api,,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
-USD Farms,CSCBUSDC,Base,Morpho Blue,6.5121,6.79604,VERIFIED,4.482,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Moo FxConvex USDC-fxUSD,Ethereum,Beefy,6.51027,5.82868,VERIFIED,6.546,beefy-api,,Medium (7.7),"score 7.7; FXUSD 7.7 (pharos 7.2, yearn 8.4); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: FXUSD"
-USD Farms,Stake DAO frxUSD/sDOLA Vault,Ethereum,Stake DAO,6.50038,7.08649,VERIFIED,5.418,on-chain (curve vp 7d),,Medium (4.6),"score 4.6; FRXUSD 6.2 (pharos 7.0, tid 5.5); SDOLA 4.6 (pharos 4.8, tid 4.5); worst leg: SDOLA"
-USD Farms,PLP Savings Usdd 27AUG2026,Ethereum,Pendle,6.453880000000001,6.53075,VERIFIED,6.612,pendle-api,,High (3.7),score 3.7; SUSDD 3.7 (pharos 3.7)
-USD Farms,Aave Plasma GHO,Plasma,Aave V3,6.39198,6.24621,VERIFIED,2.265,yieldz (base),,Medium (7.1),score 7.1; GHO 7.1 (pharos 7.1)
-USD Farms,PLP USDC Meta Vault 29OCT2026,Ethereum,Pendle,6.3534,6.31865,VERIFIED,6.439,pendle-api,,Medium,unrated: internal signals only
-USD Farms,Aave Monad mUSD,Monad,Aave V3,6.24691,8.1203,VERIFIED,0.612,yieldz (base),,Medium (5.2),"score 5.2; MUSD 5.2 (pharos 5.0, yearn 5.6)"
-USD Farms,Moo Curve reUSD-scrvUSD,Ethereum,Beefy,6.24515,6.73737,VERIFIED,2.924,curve-api (total),,Medium (4.1),"score 4.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: REUSD; -1 tvl<1M"
-USD Farms,SENRLUSDV2,Ethereum,Morpho Blue,6.24336,6.333,VERIFIED,2.391,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Aave Monad GHO,Monad,Aave V3,6.23378,6.23203,VERIFIED,1.81,yieldz (base),,Medium (7.1),score 7.1; GHO 7.1 (pharos 7.1)
+USD Farms,SRMHYPER,Ethereum,Strata Markets,6.5469,6.69614,VERIFIED,6.342,strata on-chain lens,,High,unrated: internal signals only
+USD Farms,Moo FxConvex USDC-fxUSD,Ethereum,Beefy,6.54624,5.83382,VERIFIED,6.509,beefy-api,,Medium (7.7),"score 7.7; FXUSD 7.7 (pharos 7.2, yearn 8.4); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: FXUSD"
+USD Farms,CSCBUSDC,Base,Morpho Blue,6.51476,6.79642,VERIFIED,4.259,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,Stake DAO frxUSD/sDOLA Vault,Ethereum,Stake DAO,6.500080000000001,7.08645,VERIFIED,5.413,on-chain (curve vp 7d),,Medium (4.6),"score 4.6; FRXUSD 6.2 (pharos 7.0, tid 5.5); SDOLA 4.6 (pharos 4.8, tid 4.5); worst leg: SDOLA"
+USD Farms,PLP Savings Usdd 27AUG2026,Ethereum,Pendle,6.453880000000001,6.53075,VERIFIED,6.614,pendle-api,,High (3.7),score 3.7; SUSDD 3.7 (pharos 3.7)
+USD Farms,USDC-2 yVault,Ethereum,Yearn Finance,6.45218,6.45382,VERIFIED,6.452,ydaemon,,Low (9.0),"score 9.0; USDC 9.0 (pharos 9.0, tid 9.0)"
+USD Farms,PLP USDC Meta Vault 29OCT2026,Ethereum,Pendle,6.3534,6.31865,VERIFIED,6.44,pendle-api,,Medium,unrated: internal signals only
+USD Farms,Moo Curve reUSD-scrvUSD,Ethereum,Beefy,6.26829,6.74068,VERIFIED,2.914,curve-api (total),,Medium (4.1),"score 4.1; REUSD 5.1 (pharos 5.3, tid 5.5, yearn 4.0); CRVUSD 6.1 (pharos 7.3, tid 5.0); worst leg: REUSD; -1 tvl<1M"
+USD Farms,SENRLUSDV2,Ethereum,Morpho Blue,6.24297,6.33294,VERIFIED,2.391,yieldz (base),,Medium,unrated: internal signals only
 USD Farms,Aave Monad AUSD,Monad,Aave V3,6.22476,5.71565,VERIFIED,2.263,yieldz (base),,Medium (7.1),"score 7.1; AUSD 7.1 (pharos 7.3, tid 7.0)"
 USD Farms,Ember Y10K,Ethereum,Ember Protocol,6.20402,6.42281,VERIFIED,6.003,on-chain (7d realized),,Low (9.0),"score 9.0; USDC 9.0 (pharos 9.0, tid 9.0)"
-USD Farms,AUSDC,Ethereum,Morpho Blue,6.1363,6.27784,VERIFIED,5.436,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,August USDC V2,Monad,Morpho Blue,6.132890000000001,6.41546,VERIFIED,5.427,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,SENPYUSDMAIN,Ethereum,Morpho Blue,6.13044,6.1833,VERIFIED,2.012,yieldz (base),,Medium,unrated: internal signals only
-USD Farms,Moo Curve USDC-USDf,Ethereum,Beefy,6.03244,5.40768,VERIFIED,3.015,curve-api (total),,Medium (5.0),"score 5.0; USDF 5.0 (pharos 5.0); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: USDF"
-USD Farms,RESERVOIRUSDC,Ethereum,Morpho Blue,6.01981,6.31332,VERIFIED,4.086,yieldz (base),,Medium,unrated: internal signals only
-ETH Farms,osETH/rETH,Ethereum,Convex Finance,5.93332,5.94858,VERIFIED,2.144,on-chain (curve vp 7d),,Medium,unrated: internal signals only
-ETH Farms,Umbrella,Ethereum,Aave V3,5.28166,5.3225,VERIFIED,1.465,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,August USDC V2,Monad,Morpho Blue,6.136270000000001,6.41594,VERIFIED,5.488,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,SENPYUSDMAIN,Ethereum,Morpho Blue,6.13033,6.18329,VERIFIED,2.013,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,AUSDC,Ethereum,Morpho Blue,6.11793,6.27522,VERIFIED,5.436,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,Aave Monad mUSD,Monad,Aave V3,6.07092,8.09516,VERIFIED,0.488,yieldz (base),,Medium (5.2),"score 5.2; MUSD 5.2 (pharos 5.0, yearn 5.6)"
+USD Farms,Moo Curve USDC-USDf,Ethereum,Beefy,6.05685,5.41117,VERIFIED,3.005,curve-api (total),,Medium (5.0),"score 5.0; USDF 5.0 (pharos 5.0); USDC 9.0 (pharos 9.0, tid 9.0); worst leg: USDF"
+USD Farms,RESERVOIRUSDC,Ethereum,Morpho Blue,6.05176,6.31789,VERIFIED,4.086,yieldz (base),,Medium,unrated: internal signals only
+USD Farms,USDG,Ethereum,Aave V3,6.03044,4.53851,VERIFIED,1.406,yieldz (base+reward),,Medium (7.4),"score 7.4; USDG 7.4 (pharos 7.2, tid 7.0, yearn 8.1)"
+USD Farms,GTUSDCRWA,Ethereum,Morpho Blue,6.00176,5.28784,VERIFIED,6.95,yieldz (base),,Medium,unrated: internal signals only
+ETH Farms,osETH/rETH,Ethereum,Convex Finance,5.947179999999999,5.95056,VERIFIED,2.144,on-chain (curve vp 7d),,Medium,unrated: internal signals only
+ETH Farms,Umbrella,Ethereum,Aave V3,5.28411,5.32285,VERIFIED,1.464,yieldz (base),,Medium,unrated: internal signals only
 ETH Farms,ynETHx/ETH,Ethereum,Curve DEX,5.12169,5.07742,VERIFIED,5.306,on-chain (curve vp 7d),,High,unrated: internal signals only
 ETH Farms,ynETHx/ETH,Ethereum,Convex Finance,5.12,5.07571,VERIFIED,5.306,on-chain (curve vp 7d),,High,unrated: internal signals only
-ETH Farms,Autopilot wETH Base,Base,Fusion by IPOR,5.03557,5.3945,VERIFIED,4.239,ipor-api,,Medium,unrated: internal signals only
-ETH Farms,Moo Curve ETH+-WETH,Ethereum,Beefy,3.64059,4.36407,VERIFIED,3.631,beefy-api,,Low (8.9),score 8.9; ETHPLUS 8.9 (yearn 8.9)
-ETH Farms,Moo Curve wfrxETH-sfrxETH,Fraxtal,Beefy,3.51363,3.47043,VERIFIED,1.516,curve-api (total),,Medium,unrated: internal signals only
-ETH Farms,wfrxETH/sfrxETH,Fraxtal,Curve DEX,3.24682,3.21066,VERIFIED,1.516,curve-api (total),,Medium,unrated: internal signals only
-ETH Farms,STEAKETH,Monad,Morpho Blue,3.13862,2.92163,VERIFIED,1.287,yieldz (base),,Medium,unrated: internal signals only
-ETH Farms,K3 Capital Earn WETH,Monad,Euler V2,3.1067,3.16424,VERIFIED,1.409,euler/yieldz,,Medium,unrated: internal signals only
+ETH Farms,Moo Curve ETH+-WETH,Ethereum,Beefy,3.63626,4.36345,VERIFIED,3.634,beefy-api,,Low (8.9),score 8.9; ETHPLUS 8.9 (yearn 8.9)
+ETH Farms,Moo Curve wfrxETH-sfrxETH,Fraxtal,Beefy,3.51036,3.46996,VERIFIED,1.511,curve-api (total),,Medium,unrated: internal signals only
+ETH Farms,wfrxETH/sfrxETH,Fraxtal,Curve DEX,3.24591,3.21053,VERIFIED,1.511,curve-api (total),,Medium,unrated: internal signals only
+ETH Farms,STEAKETH,Monad,Morpho Blue,3.13602,2.92126,VERIFIED,1.287,yieldz (base),,Medium,unrated: internal signals only
+ETH Farms,K3 Capital Earn WETH,Monad,Euler V2,3.10639,3.1642,VERIFIED,1.431,euler/yieldz,,Medium,unrated: internal signals only

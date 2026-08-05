@@ -329,6 +329,11 @@ def main(template, outfile, names_file=None, loops_file=None):
             print(f'risk scores: {len(risk_scores)} assets')
         except Exception:
             pass
+    # display names before verification: some cross-checks join on them
+    for rows in tabs.values():
+        for r in rows:
+            nm = names.get(r['pool_id'], {})
+            r['farm_disp'] = nm.get('farm') or r['meta'] or nm.get('pool') or r['symbol']
     try:
         run_verification(tabs, registry)
     except Exception as e:
@@ -827,6 +832,37 @@ def curve_check(row, curve_idx):
     return None, None, None
 
 
+# Strata tranche APRs read from their on-chain lens (found in DefiLlama's
+# adapter source); getAPRs(cdo) -> (base, target, junior, senior), 1e10 scale
+STRATA_LENS = '0xeA62e3a2D5FE8D5b66dc8E1bd2405AD23C851f4e'
+STRATA_CDOS = {'USDE': '0x908B3921aaE4fC17191D382BB61020f2Ee6C0e20',
+               'NUSD': '0x7b6c960cf185fb27ECb91c174FAe065978beDd10',
+               'MHYPER': '0x39C7E67b25fB14eAec8717B20664C2E35327e6cf',
+               'M1USD': '0x613D1790d9BA381D27B4071C04380Db8ED120E5f',
+               'MM1USD': '0x613D1790d9BA381D27B4071C04380Db8ED120E5f',
+               'USDAT': '0xa617763cEB808f43eC9D532cbE8C65819afb846b',
+               'PRIME': '0xff408b4843CDD4a33CD49EB2aBe057fE8D71C234'}
+
+
+def strata_check(row):
+    """Compare a Strata tranche row against the protocol's on-chain lens."""
+    sym = row['symbol'].upper()
+    if row['name'] != 'Strata Markets' or row['chain'] != 'Ethereum':
+        return None, None
+    side = 'sr' if sym.startswith('SR') else ('jr' if sym.startswith('JR') else None)
+    cdo = STRATA_CDOS.get(sym[2:]) if side else None
+    if not cdo:
+        return None, None
+    data = '0x4a4b15d1' + cdo[2:].lower().rjust(64, '0')
+    res = rpc(1, 'eth_call', [{'to': STRATA_LENS, 'data': data}, 'latest'])
+    words = [int(res[2:][i * 64:(i + 1) * 64], 16) for i in range(4)]
+    words = [w - (1 << 256) if w >= (1 << 255) else w for w in words]
+    live = (words[3] if side == 'sr' else words[2]) / 1e10
+    quoted = row.get('now') or 0
+    ok = abs(live - quoted) <= max(0.75, 0.25 * max(live, quoted))
+    return round(live, 3), ok
+
+
 def run_verification(tabs, registry=None):
     try:
         lend, vaults = load_yieldz_sources()
@@ -893,6 +929,15 @@ def run_verification(tabs, registry=None):
                         src_val, src_name = cv, lbl
                         if fl:
                             flags.append(fl)
+                except Exception:
+                    pass
+            if src_val is None and row['name'] == 'Strata Markets':
+                try:
+                    sv, ok = strata_check(row)
+                    if sv is not None:
+                        src_val, src_name = sv, 'strata on-chain lens'
+                        if not ok:
+                            flags.append(f'MISMATCH(source {sv:.2f})')
                 except Exception:
                     pass
             if src_val is None and proto_src:
