@@ -763,10 +763,11 @@ def load_yieldz_sources():
 
 # venue quality for pooled-market allocations inside curated vaults: the
 # vault supplies its own asset into these, so the venue is the exposure
-VENUE_SCORE = {'aave-v3': 8.5, 'aave-v2': 7.5, 'spark': 8.2, 'compound-v3': 8.5,
-               'compound-v2': 7.0, 'moonwell': 7.5, 'fluid': 8.0,
-               'fluid-instadapp': 8.0, 'gearbox': 7.0, 'pendle': 6.5,
-               'harvest': 6.0, 'yearn': 7.5, 'curve': 7.5, 'sky': 8.0}
+VENUE_SCORE = {'aave-v3': 8.5, 'aave-v2': 7.5, 'spark': 8.2, 'spark-lend': 8.2,
+               'compound-v3': 8.5, 'compound-v2': 7.0, 'moonwell': 7.5,
+               'fluid': 8.0, 'fluid-instadapp': 8.0, 'gearbox': 7.0,
+               'pendle': 6.5, 'harvest': 6.0, 'yearn': 7.5, 'curve': 7.5,
+               'sky': 8.0, 'liquity-zapper': 7.0, 'liquity': 7.5}
 
 
 def ipor_exposure(row, v, mkt_by_id, euler_by_id):
