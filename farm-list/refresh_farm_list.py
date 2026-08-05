@@ -397,7 +397,12 @@ CHAIN_IDS = {1: 'Ethereum', 8453: 'Base', 42161: 'Arbitrum', 10: 'OP Mainnet',
              143: 'Monad', 999: 'Hyperliquid L1', 43114: 'Avalanche',
              5000: 'Mantle', 9745: 'Plasma', 480: 'World Chain', 146: 'Sonic'}
 BLOCK_SECONDS = {1: 12, 8453: 2, 42161: 0.25, 10: 2, 137: 2.1, 56: 3,
-                 100: 5, 59144: 2, 143: 0.5, 999: 1, 9745: 1}
+                 100: 5, 59144: 2, 143: 0.5, 999: 1, 9745: 1, 252: 2}
+CURVE_CHAINS = {'Ethereum': ('ethereum', 1), 'Arbitrum': ('arbitrum', 42161),
+                'Base': ('base', 8453), 'OP Mainnet': ('optimism', 10),
+                'Polygon': ('polygon', 137), 'Fraxtal': ('fraxtal', 252),
+                'Gnosis': ('xdai', 100)}
+CURVE_WRAPPERS = ('Curve DEX', 'Convex Finance', 'Stake DAO', 'Beefy')
 YZ_PROTO = {'Aave V3': 'aave', 'Aave V4': 'aave', 'HyperLend Pooled': 'hyperlend',
             'Fluid Lending': 'fluid', 'Euler V2': 'euler', 'Lista Lending': 'lista'}
 RED_FLAGS = ('MISMATCH', 'STALE', 'NOT-ACCRUING')
@@ -589,6 +594,47 @@ def init_pendle():
         print('pendle API not reachable (allowlist api-v2.pendle.finance to enable)')
 
 
+def load_curve_pools():
+    """Curve pool addresses indexed by (chain, coin-symbol set) for on-chain
+    virtual-price checks of Curve/Convex/Stake DAO/Beefy rows."""
+    idx = {}
+    for chain, (slug, chain_id) in CURVE_CHAINS.items():
+        try:
+            data = get(f'https://api.curve.finance/api/getPools/all/{slug}', retries=1)
+            for p in data['data']['poolData']:
+                coins = frozenset((c.get('symbol') or '').upper() for c in p.get('coins', []))
+                if coins:
+                    idx.setdefault((chain, coins), []).append(
+                        dict(address=p['address'], usd=p.get('usdTotal') or 0, chain_id=chain_id))
+        except Exception as e:
+            print(f'curve {slug} skipped: {type(e).__name__}')
+    print(f'curve API: {len(idx)} coin-set keys')
+    return idx
+
+
+def curve_check(row, curve_idx):
+    """Realized fee yield from the matched Curve pool's virtual price."""
+    if row['name'] not in CURVE_WRAPPERS or (row['base'] or 0) < 1:
+        return None, None
+    coins = frozenset(s.upper() for s in row['symbol'].split('-') if s)
+    cands = curve_idx.get((row['chain'], coins), [])
+    if not cands:
+        return None, None
+    if row['name'] == 'Curve DEX':
+        m = min(cands, key=lambda c: abs(c['usd'] - row['tvl']))
+        if not (0.5 <= (m['usd'] + 1) / (row['tvl'] + 1) <= 2):
+            return None, None
+    else:
+        # wrappers stake a fraction of the pool — identity only safe when unique
+        if len(cands) > 1:
+            return None, None
+        m = cands[0]
+    realized = onchain_realized(m['chain_id'], m['address'], '0xbb7b8b80')
+    if realized is None:
+        return None, None
+    return round(realized, 3), realized_flag(realized, row['base'] or 0)
+
+
 def run_verification(tabs, registry=None):
     try:
         lend, vaults = load_yieldz_sources()
@@ -597,6 +643,11 @@ def run_verification(tabs, registry=None):
         lend, vaults = {}, {}
     init_pendle()
     registry = registry or {}
+    try:
+        curve_idx = load_curve_pools()
+    except Exception as e:
+        print('curve API unavailable:', e)
+        curve_idx = {}
     counts = collections.Counter()
     for tab, rows in tabs.items():
         cut = CUTOFF[tab.split()[0]]
@@ -628,6 +679,15 @@ def run_verification(tabs, registry=None):
             # a live source confirming the value supersedes the staleness flag
             if src_val is not None and not any(f.startswith('MISMATCH') for f in flags):
                 flags = [f for f in flags if not f.startswith('STALE')]
+            if src_val is None and curve_idx:
+                try:
+                    realized, fl = curve_check(row, curve_idx)
+                    if realized is not None:
+                        src_val, src_name = realized, 'on-chain (curve vp 7d)'
+                        if fl:
+                            flags.append(fl)
+                except Exception:
+                    pass
             if src_val is None and row['pool_id'] in registry:
                 try:
                     ent = registry[row['pool_id']]
