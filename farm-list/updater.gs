@@ -96,6 +96,9 @@ function refreshFarmTabs() {
 
     // farm tabs: rewrite the header rows for the Risk-in-F layout (idempotent)
     if (cfg.farmHeader) {
+      // the A1:S1 title merge spans every column, so frozen columns
+      // (which cannot cross a merge) must go; frozen rows are kept
+      if (sheet.getFrozenColumns() > 0) sheet.setFrozenColumns(0);
       sheet.getRange(3, 1, 1, nCols).setValues([rows[1].slice(0, nCols)])
         .setFontWeight('bold').setFontColor('#ffffff').setBackground('#1f3552')
         .setHorizontalAlignment('center').setVerticalAlignment('middle');
