@@ -53,9 +53,18 @@ with the flag text in hidden column S / as a cell note in Google Sheets.
 - **On-chain realized yield (matched vaults)**: share price now vs ~7
   days ago via RPC (`convertToAssets`), annualized; `NOT-ACCRUING` /
   `REALIZED-LOW` when actual accrual is far below the quoted base APY.
-- **Pendle** (largest unverified block): cross-check against
-  `api-v2.pendle.finance` activates automatically once that domain is
-  added to the egress allowlist.
+- **Pendle**: PT rows cross-checked against the official
+  `api-v2.pendle.finance` implied APY (domain is allowlisted).
+- **Vault registry** (`vault_registry.json`): pool-id -> contract address
+  (+ optional custom share-price selector). Rows listed here get the
+  on-chain realized-yield check even when no aggregator covers them —
+  the only genuine verification for closed vaults that self-report APYs.
+  Addresses come from DefiLlama's public adapter sources
+  (github.com/DefiLlama/yield-server) or protocol docs; extend the file
+  any time — no code change needed. The share-price read cascades
+  through ERC-4626 `convertToAssets`, Yearn `pricePerShare`, Beefy
+  `getPricePerFullShare` and Curve `get_virtual_price` unless a custom
+  selector is given.
 
 Verdicts: `VERIFIED` (independent source agrees), `FLAGGED` (red flag),
 `CAUTION` (advisory flags), `UNVERIFIED` (no independent source — mostly

@@ -217,8 +217,17 @@ def main(template, outfile, names_file=None, loops_file=None):
                                  -(r['now'] if r['now'] else (r['d7'] or r['d30'] or 0))))
         tabs[tab] = rows
 
+    registry = {}
+    if names_file:
+        try:
+            import os
+            registry = json.load(open(os.path.join(os.path.dirname(os.path.abspath(names_file)),
+                                                   'vault_registry.json')))
+            print(f'vault registry: {len(registry)} entries')
+        except Exception:
+            pass
     try:
-        run_verification(tabs)
+        run_verification(tabs, registry)
     except Exception as e:
         print('verification skipped entirely:', e)
         for rows in tabs.values():
@@ -476,19 +485,16 @@ def cross_source(row, lend, vaults):
     return src, matched, m
 
 
-def realized_check(row, m):
-    """On-chain realized 7d yield from the vault's share price via RPC.
+# share-price read cascade: ERC4626, Yearn, Beefy, Curve, custom
+SHARE_SELECTORS = ['0x07a2d13a' + hex(10 ** 18)[2:].rjust(64, '0'),  # convertToAssets(1e18)
+                   '0x99530b06', '0x77c7b8fc', '0xbb7b8b80']
 
-    Coarse by design: only flags a vault whose real accrual is far below its
-    quoted base APY (or that isn't accruing at all).
-    """
-    if not m or m.get('protocol') not in ('morpho_vault', 'lista_vault'):
-        return None
-    chain_id = m['chain_id']
+
+def onchain_realized(chain_id, addr, selector=None):
+    """Annualized ~7d realized yield from on-chain share-price growth."""
     if chain_id not in BLOCK_SECONDS:
         return None
-    addr = m['id']
-    data = '0x07a2d13a' + hex(10 ** 18)[2:].rjust(64, '0')  # convertToAssets(1e18)
+    datas = [selector] if selector else SHARE_SELECTORS
     now_block = int(rpc(chain_id, 'eth_blockNumber', []), 16)
     then_est = now_block - int(7 * 86400 / BLOCK_SECONDS[chain_id])
     hdr_now = rpc(chain_id, 'eth_getBlockByNumber', [hex(now_block), False])
@@ -496,18 +502,35 @@ def realized_check(row, m):
     dt = int(hdr_now['timestamp'], 16) - int(hdr_then['timestamp'], 16)
     if dt < 3 * 86400:
         return None
-    pps_now = int(rpc(chain_id, 'eth_call', [{'to': addr, 'data': data}, hex(now_block)]), 16)
-    pps_then = int(rpc(chain_id, 'eth_call', [{'to': addr, 'data': data}, hex(then_est)]), 16)
-    if pps_then == 0:
+    for data in datas:
+        try:
+            pps_now = int(rpc(chain_id, 'eth_call', [{'to': addr, 'data': data}, hex(now_block)]), 16)
+            pps_then = int(rpc(chain_id, 'eth_call', [{'to': addr, 'data': data}, hex(then_est)]), 16)
+        except Exception:
+            continue
+        if pps_then > 0 and pps_now > 0:
+            return (pps_now / pps_then - 1) * (365 * 86400 / dt) * 100
+    return None
+
+
+def realized_flag(realized, quoted):
+    if realized is None:
         return None
-    realized = (pps_now / pps_then - 1) * (365 * 86400 / dt) * 100
-    quoted = row['base'] or 0
-    flag = None
     if quoted > 1 and realized < 0.05:
-        flag = f'NOT-ACCRUING(realized {realized:.2f} vs quoted {quoted:.2f})'
-    elif quoted > 2 and realized < 0.35 * quoted:
-        flag = f'REALIZED-LOW({realized:.2f} vs quoted {quoted:.2f})'
-    return dict(realized=round(realized, 3), flag=flag)
+        return f'NOT-ACCRUING(realized {realized:.2f} vs quoted {quoted:.2f})'
+    if quoted > 2 and realized < 0.35 * quoted:
+        return f'REALIZED-LOW({realized:.2f} vs quoted {quoted:.2f})'
+    return None
+
+
+def realized_check(row, m):
+    """Realized-yield spot check for a yieldz-matched vault."""
+    if not m or m.get('protocol') not in ('morpho_vault', 'lista_vault'):
+        return None
+    realized = onchain_realized(m['chain_id'], m['id'])
+    if realized is None:
+        return None
+    return dict(realized=round(realized, 3), flag=realized_flag(realized, row['base'] or 0))
 
 
 def pendle_check(row):
@@ -526,30 +549,41 @@ def pendle_check(row):
 
 def init_pendle():
     pendle_check.markets = []
-    try:
-        for cid in (1, 42161, 56, 143, 9745):
-            res = get(f'https://api-v2.pendle.finance/core/v1/{cid}/markets?limit=100', retries=1)
-            for mk in res.get('results', []):
-                exp = (mk.get('expiry') or '')[:10]
-                if not exp:
-                    continue
-                d = datetime.date.fromisoformat(exp)
-                pendle_check.markets.append(dict(
-                    sym=(mk.get('pt', {}).get('symbol') or mk.get('name') or '').upper(),
-                    expiry=d.strftime('%d%b%Y').upper(),
-                    implied=(mk.get('impliedApy') or 0) * 100))
+    for cid in (1, 42161, 56, 143, 9745, 8453, 5000):
+        try:
+            skip = 0
+            while True:
+                res = get(f'https://api-v2.pendle.finance/core/v1/{cid}/markets'
+                          f'?limit=100&skip={skip}', retries=1)
+                batch = res.get('results', [])
+                for mk in batch:
+                    exp = (mk.get('expiry') or '')[:10]
+                    if not exp:
+                        continue
+                    d = datetime.date.fromisoformat(exp)
+                    pendle_check.markets.append(dict(
+                        sym=((mk.get('pt') or {}).get('symbol') or mk.get('name') or '').upper(),
+                        expiry=d.strftime('%d%b%Y').upper(),
+                        implied=(mk.get('impliedApy') or 0) * 100))
+                if len(batch) < 100:
+                    break
+                skip += 100
+        except Exception as e:
+            print(f'pendle chain {cid} skipped: {type(e).__name__}')
+    if pendle_check.markets:
         print(f'pendle API reachable: {len(pendle_check.markets)} markets')
-    except Exception:
+    else:
         print('pendle API not reachable (allowlist api-v2.pendle.finance to enable)')
 
 
-def run_verification(tabs):
+def run_verification(tabs, registry=None):
     try:
         lend, vaults = load_yieldz_sources()
     except Exception as e:
         print('yieldz sources unavailable, cross-source skipped:', e)
         lend, vaults = {}, {}
     init_pendle()
+    registry = registry or {}
     counts = collections.Counter()
     for tab, rows in tabs.items():
         cut = CUTOFF[tab.split()[0]]
@@ -576,6 +610,19 @@ def run_verification(tabs):
                         src_val, src_name = round(src, 3), 'pendle-api'
                         if not ok:
                             flags.append(f'MISMATCH(source {src:.2f})')
+                except Exception:
+                    pass
+            if src_val is None and row['pool_id'] in registry:
+                try:
+                    ent = registry[row['pool_id']]
+                    realized = onchain_realized(ent['chain_id'], ent['address'],
+                                                ent.get('selector'))
+                    if realized is not None:
+                        src_val = round(realized, 3)
+                        src_name = 'on-chain (7d realized)'
+                        fl = realized_flag(realized, row['base'] or 0)
+                        if fl:
+                            flags.append(fl)
                 except Exception:
                     pass
             row['flags'] = flags

@@ -1,0 +1,8 @@
+{
+ "e10580de-1ad2-4bbc-a0e8-ad4db95df4a3": {
+  "chain_id": 143,
+  "address": "0x36eDbF0C834591BFdfCaC0Ef9605528c75c406aA",
+  "selector": "0x5b1dac60",
+  "note": "Upshift earnAUSD getSharePrice() \u2014 from DefiLlama adapter source"
+ }
+}
