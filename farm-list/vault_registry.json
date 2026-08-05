@@ -784,5 +784,95 @@
   "chain_id": 1,
   "address": "0x6DFF69eb720986E98Bb3E8b26cb9E02Ec1a35D12",
   "note": "yuzu-money SYZUSD (SYZUSD) \u2014 harvested"
+ },
+ "7d491f26-a03b-4eca-ae2c-e068391b15d3": {
+  "chain_id": 1,
+  "address": "0xCF4e49f5e750Af8F2f9Aa1642B68E5839D9c1C00",
+  "note": "midas-rwa USDC (MFONE) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "b8d0d351-ac04-40de-9768-1fb9fdc68114": {
+  "chain_id": 1,
+  "address": "0xfCEE9754E8C375e145303b7cE7BEca3201734A2B",
+  "note": "midas-rwa USDC (MTBILL) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "ebb3a954-fd67-4a3b-ac2f-3a8c7be9200b": {
+  "chain_id": 1,
+  "address": "0x92004DCC5359eD67f287F32d12715A37916deCdE",
+  "note": "midas-rwa USDC (MHYPER) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "15cc07d7-3ffc-49e6-8500-deaeb414e32d": {
+  "chain_id": 1,
+  "address": "0xF1aBD1a4Fc5fa2848Cf3763FBE7B0DF366da9279",
+  "note": "midas-rwa USDC (MM1USD) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "d2b2bdd9-6535-4acc-8e84-2b0838bd63bb": {
+  "chain_id": 1,
+  "address": "0xb75B82b2012138815d1A2c4aB5B8b987da043157",
+  "note": "midas-rwa BTC (MHYPERBTC) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "7380a44d-da0e-460b-b149-0c2f2f271316": {
+  "chain_id": 10,
+  "address": "0x46129d0863667b1159C55F0B43b898bc3352130a",
+  "note": "midas-rwa ETH (MRE7ETH) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "435b3f8a-6c72-4db5-94e4-ffc93c5f0f69": {
+  "chain_id": 1,
+  "address": "0x9aEBf5d6F9411BAc355021ddFbe9B2c756BDD358",
+  "note": "midas-rwa USDC (MAPOLLO) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "6d6b4436-fa38-4fa8-be5d-672153b49f5c": {
+  "chain_id": 1,
+  "address": "0x2c7d47c56015be6aa8442Da78796a965928E7c4e",
+  "note": "midas-rwa USDC (MROX) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "fdeb7a57-e6c2-481e-9a8d-c7371600eeb9": {
+  "chain_id": 1,
+  "address": "0x7E8C632ab231479886AF1Bc02B9D646e4634Da93",
+  "note": "midas-rwa USDC (MRE7YIELD) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "7ee289d7-72aa-4295-99a7-c4551e3f15d1": {
+  "chain_id": 1,
+  "address": "0x7833397dA276d6B588e76466C14c82b2d733Cfb6",
+  "note": "midas-rwa USDC (MSYRUPUSDP) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "24514f34-853f-4678-9faa-7cebf550aba7": {
+  "chain_id": 143,
+  "address": "0xf91288dC7F33e6f4aD3B62090A86b8978B48b01c",
+  "note": "midas-rwa BTC (MHYPERBTC) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "0ffd2dc2-72d2-449f-8cac-34a09ce6f323": {
+  "chain_id": 1,
+  "address": "0x9BF00b7CFC00D6A7a2e2C994DB8c8dCa467ee359",
+  "note": "midas-rwa USDC (MMEV) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "d48e9c5a-7c28-4192-ab3d-795b5fbed7be": {
+  "chain_id": 1,
+  "address": "0x20cd58F72cF1727a2937eB1816593390cf8d91cB",
+  "note": "midas-rwa USDC (MEDGE) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "10ec4376-4e0d-4121-8b3b-92ac3c3fc5e5": {
+  "chain_id": 1,
+  "address": "0xB5D6483c556Bc6810b55B983315016Fcb374186D",
+  "note": "midas-rwa BTC (MRE7BTC) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "e5389a91-5a5c-4042-a409-4ef276b81d56": {
+  "chain_id": 143,
+  "address": "0xf0202EFbaF185B451b4be3b36988b258d42f8E24",
+  "note": "midas-rwa USDC (MEDGE) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
  }
 }

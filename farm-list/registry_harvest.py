@@ -203,6 +203,9 @@ def main(pools_file, registry_file):
         if not cands:
             continue
         chain, sym = p['chain'], p['symbol'].upper()
+        if p['project'] == 'midas-rwa':
+            # DL midas symbol is the deposit asset; the mToken name is in meta
+            sym = (p.get('poolMeta') or '').upper()
         if p['project'] == 'beefy':
             coins = frozenset(s.upper() for s in sym.split('-') if s)
             hits = [c for c in cands if c[1] == chain and c[6] == coins]
@@ -223,7 +226,7 @@ def main(pools_file, registry_file):
         entry = dict(chain_id=hit[4], address=hit[3],
                      note=f'{p["project"]} {p["symbol"]} ({hit[2] or "coin-set"}) — harvested')
         if p['project'] == 'midas-rwa':
-            entry['selector'] = '0x50d25bcd'  # chainlink-style latestAnswer()
+            entry['selector'] = '0x63692905'  # getDataInBase18()
             entry['note'] += ' (NAV oracle feed)'
         registry[p['pool']] = entry
         added += 1
