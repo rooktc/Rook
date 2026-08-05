@@ -79,18 +79,26 @@ def load_protocol_sources():
     except Exception as e:
         print('protocol-checks: ember failed:', type(e).__name__)
     try:
-        idx = {}
+        idx, sym_idx = {}, {}
         for cid, chain in [(1, 'Ethereum'), (8453, 'Base'), (42161, 'Arbitrum'),
                            (10, 'OP Mainnet'), (137, 'Polygon'), (747474, 'Katana')]:
             try:
                 for v in _fetch(f'https://ydaemon.yearn.fi/{cid}/vaults/all'):
                     name = (v.get('name') or '').strip().lower()
                     apr = ((v.get('apr') or {}).get('netAPR'))
-                    if name and apr is not None:
-                        idx[(chain, name)] = dict(apy=apr * 100, address=v.get('address'))
+                    if apr is None:
+                        continue
+                    ent = dict(apy=apr * 100, address=v.get('address'),
+                               tvl=((v.get('tvl') or {}).get('tvl')) or 0)
+                    if name:
+                        idx[(chain, name)] = ent
+                    sym = (v.get('symbol') or '').strip().upper()
+                    if sym:
+                        sym_idx.setdefault((chain, sym), []).append(ent)
             except Exception:
                 continue
         src['yearn'] = idx
+        src['yearn_sym'] = sym_idx
         print(f"protocol-checks: yearn {len(idx)} vaults")
     except Exception as e:
         print('protocol-checks: yearn failed:', type(e).__name__)
@@ -144,8 +152,19 @@ def check_row(row, src):
             return None, None, None, v.get('address')
 
     if row['name'] == 'Yearn Finance' and 'yearn' in src:
-        meta = (row.get('meta') or '').strip().lower()
-        v = src['yearn'].get((row['chain'], meta))
+        # DL poolMeta is usually empty for Yearn; the carried display name or
+        # the vault symbol (TVL-gated: yBOLD vs ysyBOLD share a prefix) works
+        v = None
+        for key in (row.get('meta'), row.get('farm_disp')):
+            v = src['yearn'].get((row['chain'], (key or '').strip().lower()))
+            if v:
+                break
+        if not v:
+            cands = (src.get('yearn_sym') or {}).get((row['chain'], row['symbol'].upper()), [])
+            cands = [c for c in cands if c['tvl']
+                     and 0.5 <= (c['tvl'] + 1) / ((row.get('tvl') or 0) + 1) <= 2]
+            if len(cands) == 1:
+                v = cands[0]
         if v:
             base = row.get('base') if row.get('base') is not None else total
             ok = tol(base or 0, v['apy']) or tol(total or 0, v['apy'])
