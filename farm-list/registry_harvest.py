@@ -126,6 +126,31 @@ def harvest_beefy():
     return out
 
 
+def harvest_midas():
+    """Midas mToken oracle feeds from DefiLlama's public adapter source:
+    the dataFeed's latestAnswer growth is the token's realized NAV yield."""
+    import re
+    req = urllib.request.Request(
+        'https://raw.githubusercontent.com/DefiLlama/yield-server/master/'
+        'src/adaptors/midas-rwa/addresses.js', headers={'User-Agent': UA})
+    body = urllib.request.urlopen(req, timeout=45).read().decode()
+    chain_map = {'ethereum': 1, 'base': 8453, 'arbitrum': 42161, 'optimism': 10,
+                 'bsc': 56, 'monad': 143, 'hyperevm': 999, 'plasma': 9745}
+    out, chain = [], None
+    for line in body.splitlines():
+        m = re.match(r'^  (\w+): \{', line)
+        if m:
+            chain = m.group(1)
+        m = re.match(r"^    (\w+): \{", line)
+        if m:
+            token = m.group(1)
+        m = re.search(r"dataFeed: getAddress\('(0x[0-9a-fA-F]{40})'\)", line)
+        if m and chain in chain_map:
+            out.append(('midas-rwa', CHAIN_IDS.get(chain_map[chain]),
+                        token.upper(), m.group(1), chain_map[chain], 0))
+    return out
+
+
 def main(pools_file, registry_file):
     pools = json.load(open(pools_file))['data']
     try:
@@ -135,7 +160,7 @@ def main(pools_file, registry_file):
     harvests = []
     for name, fn in [('ipor', harvest_ipor), ('lagoon', harvest_lagoon),
                      ('morpho', harvest_morpho), ('ember', harvest_ember),
-                     ('beefy', harvest_beefy)]:
+                     ('beefy', harvest_beefy), ('midas', harvest_midas)]:
         try:
             h = fn()
             harvests.extend(h)
@@ -172,8 +197,12 @@ def main(pools_file, registry_file):
                 hit = near[0]
             else:
                 hit = hits[0]
-        registry[p['pool']] = dict(chain_id=hit[4], address=hit[3],
-                                   note=f'{p["project"]} {p["symbol"]} ({hit[2] or "coin-set"}) — harvested')
+        entry = dict(chain_id=hit[4], address=hit[3],
+                     note=f'{p["project"]} {p["symbol"]} ({hit[2] or "coin-set"}) — harvested')
+        if p['project'] == 'midas-rwa':
+            entry['selector'] = '0x50d25bcd'  # chainlink-style latestAnswer()
+            entry['note'] += ' (NAV oracle feed)'
+        registry[p['pool']] = entry
         added += 1
 
     json.dump(registry, open(registry_file, 'w'), indent=1)
