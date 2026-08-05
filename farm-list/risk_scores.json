@@ -1,0 +1,711 @@
+{
+ "APXUSD": [
+  {
+   "source": "tid",
+   "score": 3.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/apxusd/"
+  },
+  {
+   "source": "yearn",
+   "score": 3.7,
+   "scale": "1-5 lower=safer",
+   "label": "Elevated Risk",
+   "url": "https://curation.yearn.fi/report/apyx-apxusd/"
+  }
+ ],
+ "APYUSD": [
+  {
+   "source": "tid",
+   "score": 3.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/apyusd/"
+  }
+ ],
+ "AUSD": [
+  {
+   "source": "tid",
+   "score": 7.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/ausd/"
+  }
+ ],
+ "AVETH": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/aveth/"
+  }
+ ],
+ "AVUSD": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/avusd/"
+  }
+ ],
+ "BMNR": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/bmnr/"
+  }
+ ],
+ "CRVUSD": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/crvusd/"
+  }
+ ],
+ "DOLA": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/dola/"
+  }
+ ],
+ "FIGURE": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/figure/"
+  }
+ ],
+ "FRAX": [
+  {
+   "source": "tid",
+   "score": 2.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/frax/"
+  }
+ ],
+ "FRXUSD": [
+  {
+   "source": "tid",
+   "score": 5.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/frxusd/"
+  }
+ ],
+ "HASTRA": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/hastra-prime/"
+  }
+ ],
+ "JAAA": [
+  {
+   "source": "tid",
+   "score": 6.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/jaaa/"
+  },
+  {
+   "source": "yearn",
+   "score": 2.6,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/centrifuge-jaaa/"
+  }
+ ],
+ "MSTR": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/mstr/"
+  }
+ ],
+ "ONYC": [
+  {
+   "source": "tid",
+   "score": 4.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/onyc/"
+  }
+ ],
+ "OUSD": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/ousd/"
+  },
+  {
+   "source": "yearn",
+   "score": 1.9,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/origin-ousd/"
+  }
+ ],
+ "PYUSD": [
+  {
+   "source": "tid",
+   "score": 7.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/pyusd/"
+  }
+ ],
+ "REUSD": [
+  {
+   "source": "tid",
+   "score": 5.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/reusd-re/"
+  },
+  {
+   "source": "yearn",
+   "score": 3.5,
+   "scale": "1-5 lower=safer",
+   "label": "Elevated Risk",
+   "url": "https://curation.yearn.fi/report/re-reusd/"
+  }
+ ],
+ "REUSDE": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/reusde-re/"
+  }
+ ],
+ "RLUSD": [
+  {
+   "source": "tid",
+   "score": 7.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/rlusd/"
+  }
+ ],
+ "SAVETH": [
+  {
+   "source": "tid",
+   "score": 4.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/saveth/"
+  }
+ ],
+ "SAVUSD": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/savusd/"
+  }
+ ],
+ "SDOLA": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/sdola/"
+  }
+ ],
+ "STRCX": [
+  {
+   "source": "tid",
+   "score": 3.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/strcx/"
+  }
+ ],
+ "SUSDAI": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/susdai/"
+  }
+ ],
+ "SUSDAT": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/susdat/"
+  }
+ ],
+ "SUSDE": [
+  {
+   "source": "tid",
+   "score": 6.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/susde/"
+  }
+ ],
+ "SUSDP": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/susdp/"
+  }
+ ],
+ "SUSDS": [
+  {
+   "source": "tid",
+   "score": 8.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/susds/"
+  }
+ ],
+ "SYRUPUSDC": [
+  {
+   "source": "tid",
+   "score": 6.8,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/syrupusdc/"
+  },
+  {
+   "source": "yearn",
+   "score": 2.3,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/maple-syrupusdc/"
+  }
+ ],
+ "SYRUPUSDT": [
+  {
+   "source": "tid",
+   "score": 6.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/syrupusdt/"
+  }
+ ],
+ "THBILL": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/thbill/"
+  }
+ ],
+ "THUSD": [
+  {
+   "source": "tid",
+   "score": 4.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/thusd/"
+  }
+ ],
+ "USD3": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usd3-3jane/"
+  },
+  {
+   "source": "yearn",
+   "score": 3.4,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/3jane-usd3/"
+  }
+ ],
+ "USDAI": [
+  {
+   "source": "tid",
+   "score": 6.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdai/"
+  }
+ ],
+ "USDAT": [
+  {
+   "source": "tid",
+   "score": 5.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdat/"
+  },
+  {
+   "source": "yearn",
+   "score": 2.8,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/saturn-usdat/"
+  }
+ ],
+ "USDC": [
+  {
+   "source": "tid",
+   "score": 9.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdc/"
+  }
+ ],
+ "USDD": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdd/"
+  }
+ ],
+ "USDE": [
+  {
+   "source": "tid",
+   "score": 6.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usde/"
+  }
+ ],
+ "USDG": [
+  {
+   "source": "tid",
+   "score": 7.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdg/"
+  },
+  {
+   "source": "yearn",
+   "score": 2.4,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/paxos-usdg/"
+  }
+ ],
+ "USDM": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdm/"
+  }
+ ],
+ "USDP": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdp-parallel/"
+  }
+ ],
+ "USDS": [
+  {
+   "source": "tid",
+   "score": 7.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usds/"
+  },
+  {
+   "source": "yearn",
+   "score": 1.3,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/sky-usds/"
+  }
+ ],
+ "USDT": [
+  {
+   "source": "tid",
+   "score": 7.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usdt/"
+  }
+ ],
+ "USG": [
+  {
+   "source": "tid",
+   "score": 4.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usg/"
+  }
+ ],
+ "USPC": [
+  {
+   "source": "tid",
+   "score": 4.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/uspc/"
+  }
+ ],
+ "WYLDS": [
+  {
+   "source": "tid",
+   "score": 6.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/wylds/"
+  }
+ ],
+ "SGHO": [
+  {
+   "source": "yearn",
+   "score": 2.3,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/aave-sgho/"
+  }
+ ],
+ "PROTOCOL": [
+  {
+   "source": "yearn",
+   "score": 3.5,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/across-protocol/"
+  }
+ ],
+ "STCUSD": [
+  {
+   "source": "yearn",
+   "score": 2.4,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/cap-stcusd/"
+  }
+ ],
+ "FLEX": [
+  {
+   "source": "yearn",
+   "score": 2.5,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/flex/"
+  }
+ ],
+ "FLUID": [
+  {
+   "source": "yearn",
+   "score": 2.6,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/fluid/"
+  }
+ ],
+ "FXUSD": [
+  {
+   "source": "yearn",
+   "score": 2.2,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/fx-fxusd/"
+  }
+ ],
+ "GUSDA": [
+  {
+   "source": "yearn",
+   "score": 2.9,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/gauntlet-gusda/"
+  }
+ ],
+ "INFINIFI": [
+  {
+   "source": "yearn",
+   "score": 3.2,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/infinifi/"
+  }
+ ],
+ "HGETH": [
+  {
+   "source": "yearn",
+   "score": 3.8,
+   "scale": "1-5 lower=safer",
+   "label": "Elevated Risk",
+   "url": "https://curation.yearn.fi/report/kerneldao-hgeth/"
+  }
+ ],
+ "KHYPE": [
+  {
+   "source": "yearn",
+   "score": 2.3,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/kinetiq-khype/"
+  }
+ ],
+ "MUSD": [
+  {
+   "source": "yearn",
+   "score": 3.1,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/mezo-musd/"
+  }
+ ],
+ "MGLOBAL": [
+  {
+   "source": "yearn",
+   "score": 3.4,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/midas-mglobal/"
+  }
+ ],
+ "MHYPER": [
+  {
+   "source": "yearn",
+   "score": 2.9,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/midas-mhyper/"
+  }
+ ],
+ "ARM": [
+  {
+   "source": "yearn",
+   "score": 1.5,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/origin-arm/"
+  }
+ ],
+ "ETHPLUS": [
+  {
+   "source": "yearn",
+   "score": 1.8,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/reserve-ethplus/"
+  }
+ ],
+ "SRROYUSDC": [
+  {
+   "source": "yearn",
+   "score": 3.8,
+   "scale": "1-5 lower=safer",
+   "label": "Elevated Risk",
+   "url": "https://curation.yearn.fi/report/royco-srroyusdc/"
+  }
+ ],
+ "STUSDS": [
+  {
+   "source": "yearn",
+   "score": 2.6,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/sky-stusds/"
+  }
+ ],
+ "FINANCE": [
+  {
+   "source": "yearn",
+   "score": 2.3,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/spectra-finance/"
+  }
+ ],
+ "STHYPE": [
+  {
+   "source": "yearn",
+   "score": 2.9,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/stakedhype-sthype/"
+  }
+ ],
+ "SRUSDE": [
+  {
+   "source": "yearn",
+   "score": 2.8,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/strata-srusde/"
+  }
+ ],
+ "USCC": [
+  {
+   "source": "yearn",
+   "score": 3.0,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/superstate-uscc/"
+  }
+ ],
+ "USTB": [
+  {
+   "source": "yearn",
+   "score": 2.3,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/superstate-ustb/"
+  }
+ ],
+ "UBTC": [
+  {
+   "source": "yearn",
+   "score": 5.0,
+   "scale": "1-5 lower=safer",
+   "label": "High Risk",
+   "url": "https://curation.yearn.fi/report/unit-ubtc/"
+  }
+ ],
+ "YVDAI": [
+  {
+   "source": "yearn",
+   "score": 1.3,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/yearn-yvdai/"
+  }
+ ],
+ "YVUSD": [
+  {
+   "source": "yearn",
+   "score": 2.4,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/yearn-yvusd/"
+  }
+ ],
+ "YVUSDC": [
+  {
+   "source": "yearn",
+   "score": 1.5,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/yearn-yvusdc/"
+  }
+ ],
+ "YVUSDS": [
+  {
+   "source": "yearn",
+   "score": 1.3,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/yearn-yvusds/"
+  }
+ ],
+ "YVUSDT": [
+  {
+   "source": "yearn",
+   "score": 1.3,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/yearn-yvusdt/"
+  }
+ ],
+ "YVWBTC": [
+  {
+   "source": "yearn",
+   "score": 1.4,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/yearn-yvwbtc/"
+  }
+ ],
+ "YVWETH": [
+  {
+   "source": "yearn",
+   "score": 1.5,
+   "scale": "1-5 lower=safer",
+   "label": "Minimal Risk",
+   "url": "https://curation.yearn.fi/report/yearn-yvweth/"
+  }
+ ]
+}

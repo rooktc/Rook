@@ -17,17 +17,17 @@
 const FEED_BASE =
   'https://raw.githubusercontent.com/rooktc/Rook/claude/spreadsheet-data-refresh-mahsrf/farm-list/';
 const FEEDS = {
-  // farm tabs: 18 sheet columns, feed col 19 = hyperlink URL, col 20 = flags, rating col O
-  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18, flagsIdx: 19, apyCol: 9 },
-  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18, flagsIdx: 19, apyCol: 9 },
+  // farm tabs: 19 sheet columns (S = Risk), feed col 20 = hyperlink URL, col 21 = flags
+  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 19, ratingCol: 15, riskCol: 19, linkCol: 6, linkUrlIdx: 19, flagsIdx: 20, apyCol: 9 },
+  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 19, ratingCol: 15, riskCol: 19, linkCol: 6, linkUrlIdx: 19, flagsIdx: 20, apyCol: 9 },
   // looping tab: 14 columns, risk col J, Max ROE formula in G
   'Looping': { url: FEED_BASE + 'feed_loop.csv', cols: 14, ratingCol: 10, roeFormulaCol: 7 },
   // verification annex: plain values, sheet is created if missing
-  'Data Check': { url: FEED_BASE + 'feed_check.csv', cols: 10, plain: true, minRows: 0 },
+  'Data Check': { url: FEED_BASE + 'feed_check.csv', cols: 12, plain: true, minRows: 0 },
 };
 const RATING_COLORS = {
   stable: '#1e7145', mixed: '#b45f06', volatile: '#c00000',
-  'Low': '#1e7145', 'Med.': '#b45f06', 'High': '#c00000',
+  'Low': '#1e7145', 'Med.': '#b45f06', 'Medium': '#b45f06', 'High': '#c00000',
 };
 // red flags = wrong/stale data; orange = caution (young pool, spike, self-reported)
 const FLAG_RED = /^(MISMATCH|STALE|NOT-ACCRUING)/;
@@ -88,6 +88,12 @@ function refreshFarmTabs() {
     // rating / risk font colors
     sheet.getRange(4, cfg.ratingCol, values.length, 1).setFontColors(
       values.map(r => [RATING_COLORS[r[cfg.ratingCol - 1]] || '#000000']));
+    if (cfg.riskCol) {
+      const riskRange = sheet.getRange(4, cfg.riskCol, values.length, 1);
+      riskRange.setFontColors(values.map(r => [RATING_COLORS[r[cfg.riskCol - 1]] || '#000000']));
+      riskRange.setFontWeight('bold').setHorizontalAlignment('center');
+      sheet.getRange(3, cfg.riskCol).setValue('Risk');
+    }
 
     // farm tabs: DefiLlama hyperlinks
     if (cfg.linkCol) {

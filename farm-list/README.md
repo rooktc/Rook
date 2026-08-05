@@ -71,6 +71,23 @@ Verdicts: `VERIFIED` (independent source agrees), `FLAGGED` (red flag),
 AMM LP fee yields and non-EVM chains). Verification failures never block
 the build; on any error the tab records what was skipped.
 
+## Risk labels (column S)
+
+Each farm row gets a High/Medium/Low label (`compute_risk`):
+
+- **Asset scores** (`risk_scores.json`, built by `risk_harvest.py`):
+  TID Research reports (staging.tidresearch.com, 1-10 higher = safer;
+  Low >= 7.5, Medium >= 5.5, else High) and Yearn curation reports
+  (curation.yearn.fi, 1-5 lower = safer, using their own labels).
+  Pharos (pharos.watch) grades need an API key — pluggable when one is
+  available.
+- **Worst leg wins**: an LP inherits its riskiest asset.
+- **Row overlay**: red verification flags, self-reported APYs, volatile
+  stability or TVL < $1M downgrade one level; a row that is not
+  VERIFIED can never be labeled Low.
+- **Unrated assets** are labeled from the row signals alone (Medium or
+  High) and say `unrated` in the Data Check tab's Risk Basis column.
+
 ## Known deviations from the site's CSV export
 
 - **Stability rating/score**: computed here as `score = 1 / (1 + 3·cv)`
