@@ -518,6 +518,11 @@ def onchain_realized(chain_id, addr, selector=None):
         except Exception:
             continue
         if pps_then > 0 and pps_now > 0:
+            if pps_now == pps_then:
+                # byte-identical over days is more likely a non-archive RPC
+                # silently serving latest state than a frozen vault — refuse
+                # to conclude either way
+                return None
             return (pps_now / pps_then - 1) * (365 * 86400 / dt) * 100
     return None
 
