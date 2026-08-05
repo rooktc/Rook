@@ -189,7 +189,7 @@ def load_protocol_sources():
     except Exception as e:
         print('protocol-checks: yearn failed:', type(e).__name__)
     try:
-        idx = {}
+        idx, mkts = {}, {}
         for m in _fetch('https://api.kamino.finance/v2/kamino-market'):
             try:
                 res = _fetch(f"https://api.kamino.finance/kamino-market/"
@@ -200,11 +200,16 @@ def load_protocol_sources():
             for r in res:
                 mint = r.get('liquidityTokenMint')
                 if mint and r.get('supplyApy') is not None:
+                    supply = float(r.get('totalSupplyUsd') or 0)
+                    borrow = float(r.get('totalBorrowUsd') or 0)
                     # markets can hold several reserves of the same mint
                     idx.setdefault((name, mint), []).append(dict(
-                        apy=float(r['supplyApy']) * 100,
-                        tvl=float(r.get('totalSupplyUsd') or 0) - float(r.get('totalBorrowUsd') or 0)))
+                        apy=float(r['supplyApy']) * 100, tvl=supply - borrow,
+                        util=(borrow / supply) if supply > 0 else None))
+                    mkts.setdefault(name, []).append(
+                        (r.get('liquidityToken'), mint, supply))
         src['kamino'] = idx
+        src['kamino_markets'] = mkts
         print(f"protocol-checks: kamino {len(idx)} reserves")
     except Exception as e:
         print('protocol-checks: kamino failed:', type(e).__name__)
@@ -265,10 +270,15 @@ def load_protocol_sources():
             chain = CHAIN_BY_ID.get(v.get('chain_id'))
             sym = ((v.get('loan_asset') or {}).get('symbol') or '').upper()
             if chain:
+                pd = v.get('protocol_data') or {}
+                collat = [(c.get('symbol'), float(c.get('allocationPercentage') or 0))
+                          for c in pd.get('currentCollateralAllocations') or []
+                          if c.get('symbol')]
                 idx.setdefault((chain, sym), []).append(
                     dict(apy=v.get('supply_apy'), address=v.get('id'),
                          tvl=v.get('total_supply_usd') or 0,
-                         chain_id=v.get('chain_id')))
+                         chain_id=v.get('chain_id'),
+                         collat=collat, util=v.get('utilization')))
         src['euler'] = idx
         print(f"protocol-checks: euler {sum(len(v) for v in idx.values())} vaults")
     except Exception as e:
@@ -347,10 +357,21 @@ def check_row(row, src):
         return min(cands, key=lambda c: abs(c['tvl'] + 1 - rtvl))
 
     if row['name'] == 'Kamino Lend' and 'kamino' in src:
-        cands = src['kamino'].get(((row.get('meta') or '').strip().lower(),
-                                   row.get('_underlying') or ''), [])
+        mkt = (row.get('meta') or '').strip().lower()
+        cands = src['kamino'].get((mkt, row.get('_underlying') or ''), [])
         v = tvl_nearest(cands)
         if v:
+            # pool-level isolation: the market's other reserves are the
+            # collateral this deposit is exposed to (supply-weighted proxy)
+            if not row.get('collat'):
+                others = [(sym, sup) for sym, mint, sup
+                          in src.get('kamino_markets', {}).get(mkt, [])
+                          if mint != row.get('_underlying') and sup > 0]
+                if others:
+                    row['collat'] = others
+                    row['collat_kind'] = 'market reserves'
+            if row.get('util') is None and v.get('util') is not None:
+                row['util'] = v['util']
             r = base_check(v['apy'], 'kamino-api')
             if r:
                 return r
@@ -395,6 +416,11 @@ def check_row(row, src):
             m = min(cands, key=lambda c: abs(c['tvl'] - (row.get('tvl') or 0)))
             ratio = (m['tvl'] + 1) / ((row.get('tvl') or 0) + 1)
             if 0.5 <= ratio <= 2 and m.get('apy') is not None:
+                if m.get('collat') and not row.get('collat'):
+                    row['collat'] = m['collat']
+                    row['collat_kind'] = 'collateral'
+                if row.get('util') is None and m.get('util') is not None:
+                    row['util'] = m['util']
                 base = row.get('base') or 0
                 ok = tol(base, m['apy']) or tol(total, m['apy'])
                 return round(m['apy'], 3), ok, 'euler/yieldz', m.get('address')

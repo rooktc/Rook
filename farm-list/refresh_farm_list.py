@@ -120,38 +120,143 @@ def entry_score10(e):
     return 1.0
 
 
+def asset_score(leg, risk_scores):
+    """Weighted composite for one normalized symbol -> (score, parts) or None."""
+    per_source = {}
+    for e in risk_scores.get(leg, []):
+        v = entry_score10(e)
+        if v is not None:
+            per_source.setdefault(e['source'], []).append(v)
+    if not per_source:
+        return None
+    wsum = sum(SOURCE_WEIGHTS[s] for s in per_source)
+    score = sum(SOURCE_WEIGHTS[s] * (sum(vs) / len(vs))
+                for s, vs in per_source.items()) / wsum
+    parts = ', '.join(f'{s} {sum(vs)/len(vs):.1f}' for s, vs in sorted(per_source.items()))
+    return score, parts
+
+
+# collateral-quality baseline for major non-stable collateral the
+# stablecoin/vault-focused risk sources never rate: liquidity depth, oracle
+# robustness and liquidation behavior, 1-10 higher = safer. Used ONLY for
+# the exposure leg — never as a base-asset score.
+COLLATERAL_BASELINE = {
+    'WETH': 9.0, 'ETH': 9.0, 'WSTETH': 8.5, 'STETH': 8.5, 'CBETH': 8.3,
+    'RETH': 8.3, 'WEETH': 8.0, 'EZETH': 7.5, 'RSETH': 7.5, 'METH': 7.8,
+    'SFRXETH': 8.0, 'OSETH': 7.8,
+    'WBTC': 8.5, 'CBBTC': 8.5, 'TBTC': 7.8, 'LBTC': 7.5, 'FBTC': 7.3,
+    'BTC': 8.5, 'XAUT': 7.5, 'PAXG': 7.5,
+    'SOL': 8.5, 'JITOSOL': 8.0, 'MSOL': 8.0, 'JUPSOL': 7.8, 'BSOL': 7.8,
+    'BNSOL': 7.5, 'INF': 7.3, 'DSOL': 7.3, 'HSOL': 7.3, 'VSOL': 7.0,
+    'BNB': 8.5, 'WBNB': 8.5, 'SLISBNB': 7.5, 'SLISBNBX': 7.0,
+    'SUI': 8.0, 'WSUI': 8.0, 'HASUI': 7.5, 'AFSUI': 7.5, 'VSUI': 7.3,
+    'AVAX': 8.0, 'WAVAX': 8.0, 'POL': 7.5, 'WMATIC': 7.5,
+    'ARB': 7.5, 'OP': 7.5, 'LINK': 8.0, 'UNI': 7.5, 'AAVE': 8.0,
+    'MKR': 7.5, 'SKY': 7.0, 'LDO': 7.0, 'CRV': 6.5, 'PENDLE': 6.5,
+    'HYPE': 7.0, 'WHYPE': 7.0, 'MON': 6.5, 'WMON': 6.5, 'SHMON': 6.0,
+    'JLP': 6.5, 'JTO': 6.8, 'JUP': 6.8, 'ENA': 6.5, 'EIGEN': 6.5,
+}
+
+
+def _collat_score(sym, risk_scores):
+    """Score one collateral symbol: rated sources, then the baseline table,
+    then a PT token's underlying (with a wrapper haircut)."""
+    n = risk_norm(sym)
+    s = asset_score(n, risk_scores)
+    if s is not None:
+        return s[0], f'{sym} {s[0]:.1f}'
+    if n in COLLATERAL_BASELINE:
+        v = COLLATERAL_BASELINE[n]
+        return v, f'{sym} {v:.1f}*'
+    if sym.upper().startswith('PT-') and sym.count('-') >= 1:
+        u = sym.split('-')[1]
+        un = risk_norm(u)
+        s = asset_score(un, risk_scores)
+        v = s[0] if s is not None else COLLATERAL_BASELINE.get(un)
+        if v is not None:
+            v = max(0.5, v - 0.5)   # maturity/oracle wrapper haircut
+            return v, f'{sym}→{u} {v:.1f}'
+    return None, None
+
+
+def exposure_leg(coll, risk_scores):
+    """Weighted safety score over an exposure list [(symbol, weight), ...].
+
+    Sizable exposure (>=10%) to an asset nothing rates is itself the risk
+    signal — it scores 3.0 rather than being skipped. Returns None when
+    less than half of the book is visible.
+    """
+    tw = sum(w for _, w in coll)
+    if tw <= 0:
+        return None
+    num, den, parts = 0.0, 0.0, []
+    for sym, w in sorted(coll, key=lambda x: -x[1])[:10]:
+        share = w / tw
+        v, label = _collat_score(sym, risk_scores)
+        if v is not None:
+            num += v * w
+            den += w
+            parts.append(f'{label}@{share:.0%}')
+        elif share >= 0.10:
+            num += 3.0 * w
+            den += w
+            parts.append(f'{sym} unrated@{share:.0%}')
+    if den < 0.5 * tw:
+        return None
+    return num / den, ', '.join(parts)
+
+
+# curated vaults with no public look-through into their allocation: their
+# score is capped — an unverifiable book cannot rate as low-risk
+OPAQUE_VAULTS = {'Fusion by IPOR', 'Lagoon', 'Ember Protocol', 'Upshift',
+                 'Makina', 'Concrete', 'Superform', 'Veda', 'Gauntlet',
+                 'ether.fi Liquid', 'D2 Finance', 'Multipli.fi', 'Re',
+                 'Nest Credit', 'Tydro', 'Kai Finance', 'Pareto Credit',
+                 '3Jane Lending', 'Royco V2', 'Steakhouse Financial'}
+
+
 def compute_risk(row, risk_scores):
     """Composite High/Medium/Low label from a weighted 1-10 safety score.
 
-    Per asset leg: weighted average of the sources covering it (weights
-    renormalized over present sources). LP rows take the worst leg. Row
-    signals deduct points; a row that is not VERIFIED cannot reach Low.
+    Legs: per base asset (LP rows take the worst leg) plus an exposure leg —
+    the debt-weighted collateral of a lending market, or a vault's actual
+    allocation — captured during verification. The overall score is the
+    worst leg. Row signals deduct points; utilization >92% deducts (deposits
+    may not be withdrawable); a row that is not VERIFIED cannot reach Low,
+    and an opaque curated vault cannot score above 6.9.
     Buckets: >=8 Low, >=4 Medium, else High.
     """
     legs = [risk_norm(s) for s in row['symbol'].split('-') if s]
     leg_scores, basis = {}, []
     for leg in legs:
-        per_source = {}
-        for e in risk_scores.get(leg, []):
-            v = entry_score10(e)
-            if v is not None:
-                per_source.setdefault(e['source'], []).append(v)
-        if not per_source:
+        s = asset_score(leg, risk_scores)
+        if s is None:
             continue
-        wsum = sum(SOURCE_WEIGHTS[s] for s in per_source)
-        score = sum(SOURCE_WEIGHTS[s] * (sum(vs) / len(vs))
-                    for s, vs in per_source.items()) / wsum
-        leg_scores[leg] = score
-        parts = ', '.join(f'{s} {sum(vs)/len(vs):.1f}' for s, vs in sorted(per_source.items()))
-        basis.append(f'{leg} {score:.1f} ({parts})')
+        leg_scores[leg] = s[0]
+        basis.append(f'{leg} {s[0]:.1f} ({s[1]})')
+
+    exp = None
+    if row.get('collat'):
+        exp = exposure_leg(row['collat'], risk_scores)
+        if exp:
+            kind = row.get('collat_kind') or 'collateral'
+            basis.append(f'{kind} leg {exp[0]:.1f} ({exp[1]})')
 
     flags = row.get('flags') or []
     red = any(f.startswith(RED_FLAGS) for f in flags)
-    if leg_scores:
-        worst_leg = min(leg_scores, key=leg_scores.get)
-        score = leg_scores[worst_leg]
-        if len(leg_scores) > 1:
-            basis.append(f'worst leg: {worst_leg}')
+    if leg_scores or exp:
+        cands = {}
+        if leg_scores:
+            worst_leg = min(leg_scores, key=leg_scores.get)
+            cands['asset ' + worst_leg] = leg_scores[worst_leg]
+            if len(leg_scores) > 1:
+                basis.append(f'worst leg: {worst_leg}')
+        if exp:
+            cands[(row.get('collat_kind') or 'collateral') + ' leg'] = exp[0]
+        worst = min(cands, key=cands.get)
+        score = cands[worst]
+        if len(cands) > 1 and not worst.startswith('asset'):
+            basis.append(f'{worst} governs')
         deductions = []
         if red:
             deductions.append(('red flags', 2.0))
@@ -161,12 +266,20 @@ def compute_risk(row, risk_scores):
             deductions.append(('volatile', 1.5))
         if (row.get('tvl') or 0) < 1_000_000:
             deductions.append(('tvl<1M', 1.0))
+        util = row.get('util')
+        if util is not None:
+            u = util if util <= 1.5 else util / 100
+            if u > 0.92:
+                deductions.append((f'util {u:.0%}', 1.0))
         for name, pts in deductions:
             score -= pts
             basis.append(f'-{pts:g} {name}')
         if score >= 8 and row.get('verdict') != 'VERIFIED':
             score = 7.9
             basis.append('capped 7.9: not VERIFIED')
+        if score > 6.9 and row['name'] in OPAQUE_VAULTS and not row.get('collat'):
+            score = 6.9
+            basis.append('capped 6.9: opaque allocation')
         score = max(0.5, min(10.0, score))
         risk = 'Low' if score >= 8 else ('Medium' if score >= 4 else 'High')
         basis.insert(0, f'score {score:.1f}')
@@ -606,16 +719,67 @@ def history_checks(row, cut):
 def load_yieldz_sources():
     m = get(f'{YZ}/markets')['data']
     v = get(f'{YZ}/vaults')['data']
-    lend, vaults = {}, {}
+    lend, vaults, aave_res = {}, {}, {}
     for x in m:
-        if x['protocol'].split('_')[0] in ('aave', 'hyperlend', 'fluid', 'euler', 'lista'):
+        proto = x['protocol'].split('_')[0]
+        if proto in ('aave', 'hyperlend', 'fluid', 'euler', 'lista'):
             ch = CHAIN_IDS.get(x['chain_id'])
-            key = (x['protocol'].split('_')[0], ch, x['loan_asset']['symbol'].upper())
+            key = (proto, ch, x['loan_asset']['symbol'].upper())
             lend.setdefault(key, []).append(x)
+        if proto == 'aave':
+            # per-reserve map so Aave collateral addresses resolve to a
+            # symbol and a borrow-capacity weight (supply x LLTV)
+            aave_res[(x['chain_id'], x['loan_asset']['address'].lower())] = (
+                x['loan_asset']['symbol'], float(x.get('total_supply_usd') or 0),
+                float(x.get('lltv') or 0))
     for x in v:
         ch = CHAIN_IDS.get(x['chain_id'])
         vaults.setdefault((ch, x['loan_asset']['address'].lower()), []).append(x)
-    return lend, vaults
+    return lend, vaults, aave_res
+
+
+def capture_exposure(row, m, aave_res):
+    """Record what a matched market/vault is actually exposed to.
+
+    - isolated pair markets (morpho/fluid/lista/euler): the collateral asset
+    - aave pools: every collateral in the pool, weighted by supply x LLTV
+      (its borrow capacity — a proxy for how much debt it can back)
+    - curated vaults (morpho_vault): the live market allocation
+    Also records utilization for the exit-liquidity deduction.
+    """
+    if row.get('util') is None and m.get('utilization') is not None:
+        row['util'] = m['utilization']
+    if row.get('collat'):
+        return
+    pd = m.get('protocol_data') or {}
+    ca = (m.get('collateral_asset') or {}).get('symbol')
+    if ca:
+        row['collat'] = [(ca, 1.0)]
+        row['collat_kind'] = 'collateral'
+        return
+    if m.get('protocol', '').startswith('aave'):
+        loan = m['loan_asset']['symbol'].upper()
+        out = []
+        for addr in (pd.get('borrow_yield_trends_by_collateral') or {}):
+            r = aave_res.get((m['chain_id'], addr.lower()))
+            if r and r[0].upper() != loan:
+                w = r[1] * (r[2] / 10000)
+                if w > 0:
+                    out.append((r[0], w))
+        if out:
+            row['collat'] = out
+            row['collat_kind'] = 'pool collateral'
+        return
+    allocs = pd.get('current_market_allocations') or []
+    out = []
+    for a in allocs:
+        cs = (a.get('collateral_asset') or {}).get('symbol')
+        w = float(a.get('allocation_percentage') or 0)
+        if cs and w > 0:
+            out.append((cs, w))
+    if out:
+        row['collat'] = out
+        row['collat_kind'] = 'allocation'
 
 
 def cross_source(row, lend, vaults):
@@ -865,10 +1029,10 @@ def strata_check(row):
 
 def run_verification(tabs, registry=None):
     try:
-        lend, vaults = load_yieldz_sources()
+        lend, vaults, aave_res = load_yieldz_sources()
     except Exception as e:
         print('yieldz sources unavailable, cross-source skipped:', e)
-        lend, vaults = {}, {}
+        lend, vaults, aave_res = {}, {}, {}
     init_pendle()
     registry = registry or {}
     try:
@@ -894,6 +1058,8 @@ def run_verification(tabs, registry=None):
             src_val = src_name = None
             try:
                 src, matched, m = cross_source(row, lend, vaults)
+                if m is not None:
+                    capture_exposure(row, m, aave_res)
                 if src is not None:
                     src_val = round(src, 3)
                     src_name = f'yieldz ({matched})' if matched else 'yieldz'
@@ -967,6 +1133,14 @@ def run_verification(tabs, registry=None):
                             flags.append(fl)
                 except Exception:
                     pass
+            # curvance pair markets: the manager's other token is the collateral
+            if (not row.get('collat') and row['name'] == 'Curvance'
+                    and '/' in (row['meta'] or '')):
+                others = [s for s in row['meta'].split('/')
+                          if risk_norm(s) != risk_norm(row['symbol'])]
+                if others:
+                    row['collat'] = [(s, 1.0) for s in others]
+                    row['collat_kind'] = 'collateral'
             row['flags'] = flags
             row['src_val'], row['src_name'] = src_val, src_name
             if any(f.startswith(RED_FLAGS) for f in flags):
