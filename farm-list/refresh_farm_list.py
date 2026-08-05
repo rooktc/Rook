@@ -359,6 +359,7 @@ def main(template, outfile, names_file=None, loops_file=None):
                        if ws.cell(r, 1).value not in (None, '')) if ws.max_row >= 4 else 3
         tmpl = {c: copy.copy(ws.cell(4, c)._style) for c in range(1, 19)}
         base_font = copy.copy(ws.cell(4, 1).font)
+        restructure_farm_header(ws)
         for r in range(4, old_last + 1):
             for c in range(1, 21):
                 cell = ws.cell(r, c)
@@ -380,18 +381,26 @@ def main(template, outfile, names_file=None, loops_file=None):
             pool_name = nm.get('pool') or d['symbol']
             vals = [asset, d['name'], d['chain'],
                     farm_type(d['name'], ref, farm, d['meta']),
-                    farm, 'DefiLlama', ref,
+                    farm, d.get('risk'), 'DefiLlama', ref,
                     round(d['tvl']), round(d['now'], 5) if d['now'] is not None else None,
                     d['d7'], d['d30'],
                     round(d['base'], 5) if d['base'] is not None else None,
                     round(d['rew'], 5) if d['rew'] is not None else None,
                     round(d['intr'], 5) if d['intr'] is not None else None,
                     d['rating'], d['score'], pool_name, None]
+            # style source per new column: A..E keep 1..5, F(risk) borrows A,
+            # G..S take the template's old F..R styles
+            style_src = [1, 2, 3, 4, 5, 1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
             for c, v in enumerate(vals, start=1):
                 cell = ws.cell(r, c)
-                cell._style = copy.copy(tmpl[c])
+                cell._style = copy.copy(tmpl[style_src[c - 1]])
                 cell.value = v
-            link = ws.cell(r, 6)
+            risk_cell = ws.cell(r, 6)
+            risk_cell.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='bottom')
+            if d.get('risk') in RISK_COLOR:
+                risk_cell.font = openpyxl.styles.Font(
+                    name='Arial', size=10, bold=True, color=RISK_COLOR[d['risk']])
+            link = ws.cell(r, 7)
             link.hyperlink = f"https://defillama.com/yields/pool/{d['pool_id']}"
             f = copy.copy(link.font)
             f.color = openpyxl.styles.Color(rgb='FF0563C1')
@@ -399,31 +408,16 @@ def main(template, outfile, names_file=None, loops_file=None):
             link.font = f
             link.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='bottom')
             if d['rating'] in RATING_COLOR:
-                f = copy.copy(ws.cell(r, 15).font)
+                f = copy.copy(ws.cell(r, 16).font)
                 f.color = openpyxl.styles.Color(rgb=RATING_COLOR[d['rating']])
-                ws.cell(r, 15).font = f
+                ws.cell(r, 16).font = f
             d['farm_disp'] = farm
-            # risk label in visible col S
-            risk_cell = ws.cell(r, 19)
-            risk_cell._style = copy.copy(tmpl[1])
-            risk_cell.value = d.get('risk')
-            risk_cell.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='bottom')
-            if d.get('risk') in RISK_COLOR:
-                risk_cell.font = openpyxl.styles.Font(
-                    name='Arial', size=10, bold=True,
-                    color=RISK_COLOR[d['risk']])
-            # verification flags: highlight the APY cell, stash detail in hidden col T
+            # verification flags: highlight the APY (Now) cell, detail in hidden col T
             flags = d.get('flags') or []
             if flags:
                 shade = FLAG_FILL['red' if any(x.startswith(RED_FLAGS) for x in flags) else 'orange']
-                ws.cell(r, 9).fill = openpyxl.styles.PatternFill('solid', fgColor=shade)
+                ws.cell(r, 10).fill = openpyxl.styles.PatternFill('solid', fgColor=shade)
                 ws.cell(r, 20).value = '; '.join(flags)
-        # Risk header styled like the other row-3 headers
-        hdr = ws.cell(3, 19)
-        hdr._style = copy.copy(ws.cell(3, 18)._style)
-        hdr.value = 'Risk'
-        ws.column_dimensions['S'].hidden = False
-        ws.column_dimensions['S'].width = 9
         ws.column_dimensions['T'].hidden = True
         last = 3 + len(rows)
         ws.cell(1, 1).value = (f"{asset} Farm List  ·  DefiLlama API snapshot {today}"
@@ -511,6 +505,42 @@ def build_looping(wb, loops, today):
           f'{sum(1 for d in rows if d["asset"] == "USD")} USD)')
 
 
+def restructure_farm_header(ws):
+    """Shift the farm-tab layout so Risk sits in column F: the template's
+    F..R (Link..Holders) move one column right to G..S, merged header bands
+    and column widths shift with them. Idempotent per fresh template load."""
+    # row 1 + row 2 band merges
+    for rng in [str(m) for m in list(ws.merged_cells.ranges)]:
+        ws.unmerge_cells(rng)
+    band = {}
+    for col in (9, 12, 15, 17):  # I2, L2, O2, Q2 band anchors
+        c = ws.cell(2, col)
+        band[col] = (c.value, copy.copy(c._style))
+    for c in range(1, 20):
+        ws.cell(2, c).style = 'Normal'
+    for src, dst in [(9, 10), (12, 13), (15, 16), (17, 18)]:
+        cell = ws.cell(2, dst)
+        cell._style = band[src][1]
+        cell.value = band[src][0]
+    ws.merge_cells('A1:S1')
+    for rng in ('J2:L2', 'M2:O2', 'P2:Q2', 'R2:S2'):
+        ws.merge_cells(rng)
+    # row 3 headers: shift F..R right, insert Risk at F
+    hdr_style = copy.copy(ws.cell(3, 1)._style)
+    hdrs = [ws.cell(3, c).value for c in range(1, 19)]
+    new_hdrs = hdrs[:5] + ['Risk'] + hdrs[5:]
+    for c, v in enumerate(new_hdrs, start=1):
+        cell = ws.cell(3, c)
+        cell._style = copy.copy(hdr_style)
+        cell.value = v
+    # column widths: shift template widths, Risk gets its own
+    old_w = {c: ws.column_dimensions[openpyxl.utils.get_column_letter(c)].width
+             for c in range(1, 19)}
+    for c in range(18, 5, -1):  # shift F..R -> G..S from the right
+        ws.column_dimensions[openpyxl.utils.get_column_letter(c + 1)].width = old_w.get(c)
+    ws.column_dimensions['F'].width = 9
+
+
 # ---------------------------------------------------------------------------
 # Verification layer
 # ---------------------------------------------------------------------------
@@ -525,7 +555,9 @@ BLOCK_SECONDS = {1: 12, 8453: 2, 42161: 0.25, 10: 2, 137: 2.1, 56: 3,
 CURVE_CHAINS = {'Ethereum': ('ethereum', 1), 'Arbitrum': ('arbitrum', 42161),
                 'Base': ('base', 8453), 'OP Mainnet': ('optimism', 10),
                 'Polygon': ('polygon', 137), 'Fraxtal': ('fraxtal', 252),
-                'Gnosis': ('xdai', 100)}
+                'Gnosis': ('xdai', 100), 'BSC': ('bsc', 56),
+                'Hyperliquid L1': ('hyperliquid', 999), 'Sonic': ('sonic', 146),
+                'Mantle': ('mantle', 5000), 'Avalanche': ('avalanche', 43114)}
 CURVE_WRAPPERS = ('Curve DEX', 'Convex Finance', 'Stake DAO', 'Beefy')
 YZ_PROTO = {'Aave V3': 'aave', 'Aave V4': 'aave', 'HyperLend Pooled': 'hyperlend',
             'Fluid Lending': 'fluid', 'Euler V2': 'euler', 'Lista Lending': 'lista'}
@@ -602,13 +634,17 @@ def cross_source(row, lend, vaults):
     if m is None:
         return None, None, None
     src = m['supply_apy']
+    # protocol-reported reward emissions (supply-side APRs, fractions)
+    src_rew = sum((r.get('supply_apr') or 0) for r in (m.get('rewards') or [])) * 100
     base, rew, intr = row['base'] or 0, row['rew'] or 0, row['intr'] or 0
     # 0.6pp / 25% tolerance absorbs the intraday skew between DefiLlama's
     # snapshot and yieldz's live on-chain read
     tol = lambda a, b: abs(a - b) <= max(0.6, 0.25 * max(abs(a), abs(b)))
-    comps = [('base', base), ('base+reward', base + rew),
-             ('base+intrinsic', base + intr), ('total', base + rew + intr)]
-    matched = next((lbl for lbl, v in comps if tol(v, src)), None)
+    comps = [('base', base, src), ('base+reward', base + rew, src),
+             ('base+intrinsic', base + intr, src), ('total', base + rew + intr, src),
+             ('base+reward', base + rew, src + src_rew),
+             ('total', base + rew + intr, src + src_rew + intr)]
+    matched = next((lbl for lbl, v, s in comps if tol(v, s)), None)
     if matched is None:
         # only accuse when the pairing is certain: with many same-asset vaults,
         # a loose TVL match may simply be the wrong vault
@@ -732,9 +768,15 @@ def load_curve_pools():
             data = get(f'https://api.curve.finance/api/getPools/all/{slug}', retries=1)
             for p in data['data']['poolData']:
                 coins = frozenset((c.get('symbol') or '').upper() for c in p.get('coins', []))
-                if coins:
-                    idx.setdefault((chain, coins), []).append(
-                        dict(address=p['address'], usd=p.get('usdTotal') or 0, chain_id=chain_id))
+                if not coins:
+                    continue
+                crv = p.get('gaugeCrvApy') or [0, 0]
+                rewards = sum((g.get('apy') or 0) for g in (p.get('gaugeRewards') or []))
+                idx.setdefault((chain, coins), []).append(dict(
+                    address=p['address'], usd=p.get('usdTotal') or 0, chain_id=chain_id,
+                    base=p.get('latestDailyApy'),
+                    total_min=(p.get('latestDailyApy') or 0) + (crv[0] or 0) + rewards,
+                    total_max=(p.get('latestDailyApy') or 0) + (crv[-1] or 0) + rewards))
         except Exception as e:
             print(f'curve {slug} skipped: {type(e).__name__}')
     print(f'curve API: {len(idx)} coin-set keys')
@@ -742,26 +784,43 @@ def load_curve_pools():
 
 
 def curve_check(row, curve_idx):
-    """Realized fee yield from the matched Curve pool's virtual price."""
-    if row['name'] not in CURVE_WRAPPERS or (row['base'] or 0) < 1:
-        return None, None
+    """Curve-family verification: total-APY comparison against Curve's own
+    API (base + CRV + external rewards, boost range tolerated), plus the
+    on-chain virtual-price realized check when the base yield is material.
+    Returns (src_value, flag)."""
+    if row['name'] not in CURVE_WRAPPERS:
+        return None, None, None
     coins = frozenset(s.upper() for s in row['symbol'].split('-') if s)
     cands = curve_idx.get((row['chain'], coins), [])
     if not cands:
-        return None, None
+        return None, None, None
     if row['name'] == 'Curve DEX':
         m = min(cands, key=lambda c: abs(c['usd'] - row['tvl']))
         if not (0.5 <= (m['usd'] + 1) / (row['tvl'] + 1) <= 2):
-            return None, None
+            return None, None, None
+        tight = 0.8 <= (m['usd'] + 1) / (row['tvl'] + 1) <= 1.25
     else:
         # wrappers stake a fraction of the pool — identity only safe when unique
         if len(cands) > 1:
-            return None, None
+            return None, None, None
         m = cands[0]
-    realized = onchain_realized(m['chain_id'], m['address'], '0xbb7b8b80')
-    if realized is None:
-        return None, None
-    return round(realized, 3), realized_flag(realized, row['base'] or 0)
+        tight = False  # wrapper boost differs; compare but never accuse
+    # reward-inclusive total comparison (Curve DEX rows only for flagging)
+    total = (row['base'] or 0) + (row['rew'] or 0) + (row['intr'] or 0)
+    tol = lambda a, b: abs(a - b) <= max(0.75, 0.3 * max(abs(a), abs(b)))
+    total_ok = any(tol(total, t) for t in (m['total_min'], m['total_max']))
+    if total_ok and total > 0.5:
+        return round(m['total_min'], 3), None, 'curve-api (total)'
+    if tight and not total_ok and total > 1:
+        return (round(m['total_min'], 3),
+                f"MISMATCH(curve total {m['total_min']:.2f})", 'curve-api (total)')
+    # fall back to the realized virtual-price check on the base component
+    if (row['base'] or 0) >= 1:
+        realized = onchain_realized(m['chain_id'], m['address'], '0xbb7b8b80')
+        if realized is not None:
+            return (round(realized, 3), realized_flag(realized, row['base'] or 0),
+                    'on-chain (curve vp 7d)')
+    return None, None, None
 
 
 def run_verification(tabs, registry=None):
@@ -808,11 +867,16 @@ def run_verification(tabs, registry=None):
             # a live source confirming the value supersedes the staleness flag
             if src_val is not None and not any(f.startswith('MISMATCH') for f in flags):
                 flags = [f for f in flags if not f.startswith('STALE')]
+            # emissions-dominated APY that nothing independent confirmed:
+            # the headline number rests on one source's reward-token pricing
+            total = (row['base'] or 0) + (row['rew'] or 0) + (row['intr'] or 0)
+            if (src_val is None and (row['rew'] or 0) > 0.66 * total and total > 1):
+                flags.append(f'REWARD-HEAVY(emissions {row["rew"]:.1f} of {total:.1f} unverified)')
             if src_val is None and curve_idx:
                 try:
-                    realized, fl = curve_check(row, curve_idx)
-                    if realized is not None:
-                        src_val, src_name = realized, 'on-chain (curve vp 7d)'
+                    cv, fl, lbl = curve_check(row, curve_idx)
+                    if cv is not None:
+                        src_val, src_name = cv, lbl
                         if fl:
                             flags.append(fl)
                 except Exception:
