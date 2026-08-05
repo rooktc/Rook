@@ -30,13 +30,99 @@ BEEFY_CHAINS = {'ethereum': 'Ethereum', 'base': 'Base', 'arbitrum': 'Arbitrum',
 EMBER_CHAINS = {'ethereum': 'Ethereum', 'base': 'Base', 'arbitrum': 'Arbitrum'}
 
 
-def _fetch(url):
-    req = urllib.request.Request(url, headers={'User-Agent': UA,
-                                               'Accept-Encoding': 'gzip'})
+def _fetch(url, payload=None):
+    headers = {'User-Agent': UA, 'Accept-Encoding': 'gzip'}
+    data = None
+    if payload is not None:
+        data = json.dumps(payload).encode()
+        headers['Content-Type'] = 'application/json'
+    req = urllib.request.Request(url, data=data, headers=headers)
     raw = urllib.request.urlopen(req, timeout=60).read()
     if raw[:2] == b'\x1f\x8b':
         raw = gzip.decompress(raw)
     return json.loads(raw)
+
+
+def _rpc_call(chain_id, to, data):
+    d = _fetch(f'https://yieldz.io/api/rpc/{chain_id}',
+               {'jsonrpc': '2.0', 'id': 1, 'method': 'eth_call',
+                'params': [{'to': to, 'data': data}, 'latest']})
+    return d.get('result')
+
+
+CURVANCE_READER = '0x878cDfc2F3D96a49A5CbD805FAF4F3080768a6d2'  # Monad
+
+
+def _load_curvance():
+    """Live supply rates from Curvance's protocol reader on Monad.
+
+    getDynamicMarketData() returns per-manager token tuples whose supplyRate
+    is per-second WAD; DL's poolMeta is the manager's underlying-symbol list,
+    so (symbol-set, symbol) is an exact join. Same method as DL's adapter but
+    executed fresh on-chain — catches stale adapter runs.
+    """
+    raw = _rpc_call(143, CURVANCE_READER, '0xa1c93f35')  # getDynamicMarketData()
+    data = bytes.fromhex(raw[2:])
+    word = lambda i: int.from_bytes(data[i:i + 32], 'big')
+    arr = word(0)
+    managers = []
+    for i in range(word(arr)):
+        mpos = arr + 32 + word(arr + 32 + 32 * i)
+        tpos = mpos + word(mpos + 32)
+        toks = []
+        for j in range(word(tpos)):
+            base = tpos + 32 + j * 13 * 32
+            addr = '0x' + data[base + 12:base + 32].hex()
+            toks.append((addr, word(base + 11 * 32) / 1e18 * 31_536_000 * 100))
+        managers.append(toks)
+
+    def batch_call(targets, selector):
+        import time
+        out = []
+        for i in range(0, len(targets), 10):   # proxy rejects batches >~25;
+            chunk = targets[i:i + 10]          # upstream rate-limits bursts
+            batch = [{'jsonrpc': '2.0', 'id': j, 'method': 'eth_call',
+                      'params': [{'to': t, 'data': selector}, 'latest']}
+                     for j, t in enumerate(chunk)]
+            by_id = {}
+            for attempt in range(5):
+                try:
+                    res = _fetch('https://yieldz.io/api/rpc/143', batch)
+                    by_id = {r.get('id'): r.get('result') for r in res
+                             if isinstance(r, dict) and r.get('result')}
+                    if len(by_id) == len(chunk):
+                        break
+                except Exception:
+                    pass
+                time.sleep(1.5 * (attempt + 1))
+            out.extend(by_id.get(j) for j in range(len(chunk)))
+            time.sleep(0.5)
+        return out
+
+    tokens = [t for toks in managers for t, _ in toks]
+    assets = ['0x' + (a or '0' * 64)[-40:]
+              for a in batch_call(tokens, '0x38d52e0f')]        # asset()
+    syms = []
+    for s in batch_call(assets, '0x95d89b41'):                  # symbol()
+        try:
+            b = bytes.fromhex(s[2:])
+            ln = int.from_bytes(b[32:64], 'big')
+            syms.append(b[64:64 + ln].decode())
+        except Exception:
+            syms.append(None)
+    sym_by_token = dict(zip(tokens, syms))
+
+    idx = {}
+    for toks in managers:
+        s_list = [sym_by_token.get(t) for t, _ in toks]
+        if any(s is None for s in s_list):
+            continue
+        sym_set = frozenset(s.upper() for s in s_list)
+        for (t, apy), s in zip(toks, s_list):
+            key = (sym_set, s.upper())
+            # collisions (two managers with identical symbol pairs) are dropped
+            idx[key] = None if key in idx else apy
+    return {k: v for k, v in idx.items() if v is not None}
 
 
 def load_protocol_sources():
@@ -102,6 +188,73 @@ def load_protocol_sources():
         print(f"protocol-checks: yearn {len(idx)} vaults")
     except Exception as e:
         print('protocol-checks: yearn failed:', type(e).__name__)
+    try:
+        idx = {}
+        for m in _fetch('https://api.kamino.finance/v2/kamino-market'):
+            try:
+                res = _fetch(f"https://api.kamino.finance/kamino-market/"
+                             f"{m['lendingMarket']}/reserves/metrics?env=mainnet-beta")
+            except Exception:
+                continue
+            name = (m.get('name') or '').strip().lower()
+            for r in res:
+                mint = r.get('liquidityTokenMint')
+                if mint and r.get('supplyApy') is not None:
+                    idx[(name, mint)] = dict(
+                        apy=float(r['supplyApy']) * 100,
+                        tvl=float(r.get('totalSupplyUsd') or 0) - float(r.get('totalBorrowUsd') or 0))
+        src['kamino'] = idx
+        print(f"protocol-checks: kamino {len(idx)} reserves")
+    except Exception as e:
+        print('protocol-checks: kamino failed:', type(e).__name__)
+    try:
+        d = _fetch('https://tars.loopscale.com/v1/markets/lending_vaults/stats',
+                   {'page': 0, 'pageSize': 100})
+        idx = {}
+        for v in d:
+            mint = v.get('principalMint')
+            if mint and v.get('apy') is not None:
+                idx.setdefault(mint, []).append(dict(
+                    base=float(v['apy']), rew=float(v.get('rewardsApy') or 0),
+                    tvl=float(v.get('principalDepositsUsd') or 0)
+                        - float(v.get('principalDeployedUsd') or 0)))
+        src['loopscale'] = idx
+        print(f"protocol-checks: loopscale {sum(len(v) for v in idx.values())} vaults")
+    except Exception as e:
+        print('protocol-checks: loopscale failed:', type(e).__name__)
+    try:
+        idx = {}
+        for mt in ('MainMarket', 'AltCoinMarket', 'EmberMarket',
+                   'MatrixGoldMarket', 'EthenaMarket'):
+            d = _fetch(f'https://api.current.finance/market/getMarketList'
+                       f'?marketType={mt}&page=1&size=100')
+            for p in (d.get('data') or {}).get('content') or []:
+                key = ((p.get('name') or '').strip().lower(),
+                       ('0x' + p['token']).lower())
+                idx[key] = dict(apy=float(p.get('supplyAPY') or 0) * 100
+                                + float(p.get('apy') or 0))
+        src['current'] = idx
+        print(f"protocol-checks: current {len(idx)} markets")
+    except Exception as e:
+        print('protocol-checks: current failed:', type(e).__name__)
+    try:
+        d = _fetch('https://api.0.xyz/v0/bankMetrics')
+        idx = {}
+        for b in d.get('banks') or []:
+            mint = b.get('mint')
+            if mint and b.get('depositApy') is not None:
+                idx.setdefault(mint, []).append(dict(
+                    apy=float(b['depositApy']) * 100,
+                    tvl=float(b.get('totalDepositsUsd') or 0)))
+        src['project0'] = idx
+        print(f"protocol-checks: project-0 {sum(len(v) for v in idx.values())} banks")
+    except Exception as e:
+        print('protocol-checks: project-0 failed:', type(e).__name__)
+    try:
+        src['curvance'] = _load_curvance()
+        print(f"protocol-checks: curvance {len(src['curvance'])} markets (on-chain)")
+    except Exception as e:
+        print('protocol-checks: curvance failed:', type(e).__name__)
     try:
         d = _fetch('https://yieldz.io/api/vaults?include_unwhitelisted=true&protocol=euler_vault')
         idx = {}
@@ -169,6 +322,66 @@ def check_row(row, src):
             base = row.get('base') if row.get('base') is not None else total
             ok = tol(base or 0, v['apy']) or tol(total or 0, v['apy'])
             return round(v['apy'], 3), ok, 'ydaemon', v.get('address')
+
+    # base-only sources: comparing a ~0 base against a ~0 source says nothing
+    # about a farm whose displayed APY is all emissions — skip those
+    def base_check(src_apy, label, tvl=None):
+        base = row.get('base') if row.get('base') is not None else total
+        if abs(src_apy) < 0.05 and abs(base or 0) < 0.05 and (total or 0) > 1:
+            return None
+        if tvl is not None:
+            ratio = (tvl + 1) / ((row.get('tvl') or 0) + 1)
+            if not 0.5 <= ratio <= 2:
+                return None
+        ok = tol(base or 0, src_apy) or tol(total or 0, src_apy)
+        return round(src_apy, 3), ok, label, None
+
+    if row['name'] == 'Kamino Lend' and 'kamino' in src:
+        v = src['kamino'].get(((row.get('meta') or '').strip().lower(),
+                               row.get('_underlying') or ''))
+        if v:
+            r = base_check(v['apy'], 'kamino-api', tvl=v.get('tvl'))
+            if r:
+                return r
+
+    if row['name'] == 'Loopscale' and 'loopscale' in src:
+        cands = src['loopscale'].get(row.get('_underlying') or '', [])
+        cands = [c for c in cands if c['tvl']
+                 and 0.5 <= (c['tvl'] + 1) / ((row.get('tvl') or 0) + 1) <= 2]
+        if len(cands) == 1:
+            c = cands[0]
+            ok = (tol(row.get('base') or 0, c['base'])
+                  or tol(total or 0, c['base'] + c['rew']))
+            return round(c['base'] + c['rew'], 3), ok, 'loopscale-api', None
+
+    if row['name'] == 'Current' and 'current' in src:
+        v = src['current'].get(((row.get('meta') or '').strip().lower(),
+                                (row.get('_underlying') or '').lower()))
+        if v:
+            r = base_check(v['apy'], 'current-api')
+            if r:
+                return r
+
+    if row['name'] == 'Project 0' and 'project0' in src:
+        cands = src['project0'].get(row.get('_underlying') or '', [])
+        if len(cands) > 1:
+            cands = [c for c in cands if c['tvl']
+                     and 0.3 <= (c['tvl'] + 1) / ((row.get('tvl') or 0) + 1) <= 3]
+        if len(cands) == 1:
+            r = base_check(cands[0]['apy'], 'p0-api')
+            if r:
+                return r
+
+    if row['name'] == 'Curvance' and 'curvance' in src:
+        meta = (row.get('meta') or '')
+        if '/' in meta:
+            key = (frozenset(s.upper() for s in meta.split('/')),
+                   row['symbol'].upper())
+            apy = src['curvance'].get(key)
+            if apy is not None:
+                r = base_check(apy, 'curvance on-chain')
+                if r:
+                    return r
 
     if row['name'] == 'Euler V2' and 'euler' in src:
         cands = src['euler'].get((row['chain'], row['symbol'].upper()), [])
