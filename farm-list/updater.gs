@@ -96,7 +96,7 @@ function refreshFarmTabs() {
 
     // farm tabs: rewrite the header rows for the Risk-in-F layout (idempotent)
     if (cfg.farmHeader) {
-      sheet.getRange(3, 1, 1, cols).setValues([rows[1].slice(0, cols)])
+      sheet.getRange(3, 1, 1, nCols).setValues([rows[1].slice(0, nCols)])
         .setFontWeight('bold').setFontColor('#ffffff').setBackground('#1f3552')
         .setHorizontalAlignment('center').setVerticalAlignment('middle');
       sheet.getRange('A2:S2').breakApart().clear();
