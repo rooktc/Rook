@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Dump the USD/ETH tabs of a built workbook to feed CSVs for the
+"""Dump the USD/ETH/Looping tabs of a built workbook to feed CSVs for the
 Apps Script updater installed in the original Google Sheet.
 
-Layout: row 1 = title line (goes to A1), row 2 = headers,
-rows 3+ = data with an extra trailing LinkURL column.
+Layout: row 1 = title line (goes to A1), row 2 = headers, rows 3+ = data.
+Farm tabs carry an extra trailing LinkURL column. The Looping feed carries
+computed Max ROE values (the updater script restores the formula in G).
 
-Usage: make_feed_csvs.py <workbook.xlsx> <usd_out.csv> <eth_out.csv>
+Usage: make_feed_csvs.py <workbook.xlsx> <usd.csv> <eth.csv> [loop.csv]
 """
 import csv
 import sys
@@ -29,3 +30,23 @@ for tab, out in [('USD Farms', sys.argv[2]), ('ETH Farms', sys.argv[3])]:
             r += 1
             n += 1
     print(f'{tab}: {n} rows -> {out}')
+
+if len(sys.argv) > 4:
+    ws = wb['Looping']
+    with open(sys.argv[4], 'w', newline='') as f:
+        w = csv.writer(f)
+        w.writerow([ws.cell(1, 1).value] + [''] * 13)
+        w.writerow([ws.cell(3, c).value for c in range(1, 15)])
+        r = 4
+        n = 0
+        while ws.cell(r, 1).value:
+            row = [ws.cell(r, c).value for c in range(1, 15)]
+            f_, h, i = row[5], row[7], row[8]
+            try:
+                row[6] = round((h + i) * (f_ - 1) + h, 5)  # formula -> value for the feed
+            except TypeError:
+                row[6] = ''
+            w.writerow(['' if v is None else v for v in row])
+            r += 1
+            n += 1
+    print(f'Looping: {n} rows -> {sys.argv[4]}')

@@ -17,16 +17,21 @@
 const FEED_BASE =
   'https://raw.githubusercontent.com/rooktc/Rook/claude/spreadsheet-data-refresh-mahsrf/farm-list/';
 const FEEDS = {
-  'USD Farms': FEED_BASE + 'feed_usd.csv',
-  'ETH Farms': FEED_BASE + 'feed_eth.csv',
+  // farm tabs: 18 sheet columns, feed col 19 = hyperlink URL, rating col O
+  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18 },
+  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18 },
+  // looping tab: 14 columns, risk col J, Max ROE formula in G
+  'Looping': { url: FEED_BASE + 'feed_loop.csv', cols: 14, ratingCol: 10, roeFormulaCol: 7 },
 };
-const N_COLS = 18; // A..R ; feed column 19 is the hyperlink URL
-const RATING_COLORS = { stable: '#1e7145', mixed: '#b45f06', volatile: '#c00000' };
+const RATING_COLORS = {
+  stable: '#1e7145', mixed: '#b45f06', volatile: '#c00000',
+  'Low': '#1e7145', 'Med.': '#b45f06', 'High': '#c00000',
+};
 
 function refreshFarmTabs() {
   const ss = SpreadsheetApp.getActive();
-  for (const [tabName, url] of Object.entries(FEEDS)) {
-    const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+  for (const [tabName, cfg] of Object.entries(FEEDS)) {
+    const resp = UrlFetchApp.fetch(cfg.url, { muteHttpExceptions: true });
     if (resp.getResponseCode() !== 200) {
       console.warn(tabName + ': feed fetch failed, HTTP ' + resp.getResponseCode());
       continue;
@@ -41,33 +46,42 @@ function refreshFarmTabs() {
     // sanity: refuse suspiciously small feeds so a bad run never wipes the tab
     if (data.length < 10) { console.warn(tabName + ': only ' + data.length + ' rows, skipped'); continue; }
 
+    const nCols = cfg.cols;
     const last = sheet.getLastRow();
-    if (last >= 4) sheet.getRange(4, 1, last - 3, N_COLS).clearContent();
+    if (last >= 4) sheet.getRange(4, 1, last - 3, nCols).clearContent();
 
     const values = data.map(r =>
-      r.slice(0, N_COLS).map(v => {
+      r.slice(0, nCols).map(v => {
         if (v === '') return '';
         return (!isNaN(v) && v.trim() !== '') ? Number(v) : v;
       })
     );
-    sheet.getRange(4, 1, values.length, N_COLS).setValues(values);
+    sheet.getRange(4, 1, values.length, nCols).setValues(values);
 
     // extend row-4's formats down so every data row looks the same
     if (values.length > 1) {
-      sheet.getRange(4, 1, 1, N_COLS).copyTo(
-        sheet.getRange(5, 1, values.length - 1, N_COLS),
+      sheet.getRange(4, 1, 1, nCols).copyTo(
+        sheet.getRange(5, 1, values.length - 1, nCols),
         SpreadsheetApp.CopyPasteType.PASTE_FORMAT, false);
     }
 
-    // rating font colors (col O = 15)
-    sheet.getRange(4, 15, values.length, 1).setFontColors(
-      values.map(r => [RATING_COLORS[r[14]] || '#000000']));
+    // rating / risk font colors
+    sheet.getRange(4, cfg.ratingCol, values.length, 1).setFontColors(
+      values.map(r => [RATING_COLORS[r[cfg.ratingCol - 1]] || '#000000']));
 
-    // DefiLlama hyperlinks (col F = 6; URL is feed col 19)
-    sheet.getRange(4, 6, values.length, 1).setRichTextValues(
-      data.map(r => [r[18]
-        ? SpreadsheetApp.newRichTextValue().setText('DefiLlama').setLinkUrl(r[18]).build()
-        : SpreadsheetApp.newRichTextValue().setText('').build()]));
+    // farm tabs: DefiLlama hyperlinks
+    if (cfg.linkCol) {
+      sheet.getRange(4, cfg.linkCol, values.length, 1).setRichTextValues(
+        data.map(r => [r[cfg.linkUrlIdx]
+          ? SpreadsheetApp.newRichTextValue().setText('DefiLlama').setLinkUrl(r[cfg.linkUrlIdx]).build()
+          : SpreadsheetApp.newRichTextValue().setText('').build()]));
+    }
+
+    // looping tab: restore the Max ROE formula in G
+    if (cfg.roeFormulaCol) {
+      sheet.getRange(4, cfg.roeFormulaCol, values.length, 1).setFormulasR1C1(
+        values.map(() => ['=(R[0]C[1]+R[0]C[2])*(R[0]C[-1]-1)+R[0]C[1]']));
+    }
 
     sheet.getRange(1, 1).setValue(title);
     console.log(tabName + ': ' + values.length + ' rows updated');

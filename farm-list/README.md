@@ -8,12 +8,15 @@ defillama.com/yields (which sits behind a Cloudflare JS challenge).
 ## Usage
 
 ```bash
-python3 refresh_farm_list.py template.xlsx farm_list_update_$(date +%F).xlsx
+./scrape_yieldz.sh /tmp/yz_rows.json           # Looping tab data (optional)
+python3 refresh_farm_list.py template.xlsx out.xlsx pool_names.json /tmp/yz_rows.json
+python3 make_feed_csvs.py out.xlsx feed_usd.csv feed_eth.csv feed_loop.csv
 ```
 
 Requires `openpyxl` (`pip install openpyxl`) and outbound access to
-`yields.llama.fi`. Runtime is a few minutes (~300 per-pool history calls,
-10 threads).
+`yields.llama.fi` + `yieldz.io`. Farm build takes a few minutes
+(~300 per-pool history calls, 10 threads); the yieldz scrape adds
+~5 minutes (paginated headless-browser walk of both views).
 
 ## What it reproduces
 
@@ -40,8 +43,13 @@ Requires `openpyxl` (`pip install openpyxl`) and outbound access to
 - **Holders**: not in the public API; column left blank.
 - **Token case**: the API upper-cases symbols (`WEETH` vs the site's
   `weETH`).
-- **Looping tab**: carried over from the template unchanged — yieldz.io
-  is a client-side app with no data feed; refresh that tab manually.
+- **Looping tab**: scraped from the rendered yieldz.io/leverage pages
+  (default view = USD, `?corr=eth` = ETH) via headless Chromium behind a
+  local mitmproxy TLS shim (`scrape_yieldz.sh` + `yz_scrape.js`). Kept
+  semantics: positive-carry loops only (Dep+Bor > 0), ETH block first,
+  each block sorted by max leverage desc; max leverage derived from the
+  displayed max ROE via the sheet's own formula. If the scrape fails or
+  returns too few rows, the tab is carried over unchanged.
 
 ## Schedule & delivery
 

@@ -81,6 +81,7 @@ ISSUERS = {
 }
 
 RATING_COLOR = {'stable': 'FF1E7145', 'mixed': 'FFB45F06', 'volatile': 'FFC00000'}
+RISK_COLOR = {'Low': 'FF1E7145', 'Med.': 'FFB45F06', 'High': 'FFC00000'}
 
 
 def get(url, retries=4):
@@ -116,7 +117,7 @@ def farm_type(name, symbol, farm, meta):
     return 'LP' if '-' in symbol else 'Lending'
 
 
-def main(template, outfile, names_file=None):
+def main(template, outfile, names_file=None, loops_file=None):
     pools = get(f'{API}/pools')['data']
     print(f'{len(pools)} pools fetched')
     names = {}
@@ -270,9 +271,81 @@ def main(template, outfile, names_file=None):
         ws.freeze_panes = 'C4'
         print(f'{tab}: {len(rows)} rows written ({unnamed} without carried display names)')
 
+    if loops_file:
+        try:
+            loops = json.load(open(loops_file))
+        except Exception as e:
+            print('looping feed not loaded, tab carried over unchanged:', e)
+            loops = None
+        if loops is not None:
+            if len(loops) < 50:
+                print(f'looping feed too small ({len(loops)} rows), tab carried over unchanged')
+            else:
+                build_looping(wb, loops, today)
+
     wb.save(outfile)
     print('saved', outfile)
 
 
+def build_looping(wb, loops, today):
+    """Rewrite the Looping tab from scraped yieldz.io/leverage rows.
+
+    Keeps the old sheet's semantics: positive-carry loops only
+    (deposit APY + borrow APY > 0), ETH block first then USD, each sorted
+    by max leverage desc. Max leverage is derived from the displayed max
+    ROE via the sheet's own formula: ROE = (H+I)*(F-1)+H  =>  F.
+    """
+    seen, rows = set(), []
+    for r in loops:
+        k = json.dumps(r, sort_keys=True)
+        if k in seen:
+            continue
+        seen.add(k)
+        dep, bor = r.get('depApy'), r.get('borApy')
+        if dep is None or bor is None or (dep + bor) <= 0:
+            continue
+        if r.get('maxRoe') is None:
+            continue
+        lev = round((r['maxRoe'] - dep) / (dep + bor) + 1, 2)
+        rows.append(dict(r, lev=lev))
+    rows.sort(key=lambda r: (0 if r['asset'] == 'ETH' else 1, -r['lev']))
+
+    ws = wb['Looping']
+    old_last = max((r for r in range(4, ws.max_row + 1)
+                    if ws.cell(r, 1).value not in (None, '')), default=3)
+    tmpl = {c: copy.copy(ws.cell(4, c)._style) for c in range(1, 15)}
+    for r in range(4, old_last + 1):
+        for c in range(1, 15):
+            cell = ws.cell(r, c)
+            cell.value = None
+            cell.style = 'Normal'
+        if r in ws.row_dimensions:
+            del ws.row_dimensions[r]
+    for i, d in enumerate(rows):
+        r = 4 + i
+        ws.row_dimensions[r].height = 15.0
+        vals = [d['asset'], d['protocol'], d['chain'], d['depositAsset'], d['borrowAsset'],
+                d['lev'], f'=(H{r}+I{r})*(F{r}-1)+H{r}', d['depApy'], d['borApy'],
+                d['risk'], d['liquidity'], d['toTarget'], d['utilization'], d['lltv']]
+        for c, v in enumerate(vals, start=1):
+            cell = ws.cell(r, c)
+            cell._style = copy.copy(tmpl[c])
+            cell.value = v
+        if d['risk'] in RISK_COLOR:
+            f = copy.copy(ws.cell(r, 10).font)
+            f.color = openpyxl.styles.Color(rgb=RISK_COLOR[d['risk']])
+            ws.cell(r, 10).font = f
+    last = 3 + len(rows)
+    ws.cell(1, 1).value = (f'Looping Opportunities  ·  yieldz.io/leverage, {today}'
+                           f'  ·  {len(rows)} positive-carry loops')
+    ws.auto_filter.ref = f'A3:N{last}'
+    ws.freeze_panes = 'C4'
+    print(f'Looping: {len(rows)} rows written '
+          f'({sum(1 for d in rows if d["asset"] == "ETH")} ETH, '
+          f'{sum(1 for d in rows if d["asset"] == "USD")} USD)')
+
+
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
+    main(sys.argv[1], sys.argv[2],
+         sys.argv[3] if len(sys.argv) > 3 else None,
+         sys.argv[4] if len(sys.argv) > 4 else None)
