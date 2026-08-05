@@ -43,9 +43,18 @@ Requires `openpyxl` (`pip install openpyxl`) and outbound access to
 - **Looping tab**: carried over from the template unchanged — yieldz.io
   is a client-side app with no data feed; refresh that tab manually.
 
-## Schedule
+## Schedule & delivery
 
-A Claude Code Routine runs this daily at 09:00 Asia/Hong_Kong
-(01:00 UTC) and delivers the refreshed .xlsx in the session. To update
-the original Google Sheet in place: File → Import → Upload → Replace
-spreadsheet (keeps the same URL).
+A Claude Code Routine runs this daily at ~09:00 Asia/Hong_Kong
+(01:00 UTC):
+
+1. builds the refreshed .xlsx and posts it in the Claude session;
+2. regenerates `feed_usd.csv` / `feed_eth.csv` (via `make_feed_csvs.py`)
+   and pushes them to this branch.
+
+The original Google Sheet updates itself in place via `updater.gs`
+(Apps Script installed in the sheet, daily trigger at 10:00 HKT): it
+fetches the feed CSVs from this branch's raw GitHub URLs and rewrites
+the USD/ETH tabs — values, title, DefiLlama links, rating colors.
+Note: the repo is public, so the feed CSVs are publicly readable
+(DefiLlama-derived public data).
