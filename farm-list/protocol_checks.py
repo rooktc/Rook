@@ -129,8 +129,13 @@ def load_protocol_sources():
     src = {}
     try:
         d = _fetch('https://api.ipor.io/fusion/vaults')
-        src['ipor'] = {(v.get('name') or '').strip().lower(): v
-                       for v in (d.get('vaults') or d)}
+        idx = {}
+        for v in (d.get('vaults') or d):
+            key = (v.get('name') or '').strip().lower()
+            # names repeat across deprecated instances — keep the live one
+            if key not in idx or float(v.get('tvl') or 0) > float(idx[key].get('tvl') or 0):
+                idx[key] = v
+        src['ipor'] = idx
         print(f"protocol-checks: ipor {len(src['ipor'])} vaults")
     except Exception as e:
         print('protocol-checks: ipor failed:', type(e).__name__)

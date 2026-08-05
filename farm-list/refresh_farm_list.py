@@ -186,13 +186,17 @@ def exposure_leg(coll, risk_scores):
     signal — it scores 3.0 rather than being skipped. Returns None when
     less than half of the book is visible.
     """
-    tw = sum(w for _, w in coll)
+    tw = sum(item[1] for item in coll)
     if tw <= 0:
         return None
     num, den, parts = 0.0, 0.0, []
-    for sym, w in sorted(coll, key=lambda x: -x[1])[:10]:
+    for item in sorted(coll, key=lambda x: -x[1])[:10]:
+        sym, w = item[0], item[1]
         share = w / tw
-        v, label = _collat_score(sym, risk_scores)
+        if len(item) > 2 and item[2] is not None:   # pre-scored venue entry
+            v, label = item[2], f'{sym} {item[2]:.1f}†'
+        else:
+            v, label = _collat_score(sym, risk_scores)
         if v is not None:
             num += v * w
             den += w
@@ -226,7 +230,10 @@ def compute_risk(row, risk_scores):
     and an opaque curated vault cannot score above 6.9.
     Buckets: >=8 Low, >=4 Medium, else High.
     """
-    legs = [risk_norm(s) for s in row['symbol'].split('-') if s]
+    # risk_legs overrides the symbol split when the deposit ticker is not the
+    # real exposure (Midas mTokens, Strata tranche underlyings)
+    legs = [risk_norm(s) for s in
+            (row.get('risk_legs') or row['symbol'].split('-')) if s]
     leg_scores, basis = {}, []
     for leg in legs:
         s = asset_score(leg, risk_scores)
@@ -266,6 +273,9 @@ def compute_risk(row, risk_scores):
             deductions.append(('volatile', 1.5))
         if (row.get('tvl') or 0) < 1_000_000:
             deductions.append(('tvl<1M', 1.0))
+        if (row['name'] == 'Strata Markets'
+                and row['symbol'].upper().startswith('JR')):
+            deductions.append(('junior tranche (first loss)', 1.5))
         util = row.get('util')
         if util is not None:
             u = util if util <= 1.5 else util / 100
@@ -461,6 +471,14 @@ def main(template, outfile, names_file=None, loops_file=None):
     risk_counts = collections.Counter()
     for rows in tabs.values():
         for r in rows:
+            # score the real exposure, not the deposit ticker: Midas rows
+            # carry the deposit asset as symbol with the mToken in meta;
+            # Strata tranches wrap their underlying
+            if r['name'] == 'Midas RWA' and r.get('meta'):
+                r['risk_legs'] = [r['meta']]
+            elif (r['name'] == 'Strata Markets'
+                  and r['symbol'].upper()[:2] in ('SR', 'JR')):
+                r['risk_legs'] = [r['symbol'][2:]]
             try:
                 r['risk'], r['risk_basis'], r['risk_score'] = compute_risk(r, risk_scores)
             except Exception:
@@ -719,7 +737,7 @@ def history_checks(row, cut):
 def load_yieldz_sources():
     m = get(f'{YZ}/markets')['data']
     v = get(f'{YZ}/vaults')['data']
-    lend, vaults, aave_res = {}, {}, {}
+    lend, vaults, aave_res, mkt_by_id = {}, {}, {}, {}
     for x in m:
         proto = x['protocol'].split('_')[0]
         if proto in ('aave', 'hyperlend', 'fluid', 'euler', 'lista'):
@@ -732,10 +750,66 @@ def load_yieldz_sources():
             aave_res[(x['chain_id'], x['loan_asset']['address'].lower())] = (
                 x['loan_asset']['symbol'], float(x.get('total_supply_usd') or 0),
                 float(x.get('lltv') or 0))
+        if proto == 'morpho' and x.get('id'):
+            # market id -> collateral symbol, for look-through resolution
+            cs = (x.get('collateral_asset') or {}).get('symbol')
+            if cs:
+                mkt_by_id[(x['chain_id'], x['id'].lower())] = cs
     for x in v:
         ch = CHAIN_IDS.get(x['chain_id'])
         vaults.setdefault((ch, x['loan_asset']['address'].lower()), []).append(x)
-    return lend, vaults, aave_res
+    return lend, vaults, aave_res, mkt_by_id
+
+
+# venue quality for pooled-market allocations inside curated vaults: the
+# vault supplies its own asset into these, so the venue is the exposure
+VENUE_SCORE = {'aave-v3': 8.5, 'aave-v2': 7.5, 'spark': 8.2, 'compound-v3': 8.5,
+               'compound-v2': 7.0, 'moonwell': 7.5, 'fluid': 8.0,
+               'fluid-instadapp': 8.0, 'gearbox': 7.0, 'pendle': 6.5,
+               'harvest': 6.0, 'yearn': 7.5, 'curve': 7.5, 'sky': 8.0}
+
+
+def ipor_exposure(row, v, mkt_by_id, euler_by_id):
+    """Look-through for a Fusion by IPOR vault: its API publishes the live
+    book (marketBalances). Idle asset stays the vault asset; Morpho/Euler
+    positions resolve to the market's collateral; pooled venues score by
+    venue quality; anything unresolvable counts as unrated exposure."""
+    hist = v.get('history') or []
+    if not hist:
+        return
+    latest = max(hist, key=lambda h: h.get('blockNumber') or 0)
+    cid = v.get('chainId')
+    out = []
+    for mb in latest.get('marketBalances') or []:
+        bal = float(mb.get('balanceUsd') or 0)
+        if bal <= 0:
+            continue
+        proto = (mb.get('protocol') or '').lower()
+        mid = (mb.get('marketId') or '').lower()
+        if proto == 'erc20':
+            out.append((v.get('asset') or 'idle', bal))
+        elif proto.startswith('morpho'):
+            cs = mkt_by_id.get((cid, mid))
+            # unresolved market: known venue, unknown collateral -> opaque 6.0
+            out.append((cs, bal) if cs else (f'morpho?{mid[:8]}', bal, 6.0))
+        elif proto.startswith('euler'):
+            e = euler_by_id.get((cid, mid))
+            if e and e.get('collat'):
+                tot = sum(w for _, w in e['collat']) or 1
+                out.extend((s, bal * w / tot) for s, w in e['collat'])
+            else:
+                out.append((f'euler?{mid[:8]}', bal, 6.0))
+        elif proto in VENUE_SCORE:
+            out.append((proto, bal, VENUE_SCORE[proto]))
+        elif proto.endswith('erc4626'):
+            # third-party wrapper vault with no public book: scored like an
+            # opaque curated vault, not as unrated exposure
+            out.append((proto, bal, 6.0))
+        else:
+            out.append((proto or 'unknown', bal))
+    if out:
+        row['collat'] = out
+        row['collat_kind'] = 'allocation'
 
 
 def capture_exposure(row, m, aave_res):
@@ -1029,10 +1103,10 @@ def strata_check(row):
 
 def run_verification(tabs, registry=None):
     try:
-        lend, vaults, aave_res = load_yieldz_sources()
+        lend, vaults, aave_res, mkt_by_id = load_yieldz_sources()
     except Exception as e:
         print('yieldz sources unavailable, cross-source skipped:', e)
-        lend, vaults, aave_res = {}, {}, {}
+        lend, vaults, aave_res, mkt_by_id = {}, {}, {}, {}
     init_pendle()
     registry = registry or {}
     try:
@@ -1050,6 +1124,12 @@ def run_verification(tabs, registry=None):
     except Exception as e:
         print('protocol checks unavailable:', type(e).__name__, e)
         protocol_checks = None
+    # euler vault id -> entry (with collateral allocations), for look-through
+    euler_by_id = {}
+    for cands in (proto_src.get('euler') or {}).values():
+        for e in cands:
+            if e.get('address'):
+                euler_by_id[(e.get('chain_id'), e['address'].lower())] = e
     counts = collections.Counter()
     for tab, rows in tabs.items():
         cut = CUTOFF[tab.split()[0]]
@@ -1141,6 +1221,15 @@ def run_verification(tabs, registry=None):
                 if others:
                     row['collat'] = [(s, 1.0) for s in others]
                     row['collat_kind'] = 'collateral'
+            # ipor fusion vaults publish their live book — look through it
+            if (not row.get('collat') and row['name'] == 'Fusion by IPOR'
+                    and proto_src.get('ipor')):
+                try:
+                    v = proto_src['ipor'].get((row.get('meta') or '').strip().lower())
+                    if v:
+                        ipor_exposure(row, v, mkt_by_id, euler_by_id)
+                except Exception:
+                    pass
             row['flags'] = flags
             row['src_val'], row['src_name'] = src_val, src_name
             if any(f.startswith(RED_FLAGS) for f in flags):
