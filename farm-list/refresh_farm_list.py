@@ -538,17 +538,24 @@ def realized_check(row, m):
 
 
 def pendle_check(row):
-    """Cross-check Pendle PT rows against the official Pendle API (activates
-    only once api-v2.pendle.finance is reachable from this environment)."""
+    """Cross-check Pendle rows against the official Pendle API.
+
+    PT rows compare against the implied APY (flag on disagreement). LP rows
+    compare against the aggregated LP APY confirm-only — semantics differ
+    enough that disagreement is not evidence of bad data.
+    """
     meta = (row['meta'] or '').upper().replace(' ', '')
-    if row['name'] != 'Pendle' or 'BUYINGPT' not in meta:
-        return None, None
+    if row['name'] != 'Pendle':
+        return None, None, None
+    is_pt = 'BUYINGPT' in meta
     for mk in getattr(pendle_check, 'markets', []) or []:
         if mk['expiry'] in meta and row['symbol'].upper() in mk['sym']:
-            src = mk['implied']
-            ok = abs(src - (row['now'] or 0)) <= max(0.75, 0.25 * src)
-            return src, ok
-    return None, None
+            src = mk['implied'] if is_pt else mk['aggregated']
+            if src is None:
+                return None, None, None
+            ok = abs(src - (row['now'] or 0)) <= max(0.75, 0.25 * max(src, row['now'] or 0))
+            return src, ok, ('flag' if is_pt else 'confirm-only')
+    return None, None, None
 
 
 def init_pendle():
@@ -568,7 +575,9 @@ def init_pendle():
                     pendle_check.markets.append(dict(
                         sym=((mk.get('pt') or {}).get('symbol') or mk.get('name') or '').upper(),
                         expiry=d.strftime('%d%b%Y').upper(),
-                        implied=(mk.get('impliedApy') or 0) * 100))
+                        implied=(mk.get('impliedApy') or 0) * 100,
+                        aggregated=(mk['aggregatedApy'] * 100
+                                    if mk.get('aggregatedApy') is not None else None)))
                 if len(batch) < 100:
                     break
                 skip += 100
@@ -609,13 +618,16 @@ def run_verification(tabs, registry=None):
                 pass
             if src_val is None:
                 try:
-                    src, ok = pendle_check(row)
-                    if src is not None:
+                    src, ok, mode = pendle_check(row)
+                    if src is not None and (ok or mode == 'flag'):
                         src_val, src_name = round(src, 3), 'pendle-api'
                         if not ok:
                             flags.append(f'MISMATCH(source {src:.2f})')
                 except Exception:
                     pass
+            # a live source confirming the value supersedes the staleness flag
+            if src_val is not None and not any(f.startswith('MISMATCH') for f in flags):
+                flags = [f for f in flags if not f.startswith('STALE')]
             if src_val is None and row['pool_id'] in registry:
                 try:
                     ent = registry[row['pool_id']]
