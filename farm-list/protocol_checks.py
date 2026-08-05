@@ -200,9 +200,10 @@ def load_protocol_sources():
             for r in res:
                 mint = r.get('liquidityTokenMint')
                 if mint and r.get('supplyApy') is not None:
-                    idx[(name, mint)] = dict(
+                    # markets can hold several reserves of the same mint
+                    idx.setdefault((name, mint), []).append(dict(
                         apy=float(r['supplyApy']) * 100,
-                        tvl=float(r.get('totalSupplyUsd') or 0) - float(r.get('totalBorrowUsd') or 0))
+                        tvl=float(r.get('totalSupplyUsd') or 0) - float(r.get('totalBorrowUsd') or 0)))
         src['kamino'] = idx
         print(f"protocol-checks: kamino {len(idx)} reserves")
     except Exception as e:
@@ -243,9 +244,11 @@ def load_protocol_sources():
         for b in d.get('banks') or []:
             mint = b.get('mint')
             if mint and b.get('depositApy') is not None:
+                # DL's tvl for lending pools is idle liquidity, not deposits
                 idx.setdefault(mint, []).append(dict(
                     apy=float(b['depositApy']) * 100,
-                    tvl=float(b.get('totalDepositsUsd') or 0)))
+                    tvl=max(float(b.get('totalDepositsUsd') or 0)
+                            - float(b.get('totalBorrowsUsd') or 0), 0)))
         src['project0'] = idx
         print(f"protocol-checks: project-0 {sum(len(v) for v in idx.values())} banks")
     except Exception as e:
@@ -336,20 +339,25 @@ def check_row(row, src):
         ok = tol(base or 0, src_apy) or tol(total or 0, src_apy)
         return round(src_apy, 3), ok, label, None
 
+    def tvl_nearest(cands, lo=0.5, hi=2):
+        rtvl = (row.get('tvl') or 0) + 1
+        cands = [c for c in cands if c['tvl'] and lo <= (c['tvl'] + 1) / rtvl <= hi]
+        if not cands:
+            return None
+        return min(cands, key=lambda c: abs(c['tvl'] + 1 - rtvl))
+
     if row['name'] == 'Kamino Lend' and 'kamino' in src:
-        v = src['kamino'].get(((row.get('meta') or '').strip().lower(),
-                               row.get('_underlying') or ''))
+        cands = src['kamino'].get(((row.get('meta') or '').strip().lower(),
+                                   row.get('_underlying') or ''), [])
+        v = tvl_nearest(cands)
         if v:
-            r = base_check(v['apy'], 'kamino-api', tvl=v.get('tvl'))
+            r = base_check(v['apy'], 'kamino-api')
             if r:
                 return r
 
     if row['name'] == 'Loopscale' and 'loopscale' in src:
-        cands = src['loopscale'].get(row.get('_underlying') or '', [])
-        cands = [c for c in cands if c['tvl']
-                 and 0.5 <= (c['tvl'] + 1) / ((row.get('tvl') or 0) + 1) <= 2]
-        if len(cands) == 1:
-            c = cands[0]
+        c = tvl_nearest(src['loopscale'].get(row.get('_underlying') or '', []))
+        if c:
             ok = (tol(row.get('base') or 0, c['base'])
                   or tol(total or 0, c['base'] + c['rew']))
             return round(c['base'] + c['rew'], 3), ok, 'loopscale-api', None
@@ -364,11 +372,9 @@ def check_row(row, src):
 
     if row['name'] == 'Project 0' and 'project0' in src:
         cands = src['project0'].get(row.get('_underlying') or '', [])
-        if len(cands) > 1:
-            cands = [c for c in cands if c['tvl']
-                     and 0.3 <= (c['tvl'] + 1) / ((row.get('tvl') or 0) + 1) <= 3]
-        if len(cands) == 1:
-            r = base_check(cands[0]['apy'], 'p0-api')
+        v = cands[0] if len(cands) == 1 else tvl_nearest(cands, 0.3, 3)
+        if v:
+            r = base_check(v['apy'], 'p0-api')
             if r:
                 return r
 
