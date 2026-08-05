@@ -86,7 +86,7 @@ def load_protocol_sources():
                 for v in _fetch(f'https://ydaemon.yearn.fi/{cid}/vaults/all'):
                     name = (v.get('name') or '').strip().lower()
                     apr = ((v.get('apr') or {}).get('netAPR'))
-                    if apr is None:
+                    if apr is None or not -0.05 <= apr <= 3:  # drop broken feeds
                         continue
                     ent = dict(apy=apr * 100, address=v.get('address'),
                                tvl=((v.get('tvl') or {}).get('tvl')) or 0)
