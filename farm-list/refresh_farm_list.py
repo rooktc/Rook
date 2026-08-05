@@ -22,6 +22,7 @@ import collections
 import copy
 import datetime
 import json
+import re
 import statistics
 import sys
 import time
@@ -210,6 +211,21 @@ def exposure_leg(coll, risk_scores):
     return num / den, ', '.join(parts)
 
 
+# chain maturity: points deducted for settlement/infra/oracle immaturity.
+# Unlisted chains take the 0.5 default.
+CHAIN_TIER = {'Ethereum': 0.0,
+              'Base': 0.25, 'Arbitrum': 0.25, 'OP Mainnet': 0.25,
+              'Polygon': 0.25, 'BSC': 0.25, 'Avalanche': 0.25,
+              'Gnosis': 0.25, 'Solana': 0.25, 'Linea': 0.25, 'Scroll': 0.25,
+              'Sui': 0.5, 'Tron': 0.5, 'Mantle': 0.5, 'Fraxtal': 0.5,
+              'Sonic': 0.75, 'Monad': 0.75, 'Plasma': 0.75, 'Katana': 0.75,
+              'Hyperliquid L1': 0.75, 'HyperEVM': 0.75, 'Unichain': 0.75,
+              'Etherlink': 0.75, 'TAC': 0.75, 'XRPL EVM': 0.75, 'RSK': 0.75,
+              'World Chain': 0.75}
+TRUSTED_ORACLES = {'chainlink', 'chronicle', 'redstone', 'pyth', 'api3',
+                   'lido', 'oval', 'compound', 'uniswap', 'pendle'}
+_LEVERED = re.compile(r'lo{2,}p|\blever', re.IGNORECASE)
+
 # curated vaults with no public look-through into their allocation: their
 # score is capped — an unverifiable book cannot rate as low-risk
 OPAQUE_VAULTS = {'Fusion by IPOR', 'Lagoon', 'Ember Protocol', 'Upshift',
@@ -232,15 +248,29 @@ def compute_risk(row, risk_scores):
     """
     # risk_legs overrides the symbol split when the deposit ticker is not the
     # real exposure (Midas mTokens, Strata tranche underlyings)
-    legs = [risk_norm(s) for s in
-            (row.get('risk_legs') or row['symbol'].split('-')) if s]
-    leg_scores, basis = {}, []
-    for leg in legs:
-        s = asset_score(leg, risk_scores)
-        if s is None:
+    leg_scores, basis, unrated_legs = {}, [], []
+    for leg_raw in (row.get('risk_legs') or row['symbol'].split('-')):
+        if not leg_raw:
             continue
-        leg_scores[leg] = s[0]
-        basis.append(f'{leg} {s[0]:.1f} ({s[1]})')
+        leg = risk_norm(leg_raw)
+        s = asset_score(leg, risk_scores)
+        if s is not None:
+            leg_scores[leg] = s[0]
+            basis.append(f'{leg} {s[0]:.1f} ({s[1]})')
+            continue
+        # baseline/PT fallback so majors (WETH, wstETH, SOL...) still score
+        v, label = _collat_score(leg_raw, risk_scores)
+        if v is not None:
+            leg_scores[leg] = v
+            basis.append(label)
+        else:
+            unrated_legs.append(leg)
+    # an LP whose other leg nothing rates: the unknown leg IS the risk —
+    # it enters at 3.0 instead of being silently ignored
+    if leg_scores and unrated_legs:
+        for leg in unrated_legs:
+            leg_scores[leg] = 3.0
+            basis.append(f'{leg} unrated 3.0')
 
     exp = None
     if row.get('collat'):
@@ -276,6 +306,22 @@ def compute_risk(row, risk_scores):
         if (row['name'] == 'Strata Markets'
                 and row['symbol'].upper().startswith('JR')):
             deductions.append(('junior tranche (first loss)', 1.5))
+        if row['name'] == 'Pendle' and 'buying PT' in (row.get('meta') or ''):
+            deductions.append(('PT wrapper', 0.5))
+        ct = CHAIN_TIER.get(row.get('chain'), 0.5)
+        if ct:
+            deductions.append((f'chain {row.get("chain")}', ct))
+        lltv = row.get('lltv')
+        if lltv is not None:
+            if lltv >= 0.965:
+                deductions.append((f'lltv {lltv:.0%}', 1.0))
+            elif lltv >= 0.945:
+                deductions.append((f'lltv {lltv:.0%}', 0.5))
+        orc = row.get('oracle')
+        if orc is not None and not (set(p.lower() for p in orc) & TRUSTED_ORACLES):
+            deductions.append(('exotic oracle', 0.5))
+        if _LEVERED.search(f"{row.get('farm_disp') or ''} {row.get('meta') or ''}"):
+            deductions.append(('leveraged strategy', 1.0))
         util = row.get('util')
         if util is not None:
             u = util if util <= 1.5 else util / 100
@@ -284,6 +330,10 @@ def compute_risk(row, risk_scores):
         for name, pts in deductions:
             score -= pts
             basis.append(f'-{pts:g} {name}')
+        if (row['name'] == 'Strata Markets'
+                and row['symbol'].upper().startswith('SR')):
+            score += 0.5   # loss-absorbing junior tranche beneath it
+            basis.append('+0.5 senior tranche buffer')
         if score >= 8 and row.get('verdict') != 'VERIFIED':
             score = 7.9
             basis.append('capped 7.9: not VERIFIED')
@@ -831,6 +881,19 @@ def capture_exposure(row, m, aave_res):
     if ca:
         row['collat'] = [(ca, 1.0)]
         row['collat_kind'] = 'collateral'
+        # isolated pair market: liquidation margin + oracle quality signals
+        try:
+            lltv = float(m.get('lltv') or 0)
+            if lltv > 100:      # basis points
+                lltv /= 10000
+            elif lltv > 1.5:    # percent
+                lltv /= 100
+            if lltv > 0:
+                row['lltv'] = lltv
+        except (TypeError, ValueError):
+            pass
+        if m.get('oracle_providers') is not None:
+            row['oracle'] = m['oracle_providers']
         return
     if m.get('protocol', '').startswith('aave'):
         loan = m['loan_asset']['symbol'].upper()
