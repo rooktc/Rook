@@ -232,7 +232,8 @@ OPAQUE_VAULTS = {'Fusion by IPOR', 'Lagoon', 'Ember Protocol', 'Upshift',
                  'Makina', 'Concrete', 'Superform', 'Veda', 'Gauntlet',
                  'ether.fi Liquid', 'D2 Finance', 'Multipli.fi', 'Re',
                  'Nest Credit', 'Tydro', 'Kai Finance', 'Pareto Credit',
-                 '3Jane Lending', 'Royco V2', 'Steakhouse Financial'}
+                 '3Jane Lending', 'Royco V2', 'Steakhouse Financial',
+                 'Loopscale', 'Current', 'Project 0'}
 
 
 def compute_risk(row, risk_scores):
@@ -344,9 +345,12 @@ def compute_risk(row, risk_scores):
         risk = 'Low' if score >= 8 else ('Medium' if score >= 4 else 'High')
         basis.insert(0, f'score {score:.1f}')
         return risk, '; '.join(basis), round(score, 1)
-    # unrated assets: label from row signals only
+    # unrated assets: label from row signals only. An asset nothing rates
+    # whose yield also failed verification defaults to High — unknown and
+    # unconfirmed is not a middle case.
     weak = (red or 'SELF-REPORTED(flat 30d history)' in flags
-            or row.get('rating') == 'volatile' or (row.get('tvl') or 0) < 1_000_000)
+            or row.get('rating') == 'volatile' or (row.get('tvl') or 0) < 1_000_000
+            or row.get('verdict') not in ('VERIFIED', 'CAUTION'))
     risk = 'High' if weak else 'Medium'
     basis.append('unrated: internal signals only')
     return risk, '; '.join(basis), None
