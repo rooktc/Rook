@@ -85,10 +85,14 @@ RATING_COLOR = {'stable': 'FF1E7145', 'mixed': 'FFB45F06', 'volatile': 'FFC00000
 RISK_COLOR = {'Low': 'FF1E7145', 'Med.': 'FFB45F06', 'High': 'FFC00000'}
 
 
+UA = 'Mozilla/5.0 (X11; Linux x86_64) farm-list-verifier'
+
+
 def get(url, retries=4):
     for i in range(retries):
         try:
-            with urllib.request.urlopen(url, timeout=60) as r:
+            req = urllib.request.Request(url, headers={'User-Agent': UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
                 return json.load(r)
         except Exception:
             if i == retries - 1:
