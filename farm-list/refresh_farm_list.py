@@ -806,12 +806,16 @@ def curve_check(row, curve_idx):
         m = cands[0]
         tight = False  # wrapper boost differs; compare but never accuse
     # reward-inclusive total comparison (Curve DEX rows only for flagging)
-    total = (row['base'] or 0) + (row['rew'] or 0) + (row['intr'] or 0)
+    total = row.get('now')
+    if total is None:
+        total = (row['base'] or 0) + (row['rew'] or 0) + (row['intr'] or 0)
     tol = lambda a, b: abs(a - b) <= max(0.75, 0.3 * max(abs(a), abs(b)))
     total_ok = any(tol(total, t) for t in (m['total_min'], m['total_max']))
     if total_ok and total > 0.5:
         return round(m['total_min'], 3), None, 'curve-api (total)'
-    if tight and not total_ok and total > 1:
+    # only accuse when Curve actually reports a rate — a null/zero source is
+    # missing data, not evidence
+    if tight and not total_ok and total > 1 and m['total_min'] > 0.1:
         return (round(m['total_min'], 3),
                 f"MISMATCH(curve total {m['total_min']:.2f})", 'curve-api (total)')
     # fall back to the realized virtual-price check on the base component
@@ -836,6 +840,16 @@ def run_verification(tabs, registry=None):
     except Exception as e:
         print('curve API unavailable:', e)
         curve_idx = {}
+    proto_src = {}
+    try:
+        import os
+        import sys as _sys
+        _sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import protocol_checks
+        proto_src = protocol_checks.load_protocol_sources()
+    except Exception as e:
+        print('protocol checks unavailable:', type(e).__name__, e)
+        protocol_checks = None
     counts = collections.Counter()
     for tab, rows in tabs.items():
         cut = CUTOFF[tab.split()[0]]
@@ -879,6 +893,20 @@ def run_verification(tabs, registry=None):
                         src_val, src_name = cv, lbl
                         if fl:
                             flags.append(fl)
+                except Exception:
+                    pass
+            if src_val is None and proto_src:
+                try:
+                    pv, ok, lbl, addr = protocol_checks.check_row(row, proto_src)
+                    if addr and row['pool_id'] not in registry:
+                        # runtime registry entry so the realized check can run
+                        cid = next((k for k, v in CHAIN_IDS.items() if v == row['chain']), None)
+                        if cid:
+                            registry[row['pool_id']] = dict(chain_id=cid, address=addr)
+                    if pv is not None:
+                        src_val, src_name = pv, lbl
+                        if not ok:
+                            flags.append(f'MISMATCH(source {pv:.2f})')
                 except Exception:
                     pass
             if src_val is None and row['pool_id'] in registry:
