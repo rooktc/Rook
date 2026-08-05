@@ -82,7 +82,61 @@ ISSUERS = {
 }
 
 RATING_COLOR = {'stable': 'FF1E7145', 'mixed': 'FFB45F06', 'volatile': 'FFC00000'}
-RISK_COLOR = {'Low': 'FF1E7145', 'Med.': 'FFB45F06', 'High': 'FFC00000'}
+RISK_COLOR = {'Low': 'FF1E7145', 'Med.': 'FFB45F06', 'High': 'FFC00000',
+              'Medium': 'FFB45F06'}
+RISK_RANK = {'Low': 0, 'Medium': 1, 'High': 2}
+RISK_ALIAS = {'ETH+': 'ETHPLUS', 'USDT0': 'USDT', 'USD₮0': 'USDT', 'USD₮': 'USDT',
+              'SCRVUSD': 'CRVUSD', 'SFRXUSD': 'FRXUSD', 'WFRXETH': 'FRXETH'}
+
+
+def risk_norm(leg):
+    leg = RISK_ALIAS.get(leg, RISK_ALIAS.get(leg.upper(), leg))
+    return re.sub(r'[^A-Z0-9]', '', (leg or '').upper())
+
+
+def entry_bucket(e):
+    if e['source'] == 'tid':  # 1-10, higher = safer
+        s = e['score']
+        return 'Low' if s >= 7.5 else ('Medium' if s >= 5.5 else 'High')
+    if e['source'] == 'pharos':  # letter grade
+        g = str(e['score']).upper()
+        return 'Low' if g.startswith('A') else ('Medium' if g.startswith('B') else 'High')
+    lbl = (e.get('label') or '').lower()  # yearn labels
+    if 'low' in lbl or 'minimal' in lbl:
+        return 'Low'
+    if 'medium' in lbl or 'moderate' in lbl:
+        return 'Medium'
+    return 'High'
+
+
+def compute_risk(row, risk_scores):
+    """High/Medium/Low farm label: worst-rated asset leg, then downgraded by
+    the row's own verification signals. Unrated rows are labeled from
+    internal signals only and say so."""
+    legs = [risk_norm(s) for s in row['symbol'].split('-') if s]
+    rated, basis = [], []
+    for leg in legs:
+        for e in risk_scores.get(leg, []):
+            b = entry_bucket(e)
+            rated.append(b)
+            tag = f"{e['source']} {e['score']}{'/10' if e['source'] == 'tid' else '/5'}"
+            basis.append(f'{leg}: {tag} -> {b}')
+    flags = row.get('flags') or []
+    red = any(f.startswith(RED_FLAGS) for f in flags)
+    weak = (red or 'SELF-REPORTED(flat 30d history)' in flags
+            or row.get('rating') == 'volatile' or (row.get('tvl') or 0) < 1_000_000)
+    if rated:
+        risk = max(rated, key=lambda b: RISK_RANK[b])
+        if weak and RISK_RANK[risk] < 2:
+            risk = ['Low', 'Medium', 'High'][RISK_RANK[risk] + 1]
+            basis.append('downgraded: row signals')
+        if risk == 'Low' and row.get('verdict') != 'VERIFIED':
+            risk = 'Medium'
+            basis.append('capped: not VERIFIED')
+    else:
+        risk = 'High' if weak else 'Medium'
+        basis.append('unrated: internal signals only')
+    return risk, '; '.join(basis)
 
 
 UA = 'Mozilla/5.0 (X11; Linux x86_64) farm-list-verifier'
@@ -221,13 +275,18 @@ def main(template, outfile, names_file=None, loops_file=None):
                                  -(r['now'] if r['now'] else (r['d7'] or r['d30'] or 0))))
         tabs[tab] = rows
 
-    registry = {}
+    registry, risk_scores = {}, {}
     if names_file:
+        import os
+        base = os.path.dirname(os.path.abspath(names_file))
         try:
-            import os
-            registry = json.load(open(os.path.join(os.path.dirname(os.path.abspath(names_file)),
-                                                   'vault_registry.json')))
+            registry = json.load(open(os.path.join(base, 'vault_registry.json')))
             print(f'vault registry: {len(registry)} entries')
+        except Exception:
+            pass
+        try:
+            risk_scores = json.load(open(os.path.join(base, 'risk_scores.json')))
+            print(f'risk scores: {len(risk_scores)} assets')
         except Exception:
             pass
     try:
@@ -241,6 +300,16 @@ def main(template, outfile, names_file=None, loops_file=None):
                 r.setdefault('src_val', None)
                 r.setdefault('src_name', None)
 
+    risk_counts = collections.Counter()
+    for rows in tabs.values():
+        for r in rows:
+            try:
+                r['risk'], r['risk_basis'] = compute_risk(r, risk_scores)
+            except Exception:
+                r['risk'], r['risk_basis'] = None, ''
+            risk_counts[r['risk']] += 1
+    print('risk labels:', dict(risk_counts))
+
     # ---- write workbook, preserving the template's styling ----
     wb = openpyxl.load_workbook(template)
     today = datetime.date.today().strftime('%-d %b %Y')
@@ -251,7 +320,7 @@ def main(template, outfile, names_file=None, loops_file=None):
         tmpl = {c: copy.copy(ws.cell(4, c)._style) for c in range(1, 19)}
         base_font = copy.copy(ws.cell(4, 1).font)
         for r in range(4, old_last + 1):
-            for c in range(1, 19):
+            for c in range(1, 21):
                 cell = ws.cell(r, c)
                 cell.value = None
                 cell.hyperlink = None
@@ -294,17 +363,32 @@ def main(template, outfile, names_file=None, loops_file=None):
                 f.color = openpyxl.styles.Color(rgb=RATING_COLOR[d['rating']])
                 ws.cell(r, 15).font = f
             d['farm_disp'] = farm
-            # verification flags: highlight the APY cell, stash detail in hidden col S
+            # risk label in visible col S
+            risk_cell = ws.cell(r, 19)
+            risk_cell._style = copy.copy(tmpl[1])
+            risk_cell.value = d.get('risk')
+            risk_cell.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='bottom')
+            if d.get('risk') in RISK_COLOR:
+                risk_cell.font = openpyxl.styles.Font(
+                    name='Arial', size=10, bold=True,
+                    color=RISK_COLOR[d['risk']])
+            # verification flags: highlight the APY cell, stash detail in hidden col T
             flags = d.get('flags') or []
             if flags:
                 shade = FLAG_FILL['red' if any(x.startswith(RED_FLAGS) for x in flags) else 'orange']
                 ws.cell(r, 9).fill = openpyxl.styles.PatternFill('solid', fgColor=shade)
-                ws.cell(r, 19).value = '; '.join(flags)
-        ws.column_dimensions['S'].hidden = True
+                ws.cell(r, 20).value = '; '.join(flags)
+        # Risk header styled like the other row-3 headers
+        hdr = ws.cell(3, 19)
+        hdr._style = copy.copy(ws.cell(3, 18)._style)
+        hdr.value = 'Risk'
+        ws.column_dimensions['S'].hidden = False
+        ws.column_dimensions['S'].width = 9
+        ws.column_dimensions['T'].hidden = True
         last = 3 + len(rows)
         ws.cell(1, 1).value = (f"{asset} Farm List  ·  DefiLlama API snapshot {today}"
                                f"  ·  {len(rows)} pools")
-        ws.auto_filter.ref = f'A3:R{last}'
+        ws.auto_filter.ref = f'A3:S{last}'
         ws.freeze_panes = 'C4'
         print(f'{tab}: {len(rows)} rows written ({unnamed} without carried display names)')
 
@@ -725,7 +809,7 @@ def build_check_tab(wb, tabs, today):
         del wb['Data Check']
     ws = wb.create_sheet('Data Check')
     header = ['Tab', 'Farm', 'Chain', 'Protocol', 'APY Now', '7d', 'Verdict',
-              'Cross-Source APY', 'Source', 'Flags']
+              'Cross-Source APY', 'Source', 'Flags', 'Risk', 'Risk Basis']
     ws.cell(1, 1).value = (f'Data Check  ·  {today}  ·  history checks: all rows; '
                            f'cross-source: yieldz protocol data + on-chain reads')
     ws.cell(1, 1).font = openpyxl.styles.Font(bold=True, size=12, color='FF1F3552', name='Arial')
@@ -740,7 +824,8 @@ def build_check_tab(wb, tabs, today):
     for i, (tab, r) in enumerate(allrows):
         vals = [tab, (r.get('farm_disp') or r.get('meta') or r['symbol']), r['chain'], r['name'],
                 r.get('now'), r.get('d7'), r['verdict'], r.get('src_val'),
-                r.get('src_name'), '; '.join(r.get('flags') or [])]
+                r.get('src_name'), '; '.join(r.get('flags') or []),
+                r.get('risk'), r.get('risk_basis')]
         for c, v in enumerate(vals, start=1):
             cell = ws.cell(3 + i, c)
             cell.value = v
@@ -749,7 +834,10 @@ def build_check_tab(wb, tabs, today):
                'FFB45F06' if r['verdict'] == 'CAUTION' else
                'FF1E7145' if r['verdict'] == 'VERIFIED' else 'FF7F7F7F')
         ws.cell(3 + i, 7).font = openpyxl.styles.Font(size=10, name='Arial', bold=True, color=col)
-    for col, w in zip('ABCDEFGHIJ', [10, 38, 12, 18, 9, 9, 12, 15, 14, 60]):
+        if r.get('risk') in RISK_COLOR:
+            ws.cell(3 + i, 11).font = openpyxl.styles.Font(
+                size=10, name='Arial', bold=True, color=RISK_COLOR[r['risk']])
+    for col, w in zip('ABCDEFGHIJKL', [10, 38, 12, 18, 9, 9, 12, 15, 14, 45, 9, 45]):
         ws.column_dimensions[col].width = w
     ws.freeze_panes = 'A3'
     print(f'Data Check: {len(allrows)} rows')

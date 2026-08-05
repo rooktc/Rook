@@ -5,26 +5,40 @@ into risk_scores.json, keyed by normalized asset symbol.
 - TID (staging.tidresearch.com/reports/): overall score 1-10, higher = safer
 - Yearn curation (curation.yearn.fi/reports/): score 1-5, lower = safer,
   with the label in the page ("Low Risk", "Elevated Risk", ...)
-
-Pharos (pharos.watch) grades require an API key; wire it in here when one
-is available.
+- Pharos (api.pharos.watch): safety letter grades, X-API-Key auth. Key comes
+  from $PHAROS_API_KEY or the git-ignored .pharos_key file next to this
+  script; requires api.pharos.watch on the egress allowlist. 30 rpm limit.
 
 Usage: risk_harvest.py <risk_scores.json>
 """
 import json
+import os
 import re
 import sys
+import time
 import urllib.request
 
 UA = 'Mozilla/5.0 (X11; Linux x86_64) farm-list-verifier'
 TID = 'https://staging.tidresearch.com'
 YEARN = 'https://curation.yearn.fi'
+PHAROS = 'https://api.pharos.watch'
 
 
-def fetch(url):
-    req = urllib.request.Request(url, headers={'User-Agent': UA})
+def fetch(url, headers=None):
+    req = urllib.request.Request(url, headers={'User-Agent': UA, **(headers or {})})
     with urllib.request.urlopen(req, timeout=45) as r:
         return r.read().decode(errors='replace')
+
+
+def pharos_key():
+    key = os.environ.get('PHAROS_API_KEY')
+    if key:
+        return key.strip()
+    try:
+        return open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 '.pharos_key')).read().strip()
+    except Exception:
+        return None
 
 
 def norm(sym):
@@ -83,9 +97,43 @@ def harvest_yearn(scores):
     return scores
 
 
+def harvest_pharos(scores):
+    key = pharos_key()
+    if not key:
+        print('pharos: no API key, skipped')
+        return scores
+    hdr = {'X-API-Key': key}
+    coins = json.loads(fetch(f'{PHAROS}/api/stablecoins', hdr))
+    items = coins if isinstance(coins, list) else next(
+        (coins[k] for k in coins if isinstance(coins.get(k), list)), [])
+    print(f'pharos: {len(items)} stablecoins listed')
+    found = 0
+    for c in items:
+        sym = norm(c.get('symbol') or '')
+        # look for a grade wherever this API version exposes it
+        blob = json.dumps(c)
+        m = re.search(r'"(?:safetyGrade|safety_grade|grade)":\s*"([A-F][+-]?)"', blob)
+        cid = c.get('id') or c.get('slug')
+        if not m and cid and found < 60:  # per-coin detail fallback, mind 30 rpm
+            try:
+                detail = fetch(f'{PHAROS}/api/stablecoin/{cid}', hdr)
+                m = re.search(r'"(?:safetyGrade|safety_grade|grade)":\s*"([A-F][+-]?)"', detail)
+                time.sleep(2.1)
+            except Exception:
+                m = None
+        if m and sym:
+            scores.setdefault(sym, []).append(dict(
+                source='pharos', score=m.group(1), scale='letter grade',
+                label=m.group(1), url=f'https://pharos.watch/stablecoin/{cid}/'))
+            found += 1
+    print(f'pharos: {found} grades')
+    return scores
+
+
 def main(outfile):
     scores = {}
-    for name, fn in [('tid', harvest_tid), ('yearn', harvest_yearn)]:
+    for name, fn in [('tid', harvest_tid), ('yearn', harvest_yearn),
+                     ('pharos', harvest_pharos)]:
         try:
             fn(scores)
         except Exception as e:
