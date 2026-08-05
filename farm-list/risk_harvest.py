@@ -104,28 +104,21 @@ def harvest_pharos(scores):
         return scores
     hdr = {'X-API-Key': key}
     coins = json.loads(fetch(f'{PHAROS}/api/stablecoins', hdr))
-    items = coins if isinstance(coins, list) else next(
-        (coins[k] for k in coins if isinstance(coins.get(k), list)), [])
-    print(f'pharos: {len(items)} stablecoins listed')
+    id2sym = {c['id']: norm(c.get('symbol') or '')
+              for c in coins.get('peggedAssets', []) if c.get('id')}
+    cards = json.loads(fetch(f'{PHAROS}/api/report-cards/v9', hdr)).get('cards', [])
+    print(f'pharos: {len(id2sym)} coins, {len(cards)} report cards')
     found = 0
-    for c in items:
-        sym = norm(c.get('symbol') or '')
-        # look for a grade wherever this API version exposes it
-        blob = json.dumps(c)
-        m = re.search(r'"(?:safetyGrade|safety_grade|grade)":\s*"([A-F][+-]?)"', blob)
-        cid = c.get('id') or c.get('slug')
-        if not m and cid and found < 60:  # per-coin detail fallback, mind 30 rpm
-            try:
-                detail = fetch(f'{PHAROS}/api/stablecoin/{cid}', hdr)
-                m = re.search(r'"(?:safetyGrade|safety_grade|grade)":\s*"([A-F][+-]?)"', detail)
-                time.sleep(2.1)
-            except Exception:
-                m = None
-        if m and sym:
-            scores.setdefault(sym, []).append(dict(
-                source='pharos', score=m.group(1), scale='letter grade',
-                label=m.group(1), url=f'https://pharos.watch/stablecoin/{cid}/'))
-            found += 1
+    for c in cards:
+        sym = id2sym.get(c.get('id'))
+        grade = c.get('grade')
+        if not sym or not grade or grade == 'NR':
+            continue
+        scores.setdefault(sym, []).append(dict(
+            source='pharos', score=grade, scale='letter grade (v9)',
+            label=grade, num=c.get('score'),
+            url=f"https://pharos.watch/stablecoin/{c['id']}/"))
+        found += 1
     print(f'pharos: {found} grades')
     return scores
 
