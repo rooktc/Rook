@@ -99,7 +99,10 @@ def load_protocol_sources():
 def check_row(row, src):
     """Return (src_val, matched, label, address_for_registry) or Nones."""
     tol = lambda a, b: abs(a - b) <= max(0.75, 0.25 * max(abs(a), abs(b)))
-    total = (row.get('base') or 0) + (row.get('rew') or 0) + (row.get('intr') or 0)
+    # some adapters report only a headline APY with no component split
+    total = row.get('now')
+    if total is None:
+        total = (row.get('base') or 0) + (row.get('rew') or 0) + (row.get('intr') or 0)
 
     if row['name'] == 'Fusion by IPOR' and 'ipor' in src:
         v = src['ipor'].get((row.get('meta') or '').strip().lower())
