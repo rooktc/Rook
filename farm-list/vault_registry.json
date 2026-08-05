@@ -749,5 +749,40 @@
   "chain_id": 1,
   "address": "0x414070fb9e64fd69160d75da57e75ba11f9f605a",
   "note": "lagoon GAMIWBTC (GAMIWBTC) \u2014 harvested"
+ },
+ "6174b1d6-8212-4964-95bf-ca9c539864ba": {
+  "chain_id": 9745,
+  "address": "0xc8a8df9b210243c55d31c73090f06787ad0a1bf6",
+  "note": "yuzu-money SYZUSD (SYZUSD) \u2014 harvested"
+ },
+ "c51e151e-44ad-4f25-9911-102bd00811dc": {
+  "chain_id": 143,
+  "address": "0x484be0540aD49f351eaa04eeB35dF0f937D4E73f",
+  "note": "yuzu-money SYZUSD (SYZUSD) \u2014 harvested"
+ },
+ "12b8c52b-d73e-595d-8bbc-f610d0c54d71": {
+  "chain_id": 1,
+  "address": "0x224e90591A2d63fb66E677D0561Ea4A6Ad1F098D",
+  "note": "yuzu-money YZCASH (YZCASH) \u2014 harvested"
+ },
+ "18147bfe-ee41-4762-9a95-c0ff28215798": {
+  "chain_id": 143,
+  "address": "0xc9ea90692757831d98ac629f2a0140e02b80a7da",
+  "note": "yuzu-money YZPRIME (YZPRIME) \u2014 harvested"
+ },
+ "eca0cde2-12f7-4716-a10b-ee57bde764e1": {
+  "chain_id": 9745,
+  "address": "0xEbFC8C2Fe73C431Ef2A371AeA9132110aaB50DCa",
+  "note": "yuzu-money YZPP (YZPP) \u2014 harvested"
+ },
+ "f455e212-39fd-5555-aa9b-45fc31d2d506": {
+  "chain_id": 1,
+  "address": "0xC9854f2AF89d4d26837004d1e154Bd3C3C1009b1",
+  "note": "yuzu-money YZSYRUP (YZSYRUP) \u2014 harvested"
+ },
+ "570ddae7-acae-4277-905b-278cd994b08d": {
+  "chain_id": 1,
+  "address": "0x6DFF69eb720986E98Bb3E8b26cb9E02Ec1a35D12",
+  "note": "yuzu-money SYZUSD (SYZUSD) \u2014 harvested"
  }
 }
