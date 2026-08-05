@@ -79,6 +79,22 @@ def load_protocol_sources():
     except Exception as e:
         print('protocol-checks: ember failed:', type(e).__name__)
     try:
+        idx = {}
+        for cid, chain in [(1, 'Ethereum'), (8453, 'Base'), (42161, 'Arbitrum'),
+                           (10, 'OP Mainnet'), (137, 'Polygon'), (747474, 'Katana')]:
+            try:
+                for v in _fetch(f'https://ydaemon.yearn.fi/{cid}/vaults/all'):
+                    name = (v.get('name') or '').strip().lower()
+                    apr = ((v.get('apr') or {}).get('netAPR'))
+                    if name and apr is not None:
+                        idx[(chain, name)] = dict(apy=apr * 100, address=v.get('address'))
+            except Exception:
+                continue
+        src['yearn'] = idx
+        print(f"protocol-checks: yearn {len(idx)} vaults")
+    except Exception as e:
+        print('protocol-checks: yearn failed:', type(e).__name__)
+    try:
         d = _fetch('https://yieldz.io/api/vaults?include_unwhitelisted=true&protocol=euler_vault')
         idx = {}
         for v in d.get('data', []):
@@ -126,6 +142,14 @@ def check_row(row, src):
         if v:
             # no reliable APY field — offer the address for on-chain checks
             return None, None, None, v.get('address')
+
+    if row['name'] == 'Yearn Finance' and 'yearn' in src:
+        meta = (row.get('meta') or '').strip().lower()
+        v = src['yearn'].get((row['chain'], meta))
+        if v:
+            base = row.get('base') if row.get('base') is not None else total
+            ok = tol(base or 0, v['apy']) or tol(total or 0, v['apy'])
+            return round(v['apy'], 3), ok, 'ydaemon', v.get('address')
 
     if row['name'] == 'Euler V2' and 'euler' in src:
         cands = src['euler'].get((row['chain'], row['symbol'].upper()), [])

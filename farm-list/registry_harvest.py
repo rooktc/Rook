@@ -151,6 +151,28 @@ def harvest_midas():
     return out
 
 
+def harvest_yuzu():
+    """Yuzu vault addresses from DefiLlama's adapter config — DefiLlama's own
+    APY for these is 7d share-price growth, so the on-chain realized check
+    reproduces their method exactly."""
+    import re
+    req = urllib.request.Request(
+        'https://raw.githubusercontent.com/DefiLlama/yield-server/master/'
+        'src/adaptors/yuzu-money/index.js', headers={'User-Agent': UA})
+    body = urllib.request.urlopen(req, timeout=45).read().decode()
+    chain_map = {'plasma': 9745, 'ethereum': 1, 'monad': 143, 'hyperliquid': 999}
+    out, chain = [], None
+    for line in body.splitlines():
+        m = re.match(r'^  (\w+): \{', line)
+        if m:
+            chain = m.group(1)
+        m = re.match(r"^    (\w+): \{ address: '(0x[0-9a-fA-F]{40})'", line)
+        if m and chain in chain_map:
+            out.append(('yuzu-money', CHAIN_IDS.get(chain_map[chain]),
+                        m.group(1).upper(), m.group(2), chain_map[chain], 0))
+    return out
+
+
 def main(pools_file, registry_file):
     pools = json.load(open(pools_file))['data']
     try:
@@ -160,7 +182,8 @@ def main(pools_file, registry_file):
     harvests = []
     for name, fn in [('ipor', harvest_ipor), ('lagoon', harvest_lagoon),
                      ('morpho', harvest_morpho), ('ember', harvest_ember),
-                     ('beefy', harvest_beefy), ('midas', harvest_midas)]:
+                     ('beefy', harvest_beefy), ('midas', harvest_midas),
+                     ('yuzu', harvest_yuzu)]:
         try:
             h = fn()
             harvests.extend(h)
