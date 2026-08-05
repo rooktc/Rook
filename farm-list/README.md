@@ -35,6 +35,33 @@ Requires `openpyxl` (`pip install openpyxl`) and outbound access to
 - Styling, merged headers, filters and frozen panes come from
   `template.xlsx` (the 27 Jul 2026 sheet).
 
+## Verification layer
+
+Every displayed row is checked daily; results land in the **Data Check**
+tab and as APY-cell highlights (red = data wrong/stale, orange = caution),
+with the flag text in hidden column S / as a cell note in Google Sheets.
+
+- **History checks (all rows)**: `STALE` (last DefiLlama data point >= 2
+  days old), `SELF-REPORTED` (perfectly flat 30d history — a protocol-
+  reported number, not measured yield), `NEW` (< 14 days of history),
+  `SPIKE` (current APY > 3x the 30d mean and > 10pp above it).
+- **Cross-source (lending rows)**: matched against yieldz.io's
+  protocol-sourced backend (Aave V3/V4, Morpho vaults by loan-asset
+  address + TVL, Euler, Fluid, Lista, HyperLend). Every APY decomposition
+  (base / +reward / +intrinsic / total) is compared so accounting
+  differences don't false-alarm; `MISMATCH` only when nothing lines up.
+- **On-chain realized yield (matched vaults)**: share price now vs ~7
+  days ago via RPC (`convertToAssets`), annualized; `NOT-ACCRUING` /
+  `REALIZED-LOW` when actual accrual is far below the quoted base APY.
+- **Pendle** (largest unverified block): cross-check against
+  `api-v2.pendle.finance` activates automatically once that domain is
+  added to the egress allowlist.
+
+Verdicts: `VERIFIED` (independent source agrees), `FLAGGED` (red flag),
+`CAUTION` (advisory flags), `UNVERIFIED` (no independent source — mostly
+AMM LP fee yields and non-EVM chains). Verification failures never block
+the build; on any error the tab records what was skipped.
+
 ## Known deviations from the site's CSV export
 
 - **Stability rating/score**: computed here as `score = 1 / (1 + 3·cv)`

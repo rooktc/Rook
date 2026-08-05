@@ -17,16 +17,20 @@
 const FEED_BASE =
   'https://raw.githubusercontent.com/rooktc/Rook/claude/spreadsheet-data-refresh-mahsrf/farm-list/';
 const FEEDS = {
-  // farm tabs: 18 sheet columns, feed col 19 = hyperlink URL, rating col O
-  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18 },
-  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18 },
+  // farm tabs: 18 sheet columns, feed col 19 = hyperlink URL, col 20 = flags, rating col O
+  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18, flagsIdx: 19, apyCol: 9 },
+  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 18, ratingCol: 15, linkCol: 6, linkUrlIdx: 18, flagsIdx: 19, apyCol: 9 },
   // looping tab: 14 columns, risk col J, Max ROE formula in G
   'Looping': { url: FEED_BASE + 'feed_loop.csv', cols: 14, ratingCol: 10, roeFormulaCol: 7 },
+  // verification annex: plain values, sheet is created if missing
+  'Data Check': { url: FEED_BASE + 'feed_check.csv', cols: 10, plain: true, minRows: 0 },
 };
 const RATING_COLORS = {
   stable: '#1e7145', mixed: '#b45f06', volatile: '#c00000',
   'Low': '#1e7145', 'Med.': '#b45f06', 'High': '#c00000',
 };
+// red flags = wrong/stale data; orange = caution (young pool, spike, self-reported)
+const FLAG_RED = /^(MISMATCH|STALE|NOT-ACCRUING)/;
 
 function refreshFarmTabs() {
   const ss = SpreadsheetApp.getActive();
@@ -40,11 +44,27 @@ function refreshFarmTabs() {
     if (rows.length < 3) { console.warn(tabName + ': feed empty'); continue; }
     const title = rows[0][0];
     const data = rows.slice(2); // row 0 = title, row 1 = header
-    const sheet = ss.getSheetByName(tabName);
+    let sheet = ss.getSheetByName(tabName);
+    if (!sheet && cfg.plain) sheet = ss.insertSheet(tabName);
     if (!sheet) { console.warn(tabName + ': tab not found'); continue; }
 
     // sanity: refuse suspiciously small feeds so a bad run never wipes the tab
-    if (data.length < 10) { console.warn(tabName + ': only ' + data.length + ' rows, skipped'); continue; }
+    const minRows = cfg.minRows !== undefined ? cfg.minRows : 10;
+    if (data.length < minRows) { console.warn(tabName + ': only ' + data.length + ' rows, skipped'); continue; }
+
+    if (cfg.plain) {
+      sheet.clearContents();
+      sheet.getRange(1, 1).setValue(title).setFontWeight('bold');
+      sheet.getRange(2, 1, 1, cfg.cols).setValues([rows[1].slice(0, cfg.cols)]).setFontWeight('bold');
+      if (data.length) {
+        sheet.getRange(3, 1, data.length, cfg.cols).setValues(
+          data.map(r => r.slice(0, cfg.cols).map(v =>
+            (v !== '' && !isNaN(v) && String(v).trim() !== '') ? Number(v) : v)));
+      }
+      sheet.setFrozenRows(2);
+      console.log(tabName + ': ' + data.length + ' rows updated');
+      continue;
+    }
 
     const nCols = cfg.cols;
     const last = sheet.getLastRow();
@@ -81,6 +101,18 @@ function refreshFarmTabs() {
     if (cfg.roeFormulaCol) {
       sheet.getRange(4, cfg.roeFormulaCol, values.length, 1).setFormulasR1C1(
         values.map(() => ['=(R[0]C[1]+R[0]C[2])*(R[0]C[-1]-1)+R[0]C[1]']));
+    }
+
+    // verification flags: tint the APY cell (red = data wrong/stale, orange = caution)
+    if (cfg.flagsIdx !== undefined && cfg.apyCol) {
+      sheet.getRange(4, cfg.apyCol, values.length, 1).setBackgrounds(
+        data.map(r => {
+          const fl = r[cfg.flagsIdx] || '';
+          if (!fl) return [null];
+          return [fl.split('; ').some(x => FLAG_RED.test(x)) ? '#f4cccc' : '#fce5cd'];
+        }));
+      sheet.getRange(4, cfg.apyCol, values.length, 1).setNotes(
+        data.map(r => [r[cfg.flagsIdx] || null]));
     }
 
     sheet.getRange(1, 1).setValue(title);

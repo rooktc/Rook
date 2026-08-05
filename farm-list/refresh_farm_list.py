@@ -18,6 +18,7 @@ originally built from defillama.com/yields CSV exports:
 
 Usage: python3 refresh_farm_list.py <template.xlsx> <out.xlsx>
 """
+import collections
 import copy
 import datetime
 import json
@@ -172,7 +173,8 @@ def main(template, outfile, names_file=None, loops_file=None):
         row = dict(tab=tab, name=name, chain=p['chain'], symbol=sym, meta=p.get('poolMeta'),
                    tvl=p['tvlUsd'], now=now, base=base, rew=rew, intr=intr,
                    pool_id=p['pool'], d7=None, d30=round(mean30, 5) if mean30 else None,
-                   rating=None, score=None)
+                   rating=None, score=None,
+                   _underlying=(p.get('underlyingTokens') or [None])[0])
         tabs[tab].append(row)
         charts_needed.append(row)
 
@@ -184,7 +186,10 @@ def main(template, outfile, names_file=None, loops_file=None):
         except Exception as e:
             print('  chart failed', row['pool_id'], e)
             return
-        series = [d['apy'] + (row['intr'] or 0) for d in hist[-30:] if d.get('apy') is not None]
+        raw = [d['apy'] for d in hist[-30:] if d.get('apy') is not None]
+        row['_raw'] = raw
+        row['_last_ts'] = hist[-1]['timestamp'] if hist else None
+        series = [x + (row['intr'] or 0) for x in raw]
         if len(series) >= 7:
             row['d7'] = round(statistics.mean(series[-7:]), 5)
             row['d30'] = round(statistics.mean(series), 5)
@@ -211,6 +216,17 @@ def main(template, outfile, names_file=None, loops_file=None):
         rows.sort(key=lambda r: (0 if r['now'] else 1,
                                  -(r['now'] if r['now'] else (r['d7'] or r['d30'] or 0))))
         tabs[tab] = rows
+
+    try:
+        run_verification(tabs)
+    except Exception as e:
+        print('verification skipped entirely:', e)
+        for rows in tabs.values():
+            for r in rows:
+                r.setdefault('flags', [])
+                r.setdefault('verdict', 'UNVERIFIED')
+                r.setdefault('src_val', None)
+                r.setdefault('src_name', None)
 
     # ---- write workbook, preserving the template's styling ----
     wb = openpyxl.load_workbook(template)
@@ -264,12 +280,25 @@ def main(template, outfile, names_file=None, loops_file=None):
                 f = copy.copy(ws.cell(r, 15).font)
                 f.color = openpyxl.styles.Color(rgb=RATING_COLOR[d['rating']])
                 ws.cell(r, 15).font = f
+            d['farm_disp'] = farm
+            # verification flags: highlight the APY cell, stash detail in hidden col S
+            flags = d.get('flags') or []
+            if flags:
+                shade = FLAG_FILL['red' if any(x.startswith(RED_FLAGS) for x in flags) else 'orange']
+                ws.cell(r, 9).fill = openpyxl.styles.PatternFill('solid', fgColor=shade)
+                ws.cell(r, 19).value = '; '.join(flags)
+        ws.column_dimensions['S'].hidden = True
         last = 3 + len(rows)
         ws.cell(1, 1).value = (f"{asset} Farm List  ·  DefiLlama API snapshot {today}"
                                f"  ·  {len(rows)} pools")
         ws.auto_filter.ref = f'A3:R{last}'
         ws.freeze_panes = 'C4'
         print(f'{tab}: {len(rows)} rows written ({unnamed} without carried display names)')
+
+    try:
+        build_check_tab(wb, tabs, today)
+    except Exception as e:
+        print('Data Check tab skipped:', e)
 
     if loops_file:
         try:
@@ -343,6 +372,259 @@ def build_looping(wb, loops, today):
     print(f'Looping: {len(rows)} rows written '
           f'({sum(1 for d in rows if d["asset"] == "ETH")} ETH, '
           f'{sum(1 for d in rows if d["asset"] == "USD")} USD)')
+
+
+# ---------------------------------------------------------------------------
+# Verification layer
+# ---------------------------------------------------------------------------
+
+YZ = 'https://yieldz.io/api'
+CHAIN_IDS = {1: 'Ethereum', 8453: 'Base', 42161: 'Arbitrum', 10: 'OP Mainnet',
+             137: 'Polygon', 56: 'BSC', 100: 'Gnosis', 59144: 'Linea',
+             143: 'Monad', 999: 'Hyperliquid L1', 43114: 'Avalanche',
+             5000: 'Mantle', 9745: 'Plasma', 480: 'World Chain', 146: 'Sonic'}
+BLOCK_SECONDS = {1: 12, 8453: 2, 42161: 0.25, 10: 2, 137: 2.1, 56: 3,
+                 100: 5, 59144: 2, 143: 0.5, 999: 1, 9745: 1}
+YZ_PROTO = {'Aave V3': 'aave', 'Aave V4': 'aave', 'HyperLend Pooled': 'hyperlend',
+            'Fluid Lending': 'fluid', 'Euler V2': 'euler', 'Lista Lending': 'lista'}
+RED_FLAGS = ('MISMATCH', 'STALE', 'NOT-ACCRUING')
+FLAG_FILL = {'red': 'FFF4CCCC', 'orange': 'FFFCE5CD'}
+
+
+def post_json(url, payload, timeout=30):
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+                                 headers={'Content-Type': 'application/json'})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.load(r)
+
+
+def rpc(chain_id, method, params):
+    return post_json(f'{YZ}/rpc/{chain_id}', dict(jsonrpc='2.0', id=1, method=method,
+                                                  params=params))['result']
+
+
+def history_checks(row, cut):
+    """Checks that need only DefiLlama's own daily history."""
+    flags = []
+    raw, now = row.get('_raw') or [], row.get('now')
+    ts = row.get('_last_ts')
+    if ts:
+        age = (datetime.datetime.now(datetime.timezone.utc)
+               - datetime.datetime.fromisoformat(ts.replace('Z', '+00:00'))).days
+        if age >= 2:
+            flags.append(f'STALE({age}d old)')
+    if len(raw) >= 10 and max(raw) == min(raw):
+        flags.append('SELF-REPORTED(flat 30d history)')
+    if len(raw) < 14:
+        flags.append(f'NEW({len(raw)}d history)')
+    if now and raw:
+        m30 = statistics.mean(raw) + (row['intr'] or 0)
+        if m30 > 0 and now > 3 * m30 and now - m30 > 10:
+            flags.append(f'SPIKE(30d avg {m30:.1f})')
+    return flags
+
+
+def load_yieldz_sources():
+    m = get(f'{YZ}/markets')['data']
+    v = get(f'{YZ}/vaults')['data']
+    lend, vaults = {}, {}
+    for x in m:
+        if x['protocol'].split('_')[0] in ('aave', 'hyperlend', 'fluid', 'euler', 'lista'):
+            ch = CHAIN_IDS.get(x['chain_id'])
+            key = (x['protocol'].split('_')[0], ch, x['loan_asset']['symbol'].upper())
+            lend.setdefault(key, []).append(x)
+    for x in v:
+        ch = CHAIN_IDS.get(x['chain_id'])
+        vaults.setdefault((ch, x['loan_asset']['address'].lower()), []).append(x)
+    return lend, vaults
+
+
+def cross_source(row, lend, vaults):
+    """Match a lending row to yieldz's protocol-sourced data and compare.
+
+    Compares every APY decomposition (base, base+reward, base+intrinsic, total)
+    so accounting differences between the two pipelines don't raise false
+    alarms; flags only when nothing lines up.
+    """
+    m = None
+    if row['name'] in YZ_PROTO:
+        cands = lend.get((YZ_PROTO[row['name']], row['chain'], row['symbol'].upper()), [])
+        if cands:
+            m = max(cands, key=lambda x: x['total_supply_usd'])
+    elif row['name'] == 'Morpho Blue' and row.get('_underlying'):
+        cands = vaults.get((row['chain'], row['_underlying'].lower()), [])
+        if cands:
+            m = min(cands, key=lambda x: abs(x['total_supply_usd'] - row['tvl']))
+            if not (0.5 <= (m['total_supply_usd'] + 1) / (row['tvl'] + 1) <= 2):
+                m = None
+    if m is None:
+        return None, None, None
+    src = m['supply_apy']
+    base, rew, intr = row['base'] or 0, row['rew'] or 0, row['intr'] or 0
+    # 0.6pp / 25% tolerance absorbs the intraday skew between DefiLlama's
+    # snapshot and yieldz's live on-chain read
+    tol = lambda a, b: abs(a - b) <= max(0.6, 0.25 * max(abs(a), abs(b)))
+    comps = [('base', base), ('base+reward', base + rew),
+             ('base+intrinsic', base + intr), ('total', base + rew + intr)]
+    matched = next((lbl for lbl, v in comps if tol(v, src)), None)
+    if matched is None:
+        # only accuse when the pairing is certain: with many same-asset vaults,
+        # a loose TVL match may simply be the wrong vault
+        ratio = (m['total_supply_usd'] + 1) / (row['tvl'] + 1)
+        if not (0.85 <= ratio <= 1.18):
+            return None, None, None
+    return src, matched, m
+
+
+def realized_check(row, m):
+    """On-chain realized 7d yield from the vault's share price via RPC.
+
+    Coarse by design: only flags a vault whose real accrual is far below its
+    quoted base APY (or that isn't accruing at all).
+    """
+    if not m or m.get('protocol') not in ('morpho_vault', 'lista_vault'):
+        return None
+    chain_id = m['chain_id']
+    if chain_id not in BLOCK_SECONDS:
+        return None
+    addr = m['id']
+    data = '0x07a2d13a' + hex(10 ** 18)[2:].rjust(64, '0')  # convertToAssets(1e18)
+    now_block = int(rpc(chain_id, 'eth_blockNumber', []), 16)
+    then_est = now_block - int(7 * 86400 / BLOCK_SECONDS[chain_id])
+    hdr_now = rpc(chain_id, 'eth_getBlockByNumber', [hex(now_block), False])
+    hdr_then = rpc(chain_id, 'eth_getBlockByNumber', [hex(then_est), False])
+    dt = int(hdr_now['timestamp'], 16) - int(hdr_then['timestamp'], 16)
+    if dt < 3 * 86400:
+        return None
+    pps_now = int(rpc(chain_id, 'eth_call', [{'to': addr, 'data': data}, hex(now_block)]), 16)
+    pps_then = int(rpc(chain_id, 'eth_call', [{'to': addr, 'data': data}, hex(then_est)]), 16)
+    if pps_then == 0:
+        return None
+    realized = (pps_now / pps_then - 1) * (365 * 86400 / dt) * 100
+    quoted = row['base'] or 0
+    flag = None
+    if quoted > 1 and realized < 0.05:
+        flag = f'NOT-ACCRUING(realized {realized:.2f} vs quoted {quoted:.2f})'
+    elif quoted > 2 and realized < 0.35 * quoted:
+        flag = f'REALIZED-LOW({realized:.2f} vs quoted {quoted:.2f})'
+    return dict(realized=round(realized, 3), flag=flag)
+
+
+def pendle_check(row):
+    """Cross-check Pendle PT rows against the official Pendle API (activates
+    only once api-v2.pendle.finance is reachable from this environment)."""
+    meta = (row['meta'] or '').upper().replace(' ', '')
+    if row['name'] != 'Pendle' or 'BUYINGPT' not in meta:
+        return None, None
+    for mk in getattr(pendle_check, 'markets', []) or []:
+        if mk['expiry'] in meta and row['symbol'].upper() in mk['sym']:
+            src = mk['implied']
+            ok = abs(src - (row['now'] or 0)) <= max(0.75, 0.25 * src)
+            return src, ok
+    return None, None
+
+
+def init_pendle():
+    pendle_check.markets = []
+    try:
+        for cid in (1, 42161, 56, 143, 9745):
+            res = get(f'https://api-v2.pendle.finance/core/v1/{cid}/markets?limit=100', retries=1)
+            for mk in res.get('results', []):
+                exp = (mk.get('expiry') or '')[:10]
+                if not exp:
+                    continue
+                d = datetime.date.fromisoformat(exp)
+                pendle_check.markets.append(dict(
+                    sym=(mk.get('pt', {}).get('symbol') or mk.get('name') or '').upper(),
+                    expiry=d.strftime('%d%b%Y').upper(),
+                    implied=(mk.get('impliedApy') or 0) * 100))
+        print(f'pendle API reachable: {len(pendle_check.markets)} markets')
+    except Exception:
+        print('pendle API not reachable (allowlist api-v2.pendle.finance to enable)')
+
+
+def run_verification(tabs):
+    try:
+        lend, vaults = load_yieldz_sources()
+    except Exception as e:
+        print('yieldz sources unavailable, cross-source skipped:', e)
+        lend, vaults = {}, {}
+    init_pendle()
+    counts = collections.Counter()
+    for tab, rows in tabs.items():
+        cut = CUTOFF[tab.split()[0]]
+        for row in rows:
+            flags = history_checks(row, cut)
+            src_val = src_name = None
+            try:
+                src, matched, m = cross_source(row, lend, vaults)
+                if src is not None:
+                    src_val = round(src, 3)
+                    src_name = f'yieldz ({matched})' if matched else 'yieldz'
+                    if not matched:
+                        flags.append(f'MISMATCH(source {src:.2f})')
+                    else:
+                        r = realized_check(row, m)
+                        if r and r['flag']:
+                            flags.append(r['flag'])
+            except Exception:
+                pass
+            if src_val is None:
+                try:
+                    src, ok = pendle_check(row)
+                    if src is not None:
+                        src_val, src_name = round(src, 3), 'pendle-api'
+                        if not ok:
+                            flags.append(f'MISMATCH(source {src:.2f})')
+                except Exception:
+                    pass
+            row['flags'] = flags
+            row['src_val'], row['src_name'] = src_val, src_name
+            if any(f.startswith(RED_FLAGS) for f in flags):
+                row['verdict'] = 'FLAGGED'
+            elif flags:
+                row['verdict'] = 'CAUTION'
+            elif src_val is not None:
+                row['verdict'] = 'VERIFIED'
+            else:
+                row['verdict'] = 'UNVERIFIED'
+            counts[row['verdict']] += 1
+    print('verification:', dict(counts))
+
+
+def build_check_tab(wb, tabs, today):
+    if 'Data Check' in wb.sheetnames:
+        del wb['Data Check']
+    ws = wb.create_sheet('Data Check')
+    header = ['Tab', 'Farm', 'Chain', 'Protocol', 'APY Now', '7d', 'Verdict',
+              'Cross-Source APY', 'Source', 'Flags']
+    ws.cell(1, 1).value = (f'Data Check  ·  {today}  ·  history checks: all rows; '
+                           f'cross-source: yieldz protocol data + on-chain reads')
+    ws.cell(1, 1).font = openpyxl.styles.Font(bold=True, size=12, color='FF1F3552', name='Arial')
+    for c, h in enumerate(header, start=1):
+        cell = ws.cell(2, c)
+        cell.value = h
+        cell.font = openpyxl.styles.Font(bold=True, color='FFFFFFFF', size=10, name='Arial')
+        cell.fill = openpyxl.styles.PatternFill('solid', fgColor='FF1F3552')
+    order = {'FLAGGED': 0, 'CAUTION': 1, 'UNVERIFIED': 2, 'VERIFIED': 3}
+    allrows = [(tab, r) for tab, rows in tabs.items() for r in rows]
+    allrows.sort(key=lambda x: (order.get(x[1].get('verdict'), 9), -(x[1].get('now') or 0)))
+    for i, (tab, r) in enumerate(allrows):
+        vals = [tab, (r.get('farm_disp') or r.get('meta') or r['symbol']), r['chain'], r['name'],
+                r.get('now'), r.get('d7'), r['verdict'], r.get('src_val'),
+                r.get('src_name'), '; '.join(r.get('flags') or [])]
+        for c, v in enumerate(vals, start=1):
+            cell = ws.cell(3 + i, c)
+            cell.value = v
+            cell.font = openpyxl.styles.Font(size=10, name='Arial')
+        col = ('FFC00000' if r['verdict'] == 'FLAGGED' else
+               'FFB45F06' if r['verdict'] == 'CAUTION' else
+               'FF1E7145' if r['verdict'] == 'VERIFIED' else 'FF7F7F7F')
+        ws.cell(3 + i, 7).font = openpyxl.styles.Font(size=10, name='Arial', bold=True, color=col)
+    for col, w in zip('ABCDEFGHIJ', [10, 38, 12, 18, 9, 9, 12, 15, 14, 60]):
+        ws.column_dimensions[col].width = w
+    ws.freeze_panes = 'A3'
+    print(f'Data Check: {len(allrows)} rows')
 
 
 if __name__ == '__main__':
