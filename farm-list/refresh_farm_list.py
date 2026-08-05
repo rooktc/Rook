@@ -94,50 +94,89 @@ def risk_norm(leg):
     return re.sub(r'[^A-Z0-9]', '', (leg or '').upper())
 
 
-def entry_bucket(e):
-    if e['source'] == 'tid':  # 1-10, higher = safer
-        s = e['score']
-        return 'Low' if s >= 7.5 else ('Medium' if s >= 5.5 else 'High')
-    if e['source'] == 'pharos':  # letter grade
-        g = str(e['score']).upper()
-        return 'Low' if g.startswith('A') else ('Medium' if g.startswith('B') else 'High')
-    lbl = (e.get('label') or '').lower()  # yearn labels
-    if 'low' in lbl or 'minimal' in lbl:
-        return 'Low'
-    if 'medium' in lbl or 'moderate' in lbl:
-        return 'Medium'
-    return 'High'
+# composite risk score: weighted average of normalized source scores,
+# 1-10 higher = safer; buckets 1-3 High, 4-7 Medium, 8-10 Low
+SOURCE_WEIGHTS = {'tid': 0.40, 'pharos': 0.35, 'yearn': 0.25}
+PHAROS_LETTER = {'A+': 9.5, 'A': 9.0, 'A-': 8.5, 'B+': 7.5, 'B': 7.0, 'B-': 6.5,
+                 'C+': 5.5, 'C': 5.0, 'C-': 4.5, 'D': 3.0, 'F': 1.5}
+YEARN_ANCHORS = [(1.0, 10.0), (2.5, 8.0), (3.5, 4.0), (5.0, 1.0)]
+
+
+def entry_score10(e):
+    """Normalize a source entry to the 1-10 higher-is-safer scale."""
+    if e['source'] == 'tid':
+        return float(e['score'])
+    if e['source'] == 'pharos':
+        if e.get('num') is not None:
+            return max(0.5, min(10.0, e['num'] / 10))
+        return PHAROS_LETTER.get(str(e['score']).upper())
+    # yearn 1-5 lower = safer: piecewise-linear so their labels align with
+    # the 8/4 bucket edges
+    s = float(e['score'])
+    for (x1, y1), (x2, y2) in zip(YEARN_ANCHORS, YEARN_ANCHORS[1:]):
+        if s <= x2:
+            s = max(x1, s)
+            return y1 + (s - x1) * (y2 - y1) / (x2 - x1)
+    return 1.0
 
 
 def compute_risk(row, risk_scores):
-    """High/Medium/Low farm label: worst-rated asset leg, then downgraded by
-    the row's own verification signals. Unrated rows are labeled from
-    internal signals only and say so."""
+    """Composite High/Medium/Low label from a weighted 1-10 safety score.
+
+    Per asset leg: weighted average of the sources covering it (weights
+    renormalized over present sources). LP rows take the worst leg. Row
+    signals deduct points; a row that is not VERIFIED cannot reach Low.
+    Buckets: >=8 Low, >=4 Medium, else High.
+    """
     legs = [risk_norm(s) for s in row['symbol'].split('-') if s]
-    rated, basis = [], []
+    leg_scores, basis = {}, []
     for leg in legs:
+        per_source = {}
         for e in risk_scores.get(leg, []):
-            b = entry_bucket(e)
-            rated.append(b)
-            suffix = {'tid': '/10', 'yearn': '/5'}.get(e['source'], '')
-            tag = f"{e['source']} {e['score']}{suffix}"
-            basis.append(f'{leg}: {tag} -> {b}')
+            v = entry_score10(e)
+            if v is not None:
+                per_source.setdefault(e['source'], []).append(v)
+        if not per_source:
+            continue
+        wsum = sum(SOURCE_WEIGHTS[s] for s in per_source)
+        score = sum(SOURCE_WEIGHTS[s] * (sum(vs) / len(vs))
+                    for s, vs in per_source.items()) / wsum
+        leg_scores[leg] = score
+        parts = ', '.join(f'{s} {sum(vs)/len(vs):.1f}' for s, vs in sorted(per_source.items()))
+        basis.append(f'{leg} {score:.1f} ({parts})')
+
     flags = row.get('flags') or []
     red = any(f.startswith(RED_FLAGS) for f in flags)
+    if leg_scores:
+        worst_leg = min(leg_scores, key=leg_scores.get)
+        score = leg_scores[worst_leg]
+        if len(leg_scores) > 1:
+            basis.append(f'worst leg: {worst_leg}')
+        deductions = []
+        if red:
+            deductions.append(('red flags', 2.0))
+        if 'SELF-REPORTED(flat 30d history)' in flags:
+            deductions.append(('self-reported', 2.0))
+        if row.get('rating') == 'volatile':
+            deductions.append(('volatile', 1.5))
+        if (row.get('tvl') or 0) < 1_000_000:
+            deductions.append(('tvl<1M', 1.0))
+        for name, pts in deductions:
+            score -= pts
+            basis.append(f'-{pts:g} {name}')
+        if score >= 8 and row.get('verdict') != 'VERIFIED':
+            score = 7.9
+            basis.append('capped 7.9: not VERIFIED')
+        score = max(0.5, min(10.0, score))
+        risk = 'Low' if score >= 8 else ('Medium' if score >= 4 else 'High')
+        basis.insert(0, f'score {score:.1f}')
+        return risk, '; '.join(basis), round(score, 1)
+    # unrated assets: label from row signals only
     weak = (red or 'SELF-REPORTED(flat 30d history)' in flags
             or row.get('rating') == 'volatile' or (row.get('tvl') or 0) < 1_000_000)
-    if rated:
-        risk = max(rated, key=lambda b: RISK_RANK[b])
-        if weak and RISK_RANK[risk] < 2:
-            risk = ['Low', 'Medium', 'High'][RISK_RANK[risk] + 1]
-            basis.append('downgraded: row signals')
-        if risk == 'Low' and row.get('verdict') != 'VERIFIED':
-            risk = 'Medium'
-            basis.append('capped: not VERIFIED')
-    else:
-        risk = 'High' if weak else 'Medium'
-        basis.append('unrated: internal signals only')
-    return risk, '; '.join(basis)
+    risk = 'High' if weak else 'Medium'
+    basis.append('unrated: internal signals only')
+    return risk, '; '.join(basis), None
 
 
 UA = 'Mozilla/5.0 (X11; Linux x86_64) farm-list-verifier'
@@ -305,9 +344,9 @@ def main(template, outfile, names_file=None, loops_file=None):
     for rows in tabs.values():
         for r in rows:
             try:
-                r['risk'], r['risk_basis'] = compute_risk(r, risk_scores)
+                r['risk'], r['risk_basis'], r['risk_score'] = compute_risk(r, risk_scores)
             except Exception:
-                r['risk'], r['risk_basis'] = None, ''
+                r['risk'], r['risk_basis'], r['risk_score'] = None, '', None
             risk_counts[r['risk']] += 1
     print('risk labels:', dict(risk_counts))
 
@@ -826,7 +865,9 @@ def build_check_tab(wb, tabs, today):
         vals = [tab, (r.get('farm_disp') or r.get('meta') or r['symbol']), r['chain'], r['name'],
                 r.get('now'), r.get('d7'), r['verdict'], r.get('src_val'),
                 r.get('src_name'), '; '.join(r.get('flags') or []),
-                r.get('risk'), r.get('risk_basis')]
+                (f"{r['risk']} ({r['risk_score']})" if r.get('risk_score') is not None
+                 else r.get('risk')),
+                r.get('risk_basis')]
         for c, v in enumerate(vals, start=1):
             cell = ws.cell(3 + i, c)
             cell.value = v

@@ -73,20 +73,26 @@ the build; on any error the tab records what was skipped.
 
 ## Risk labels (column S)
 
-Each farm row gets a High/Medium/Low label (`compute_risk`):
+Each farm row gets a High/Medium/Low label from a weighted composite
+score on a 1-10 higher-is-safer scale (`compute_risk`); buckets:
+**1-3 High, 4-7 Medium, 8-10 Low**.
 
-- **Asset scores** (`risk_scores.json`, built by `risk_harvest.py`):
-  TID Research reports (staging.tidresearch.com, 1-10 higher = safer;
-  Low >= 7.5, Medium >= 5.5, else High) and Yearn curation reports
-  (curation.yearn.fi, 1-5 lower = safer, using their own labels).
-  Pharos (pharos.watch) grades need an API key — pluggable when one is
-  available.
-- **Worst leg wins**: an LP inherits its riskiest asset.
-- **Row overlay**: red verification flags, self-reported APYs, volatile
-  stability or TVL < $1M downgrade one level; a row that is not
-  VERIFIED can never be labeled Low.
-- **Unrated assets** are labeled from the row signals alone (Medium or
-  High) and say `unrated` in the Data Check tab's Risk Basis column.
+- **Sources** (`risk_scores.json`, built by `risk_harvest.py`),
+  normalized to 1-10 and combined with weights TID 0.40 / Pharos 0.35 /
+  Yearn 0.25 (renormalized over the sources covering each asset):
+  - TID Research (staging.tidresearch.com): 1-10, used as-is
+  - Pharos (api.pharos.watch, X-API-Key): safety score v9 / 10
+  - Yearn curation (curation.yearn.fi): 1-5 lower = safer, inverted
+    piecewise (1->10, 2.5->8, 3.5->4, 5->1) so their labels align with
+    the bucket edges
+- **Worst leg wins**: an LP row takes its riskiest asset's score.
+- **Row deductions**: red verification flags -2, self-reported APY -2,
+  volatile stability -1.5, TVL < $1M -1; a row that is not VERIFIED is
+  capped at 7.9 (cannot be Low).
+- The composite score and full arithmetic appear in the Data Check tab
+  (`score 6.4; USDE 7.1 (pharos 7.0, tid 6.5); -1 tvl<1M ...`).
+- **Unrated assets** are labeled from row signals alone (Medium or High)
+  and say `unrated`.
 
 ## Known deviations from the site's CSV export
 
