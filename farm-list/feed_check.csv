@@ -1,88 +1,52 @@
 Data Check  ·  5 Aug 2026  ·  history checks: all rows; cross-source: yieldz protocol data + on-chain reads,,,,,,,,,
 Tab,Farm,Chain,Protocol,APY Now,7d,Verdict,Cross-Source APY,Source,Flags
-USD Farms,PT sUSD3 17DEC2026,Ethereum,Pendle,23.46059,22.9235,FLAGGED,,,STALE(2d old)
-USD Farms,PLP sUSD3 17DEC2026,Ethereum,Pendle,22.06637,21.89494,FLAGGED,,,STALE(2d old)
 USD Farms,For buying PT-jrRoyAPYUSD-05NOV2026,Ethereum,Pendle,19.15412,19.15412,FLAGGED,,,STALE(2d old)
-USD Farms,For buying PT-reUSDe-10DEC2026,Ethereum,Pendle,17.62589,17.81665,FLAGGED,,,STALE(2d old)
-USD Farms,For LP | Maturity 10DEC2026,Ethereum,Pendle,17.13365,17.8695,FLAGGED,,,STALE(2d old)
-USD Farms,PT apyUSD 27AUG2026,Ethereum,Pendle,16.80286,16.58729,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Ethena sUSDE 22OCT2026,Monad,Pendle,16.18216,19.51198,FLAGGED,,,STALE(2d old); NEW(10d history)
-USD Farms,PLP apyUSD 27AUG2026,Ethereum,Pendle,16.05655,15.96795,FLAGGED,,,STALE(2d old)
-USD Farms,PLP apyUSD 5NOV2026,Ethereum,Pendle,15.53099,15.86981,FLAGGED,,,STALE(2d old)
-USD Farms,PT apyUSD 5NOV2026,Ethereum,Pendle,15.04279,14.87857,FLAGGED,,,STALE(2d old)
-USD Farms,For LP | Maturity 26NOV2026,Ethereum,Pendle,14.55111,,FLAGGED,,,STALE(2d old); NEW(5d history)
-USD Farms,PT USD3 17DEC2026,Ethereum,Pendle,13.9191,13.69817,FLAGGED,,,STALE(2d old)
-USD Farms,PT Staked Saturn USD 27AUG2026,BSC,Pendle,13.7315,13.73117,FLAGGED,,,STALE(2d old)
-USD Farms,PT trUSD 26NOV2026,Ethereum,Pendle,12.88164,,FLAGGED,,,STALE(2d old); NEW(5d history)
-USD Farms,For buying PT-strUSD-26NOV2026,Ethereum,Pendle,12.72878,,FLAGGED,,,STALE(2d old); NEW(5d history)
-USD Farms,PLP USD3 17DEC2026,Ethereum,Pendle,12.38277,11.8734,FLAGGED,,,STALE(2d old)
-USD Farms,PT Staked USDat 27AUG2026,Ethereum,Pendle,11.34554,11.15427,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Flagship USDC SuperVault 26NOV2026,Ethereum,Pendle,11.3162,9.94441,FLAGGED,,,STALE(2d old)
-USD Farms,PT reUSD 10DEC2026,Ethereum,Pendle,10.82332,10.94559,FLAGGED,,,STALE(2d old)
-USD Farms,PT Staked USDai 15OCT2026,Arbitrum,Pendle,9.62705,9.68169,FLAGGED,,,STALE(2d old)
-USD Farms,PT earnAUSD 8OCT2026,Monad,Pendle,9.52241,9.45356,FLAGGED,,,STALE(2d old)
+USD Farms,PT reUSD 10DEC2026,Ethereum,Pendle,10.82332,10.94559,FLAGGED,17.84,pendle-api,STALE(2d old); MISMATCH(source 17.84)
 USD Farms,PT Staked NUSD 24SEP2026,Ethereum,Pendle,9.50155,9.56329,FLAGGED,,,STALE(2d old)
 USD Farms,PLP reUSD 10DEC2026,Ethereum,Pendle,9.45434,9.27505,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Staked USDai 25FEB2027,Arbitrum,Pendle,9.451580000000002,9.21469,FLAGGED,,,STALE(2d old)
-USD Farms,For buying PT-savUSD-06AUG2026,Ethereum,Pendle,9.44364,8.42221,FLAGGED,,,STALE(2d old)
-USD Farms,For LP | Maturity 06AUG2026,Ethereum,Pendle,9.38728,8.74496,FLAGGED,,,STALE(2d old)
-USD Farms,PT apxUSD 5NOV2026,Ethereum,Pendle,9.34983,8.98556,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Staked USN 22JUL2027,Ethereum,Pendle,9.23161,9.49986,FLAGGED,,,STALE(2d old); NEW(10d history)
 USD Farms,For buying PT-limUSD-26NOV2026,Hyperliquid L1,Pendle,9.13928,9.09422,FLAGGED,,,STALE(2d old)
 USD Farms,For LP | Maturity 05NOV2026,Ethereum,Pendle,9.05785,9.20244,FLAGGED,,,STALE(2d old)
-USD Farms,PT Staked USDai 25FEB2027,Arbitrum,Pendle,9.01236,9.28487,FLAGGED,,,STALE(2d old)
-USD Farms,For buying PT-srUSDat-27AUG2026,Ethereum,Pendle,8.99303,10.6228,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Strata Senior USDat 27AUG2026,Ethereum,Pendle,8.96285,10.21675,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Staked USDai 15OCT2026,Arbitrum,Pendle,8.904409999999999,8.64568,FLAGGED,,,STALE(2d old)
-USD Farms,PT Staked infiniFi USD 20AUG2026,Ethereum,Pendle,8.85012,8.70439,FLAGGED,,,STALE(2d old)
-USD Farms,For buying PT-sUSDS-26NOV2026,Ethereum,Pendle,8.75864,8.83239,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Strata Junior USDe 22OCT2026,Ethereum,Pendle,8.72786,9.11753,FLAGGED,,,STALE(2d old)
-USD Farms,PLP earnAUSD 8OCT2026,Monad,Pendle,8.556930000000001,8.52485,FLAGGED,,,STALE(2d old)
+USD Farms,For buying PT-sUSDS-26NOV2026,Ethereum,Pendle,8.75864,8.83239,FLAGGED,5.317,pendle-api,STALE(2d old); MISMATCH(source 5.32)
 USD Farms,0.01%,Ethereum,Uniswap V4,8.52451,,FLAGGED,,,STALE(6d old); NEW(3d history)
-USD Farms,PT apxUSD 27AUG2026,Ethereum,Pendle,8.50086,8.47477,FLAGGED,,,STALE(2d old)
 USD Farms,PLP Savings USDS 26NOV2026,Ethereum,Pendle,8.47701,8.82236,FLAGGED,,,STALE(2d old)
 USD Farms,For LP | Maturity 22OCT2026,Plasma,Pendle,8.28862,8.39883,FLAGGED,,,STALE(2d old)
-USD Farms,PT Staked USN 22JUL2027,Ethereum,Pendle,8.28148,8.97278,FLAGGED,,,STALE(2d old); NEW(10d history)
-USD Farms,For buying PT-sUSDe-13AUG2026,Ethereum,Pendle,8.16903,8.14635,FLAGGED,,,STALE(2d old)
+USD Farms,For buying PT-sUSDe-13AUG2026,Ethereum,Pendle,8.16903,8.14635,FLAGGED,4.245,pendle-api,STALE(2d old); MISMATCH(source 4.25)
 USD Farms,For LP | Maturity 13AUG2026,Ethereum,Pendle,8.151240000000001,8.17422,FLAGGED,,,STALE(2d old)
-USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,8.0925,7.50849,FLAGGED,5.191,yieldz,MISMATCH(source 5.19)
-USD Farms,PT Strata Junior USDe 22OCT2026,Ethereum,Pendle,8.05857,7.99204,FLAGGED,,,STALE(2d old)
-USD Farms,PT Ethena sUSDE 22OCT2026,Plasma,Pendle,8.04991,8.02763,FLAGGED,,,STALE(2d old)
-USD Farms,PT Ethena sUSDE 22OCT2026,Monad,Pendle,7.98917,7.85953,FLAGGED,,,STALE(2d old); NEW(10d history)
+USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,8.0925,7.50849,FLAGGED,5.826,yieldz,MISMATCH(source 5.83)
+USD Farms,PT Ethena sUSDE 22OCT2026,Plasma,Pendle,8.04991,8.02763,FLAGGED,4.1,pendle-api,STALE(2d old); MISMATCH(source 4.10)
+USD Farms,PT Ethena sUSDE 22OCT2026,Monad,Pendle,7.98917,7.85953,FLAGGED,4.1,pendle-api,STALE(2d old); NEW(10d history); MISMATCH(source 4.10)
 USD Farms,PT Strata Senior NUSD 17SEP2026,Ethereum,Pendle,7.92667,8.09305,FLAGGED,,,STALE(2d old)
-USD Farms,PT USDC Meta Vault 29OCT2026,Ethereum,Pendle,7.86806,7.90753,FLAGGED,,,STALE(2d old)
 USD Farms,PLP Staked Saturn USD 27AUG2026,BSC,Pendle,7.799090000000001,7.85378,FLAGGED,,,STALE(2d old)
-USD Farms,PT Flagship USDC SuperVault 26NOV2026,Ethereum,Pendle,7.75373,7.73225,FLAGGED,,,STALE(2d old)
-USD Farms,PLP Staked infiniFi USD 20AUG2026,Ethereum,Pendle,7.6464,7.47277,FLAGGED,,,STALE(2d old)
-USD Farms,PT Saturn USD 27AUG2026,Monad,Pendle,7.59446,7.39662,FLAGGED,,,STALE(2d old)
+USD Farms,PT Saturn USD 27AUG2026,Monad,Pendle,7.59446,7.39662,FLAGGED,11.469,pendle-api,STALE(2d old); MISMATCH(source 11.47)
 USD Farms,For LP | Maturity 26NOV2026,Hyperliquid L1,Pendle,7.58126,7.9581,FLAGGED,,,STALE(2d old)
-USD Farms,PT Savings Usdd 27AUG2026,Ethereum,Pendle,7.53956,7.57026,FLAGGED,,,STALE(2d old)
-USD Farms,For LP | Maturity 08OCT2026,Monad,Pendle,6.78891,6.90519,FLAGGED,,,STALE(2d old)
-USD Farms,PT AUSD 8OCT2026,Monad,Pendle,6.58672,6.58187,FLAGGED,,,STALE(2d old)
-USD Farms,PT USDai 15OCT2026,Arbitrum,Pendle,6.53856,6.46686,FLAGGED,,,STALE(2d old)
-USD Farms,PLP trUSD 26NOV2026,Ethereum,Pendle,6.52399,,FLAGGED,,,STALE(2d old); NEW(5d history)
-USD Farms,PLP Savings Usdd 27AUG2026,Ethereum,Pendle,6.453880000000001,6.53075,FLAGGED,,,STALE(2d old)
+USD Farms,PT USDai 15OCT2026,Arbitrum,Pendle,6.53856,6.46686,FLAGGED,9.637,pendle-api,STALE(2d old); MISMATCH(source 9.64)
 USD Farms,PLP Staked NUSD 24SEP2026,Ethereum,Pendle,6.39111,6.65375,FLAGGED,,,STALE(2d old)
-USD Farms,PLP USDC Meta Vault 29OCT2026,Ethereum,Pendle,6.3534,6.31865,FLAGGED,,,STALE(2d old)
 USD Farms,PLP Saturn USD 27AUG2026,Monad,Pendle,6.29018,5.64626,FLAGGED,,,STALE(2d old)
-USD Farms,AUSDC,Ethereum,Morpho Blue,6.23404,6.2918,FLAGGED,3.483,yieldz,MISMATCH(source 3.48)
+USD Farms,AUSDC,Ethereum,Morpho Blue,6.23404,6.2918,FLAGGED,3.48,yieldz,MISMATCH(source 3.48)
 ETH Farms,For LP | Maturity 30DEC2027,Ethereum,Pendle,4.586320000000001,4.57296,FLAGGED,,,STALE(2d old)
 ETH Farms,For buying PT-wstETH-30DEC2027,Ethereum,Pendle,4.48718,4.47657,FLAGGED,,,STALE(2d old)
 USD Farms,Convex,Ethereum,Beefy,97.6712,61.272,CAUTION,,,SPIKE(30d avg 27.6)
 USD Farms,CL50 - 0.05%,Base,Aerodrome Slipstream,94.85473999999999,106.37734,CAUTION,,,SPIKE(30d avg 29.3)
 USD Farms,USDG-USDe,Solana,Orca DEX,22.48081,7.23293,CAUTION,,,SPIKE(30d avg 3.5)
 USD Farms,pyusd-USDe,Solana,Orca DEX,18.70853,5.80055,CAUTION,,,SPIKE(30d avg 2.2)
+USD Farms,PLP Ethena sUSDE 22OCT2026,Monad,Pendle,16.18216,19.51198,CAUTION,12.501,pendle-api,NEW(10d history)
 USD Farms,USDC-APXUSD,Solana,Orca DEX,15.3424,,CAUTION,,,NEW(3d history)
+USD Farms,For LP | Maturity 26NOV2026,Ethereum,Pendle,14.55111,,CAUTION,12.67,pendle-api,NEW(5d history)
+USD Farms,PT trUSD 26NOV2026,Ethereum,Pendle,12.88164,,CAUTION,11.103,pendle-api,NEW(5d history)
+USD Farms,For buying PT-strUSD-26NOV2026,Ethereum,Pendle,12.72878,,CAUTION,12.598,pendle-api,NEW(5d history)
 USD Farms,R25 Treasury Vault,Sui,Ember Protocol,12,12,CAUTION,,,SELF-REPORTED(flat 30d history)
 USD Farms,Tori Staked trUSD · Junior,Ethereum,Royco V2,11.5635,11.54874,CAUTION,,,NEW(8d history)
 USD Farms,Staked Avant USD · Junior,Avalanche,Royco V2,11.43771,10.40595,CAUTION,,,NEW(8d history)
 USD Farms,COREUSDC,Ethereum,Upshift,10,10,CAUTION,,,SELF-REPORTED(flat 30d history)
 USD Farms,Staked Avant USD · Senior,Avalanche,Royco V2,9.47783,8.58926,CAUTION,,,NEW(8d history)
 USD Farms,IdleCDO AA Tranche - Adaptive FrontierUSDC,Ethereum,Pareto Credit,9.375,9.375,CAUTION,,,SELF-REPORTED(flat 30d history)
+USD Farms,PLP Staked USN 22JUL2027,Ethereum,Pendle,9.23161,9.49986,CAUTION,9.069,pendle-api,NEW(10d history)
 USD Farms,UPUSDC,Ethereum,Upshift,9.09,9.09,CAUTION,,,SELF-REPORTED(flat 30d history)
+USD Farms,PT Staked USN 22JUL2027,Ethereum,Pendle,8.28148,8.97278,CAUTION,8.281,pendle-api,NEW(10d history)
 USD Farms,APXUSD-USDC,Ethereum,Curve DEX,8.25,6.69286,CAUTION,,,NEW(7d history)
 USD Farms,Staked USN · Senior,Base,Royco V2,7.24268,8.49412,CAUTION,,,NEW(8d history)
 USD Farms,Pareto AA Tranche - RockawayXUSDC,Ethereum,Pareto Credit,7.125,7.125,CAUTION,,,SELF-REPORTED(flat 30d history)
+USD Farms,PLP trUSD 26NOV2026,Ethereum,Pendle,6.52399,,CAUTION,4.924,pendle-api,NEW(5d history)
 USD Farms,TESS USDe sUSDe Loop Vault,Ethereum,Fusion by IPOR,6.22878,,CAUTION,,,NEW(3d history)
 USD Farms,0.01%,Ethereum,Uniswap V4,6.19974,,CAUTION,,,NEW(2d history)
 ETH Farms,HGETH,Ethereum,Upshift,6.15,6.15,CAUTION,,,SELF-REPORTED(flat 30d history)
@@ -107,7 +71,7 @@ ETH Farms,StableV2 AMM - msETH/WETH,OP Mainnet,Velodrome V2,17.35955,16.70255,UN
 USD Farms,Stable AMM - msUSD/USDC,Base,Aerodrome V1,16.21381,14.7109,UNVERIFIED,,,
 USD Farms,CL1 - 0.0009%,Base,Aerodrome Slipstream,16.14534,13.22379,UNVERIFIED,,,
 USD Farms,Stake DAO USD3/frxUSD Vault,Ethereum,Stake DAO,16.10697,13.0234,UNVERIFIED,,,
-USD Farms,sdUSD/frxUSD,Ethereum,Curve DEX,14.97782,17.86631,UNVERIFIED,,,
+USD Farms,sdUSD/frxUSD,Ethereum,Curve DEX,14.97782,17.86798,UNVERIFIED,,,
 USD Farms,SUSD3,Ethereum,3Jane Lending,14.85058,14.52259,UNVERIFIED,,,
 USD Farms,Bitcoin Dollar USDC,Ethereum,Fusion by IPOR,14.43612,13.36364,UNVERIFIED,,,
 USD Farms,USD3/frxUSD,Ethereum,Curve DEX,14.01029,11.47171,UNVERIFIED,,,
@@ -276,32 +240,68 @@ ETH Farms,EVK Vault eWETH-3,Monad,Euler V2,3.08856,3.03489,UNVERIFIED,,,
 ETH Farms,K3 Capital Earn WETH,Monad,Euler V2,3.08251,3.16078,UNVERIFIED,,,
 ETH Farms,weETH/WETH-ng,Ethereum,Curve DEX,3.02027,2.57373,UNVERIFIED,,,
 ETH Farms,ETH+/ETH,Ethereum,Convex Finance,3.01244,3.41709,UNVERIFIED,,,
-USD Farms,Hyperithm USDC Apex,Monad,Morpho Blue,10.38213,9.65891,VERIFIED,9.657,yieldz (base),
+USD Farms,PT sUSD3 17DEC2026,Ethereum,Pendle,23.46059,22.9235,VERIFIED,23.533,pendle-api,
+USD Farms,PLP sUSD3 17DEC2026,Ethereum,Pendle,22.06637,21.89494,VERIFIED,22.276,pendle-api,
+USD Farms,For buying PT-reUSDe-10DEC2026,Ethereum,Pendle,17.62589,17.81665,VERIFIED,17.84,pendle-api,
+USD Farms,For LP | Maturity 10DEC2026,Ethereum,Pendle,17.13365,17.8695,VERIFIED,17.367,pendle-api,
+USD Farms,PT apyUSD 27AUG2026,Ethereum,Pendle,16.80286,16.58729,VERIFIED,17.436,pendle-api,
+USD Farms,PLP apyUSD 27AUG2026,Ethereum,Pendle,16.05655,15.96795,VERIFIED,16.547,pendle-api,
+USD Farms,PLP apyUSD 5NOV2026,Ethereum,Pendle,15.53099,15.86981,VERIFIED,15.636,pendle-api,
+USD Farms,PT apyUSD 5NOV2026,Ethereum,Pendle,15.04279,14.87857,VERIFIED,15.353,pendle-api,
+USD Farms,PT USD3 17DEC2026,Ethereum,Pendle,13.9191,13.69817,VERIFIED,13.881,pendle-api,
+USD Farms,PT Staked Saturn USD 27AUG2026,BSC,Pendle,13.7315,13.73117,VERIFIED,11.469,pendle-api,
+USD Farms,PLP USD3 17DEC2026,Ethereum,Pendle,12.38277,11.8734,VERIFIED,11.842,pendle-api,
+USD Farms,PT Staked USDat 27AUG2026,Ethereum,Pendle,11.34554,11.15427,VERIFIED,11.469,pendle-api,
+USD Farms,PLP Flagship USDC SuperVault 26NOV2026,Ethereum,Pendle,11.3162,9.94441,VERIFIED,9.481,pendle-api,
+USD Farms,Hyperithm USDC Apex,Monad,Morpho Blue,10.38213,9.65891,VERIFIED,9.833,yieldz (base),
+USD Farms,PT Staked USDai 15OCT2026,Arbitrum,Pendle,9.62705,9.68169,VERIFIED,9.637,pendle-api,
+USD Farms,PT earnAUSD 8OCT2026,Monad,Pendle,9.52241,9.45356,VERIFIED,10.32,pendle-api,
+USD Farms,PLP Staked USDai 25FEB2027,Arbitrum,Pendle,9.451580000000002,9.21469,VERIFIED,9.844,pendle-api,
+USD Farms,For buying PT-savUSD-06AUG2026,Ethereum,Pendle,9.44364,8.42221,VERIFIED,11.513,pendle-api,
+USD Farms,For LP | Maturity 06AUG2026,Ethereum,Pendle,9.38728,8.74496,VERIFIED,10.645,pendle-api,
+USD Farms,PT apxUSD 5NOV2026,Ethereum,Pendle,9.34983,8.98556,VERIFIED,9.848,pendle-api,
+USD Farms,PT Staked USDai 25FEB2027,Arbitrum,Pendle,9.01236,9.28487,VERIFIED,9.277,pendle-api,
+USD Farms,For buying PT-srUSDat-27AUG2026,Ethereum,Pendle,8.99303,10.6228,VERIFIED,8.969,pendle-api,
+USD Farms,PLP Strata Senior USDat 27AUG2026,Ethereum,Pendle,8.96285,10.21675,VERIFIED,8.793,pendle-api,
+USD Farms,PLP Staked USDai 15OCT2026,Arbitrum,Pendle,8.904409999999999,8.64568,VERIFIED,9.03,pendle-api,
+USD Farms,PT Staked infiniFi USD 20AUG2026,Ethereum,Pendle,8.85012,8.70439,VERIFIED,10.368,pendle-api,
+USD Farms,PLP Strata Junior USDe 22OCT2026,Ethereum,Pendle,8.72786,9.11753,VERIFIED,8.947,pendle-api,
+USD Farms,PLP earnAUSD 8OCT2026,Monad,Pendle,8.556930000000001,8.52485,VERIFIED,8.755,pendle-api,
+USD Farms,PT apxUSD 27AUG2026,Ethereum,Pendle,8.50086,8.47477,VERIFIED,9.123,pendle-api,
 USD Farms,Steakhouse Confidential Prime USDC,Ethereum,Morpho Blue,8.29964,8.2995,VERIFIED,8.3,yieldz (base),
-USD Farms,AUGUSTUSDCV2,Ethereum,Morpho Blue,8.21661,6.96873,VERIFIED,8.138,yieldz (base),
-USD Farms,SATUSDC,Monad,Morpho Blue,7.81353,7.40303,VERIFIED,3.66,yieldz (base),
-USD Farms,Apyx apxUSD,Ethereum,Morpho Blue,7.73988,6.50408,VERIFIED,7.134,yieldz (base),
+USD Farms,AUGUSTUSDCV2,Ethereum,Morpho Blue,8.21661,6.96873,VERIFIED,8.14,yieldz (base),
+USD Farms,PT Strata Junior USDe 22OCT2026,Ethereum,Pendle,8.05857,7.99204,VERIFIED,8.059,pendle-api,
+USD Farms,PT USDC Meta Vault 29OCT2026,Ethereum,Pendle,7.86806,7.90753,VERIFIED,7.868,pendle-api,
+USD Farms,SATUSDC,Monad,Morpho Blue,7.81353,7.40303,VERIFIED,4.131,yieldz (base),
+USD Farms,PT Flagship USDC SuperVault 26NOV2026,Ethereum,Pendle,7.75373,7.73225,VERIFIED,6.058,pendle-api,
+USD Farms,Apyx apxUSD,Ethereum,Morpho Blue,7.73988,6.50408,VERIFIED,7.137,yieldz (base),
 USD Farms,Aave Mantle sUSDe,Mantle,Aave V3,7.73695,7.26991,VERIFIED,3.949,yieldz (base+reward),
-USD Farms,FAUSDE,Ethereum,Morpho Blue,7.65189,7.74835,VERIFIED,6.933,yieldz (base),
+USD Farms,FAUSDE,Ethereum,Morpho Blue,7.65189,7.74835,VERIFIED,6.931,yieldz (base),
+USD Farms,PLP Staked infiniFi USD 20AUG2026,Ethereum,Pendle,7.6464,7.47277,VERIFIED,9.628,pendle-api,
 USD Farms,Alpha USDC Enhanced V2,Ethereum,Morpho Blue,7.54018,7.83894,VERIFIED,7.667,yieldz (base),
-USD Farms,CSUSDC,Ethereum,Morpho Blue,7.51579,7.22923,VERIFIED,6.808,yieldz (base),
-USD Farms,M1 USDC,Ethereum,Morpho Blue,7.13456,6.89181,VERIFIED,7.186,yieldz (base),
+USD Farms,PT Savings Usdd 27AUG2026,Ethereum,Pendle,7.53956,7.57026,VERIFIED,7.672,pendle-api,
+USD Farms,CSUSDC,Ethereum,Morpho Blue,7.51579,7.22923,VERIFIED,6.807,yieldz (base),
+USD Farms,M1 USDC,Ethereum,Morpho Blue,7.13456,6.89181,VERIFIED,7.187,yieldz (base),
 USD Farms,Alpha USDC Core V2,Ethereum,Morpho Blue,7.07195,7.18175,VERIFIED,6.92,yieldz (base),
-USD Farms,Alpha USDC Prime V2,Ethereum,Morpho Blue,7.01642,8.69134,VERIFIED,6.808,yieldz (base),
-USD Farms,ROXUSDCY,Ethereum,Morpho Blue,6.9864,6.67912,VERIFIED,7.095,yieldz (base),
+USD Farms,Alpha USDC Prime V2,Ethereum,Morpho Blue,7.01642,8.69134,VERIFIED,6.807,yieldz (base),
+USD Farms,ROXUSDCY,Ethereum,Morpho Blue,6.9864,6.67912,VERIFIED,7.055,yieldz (base),
 USD Farms,REECOUSDC,Ethereum,Morpho Blue,6.88452,6.48735,VERIFIED,6.847,yieldz (base),
-USD Farms,Fluid Gho Token,Plasma,Fluid Lending,6.81,6.89429,VERIFIED,6.684,yieldz (base+reward),
+USD Farms,Fluid Gho Token,Plasma,Fluid Lending,6.81,6.89429,VERIFIED,6.683,yieldz (base+reward),
+USD Farms,For LP | Maturity 08OCT2026,Monad,Pendle,6.78891,6.90519,VERIFIED,6.687,pendle-api,
 USD Farms,CSAAUSD,Monad,Morpho Blue,6.763400000000001,6.64071,VERIFIED,5.05,yieldz (base),
-USD Farms,SENPYUSDPRIMEV2,Ethereum,Morpho Blue,6.63956,6.50271,VERIFIED,3.286,yieldz (base),
-USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,6.61632,6.01515,VERIFIED,6.952,yieldz (base),
+USD Farms,SENPYUSDPRIMEV2,Ethereum,Morpho Blue,6.63956,6.50271,VERIFIED,3.285,yieldz (base),
+USD Farms,HYPERUSDCA,Ethereum,Morpho Blue,6.61632,6.01515,VERIFIED,6.953,yieldz (base),
+USD Farms,PT AUSD 8OCT2026,Monad,Pendle,6.58672,6.58187,VERIFIED,6.63,pendle-api,
 USD Farms,CSCBUSDC,Base,Morpho Blue,6.51903,6.79703,VERIFIED,3.876,yieldz (base),
+USD Farms,PLP Savings Usdd 27AUG2026,Ethereum,Pendle,6.453880000000001,6.53075,VERIFIED,6.611,pendle-api,
 USD Farms,Aave Plasma GHO,Plasma,Aave V3,6.383039999999999,6.24493,VERIFIED,2.253,yieldz (base),
+USD Farms,PLP USDC Meta Vault 29OCT2026,Ethereum,Pendle,6.3534,6.31865,VERIFIED,6.433,pendle-api,
 USD Farms,Aave Monad AUSD,Monad,Aave V3,6.30422,5.727,VERIFIED,2.184,yieldz (base),
 USD Farms,SENRLUSDV2,Ethereum,Morpho Blue,6.24375,6.33305,VERIFIED,2.355,yieldz (base),
 USD Farms,Aave Monad mUSD,Monad,Aave V3,6.23675,8.11886,VERIFIED,1.636,yieldz (base),
 USD Farms,Aave Monad GHO,Monad,Aave V3,6.23378,6.23203,VERIFIED,1.812,yieldz (base),
 USD Farms,August USDC V2,Monad,Morpho Blue,6.06805,6.4062,VERIFIED,5.042,yieldz (base),
-USD Farms,SENPYUSDMAIN,Ethereum,Morpho Blue,6.061269999999999,6.17342,VERIFIED,1.947,yieldz (base),
+USD Farms,SENPYUSDMAIN,Ethereum,Morpho Blue,6.061269999999999,6.17342,VERIFIED,1.948,yieldz (base),
 USD Farms,RESERVOIRUSDC,Ethereum,Morpho Blue,6.04979,6.31761,VERIFIED,3.743,yieldz (base),
 ETH Farms,Umbrella,Ethereum,Aave V3,5.28164,5.3225,VERIFIED,1.462,yieldz (base),
 ETH Farms,STEAKETH,Monad,Morpho Blue,3.11827,2.91873,VERIFIED,1.287,yieldz (base),
