@@ -17,9 +17,9 @@
 const FEED_BASE =
   'https://raw.githubusercontent.com/rooktc/Rook/claude/spreadsheet-data-refresh-mahsrf/farm-list/';
 const FEEDS = {
-  // farm tabs: 19 sheet columns (S = Risk), feed col 20 = hyperlink URL, col 21 = flags
-  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 19, ratingCol: 15, riskCol: 19, linkCol: 6, linkUrlIdx: 19, flagsIdx: 20, apyCol: 9 },
-  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 19, ratingCol: 15, riskCol: 19, linkCol: 6, linkUrlIdx: 19, flagsIdx: 20, apyCol: 9 },
+  // farm tabs: 19 sheet columns (F = Risk), feed col 20 = hyperlink URL, col 21 = flags
+  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 19, ratingCol: 16, riskCol: 6, linkCol: 7, linkUrlIdx: 19, flagsIdx: 20, apyCol: 10, farmHeader: true },
+  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 19, ratingCol: 16, riskCol: 6, linkCol: 7, linkUrlIdx: 19, flagsIdx: 20, apyCol: 10, farmHeader: true },
   // looping tab: 14 columns, risk col J, Max ROE formula in G
   'Looping': { url: FEED_BASE + 'feed_loop.csv', cols: 14, ratingCol: 10, roeFormulaCol: 7 },
   // verification annex: plain values, sheet is created if missing
@@ -92,7 +92,28 @@ function refreshFarmTabs() {
       const riskRange = sheet.getRange(4, cfg.riskCol, values.length, 1);
       riskRange.setFontColors(values.map(r => [RATING_COLORS[r[cfg.riskCol - 1]] || '#000000']));
       riskRange.setFontWeight('bold').setHorizontalAlignment('center');
-      sheet.getRange(3, cfg.riskCol).setValue('Risk');
+    }
+
+    // farm tabs: rewrite the header rows for the Risk-in-F layout (idempotent)
+    if (cfg.farmHeader) {
+      sheet.getRange(3, 1, 1, cols).setValues([rows[1].slice(0, cols)])
+        .setFontWeight('bold').setFontColor('#ffffff').setBackground('#1f3552')
+        .setHorizontalAlignment('center').setVerticalAlignment('middle');
+      sheet.getRange('A2:S2').breakApart().clear();
+      const bands = [
+        ['J2:L2', 'Total APY (%)', '#b45f06'],
+        ['M2:O2', 'Current APY Breakdown (%)', '#44546a'],
+        ['P2:Q2', '30d Stability', '#44546a'],
+        ['R2:S2', 'Reference', '#44546a'],
+      ];
+      for (const [rng, label, bg] of bands) {
+        const range = sheet.getRange(rng);
+        range.merge().setValue(label).setBackground(bg).setFontColor('#ffffff')
+          .setFontWeight('bold').setFontSize(9)
+          .setHorizontalAlignment('center').setVerticalAlignment('middle');
+      }
+      sheet.getRange('A1:S1').breakApart();
+      sheet.getRange('A1:S1').merge();
     }
 
     // farm tabs: DefiLlama hyperlinks

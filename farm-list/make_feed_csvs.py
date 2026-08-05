@@ -24,8 +24,8 @@ for tab, out in [('USD Farms', sys.argv[2]), ('ETH Farms', sys.argv[3])]:
         r = 4
         n = 0
         while ws.cell(r, 1).value:
-            row = [ws.cell(r, c).value for c in range(1, 20)]  # incl. Risk (S)
-            link = ws.cell(r, 6).hyperlink
+            row = [ws.cell(r, c).value for c in range(1, 20)]  # incl. Risk (F)
+            link = ws.cell(r, 7).hyperlink
             row.append(link.target if link else '')
             row.append(ws.cell(r, 20).value or '')
             w.writerow(['' if v is None else v for v in row])
