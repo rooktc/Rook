@@ -56,20 +56,26 @@ for row in csv_rows:
         continue
     key = (slug, row['Chain'], row['Reference'].upper())
     cands = api_by_key.get(key, [])
-    tvl = num(row['TVL'])
+    tvl, apy = num(row['TVL']), num(row['APY'])
     if not cands or not tvl:
         unmatched += 1
         continue
-    scored = sorted(cands, key=lambda p: abs((p['tvlUsd'] or 0) - tvl))
-    best = scored[0]
-    ratio = (best['tvlUsd'] or 0) / tvl if tvl else 0
-    if not (0.6 <= ratio <= 1.6):
-        unmatched += 1
-        continue
-    if len(scored) > 1:
-        second = scored[1]
-        # require the best match to be clearly closer than the runner-up
-        if abs((second['tvlUsd'] or 0) - tvl) < 2 * abs((best['tvlUsd'] or 0) - tvl):
+    if len(cands) == 1:
+        best = cands[0]
+        ratio = (best['tvlUsd'] or 0) / tvl
+        if not (0.2 <= ratio <= 5):
+            unmatched += 1
+            continue
+    else:
+        # multiple pools share (protocol, chain, symbol): combine relative TVL
+        # distance and APY distance (2-day-old snapshot, still discriminative)
+        def dist(p):
+            dt = abs((p['tvlUsd'] or 0) - tvl) / max(tvl, 1)
+            da = abs((p['apy'] or 0) - apy) / max(abs(apy), 1) if apy is not None else 0
+            return dt + da
+        scored = sorted(cands, key=dist)
+        best = scored[0]
+        if dist(best) > 0.8 or dist(scored[1]) < 1.5 * dist(best) + 0.05:
             ambig += 1
             continue
     if best['pool'] not in mapping:

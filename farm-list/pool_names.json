@@ -344,7 +344,7 @@
 "farm": "rETH Liquity LP Carry",
 "ref": "WETH"
 },
-"b2c25704-1861-4ea0-83f4-afa055256914": {
+"11bd70a0-dd31-4997-8707-107a6c122864": {
 "pool": "mooCurveFrxUSD-msUSD",
 "farm": "Moo Curve frxUSD-msUSD",
 "ref": "frxUSD-msUSD"
@@ -364,15 +364,15 @@
 "farm": "Mento Fixed Price MM - EURm/USDm",
 "ref": "EURm-USDm"
 },
+"098680ea-cbb6-4ea0-964d-82fb130e682f": {
+"pool": "PT-sUSD3-17DEC2026",
+"farm": "PT sUSD3 17DEC2026",
+"ref": "sUSD3"
+},
 "54a73b0a-d1f0-4a82-9e9f-2a6520351527": {
 "pool": "FrxMsUSD",
 "farm": "frxUSD/msUSD",
 "ref": "frxUSD-msUSD"
-},
-"e4b329d3-3efe-4bd7-a282-694141dc358e": {
-"pool": "USDC",
-"farm": "Polymarket Vault",
-"ref": "USDC"
 },
 "b4fe9dc1-d635-4d15-8a4f-0a38e880e572": {
 "pool": "FPMM-USDC/USDm",
@@ -384,10 +384,15 @@
 "farm": "Stable AMM - msUSD/USDC",
 "ref": "msUSD-USDC"
 },
-"ba0f675f-9f14-407b-b278-66d8f59f49ca": {
-"pool": "npAUSD",
-"farm": "Neverland Pendle AUSD",
-"ref": "AUSD"
+"944111ae-680a-43d0-802a-38ddf362f5ac": {
+"pool": "bdUSD",
+"farm": "Bitcoin Dollar USDC",
+"ref": "USDC"
+},
+"9f2ebb59-f408-5927-8236-14f46762d7bd": {
+"pool": "PT-trUSD-26NOV2026",
+"farm": "PT trUSD 26NOV2026",
+"ref": "trUSD"
 },
 "d85a7f5f-3624-4b6b-b3a7-eefb42b2a5e9": {
 "pool": "pALPHA",
@@ -398,6 +403,11 @@
 "pool": "reUSDe",
 "farm": "Re Protocol reUSDe",
 "ref": "reUSDe"
+},
+"5531d8b2-41b6-5641-aa9f-258fbcb5c82a": {
+"pool": "PLP-sUSDE-22OCT2026",
+"farm": "PLP Ethena sUSDE 22OCT2026",
+"ref": "sUSDe"
 },
 "227d976d-035c-4be3-83a9-70a6135f9c18": {
 "pool": "pmfrxUSD",
@@ -414,7 +424,7 @@
 "farm": "Moo Curve msUSD-FRAXBP",
 "ref": "msUSD-FRAX-USDC"
 },
-"c149b02f-aa98-4ba2-9d78-8890f8e23a3b": {
+"e4b329d3-3efe-4bd7-a282-694141dc358e": {
 "pool": "USDC",
 "farm": "Concentrated Liquidity Vault",
 "ref": "USDC"
@@ -423,6 +433,11 @@
 "pool": "pmcrvUSD",
 "farm": "pmUSD/crvUSD",
 "ref": "pmUSD-crvUSD"
+},
+"99691e5c-44c7-59aa-af1b-aef1f7efed80": {
+"pool": "frx-trUSD",
+"farm": "frxUSD/trUSD",
+"ref": "frxUSD-trUSD"
 },
 "9d4a4ef4-dfb1-4c89-8daf-66aa70ca8586": {
 "pool": "sAMMV2-USDC/sUSD",
@@ -439,22 +454,17 @@
 "farm": "USD Vault",
 "ref": "USDC"
 },
-"847c874f-d4e7-47ed-8870-97d2f24a8767": {
-"pool": "EURC-USDC",
-"farm": "CL50 - 0.007%",
-"ref": "EURC-USDC"
-},
 "f6c604f5-5192-4fe9-b8a9-afb0d36f5ec5": {
 "pool": "tessUSDCwsrUSDLp",
 "farm": "TESS USDC wsrUSD Loop",
 "ref": "USDC"
 },
-"a2158069-abce-428d-9283-4057018b546d": {
-"pool": "tessUSDCsUSDePYUSD",
-"farm": "TESS sUSDe PYUSD (USDC) Loop Vault",
-"ref": "USDC"
+"49698509-c2ac-4901-a44a-0beccfc13880": {
+"pool": "cAUSD",
+"farm": "Curvance AUSD",
+"ref": "AUSD"
 },
-"6e26edc4-dc03-4d6d-a740-1fe69f338101": {
+"0a3c5663-73bd-4d8a-bdcc-5e529a8b741d": {
 "pool": "USDC",
 "farm": "Basis Vault",
 "ref": "USDC"
@@ -468,6 +478,11 @@
 "pool": "sd-msUSDFRAX3CRV-f-vault",
 "farm": "Stake DAO Curve.fi Factory USD Metapool: msUSD/FRAXBP Vault",
 "ref": "msUSD-crvFRAX"
+},
+"d6a444b3-d247-5a90-9c67-793bcb23cde0": {
+"pool": "USDe-USDC",
+"farm": "0.00%",
+"ref": "USDe-USDC"
 },
 "3f9ff90a-50aa-4af7-9a3f-4d45586425f5": {
 "pool": "evaUSDMAIN",
@@ -489,20 +504,50 @@
 "farm": "Bitwise Premium+",
 "ref": "USDC"
 },
+"b83a966f-1228-4a4f-ad9d-ef3553cb6e05": {
+"pool": "PT-sNUSD-24SEP2026",
+"farm": "PT Staked NUSD 24SEP2026",
+"ref": "sNUSD"
+},
+"a0860ad8-ba2a-4ff8-8a13-348788864f23": {
+"pool": "USDC",
+"farm": "MainMarket",
+"ref": "USDC"
+},
 "33c3f981-47b5-5edc-b76c-a642955a1a51": {
 "pool": "AA_Adaptive FrontierUSDC",
 "farm": "IdleCDO AA Tranche - Adaptive FrontierUSDC",
 "ref": "USDC"
+},
+"a1a9916c-63b2-49a1-b4b0-cbe8a9e7275c": {
+"pool": "USDC",
+"farm": "Ember Earn Vault",
+"ref": "USDC"
+},
+"ed801709-41f3-5cd0-9fd3-c4db7a9e1911": {
+"pool": "PLP-sUSN-22JUL2027",
+"farm": "PLP Staked USN 22JUL2027",
+"ref": "sUSN"
 },
 "ba557f7e-f287-45a9-bc37-8f3a24ca05c7": {
 "pool": "USDC-USDT",
 "farm": "CL1 - 0.0009%",
 "ref": "USDC-USDT"
 },
+"55d53cce-4455-4085-8245-557257d9fe61": {
+"pool": "PLP-sUSDai-15OCT2026",
+"farm": "PLP Staked USDai 15OCT2026",
+"ref": "sUSDai"
+},
 "567c8eb4-a71c-4bf8-b063-5be5329e4fe7": {
 "pool": "ipsrUSDfusion",
 "farm": "Reservoir srUSD Looping Ethereum",
 "ref": "rUSD"
+},
+"62e914e8-1027-47a5-b444-5d9e6a407d41": {
+"pool": "PT-siUSD-20AUG2026",
+"farm": "PT Staked infiniFi USD 20AUG2026",
+"ref": "siUSD"
 },
 "c77b9508-1a53-4ea1-9913-0207ce711fa2": {
 "pool": "frxUSDDUSD",
@@ -514,10 +559,25 @@
 "farm": "Stake DAO evaUSDC/evaUSDT Vault",
 "ref": "evaUSDT-evaUSDC"
 },
+"12b61e91-463f-4c33-bd9c-d35fb2d216c2": {
+"pool": "PLP-jrUSDe-22OCT2026",
+"farm": "PLP Strata Junior USDe 22OCT2026",
+"ref": "jrUSDe"
+},
 "520309ed-efc5-40f0-853f-c3bf681abd96": {
 "pool": "eUSDC-4",
 "farm": "EVK Vault eUSDC-4",
 "ref": "USDC"
+},
+"2d26d208-dffd-4c4d-ab66-3ff850f2a678": {
+"pool": "PT-apxUSD-27AUG2026",
+"farm": "PT apxUSD 27AUG2026",
+"ref": "apxUSD"
+},
+"d688ccec-d5ab-4622-9a1e-c1c0534712df": {
+"pool": "PLP-earnAUSD-8OCT2026",
+"farm": "PLP earnAUSD 8OCT2026",
+"ref": "earnAUSD"
 },
 "2eb2bdf8-c3e3-5b30-8d49-8d5232294184": {
 "pool": "AA_FalconXUSDC",
@@ -529,20 +589,50 @@
 "farm": "Moo AaveV3 Monad USDC",
 "ref": "USDC"
 },
+"0edc91ad-7a4d-58fa-9777-df65a86ffbea": {
+"pool": "PT-sUSN-22JUL2027",
+"farm": "PT Staked USN 22JUL2027",
+"ref": "sUSN"
+},
+"44d0a60d-99d5-41a0-87ad-da85ae8682f7": {
+"pool": "PT-jrUSDe-22OCT2026",
+"farm": "PT Strata Junior USDe 22OCT2026",
+"ref": "jrUSDe"
+},
 "f2b7a9d2-9006-5f9d-8a9e-80bcbc8dbf91": {
 "pool": "sUSDe-USDT",
 "farm": "0.01%",
 "ref": "sUSDe-USDT"
 },
-"0cdd7f84-711e-4cd4-916d-da318857559a": {
-"pool": "USDG",
-"farm": "OnRe Market",
-"ref": "USDG"
+"e2057cb9-1fe9-4c45-9948-a1863d8155e9": {
+"pool": "PT-srNUSD-17SEP2026",
+"farm": "PT Strata Senior NUSD 17SEP2026",
+"ref": "srNUSD"
+},
+"0ff975b8-b113-4749-bc5f-649cca347327": {
+"pool": "PLP-sUSDat-27AUG2026",
+"farm": "PLP Staked Saturn USD 27AUG2026",
+"ref": "sUSDat"
+},
+"053044f6-aeee-46b2-9c56-bf5af6dbdea1": {
+"pool": "PT-superUSDC-26NOV2026",
+"farm": "PT Flagship USDC SuperVault 26NOV2026",
+"ref": "superUSDC"
 },
 "d511efb8-f61b-43ce-bb1e-dffc6a57727f": {
 "pool": "gUSDC",
 "farm": "Gains Network USDC",
 "ref": "USDC"
+},
+"d9180649-8c45-4911-ae2a-cf20dc30b0b2": {
+"pool": "PLP-siUSD-20AUG2026",
+"farm": "PLP Staked infiniFi USD 20AUG2026",
+"ref": "siUSD"
+},
+"86e18974-35ca-4948-9c82-694facf9d082": {
+"pool": "USD1",
+"farm": "USD1",
+"ref": "USD1"
 },
 "f234d4dc-9b36-4b23-b1ad-ab73e8286b56": {
 "pool": "k3AUSD",
@@ -559,14 +649,19 @@
 "farm": "reUSD/scrvUSD",
 "ref": "reUSD-scrvUSD"
 },
-"7149d3d6-daab-4577-98c4-1ad7703a5bb2": {
-"pool": "eUSDC-49",
-"farm": "EVK Vault eUSDC-49",
-"ref": "USDC"
+"da576830-547b-4119-a0aa-6e837fcc5b47": {
+"pool": "hyUSD",
+"farm": "hyUSD",
+"ref": "hyUSD"
 },
-"05a3d186-2d42-4e21-b1f0-68c079d22677": {
-"pool": "Locked yvUSD",
-"farm": "Locked yvUSD",
+"1438fc47-2b15-47ac-8514-1ae7b7246cac": {
+"pool": "USDSUI",
+"farm": "MainMarket",
+"ref": "USDSUI"
+},
+"20e45c3e-7de7-4d34-89e7-20858ecdf252": {
+"pool": "USDC",
+"farm": "USDC",
 "ref": "USDC"
 },
 "015556b9-0b7d-5dc5-9a9d-99ee3fbe89ee": {
@@ -619,6 +714,11 @@
 "farm": "yoUSD Looopeer",
 "ref": "USDC"
 },
+"6057a7dd-44f8-573a-88ca-d8b12c6c30e7": {
+"pool": "PLP-trUSD-26NOV2026",
+"farm": "PLP trUSD 26NOV2026",
+"ref": "trUSD"
+},
 "b77ea8a2-b4c8-4af3-bb58-b9386a60479f": {
 "pool": "TESUSLO",
 "farm": "Tesseract USDC Lending Optimizer",
@@ -629,6 +729,11 @@
 "farm": "USDC-2 yVault",
 "ref": "USDC"
 },
+"851a0b68-230d-4e9d-9623-0f47e6412d89": {
+"pool": "PLP-sUSDD-27AUG2026",
+"farm": "PLP Savings Usdd 27AUG2026",
+"ref": "sUSDD"
+},
 "4ae1f481-ae46-5a2c-82a2-13e192180594": {
 "pool": "eY10K",
 "farm": "Ember Y10K",
@@ -638,6 +743,11 @@
 "pool": "LL-CRV-rec",
 "farm": "CRV LlamaLend Recovery",
 "ref": "crvUSD-cvcrvUSD"
+},
+"d2934348-da5a-4514-9095-3a73c2be6bbd": {
+"pool": "PLP-sNUSD-24SEP2026",
+"farm": "PLP Staked NUSD 24SEP2026",
+"ref": "sNUSD"
 },
 "005bdeab-17c3-4561-961d-fef74f4ca6f9": {
 "pool": "ListaSafeUSDC",
@@ -659,15 +769,20 @@
 "farm": "evaUSDC/evaUSDT",
 "ref": "evaUSDT-evaUSDC"
 },
+"9265d3fd-df30-4433-8d97-4643a17a4fa2": {
+"pool": "PLP-tmvUSDC-29OCT2026",
+"farm": "PLP USDC Meta Vault 29OCT2026",
+"ref": "tmvUSDC"
+},
 "1c312830-ee96-40c9-b55f-b0f209ca6ebd": {
 "pool": "reUSD",
 "farm": "Re Protocol Deposit Token",
 "ref": "reUSD"
 },
-"6a1895e9-5512-5629-b344-22d0c9ac1ed2": {
-"pool": "USDC",
-"farm": "OnRe Market",
-"ref": "USDC"
+"f0df03c4-a46f-4f41-be89-37226c814918": {
+"pool": "aPlaGHO",
+"farm": "Aave Plasma GHO",
+"ref": "GHO"
 },
 "cc8b2028-9dd6-4968-83a5-f21ebba61945": {
 "pool": "mooCurveUSDC-USDf",
@@ -709,6 +824,11 @@
 "farm": "Huma Market",
 "ref": "USDC"
 },
+"81b63593-7983-4395-a73d-62c955b9e9cf": {
+"pool": "PT-USDat-27AUG2026",
+"farm": "PT USDat 27AUG2026",
+"ref": "USDat"
+},
 "e17d2238-b264-4cc3-a1df-d090f6ba4194": {
 "pool": "fFRAX(sfrxETH)-16",
 "farm": "Fraxlend Interest Bearing FRAX (Staked Frax Ether) - 16",
@@ -723,6 +843,16 @@
 "pool": "fGHO",
 "farm": "Fluid Gho Token",
 "ref": "GHO"
+},
+"ab68cdc9-a839-45a3-8143-8a96c58649bd": {
+"pool": "PT-USDat-27AUG2026",
+"farm": "PT Saturn USD 27AUG2026",
+"ref": "USDat"
+},
+"8bba1554-1318-54ad-9143-0972406e9428": {
+"pool": "aMonUSDT0",
+"farm": "Aave Monad USDT0",
+"ref": "USDT0"
 },
 "de1e601d-d589-4a66-91b7-d4ac8bdcecac": {
 "pool": "fUSDtb",
@@ -739,6 +869,11 @@
 "farm": "Stake DAO frxUSD/sUSDS Vault",
 "ref": "frxUSD-sUSDS"
 },
+"ba0f675f-9f14-407b-b278-66d8f59f49ca": {
+"pool": "nAUSD",
+"farm": "Neverland Interest Bearing AUSD",
+"ref": "AUSD"
+},
 "1044613e-47c3-48b8-b608-9986da8fbe7b": {
 "pool": "av/frxUSD",
 "farm": "avUSD/frxUSD",
@@ -748,6 +883,11 @@
 "pool": "sd-alUSDUSDC-vault",
 "farm": "Stake DAO alUSD/USDC Vault",
 "ref": "alUSD-USDC"
+},
+"baee0253-eb6e-4a08-a579-a2acd4f034b2": {
+"pool": "aEthUSDtb",
+"farm": "Aave Ethereum USDtb",
+"ref": "USDtb"
 },
 "fd2cd6af-6c3f-401a-ac44-819bf650800e": {
 "pool": "sd-crvUSDUSDT-f-vault",
@@ -774,6 +914,11 @@
 "farm": "SaveDola",
 "ref": "scrvUSD-sDOLA"
 },
+"af8ae772-4e42-4b47-9b47-a51a310f6563": {
+"pool": "PLP-srNUSD-17SEP2026",
+"farm": "PLP Strata Senior NUSD 17SEP2026",
+"ref": "srNUSD"
+},
 "578cffd4-1470-44d0-8c5d-e9d4bd403651": {
 "pool": "fGHO",
 "farm": "Fluid Gho Token",
@@ -799,6 +944,11 @@
 "farm": "Stake DAO reUSD/scrvUSD Vault",
 "ref": "reUSD-scrvUSD"
 },
+"1976450d-cf78-4b84-ac88-4632e709b67f": {
+"pool": "hHyperEvmUSDT0",
+"farm": "HyperLend HyperEVM USDT0",
+"ref": "USD\u20ae0"
+},
 "a3ffd3fe-b21c-44eb-94d5-22c80057a600": {
 "pool": "crvUSDUSDT-f",
 "farm": "Curve.fi Factory Plain Pool: crvUSD/USDT",
@@ -808,6 +958,11 @@
 "pool": "reUSDsUSDe",
 "farm": "reUSD/sUSDe",
 "ref": "reUSD-sUSDe"
+},
+"392e2c0a-a086-46a3-841f-ca4d476eb5e1": {
+"pool": "PT-sYUSD-24SEP2026",
+"farm": "PT Staked YUSD 24SEP2026",
+"ref": "sYUSD"
 },
 "b790a7e7-e493-4822-937f-94204b0cbfb5": {
 "pool": "GHOcrvUSD",
@@ -849,6 +1004,11 @@
 "farm": "PayPool",
 "ref": "PYUSD-USDC"
 },
+"3cb152e8-1de7-4a2b-8510-f04014c5fe82": {
+"pool": "USDC",
+"farm": "Obligate Market",
+"ref": "USDC"
+},
 "a3418d18-b05c-4b42-b6fb-d42571791ed2": {
 "pool": "frxUSDDUSD",
 "farm": "DUSD/frxUSD",
@@ -858,11 +1018,6 @@
 "pool": "mooCurvePayPool",
 "farm": "Moo Curve PayPool",
 "ref": "PYUSD-USDC"
-},
-"724759e3-48d8-4ff6-ba11-505694cc2303": {
-"pool": "bAutopilot_USDC",
-"farm": "Autopilot USDC Base",
-"ref": "USDC"
 },
 "18d68b7b-1674-4616-b5a8-65bbfb3723cd": {
 "pool": "llamathena",
@@ -919,6 +1074,11 @@
 "farm": "avUSD/savUSD",
 "ref": "avUSD-savUSD"
 },
+"98d07333-f5e4-4a48-8061-cfb4b73ccf79": {
+"pool": "aHorRwaRLUSD",
+"farm": "Aave Horizon RWA RLUSD",
+"ref": "RLUSD"
+},
 "326739f2-4650-4992-a8eb-a400e7790499": {
 "pool": "BOLD",
 "farm": "BOLD deposited in the RETH Stability Pool earns continuous BOLD yield and periodic RETH rewards from Trove liquidations",
@@ -933,6 +1093,11 @@
 "pool": "roxptUSDT",
 "farm": "RockawayX PT Yield",
 "ref": "USDT"
+},
+"8e9f65c8-8cd7-44a5-9363-36d4017f46ec": {
+"pool": "PLP-sUSDS-26NOV2026",
+"farm": "PLP Savings USDS 26NOV2026",
+"ref": "sUSDS"
 },
 "93833f3f-4033-422a-bcb3-2c00d37d594d": {
 "pool": "crvU-sUSDe",
@@ -989,6 +1154,11 @@
 "farm": "Fluid USD Coin",
 "ref": "USDC"
 },
+"432cb0b0-7087-4a4e-94e9-6c8092c05539": {
+"pool": "USDC",
+"farm": "USDC",
+"ref": "USDC"
+},
 "ccf4821e-9aec-4aaa-aeaa-7914af0ed6c1": {
 "pool": "USDC-MUSD",
 "farm": "CL10 - 0.05%",
@@ -999,11 +1169,6 @@
 "farm": "Fluid USD Coin",
 "ref": "USDC"
 },
-"29932dea-cd71-44c3-95bd-3e1525f4e3dd": {
-"pool": "aEthsUSDe",
-"farm": "Aave Ethereum sUSDe",
-"ref": "sUSDe"
-},
 "51f9c038-feed-4666-8866-30efc92e0566": {
 "pool": "DOLA-sUSDS",
 "farm": "DOLA/sUSDS",
@@ -1013,6 +1178,11 @@
 "pool": "yvUSDC-H",
 "farm": "USDC Horizon yVault",
 "ref": "USDC"
+},
+"953bc46f-c209-4f30-9c33-6bdec734a208": {
+"pool": "USDT",
+"farm": "USDT",
+"ref": "USDT"
 },
 "280bc035-0c3d-4148-99b7-1c43a8cf7a8b": {
 "pool": "OUSD/USDC",
@@ -1027,6 +1197,11 @@
 "2f6ff86c-3d82-4cd9-8e7d-bc3eb3471493": {
 "pool": "mooMorphoBaseSteakhouseHighYieldUSDC",
 "farm": "Moo Morpho Base Steakhouse High Yield USDC",
+"ref": "USDC"
+},
+"d0e11625-79b9-40e3-b01f-a473af961995": {
+"pool": "USDC",
+"farm": "USDC",
 "ref": "USDC"
 },
 "8edfdf02-cdbb-43f7-bca6-954e5fe56813": {
@@ -1054,10 +1229,25 @@
 "farm": "pyUSD/crvUSD",
 "ref": "PYUSD-crvUSD"
 },
+"c57bdc97-3100-41ff-845f-075363f6f5a4": {
+"pool": "aPolDAI",
+"farm": "Aave Polygon DAI",
+"ref": "DAI"
+},
+"194e4710-98d2-43c4-8a5e-9d031ad850ec": {
+"pool": "PT-sUSDE-22OCT2026",
+"farm": "PT Ethena sUSDE 22OCT2026",
+"ref": "sUSDe"
+},
 "3f63a73f-836b-481d-9ce5-3455ea5c4a12": {
 "pool": "srRYfrxusd",
 "farm": "srRoyUSDC/frxUSD",
 "ref": "frxUSD-srRoyUSDC"
+},
+"798551dc-52c0-5085-821e-48d4cb5916aa": {
+"pool": "PT-sUSDE-22OCT2026",
+"farm": "PT Ethena sUSDE 22OCT2026",
+"ref": "sUSDe"
 },
 "f179ea6c-3345-432f-b727-9e68e7881105": {
 "pool": "USDD",
@@ -1068,6 +1258,11 @@
 "pool": "aMonUSDe",
 "farm": "Aave Monad USDe",
 "ref": "USDe"
+},
+"6c60fa3d-3493-4377-b640-f9648800dc0c": {
+"pool": "USD\u20ae0",
+"farm": "USD\u20ae0",
+"ref": "USD\u20ae0"
 },
 "d62e6a1e-eb4b-4b22-a919-322a33fba89f": {
 "pool": "frxsUSDS",
@@ -1099,15 +1294,30 @@
 "farm": "LlamaThena",
 "ref": "scrvUSD-sUSDe"
 },
+"3ad2976e-6fa4-4eb4-b57a-8841536c3bb9": {
+"pool": "USDC.e",
+"farm": "USDC.e",
+"ref": "USDC.e"
+},
 "4aa0a5d8-860a-4ca2-af92-69c99c6d98f2": {
 "pool": "TYD",
 "farm": "True Yield Dollar",
 "ref": "USDC"
 },
+"47da0cdd-7b1d-4927-9545-20b53b73afa8": {
+"pool": "aManUSDT0",
+"farm": "Aave Mantle USDT0",
+"ref": "USDT0"
+},
 "1fa89639-b77f-4876-bebc-21ba6f36aab1": {
 "pool": "alUSDsDOLA",
 "farm": "alUSD/sDOLA",
 "ref": "sDOLA-alUSD"
+},
+"5f27c880-eca6-4a53-9035-08745fba73f3": {
+"pool": "PLP-sYUSD-24SEP2026",
+"farm": "PLP Staked YUSD 24SEP2026",
+"ref": "sYUSD"
 },
 "45ecff73-d1b5-412f-ae15-c409034cc14c": {
 "pool": "mooMorpho-Smokehouse-USDC",
@@ -1134,9 +1344,9 @@
 "farm": "eUSD/USDC",
 "ref": "eUSD-USDC"
 },
-"effcb4a4-4dcb-45e5-935d-f15542c13e6b": {
-"pool": "aHorRwaUSDC",
-"farm": "Aave Horizon RWA USDC",
+"05a3d186-2d42-4e21-b1f0-68c079d22677": {
+"pool": "ysUSDC",
+"farm": "Morpho Steakhouse USDC Compounder",
 "ref": "USDC"
 },
 "e65588a1-27ad-4e20-9232-68a6cfaccf63": {
@@ -1169,6 +1379,11 @@
 "farm": "Spark sUSDS",
 "ref": "sUSDS"
 },
+"a1371c8f-592f-56d4-a506-7f1530f35a00": {
+"pool": "spUSDG",
+"farm": "Spark Savings USDG",
+"ref": "USDG"
+},
 "be50b874-8147-440d-b8ca-f2c202e9ed64": {
 "pool": "cUSDX",
 "farm": "USDX T-POOL",
@@ -1184,6 +1399,11 @@
 "farm": "reUSD/scrvUSD",
 "ref": "reUSD-scrvUSD"
 },
+"d91b979f-1c05-423f-b987-581d20d84d6f": {
+"pool": "PLP-USDG-24SEP2026",
+"farm": "PLP Global Dollar 24SEP2026",
+"ref": "USDG"
+},
 "ed278631-10d3-5aaf-9e27-14d89058a5a6": {
 "pool": "npAUSD_8OCT2026",
 "farm": "Neverland Pendle AUSD_8OCT2026",
@@ -1194,20 +1414,25 @@
 "farm": "0.01%",
 "ref": "EURW-USDC"
 },
-"4decb8fb-be56-48ce-9c61-47a554d248e8": {
-"pool": "pyusd",
-"farm": "AUTO Market",
-"ref": "pyusd"
-},
 "956bda67-d4b0-41bf-92da-ea01f4622dda": {
 "pool": "sfrxUSD2",
 "farm": "sfrxUSD/frxUSD",
 "ref": "sfrxUSD-frxUSD"
 },
+"8b4267ba-69b2-49c9-9a82-df98e24e1f0f": {
+"pool": "vGauntletUSDT",
+"farm": "Gauntlet USDT Vault",
+"ref": "USDT"
+},
 "54e9b138-3146-4c1f-8dce-1cb948f5ef96": {
 "pool": "USDS",
 "farm": "SPK Farming Pool",
 "ref": "USDS"
+},
+"ae2073a3-2d17-4b0e-a35e-9a90a2569063": {
+"pool": "EURC-USDC",
+"farm": "0.04%",
+"ref": "EURC-USDC"
 },
 "a4236681-173c-4a52-97d2-30c61f07141b": {
 "pool": "yvcrvUSD-2",
@@ -1224,6 +1449,11 @@
 "farm": "reUSD/sfrxUSD",
 "ref": "reUSD-sfrxUSD"
 },
+"f854bff1-2f7b-4ee9-8ae3-5c09f4066b5b": {
+"pool": "PT-USDG-24SEP2026",
+"farm": "PT Global Dollar 24SEP2026",
+"ref": "USDG"
+},
 "7d89af7a-24c9-4292-aa38-7c71b05fbd6d": {
 "pool": "yvUSDC-1",
 "farm": "USDC-1 yVault",
@@ -1234,10 +1464,10 @@
 "farm": "USDS-1 yVault",
 "ref": "USDS"
 },
-"2d2872cc-a509-46c8-aaed-4bcd61258808": {
-"pool": "cvcrvUSD",
-"farm": "sDOLA collateral",
-"ref": "crvUSD"
+"4ac1a968-68ab-4da8-87e3-8f1e15e3dae2": {
+"pool": "USDC",
+"farm": "Prime",
+"ref": "USDC"
 },
 "fa087a6f-bc17-4752-9ac4-2b190503925f": {
 "pool": "GHOcrvUSD",
@@ -1253,6 +1483,11 @@
 "pool": "DOLA-sUSDS",
 "farm": "DOLA/sUSDS",
 "ref": "DOLA-sUSDS"
+},
+"d118f505-e75f-4152-bad3-49a2dc7482bf": {
+"pool": "aEthPYUSD",
+"farm": "Aave Ethereum PYUSD",
+"ref": "PYUSD"
 },
 "3388eabd-fc53-49bf-b358-d1a6dc3c6112": {
 "pool": "USDC/USDf",
@@ -1284,6 +1519,11 @@
 "farm": "Curve.fi Factory Plain Pool: crvUSD/USDC",
 "ref": "USDC-crvUSD"
 },
+"c149b02f-aa98-4ba2-9d78-8890f8e23a3b": {
+"pool": "USDC",
+"farm": "Ember ACRED",
+"ref": "USDC"
+},
 "daf810d4-b190-4d9a-a5c6-f784d6272a77": {
 "pool": "yvUSDT-1",
 "farm": "USDT-1 yVault",
@@ -1294,14 +1534,24 @@
 "farm": "sfrxUSD/frxUSD",
 "ref": "sfrxUSD-frxUSD"
 },
+"bdcf8682-1d72-42a7-b23e-f56d666dd10e": {
+"pool": "aEthEURC",
+"farm": "Aave Ethereum EURC",
+"ref": "EURC"
+},
+"1b9fd865-8e9a-40c3-90e2-18b43fab4c97": {
+"pool": "PLP-sUSDat-27AUG2026",
+"farm": "PLP Staked USDat 27AUG2026",
+"ref": "sUSDat"
+},
 "5776ffc6-a789-4ad5-80d0-631bc54f80c5": {
 "pool": "$TAUSIUSD",
 "farm": "TAU InfiniFi Pointsmax",
 "ref": "USDC"
 },
-"548af6d5-9e74-5f0e-866c-a86d46dd529b": {
-"pool": "cvUSDC",
-"farm": "wstETH collateral",
+"ddf68725-6ced-4c27-90ca-c14752cd7218": {
+"pool": "USDC",
+"farm": "USDC",
 "ref": "USDC"
 },
 "15692d23-4da2-4a73-99c0-9c93c1aa86d9": {
@@ -1309,15 +1559,30 @@
 "farm": "dUSD/sfrxUSD",
 "ref": "dUSD-sfrxUSD"
 },
+"27af094e-e18f-5eb2-bfbf-1cf24be73057": {
+"pool": "cvcrvUSD",
+"farm": "sfrxUSD collateral",
+"ref": "crvUSD"
+},
 "d22deafb-dbb1-417c-b555-cc8c9f4b955a": {
 "pool": "MtEthena",
 "farm": "sDAI/sUSDe",
 "ref": "sDAI-sUSDe"
 },
+"4fe0028e-6173-4b3f-8afd-294dbd7598b9": {
+"pool": "USDG",
+"farm": "USDG",
+"ref": "USDG"
+},
 "12ca9565-0369-404e-b209-631305e4012a": {
 "pool": "FRAXUSDe",
 "farm": "FRAXUSDe",
 "ref": "FRAX-USDe"
+},
+"1b8b4cdb-0728-42a8-bf13-2c8fea7427ee": {
+"pool": "aPolUSDCn",
+"farm": "Aave Polygon USDCn",
+"ref": "USDC"
 },
 "a5d67f7e-5b51-4a9d-969d-caf051a7f5a4": {
 "pool": "spUSDT",
@@ -1329,6 +1594,16 @@
 "farm": "Fraxlend Interest Bearing frxUSD (Staked Frax Ether) - 58",
 "ref": "frxUSD"
 },
+"2fb294c3-2599-4134-b852-5e45cf57a879": {
+"pool": "aInkWlGHO",
+"farm": "Aave InkWhitelabel GHO",
+"ref": "GHO"
+},
+"d9c395b9-00d0-4426-a6b3-572a6dd68e54": {
+"pool": "cUSDCv3",
+"farm": "Compound USDC",
+"ref": "USDC"
+},
 "027b72c2-bf96-451b-ac5f-afe6859b0828": {
 "pool": "cvcrvUSD",
 "farm": "Curve Vault for crvUSD",
@@ -1339,15 +1614,20 @@
 "farm": "alUSD/sDOLA",
 "ref": "sDOLA-alUSD"
 },
-"72fdbf75-d830-4f18-83bf-dd7634f7a3f2": {
-"pool": "USDT",
-"farm": "Prime",
-"ref": "USDT"
-},
 "cfa46afc-eb9c-4ff5-8e35-e6e1feaea974": {
 "pool": "crvfrxUSD",
 "farm": "crvUSD/frxUSD",
 "ref": "frxUSD-crvUSD"
+},
+"7e7821a2-3d20-4ae7-9c3d-04cd57904555": {
+"pool": "aPolUSDT",
+"farm": "Aave Polygon USDT",
+"ref": "USDT0"
+},
+"e7f25daf-de52-4fa1-ae9d-707bd7266751": {
+"pool": "PLP-apxUSD-5NOV2026",
+"farm": "PLP apxUSD 5NOV2026",
+"ref": "apxUSD"
 },
 "c38c4411-948a-4769-a93f-5860457a339c": {
 "pool": "cvcrvUSD",
@@ -1358,6 +1638,11 @@
 "pool": "cvcrvUSD",
 "farm": "Curve Vault for crvUSD",
 "ref": "crvUSD"
+},
+"3a6cc030-738d-4e19-8a40-e63e9c4d5a6f": {
+"pool": "aArbUSDT",
+"farm": "Aave Arbitrum USDT",
+"ref": "USD\u20ae0"
 },
 "fb934d2b-3356-5302-b17e-5bfbda2dad19": {
 "pool": "hLEND",
@@ -1374,45 +1659,70 @@
 "farm": "Web 3 Dollar",
 "ref": "USD3"
 },
-"da35d6ec-1449-5b73-93d2-6fae279a065c": {
-"pool": "tessUSDTsUSDslp",
-"farm": "TESS USDT sUSDs Loop Vault",
-"ref": "USDT"
+"2d2872cc-a509-46c8-aaed-4bcd61258808": {
+"pool": "cvcrvUSD",
+"farm": "wstETH collateral",
+"ref": "crvUSD"
+},
+"eb089ddf-77ba-459c-8e87-7a66c7fc3f27": {
+"pool": "aGnoEURe",
+"farm": "Aave Gnosis EURe",
+"ref": "EURe"
 },
 "1bf184d6-57bf-4e96-8831-b65fb9064d38": {
 "pool": "yvvbUSDT",
 "farm": "vbUSDT yVault",
 "ref": "vbUSDT"
 },
-"04fd30b3-c871-527b-bb8e-a50f7ab5c174": {
-"pool": "cvcrvUSD",
-"farm": "Curve Vault for crvUSD",
-"ref": "crvUSD"
+"21e1ac8a-b3aa-4576-9506-0b40137721a0": {
+"pool": "aEthUSDe",
+"farm": "Aave Ethereum USDe",
+"ref": "USDe"
 },
 "ae8e306b-a55d-48ce-afea-420d177c9272": {
 "pool": "USDG-USDe",
 "farm": "USDG-USDe",
 "ref": "USDG-USDe"
 },
-"1846e918-4857-47a0-b8e2-d5df89e98a56": {
+"a8e3d841-2788-4647-ad54-5a36fac451b1": {
+"pool": "aArbDAI",
+"farm": "Aave Arbitrum DAI",
+"ref": "DAI"
+},
+"0cdd7f84-711e-4cd4-916d-da318857559a": {
 "pool": "USDG",
-"farm": "Maple Market",
+"farm": "SOL/BTC Market",
 "ref": "USDG"
+},
+"42eaf290-24c3-4ce0-82ab-c1276444871b": {
+"pool": "aPlaUSDe",
+"farm": "Aave Plasma USDe",
+"ref": "USDe"
 },
 "0511276f-4d37-4919-95ab-6cdf418ddd08": {
 "pool": "USDai-waPlaUSDT0",
 "farm": "Surge USDai-waUSDT0",
 "ref": "USDai-waPlaUSDT0"
 },
+"6652ed18-d327-46cd-9bac-08e0e14ea715": {
+"pool": "aBasEURC",
+"farm": "Aave Base EURC",
+"ref": "EURC"
+},
 "422cbad0-7a9a-45c2-abd0-27b395d4c461": {
 "pool": "USDe-USDC",
 "farm": "0.01%",
 "ref": "USDe-USDC"
 },
-"802d35a2-5bae-456f-a2a9-4e1b48e0dec5": {
-"pool": "DAI-USDT",
-"farm": "0.01%",
-"ref": "DAI-USDT"
+"29be6a85-414f-4a66-b075-98863278912a": {
+"pool": "aBnbUSDT",
+"farm": "Aave BNB Smart Chain USDT",
+"ref": "USDT"
+},
+"3c4e1d81-1242-44dc-9d45-86cdcb12b9a0": {
+"pool": "USX",
+"farm": "Solstice Market",
+"ref": "USX"
 },
 "d42327a5-a969-411a-8d8d-a8b771c20f99": {
 "pool": "SkySaver",
@@ -1429,6 +1739,21 @@
 "farm": "fxSAVE collateral",
 "ref": "crvUSD"
 },
+"e26ce7d9-db75-4aa4-b1db-cc21ae17bdfb": {
+"pool": "spDAI",
+"farm": "Spark DAI",
+"ref": "DAI"
+},
+"9ec8eb36-332d-47d4-8d32-ee7574037e60": {
+"pool": "aAvaEURC",
+"farm": "Aave Avalanche EURC",
+"ref": "EURC"
+},
+"1fb7d4de-aa07-4d13-8c90-cc31b1914f34": {
+"pool": "PLP-USDat-27AUG2026",
+"farm": "PLP Saturn USD 27AUG2026",
+"ref": "USDat"
+},
 "0359418f-fedd-4973-9221-957a11c0a692": {
 "pool": "cvcrvUSD",
 "farm": "Curve Vault for crvUSD",
@@ -1444,25 +1769,55 @@
 "farm": "Curve Vault for crvUSD",
 "ref": "crvUSD"
 },
+"057a25c2-3b1e-49f8-9c5e-f8858726f221": {
+"pool": "PLP-apxUSD-27AUG2026",
+"farm": "PLP apxUSD 27AUG2026",
+"ref": "apxUSD"
+},
+"9bf5faf4-32e3-437e-8080-c38eae10cfa6": {
+"pool": "aSonUSDC",
+"farm": "Aave Sonic USDC",
+"ref": "USDC"
+},
 "64078a28-4d66-43d7-bc97-012994a0e4d4": {
 "pool": "cvcrvUSD",
 "farm": "Curve Vault for crvUSD",
 "ref": "crvUSD"
+},
+"21091399-1187-4242-8e03-9b06032f9a8f": {
+"pool": "aGnoWXDAI",
+"farm": "Aave Gnosis WXDAI",
+"ref": "WXDAI"
+},
+"065ea91c-deff-4da0-a06f-64c642780936": {
+"pool": "aInkWlUSDG",
+"farm": "Aave InkWhitelabel USDG",
+"ref": "USDG"
+},
+"3e669ce8-74c5-4fc9-bf85-f40a924c6407": {
+"pool": "aAvaDAI",
+"farm": "Aave Avalanche DAI",
+"ref": "DAI.e"
 },
 "1449c7a7-a915-4a42-94f4-4c93c851f0aa": {
 "pool": "nUSDT-Bsc",
 "farm": "Native Bsc USDT Vault",
 "ref": "USDT"
 },
-"10155a57-e18b-53f7-b91a-e8bd90122e0a": {
-"pool": "apxUSDC-v3",
-"farm": "apxUSD-USDC v3",
-"ref": "apxUSD-USDC"
-},
 "93a073c9-0870-44a2-a5a6-d6091573be08": {
 "pool": "PYcrvUSD",
 "farm": "pyUSD/crvUSD",
 "ref": "PYUSD-crvUSD"
+},
+"4d296741-940d-44c1-a729-f6bd1f330f6f": {
+"pool": "aInkWlUSDC",
+"farm": "Aave InkWhitelabel USDC",
+"ref": "USDC"
+},
+"190580f0-8121-4744-945b-6a5c04e09795": {
+"pool": "EURC",
+"farm": "SOL/BTC Market",
+"ref": "EURC"
 },
 "fd106377-2339-49f1-b7a5-8e479322b60d": {
 "pool": "cvcrvUSD",
@@ -1473,6 +1828,16 @@
 "pool": "cvcrvUSD",
 "farm": "sreUSD collateral",
 "ref": "crvUSD"
+},
+"bb652447-0b50-4dff-9375-30e7e826db68": {
+"pool": "USDC",
+"farm": "Plus",
+"ref": "USDC"
+},
+"dac406f6-5600-437e-849d-f03daa383864": {
+"pool": "usdt",
+"farm": "usdt",
+"ref": "usdt"
 },
 "e8dda16a-ad63-4925-b234-06861cff79c7": {
 "pool": "crv2pool",
@@ -1489,25 +1854,45 @@
 "farm": "CL1 - 0.01%",
 "ref": "USDC-eUSD"
 },
+"4734c292-5e38-4962-b7a9-e1e265254c1b": {
+"pool": "aBnbFDUSD",
+"farm": "Aave BNB Smart Chain FDUSD",
+"ref": "FDUSD"
+},
 "ffeb6000-119e-4950-9875-fa90d0d8e373": {
 "pool": "ysvbUSDC",
 "farm": "Morpho Gauntlet USDC Vault Compounder",
 "ref": "vbUSDC"
 },
-"1e00ac2b-0c3c-4b1f-95be-9378f98d2b40": {
-"pool": "aHorRwaGHO",
-"farm": "Aave Horizon RWA GHO",
+"95b3493d-e474-4098-9794-973e86a06213": {
+"pool": "PLP-USDat-27AUG2026",
+"farm": "PLP USDat 27AUG2026",
+"ref": "USDat"
+},
+"72fdbf75-d830-4f18-83bf-dd7634f7a3f2": {
+"pool": "USDT",
+"farm": "Plus",
+"ref": "USDT"
+},
+"af40f2a5-7e7b-43b8-8210-8001196ce00e": {
+"pool": "GHO",
+"farm": "Prime",
 "ref": "GHO"
+},
+"535daca1-b457-48be-b93f-82b7a7fa1e0a": {
+"pool": "tusd",
+"farm": "tusd",
+"ref": "tusd"
+},
+"ec15a095-9ee2-42b0-a50e-76aed2342ef4": {
+"pool": "Re7USDC",
+"farm": "Re7 USDC",
+"ref": "USDC"
 },
 "b6b23226-90d9-4cf5-93b8-057a5364705f": {
 "pool": "USDe-USDT",
 "farm": "USDe-USDT",
 "ref": "USDe-USDT"
-},
-"94a140b4-f09f-4403-a4c1-0791c99e1492": {
-"pool": "usd1-bank",
-"farm": "Lorenzo Exclusive USD1 Vault",
-"ref": "USD1"
 },
 "b486afff-6cb0-4932-aacb-4c32cf955512": {
 "pool": "JupUSD-USDC",
@@ -1544,6 +1929,11 @@
 "farm": "pyusd-USDe",
 "ref": "pyusd-USDe"
 },
+"44da6781-e5d3-4b77-8171-e55571a8cc22": {
+"pool": "frxUSD",
+"farm": "Core",
+"ref": "frxUSD"
+},
 "9f1fc935-5bd3-4327-aefe-6f09045bf092": {
 "pool": "LisUSD",
 "farm": "LisUSD Vault",
@@ -1553,6 +1943,16 @@
 "pool": "ftUSDUSDC",
 "farm": "ftUSD/USDC",
 "ref": "ftUSD-USDC"
+},
+"8a6cda27-aa2b-4201-bb05-9cfcfc4ab6fd": {
+"pool": "aCelUSDT",
+"farm": "Aave Celo USDT",
+"ref": "USD\u20ae"
+},
+"411707d7-0293-4ad3-982d-72125e1f5de7": {
+"pool": "USDG",
+"farm": "Core",
+"ref": "USDG"
 },
 "4ba3a2f3-daa9-49fd-a25c-19e7cc5f77b8": {
 "pool": "USD\u20ae0-USDC",
@@ -1574,10 +1974,20 @@
 "farm": "0.01%",
 "ref": "RLUSD-USDC"
 },
+"adc1a060-aa9b-416e-ad10-4b7d7100b42c": {
+"pool": "PLP-USDai-15OCT2026",
+"farm": "PLP USDai 15OCT2026",
+"ref": "USDai"
+},
 "863490fc-3912-58cc-b93c-d53d1a19c876": {
 "pool": "sUSDe-USDT0",
 "farm": "0.05%",
 "ref": "sUSDe-USDT0"
+},
+"b9ba5af5-01a6-49c7-bc56-516053a29e96": {
+"pool": "USD\u20ae0-USDG",
+"farm": "CL1 - 0.02%",
+"ref": "USD\u20ae0-USDG"
 },
 "df8851f0-5b1d-4843-88fd-88468d129c78": {
 "pool": "syrupUSDC-USDC",
@@ -1588,6 +1998,11 @@
 "pool": "cearnAUSD",
 "farm": "Curvance earnAUSD",
 "ref": "earnAUSD"
+},
+"effcb4a4-4dcb-45e5-935d-f15542c13e6b": {
+"pool": "aEthLidoUSDC",
+"farm": "Aave Ethereum Lido USDC",
+"ref": "USDC"
 },
 "7e178994-eb38-4b0d-a3fd-ee60ab2e57ea": {
 "pool": "cvUSD",
@@ -1613,6 +2028,11 @@
 "pool": "vGauntletUSD1",
 "farm": "Gauntlet x Lista USD1 Vault",
 "ref": "USD1"
+},
+"d617716b-3332-5c66-a770-491ca86c4ef8": {
+"pool": "USDG",
+"farm": "PAXG Market",
+"ref": "USDG"
 },
 "755529b5-fcf4-4ef0-a7c7-e4f49376706f": {
 "pool": "BOLDUSDC",
@@ -1663,6 +2083,11 @@
 "pool": "reUSD-USDT",
 "farm": "reUSD-USDT",
 "ref": "reUSD-USDT"
+},
+"24762515-822a-46af-927c-77a1dc449bd0": {
+"pool": "aOptUSDC",
+"farm": "Aave Optimism USDC",
+"ref": "USDC"
 },
 "1193ef25-862b-43c1-a545-91bbb9678d30": {
 "pool": "DAI-USDC",
@@ -2004,11 +2429,6 @@
 "farm": "USDC-USDT",
 "ref": "USDC-USDT"
 },
-"40e2054c-779d-4499-845f-95b4a31277f7": {
-"pool": "USDC-USDT",
-"farm": "0.05%",
-"ref": "USDC-USDT"
-},
 "2f340114-f11e-460b-bfc9-79fd70546a55": {
 "pool": "wM-USDC",
 "farm": "0.01%",
@@ -2133,6 +2553,11 @@
 "pool": "aMansyrupUSDT",
 "farm": "Aave Mantle syrupUSDT",
 "ref": "syrupUSDT"
+},
+"1e00ac2b-0c3c-4b1f-95be-9378f98d2b40": {
+"pool": "stkGHO",
+"farm": "stk GHO",
+"ref": "GHO"
 },
 "07f70bad-5e2a-5b2f-8094-03965435983e": {
 "pool": "aMegstcUSD",
@@ -2534,9 +2959,19 @@
 "farm": "alETH/wETH",
 "ref": "alETH-WETH"
 },
+"aa906e30-64ad-416d-a141-6a2d01a52832": {
+"pool": "kpkwstETH",
+"farm": "wstETH v3",
+"ref": "wstETH"
+},
 "226ca3b7-162a-441c-ad87-047fcf2a1fc7": {
 "pool": "nWETH",
 "farm": "Neverland Interest Bearing WETH",
+"ref": "WETH"
+},
+"7909e3f2-f00f-5e8e-9655-0d7e189794a3": {
+"pool": "aMonWETH",
+"farm": "Aave Monad WETH",
 "ref": "WETH"
 },
 "24ddfb84-4b83-4028-991c-56bfcfef76c2": {
@@ -2609,6 +3044,11 @@
 "farm": "Aave Base cbETH",
 "ref": "cbETH"
 },
+"842fd8d6-5e94-472f-b5d5-b42cfee98ab8": {
+"pool": "eWETH-2",
+"farm": "EVK Vault eWETH-2",
+"ref": "WETH"
+},
 "0d27f0a5-572a-41cd-98a6-ad5804f95044": {
 "pool": "mwstETH",
 "farm": "Moonwell Wrapped Lido Staked Ether",
@@ -2628,16 +3068,6 @@
 "pool": "weeth-ng",
 "farm": "weETH/WETH-ng",
 "ref": "WETH-weETH"
-},
-"d541708e-1283-4feb-bc7a-457fc5f8db2c": {
-"pool": "aEthLidowstETH",
-"farm": "Aave Ethereum Lido wstETH",
-"ref": "wstETH"
-},
-"1114f0c0-a493-4fed-97bb-922a7138a75a": {
-"pool": "fwstETH",
-"farm": "Fluid Wrapped liquid staked Ether 2.0",
-"ref": "wstETH"
 },
 "e043585f-923f-4009-934f-005232f34a27": {
 "pool": "aEthosETH",
@@ -2694,11 +3124,6 @@
 "farm": "Aave Arbitrum wstETH",
 "ref": "wstETH"
 },
-"e6435aae-cbe9-4d26-ab2c-a4d533db9972": {
-"pool": "aEthwstETH",
-"farm": "Aave Ethereum wstETH",
-"ref": "wstETH"
-},
 "3b45941c-16cb-48c5-a490-16c6c4f1d86a": {
 "pool": "spwstETH",
 "farm": "Spark wstETH",
@@ -2707,11 +3132,6 @@
 "79af7462-170a-4e77-886d-898dc2145c78": {
 "pool": "aGnowstETH",
 "farm": "Aave Gnosis wstETH",
-"ref": "wstETH"
-},
-"befcb753-f47d-4152-92a0-56b8f2f899b4": {
-"pool": "wstETH",
-"farm": "Core",
 "ref": "wstETH"
 },
 "68d87607-770d-5180-9b37-f7c12534b0fa": {
@@ -2794,10 +3214,15 @@
 "farm": "ynETHx/ETH",
 "ref": "ynETHx-WETH"
 },
-"c17dcd78-e16e-474a-8661-443a2959c078": {
-"pool": "gtwethp",
-"farm": "Gauntlet WETH Prime",
+"655ca962-e0ac-424c-84f9-2fe4fbb0fef4": {
+"pool": "WETH",
+"farm": "WETH",
 "ref": "WETH"
+},
+"65b7d01f-52de-4071-a735-698c52d3643e": {
+"pool": "ethx-f",
+"farm": "Curve.fi Factory Pool: ETHx-ETH",
+"ref": "ETH-ETHx"
 },
 "92d8447d-f8fa-4862-889c-7defd260b9dc": {
 "pool": "alETHwETH",
@@ -2819,25 +3244,45 @@
 "farm": "Curve.fi Factory Pool: stETH-ng",
 "ref": "ETH-stETH"
 },
+"23405eee-97e7-4b8e-8625-19c3a36047e8": {
+"pool": "aBasWETH",
+"farm": "Aave Base WETH",
+"ref": "WETH"
+},
 "08eaf098-4957-4922-bfca-cc0c46505a43": {
 "pool": "stETH-ng-f",
 "farm": "Curve.fi Factory Pool: stETH-ng",
 "ref": "ETH-stETH"
+},
+"f78f31b0-80ed-4504-bf89-74e0162e998f": {
+"pool": "ethx-f",
+"farm": "Curve.fi Factory Pool: ETHx-ETH",
+"ref": "ETH-ETHx"
 },
 "05bd3778-2cb9-424d-a4bc-5707f8612a75": {
 "pool": "WETH-wstETH",
 "farm": "CL1 - 0.009%",
 "ref": "WETH-wstETH"
 },
-"b1bbfcb3-6af7-4511-8ec6-e1b3eacf4a74": {
-"pool": "steakETH",
-"farm": "Steakhouse Prime ETH",
-"ref": "WETH"
-},
 "7aa4237c-3526-4a52-9db6-63c7b7c4d6c0": {
 "pool": "sd-cbeth-f-vault",
 "farm": "Stake DAO Curve.fi Factory Crypto Pool: cbETH/WETH Vault",
 "ref": "WETH-cbETH"
+},
+"c715efe7-a70d-4358-b2c2-c149cf658612": {
+"pool": "aAvaWETH",
+"farm": "Aave Avalanche WETH",
+"ref": "WETH.e"
+},
+"39b18684-cf0c-471b-a991-4a65d399367a": {
+"pool": "eWETH-1",
+"farm": "EVK Vault eWETH-1",
+"ref": "WETH"
+},
+"7993b97d-12c3-4a36-b6b6-5b37bac4f8ae": {
+"pool": "cWETHv3",
+"farm": "Compound WETH",
+"ref": "WETH"
 },
 "475d7ab5-a4b8-4400-ad1c-94ef9e8bdfe3": {
 "pool": "WETH-cbETH",
@@ -2859,10 +3304,20 @@
 "farm": "Curve.fi ETH/stETH",
 "ref": "ETH-stETH"
 },
+"c0b1d745-7fe9-4c27-a95d-b02aa9d26465": {
+"pool": "cWETHv3",
+"farm": "Compound WETH",
+"ref": "WETH"
+},
 "66dac3bb-be33-4e22-9b35-77f05e492a7d": {
 "pool": "WETH-bsdETH",
 "farm": "CL1 - 0.01%",
 "ref": "WETH-bsdETH"
+},
+"3e332a41-3a15-41bc-8d5c-438c09609349": {
+"pool": "aOptWETH",
+"farm": "Aave Optimism WETH",
+"ref": "WETH"
 },
 "ac1bb984-5d26-5a2a-8b5c-6f7d7e6bc2b9": {
 "pool": "cvWETH",
@@ -2898,6 +3353,16 @@
 "pool": "wstETH-WETH",
 "farm": "0.01%",
 "ref": "wstETH-WETH"
+},
+"40a5252b-305d-495a-9582-664a09ef2dc5": {
+"pool": "aLinWETH",
+"farm": "Aave Linea WETH",
+"ref": "WETH"
+},
+"91eed93a-e7e0-49fa-92c1-40f2b2768fd9": {
+"pool": "aBnbETH",
+"farm": "Aave BNB Smart Chain ETH",
+"ref": "ETH"
 },
 "bc33d1ea-f566-40eb-b0a8-8d8dcf425f18": {
 "pool": "WETH-superOETHb",
@@ -2993,11 +3458,6 @@
 "pool": "LsETH-WETH",
 "farm": "0.01%",
 "ref": "LsETH-WETH"
-},
-"4c14f7e7-d802-4bce-9d0f-ac1e3bed6360": {
-"pool": "mooBeefyUniswapwstETH-WETH",
-"farm": "Moo Beefy Uniswap wstETH-WETH",
-"ref": "wstETH-WETH"
 },
 "f4106b25-024d-4f19-85f0-bf109ab46f7c": {
 "pool": "weETH-ETH",

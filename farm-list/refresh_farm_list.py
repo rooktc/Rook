@@ -94,9 +94,16 @@ def get(url, retries=4):
             time.sleep(2 ** i)
 
 
+import re
+
+_ETH_PART = re.compile(r'ETH([+XYSB2]|\.[EB])?$')  # ETH, wstETH, ETHx, ETH+, weETHs, WETH.e ...
+
+
 def is_eth_family(symbol):
+    # every hyphen-separated leg must be an ETH-denominated token; rejects
+    # tickers that merely contain "ETH" (ETHFI, ETHENA, ...)
     parts = [p for p in symbol.split('-') if p]
-    return bool(parts) and all('ETH' in p.upper() for p in parts)
+    return bool(parts) and all(_ETH_PART.search(p.upper()) for p in parts)
 
 
 def farm_type(name, symbol, farm, meta):
