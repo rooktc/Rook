@@ -464,14 +464,6 @@
    "score": 4.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/thbill/"
-  },
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/thbill-theo/"
   }
  ],
  "THUSD": [
@@ -653,14 +645,6 @@
    "label": "F",
    "num": 30,
    "url": "https://pharos.watch/stablecoin/usdm-moneta/"
-  },
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/usdm-monetrix/"
   }
  ],
  "USDP": [
@@ -1668,16 +1652,6 @@
    "url": "https://pharos.watch/stablecoin/eearn-ember/"
   }
  ],
- "EMXN": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/emxn-telcoin/"
-  }
- ],
  "EUR0": [
   {
    "source": "pharos",
@@ -2092,16 +2066,6 @@
    "url": "https://pharos.watch/stablecoin/hlusd-hela/"
   }
  ],
- "HOLLAR": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/hollar-hydrated/"
-  }
- ],
  "HOME": [
   {
    "source": "pharos",
@@ -2185,14 +2149,6 @@
  "IUSD": [
   {
    "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/iusd-indigo-protocol/"
-  },
-  {
-   "source": "pharos",
    "score": "D",
    "scale": "letter grade (v9)",
    "label": "D",
@@ -2226,16 +2182,6 @@
    "label": "C",
    "num": 59,
    "url": "https://pharos.watch/stablecoin/jpym-mento/"
-  }
- ],
- "JPYSC": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/jpysc-sbi-startale/"
   }
  ],
  "JPYT": [
@@ -2784,16 +2730,6 @@
    "url": "https://pharos.watch/stablecoin/sfrxusd-frax/"
   }
  ],
- "SILK": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/silk-shade-protocol/"
-  }
- ],
  "SLVON": [
   {
    "source": "pharos",
@@ -2972,16 +2908,6 @@
    "url": "https://pharos.watch/stablecoin/syusd-aegis/"
   }
  ],
- "SYZUSD": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/syzusd-yuzu/"
-  }
- ],
  "TGBP": [
   {
    "source": "pharos",
@@ -2990,16 +2916,6 @@
    "label": "C-",
    "num": 50,
    "url": "https://pharos.watch/stablecoin/tgbp-tokenised/"
-  }
- ],
- "TRUSD": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/trusd-tori/"
   }
  ],
  "TRYB": [
@@ -3184,24 +3100,6 @@
    "label": "C+",
    "num": 62,
    "url": "https://pharos.watch/stablecoin/usdgo-osl/"
-  }
- ],
- "USDH": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/usdh-hermetica/"
-  },
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/usdh-hubble/"
   }
  ],
  "USDK": [
@@ -3486,16 +3384,6 @@
    "url": "https://pharos.watch/stablecoin/usyc-hashnote/"
   }
  ],
- "UTY": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/uty-xsy/"
-  }
- ],
  "UUSD": [
   {
    "source": "pharos",
@@ -3612,16 +3500,6 @@
    "label": "F",
    "num": 39,
    "url": "https://pharos.watch/stablecoin/weusd-picwe/"
-  }
- ],
- "WITRY": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/witry-brix/"
   }
  ],
  "WM": [
@@ -3754,16 +3632,6 @@
    "url": "https://pharos.watch/stablecoin/xsgd-straitsx/"
   }
  ],
- "XTUSD": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/xtusd-xt/"
-  }
- ],
  "XUSD": [
   {
    "source": "pharos",
@@ -3840,16 +3708,6 @@
    "url": "https://pharos.watch/stablecoin/yvusdc-yearn/"
   }
  ],
- "YZUSD": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/yzusd-yuzu/"
-  }
- ],
  "ZARM": [
   {
    "source": "pharos",
@@ -3878,16 +3736,6 @@
    "label": "A-",
    "num": 80,
    "url": "https://pharos.watch/stablecoin/zchf-frankencoin/"
-  }
- ],
- "ZEUSD": [
-  {
-   "source": "pharos",
-   "score": "NR",
-   "scale": "letter grade (v9)",
-   "label": "NR",
-   "num": null,
-   "url": "https://pharos.watch/stablecoin/zeusd-zoth/"
   }
  ],
  "ZKUSD": [

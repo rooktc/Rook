@@ -119,7 +119,8 @@ def compute_risk(row, risk_scores):
         for e in risk_scores.get(leg, []):
             b = entry_bucket(e)
             rated.append(b)
-            tag = f"{e['source']} {e['score']}{'/10' if e['source'] == 'tid' else '/5'}"
+            suffix = {'tid': '/10', 'yearn': '/5'}.get(e['source'], '')
+            tag = f"{e['source']} {e['score']}{suffix}"
             basis.append(f'{leg}: {tag} -> {b}')
     flags = row.get('flags') or []
     red = any(f.startswith(RED_FLAGS) for f in flags)
