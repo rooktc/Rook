@@ -380,9 +380,22 @@ def compute_risk(row, risk_scores):
         if score >= 8 and row.get('verdict') != 'VERIFIED':
             score = 7.9
             basis.append('capped 7.9: not VERIFIED')
-        if score > 5.9 and not row.get('collat'):
+        # a vault token the risk sources rate directly (yBOLD, syrupUSDC)
+        # carries a product-level assessment — but a plain deposit currency
+        # (USDC, WETH...) rating says nothing about the vault
+        PLAIN = {'USDC', 'USDT', 'USDT0', 'DAI', 'USDS', 'USDE', 'WETH', 'ETH',
+                 'WBTC', 'CBBTC', 'GHO', 'FRAX', 'FRXUSD', 'LUSD', 'CRVUSD',
+                 'BOLD', 'RLUSD', 'PYUSD', 'USDP', 'TUSD', 'USD1', 'AUSD',
+                 'USDG', 'EURC', 'SUI', 'SOL', 'BNB', 'MON', 'HYPE', 'XAUT',
+                 'WSTETH', 'STETH', 'WEETH', 'CBETH', 'RETH', 'USDAI', 'USN'}
+        n_sym = risk_norm(row['symbol'])
+        product_rated = (n_sym not in PLAIN and '-' not in row['symbol']
+                         and asset_score(n_sym, risk_scores) is not None)
+        if score > 5.9 and not row.get('collat') and not product_rated:
             # the deposit asset's score says nothing about exposure we
-            # cannot see — Med-High is the ceiling either way
+            # cannot see — Med-High is the ceiling either way. Exception:
+            # a vault token the risk sources rate directly (yBOLD, syrupUSDC)
+            # already carries a product-level assessment.
             if row['name'] in STRATEGY_VAULTS:
                 score = 5.9
                 basis.append('capped 5.9: allocation not visible')
@@ -913,7 +926,9 @@ def book_to_exposure(row, book, kind):
         if low.startswith(('wallet', 'cash', 'idle', 'other')):
             out.append((own, w))
             continue
-        venue = next((v for k, v in BOOK_VENUES if k in low), None)
+        words = set(re.findall(r'[a-z]+', low))
+        venue = next((v for k, v in BOOK_VENUES
+                      if (k in low if ' ' in k else k in words)), None)
         out.append((label[:26], w, venue))   # venue None -> unrated path
     if out:
         row['collat'] = out
@@ -923,19 +938,26 @@ def book_to_exposure(row, book, kind):
 def load_lagoon_books():
     """Lagoon publishes each vault's live composition (protocol-level
     repartition percentages) via GraphQL — a scoreable strategy book."""
-    q = '''query { vaults(first: 100, where: {isVisible_eq: true}) { items {
-      symbol chain { id }
-      composition { compositions { protocol repartition } } } } }'''
-    d = get_post('https://api.lagoon.finance/query', {'query': q})
     idx = {}
-    for v in ((d.get('data') or {}).get('vaults') or {}).get('items', []):
-        comp = (v.get('composition') or {}).get('compositions') or []
-        book = [(c.get('protocol') or '?', float(c.get('repartition') or 0))
-                for c in comp]
-        cid = (v.get('chain') or {}).get('id')
-        ch = CHAIN_IDS.get(cid)
-        if ch and book:
-            idx[(ch, (v.get('symbol') or '').upper())] = book
+    for skip in range(0, 200, 20):   # small pages: one vault's broken
+        q = ('query { vaults(first: 20, skip: %d, where: {isVisible_eq: true}) '
+             '{ items { symbol chain { id } composition { compositions '
+             '{ protocol repartition } } } } }' % skip)
+        try:                          # composition 500s its whole page
+            d = get_post('https://api.lagoon.finance/query', {'query': q})
+        except Exception:
+            continue
+        items = ((d.get('data') or {}).get('vaults') or {}).get('items') or []
+        for v in items:
+            comp = (v.get('composition') or {}).get('compositions') or []
+            book = [(c.get('protocol') or '?', float(c.get('repartition') or 0))
+                    for c in comp]
+            cid = (v.get('chain') or {}).get('id')
+            ch = CHAIN_IDS.get(cid)
+            if ch and book:
+                idx[(ch, (v.get('symbol') or '').upper())] = book
+        if not items and skip > 0:
+            break
     return idx
 
 
