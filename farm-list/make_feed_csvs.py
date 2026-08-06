@@ -19,15 +19,15 @@ for tab, out in [('USD Farms', sys.argv[2]), ('ETH Farms', sys.argv[3])]:
     ws = wb[tab]
     with open(out, 'w', newline='') as f:
         w = csv.writer(f)
-        w.writerow([ws.cell(1, 1).value] + [''] * 20)
-        w.writerow([ws.cell(3, c).value for c in range(1, 20)] + ['LinkURL', 'Flags'])
+        w.writerow([ws.cell(1, 1).value] + [''] * 17)
+        w.writerow([ws.cell(3, c).value for c in range(1, 17)] + ['LinkURL', 'Flags'])
         r = 4
         n = 0
         while ws.cell(r, 1).value:
-            row = [ws.cell(r, c).value for c in range(1, 20)]  # incl. Risk (F)
+            row = [ws.cell(r, c).value for c in range(1, 17)]  # A..P incl. Risk Note
             link = ws.cell(r, 7).hyperlink
             row.append(link.target if link else '')
-            row.append(ws.cell(r, 20).value or '')
+            row.append(ws.cell(r, 17).value or '')
             w.writerow(['' if v is None else v for v in row])
             r += 1
             n += 1

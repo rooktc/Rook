@@ -83,8 +83,8 @@ ISSUERS = {
 }
 
 RATING_COLOR = {'stable': 'FF1E7145', 'mixed': 'FFB45F06', 'volatile': 'FFC00000'}
-RISK_COLOR = {'Low': 'FF1E7145', 'Med.': 'FFB45F06', 'High': 'FFC00000',
-              'Medium': 'FFB45F06'}
+RISK_COLOR = {'Low': 'FF1E7145', 'Med-Low': 'FF7F8C1E', 'Med-High': 'FFB45F06',
+              'High': 'FFC00000', 'Medium': 'FFB45F06', 'Med.': 'FFB45F06'}
 RISK_RANK = {'Low': 0, 'Medium': 1, 'High': 2}
 RISK_ALIAS = {'ETH+': 'ETHPLUS', 'USDT0': 'USDT', 'USD₮0': 'USDT', 'USD₮': 'USDT',
               'SCRVUSD': 'CRVUSD', 'SFRXUSD': 'FRXUSD', 'WFRXETH': 'FRXETH'}
@@ -342,7 +342,8 @@ def compute_risk(row, risk_scores):
             score = 6.9
             basis.append('capped 6.9: opaque allocation')
         score = max(0.5, min(10.0, score))
-        risk = 'Low' if score >= 8 else ('Medium' if score >= 4 else 'High')
+        risk = ('Low' if score >= 8 else 'Med-Low' if score >= 6 else
+                'Med-High' if score >= 4 else 'High')
         basis.insert(0, f'score {score:.1f}')
         return risk, '; '.join(basis), round(score, 1)
     # unrated assets: label from row signals only. An asset nothing rates
@@ -351,7 +352,7 @@ def compute_risk(row, risk_scores):
     weak = (red or 'SELF-REPORTED(flat 30d history)' in flags
             or row.get('rating') == 'volatile' or (row.get('tvl') or 0) < 1_000_000
             or row.get('verdict') not in ('VERIFIED', 'CAUTION'))
-    risk = 'High' if weak else 'Medium'
+    risk = 'High' if weak else 'Med-High'
     basis.append('unrated: internal signals only')
     return risk, '; '.join(basis), None
 
@@ -577,10 +578,11 @@ def main(template, outfile, names_file=None, loops_file=None):
                     round(d['base'], 5) if d['base'] is not None else None,
                     round(d['rew'], 5) if d['rew'] is not None else None,
                     round(d['intr'], 5) if d['intr'] is not None else None,
-                    d['rating'], d['score'], pool_name, None]
+                    d.get('risk_basis') or '']
             # style source per new column: A..E keep 1..5, F(risk) borrows A,
-            # G..S take the template's old F..R styles
-            style_src = [1, 2, 3, 4, 5, 1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+            # G..O take the template's old F..N styles, Risk Note borrows
+            # the old pool-name text style
+            style_src = [1, 2, 3, 4, 5, 1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
             for c, v in enumerate(vals, start=1):
                 cell = ws.cell(r, c)
                 cell._style = copy.copy(tmpl[style_src[c - 1]])
@@ -597,22 +599,21 @@ def main(template, outfile, names_file=None, loops_file=None):
             f.underline = 'single'
             link.font = f
             link.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='bottom')
-            if d['rating'] in RATING_COLOR:
-                f = copy.copy(ws.cell(r, 16).font)
-                f.color = openpyxl.styles.Color(rgb=RATING_COLOR[d['rating']])
-                ws.cell(r, 16).font = f
+            note = ws.cell(r, 16)
+            note.font = openpyxl.styles.Font(name='Arial', size=8, color='FF666666')
+            note.alignment = openpyxl.styles.Alignment(horizontal='left', vertical='bottom')
             d['farm_disp'] = farm
-            # verification flags: highlight the APY (Now) cell, detail in hidden col T
+            # verification flags: highlight the APY (Now) cell, detail in hidden col Q
             flags = d.get('flags') or []
             if flags:
                 shade = FLAG_FILL['red' if any(x.startswith(RED_FLAGS) for x in flags) else 'orange']
                 ws.cell(r, 10).fill = openpyxl.styles.PatternFill('solid', fgColor=shade)
-                ws.cell(r, 20).value = '; '.join(flags)
-        ws.column_dimensions['T'].hidden = True
+                ws.cell(r, 17).value = '; '.join(flags)
+        ws.column_dimensions['Q'].hidden = True
         last = 3 + len(rows)
         ws.cell(1, 1).value = (f"{asset} Farm List  ·  DefiLlama API snapshot {today}"
                                f"  ·  {len(rows)} pools")
-        ws.auto_filter.ref = f'A3:S{last}'
+        ws.auto_filter.ref = f'A3:P{last}'
         ws.freeze_panes = 'C4'
         print(f'{tab}: {len(rows)} rows written ({unnamed} without carried display names)')
 
@@ -696,39 +697,46 @@ def build_looping(wb, loops, today):
 
 
 def restructure_farm_header(ws):
-    """Shift the farm-tab layout so Risk sits in column F: the template's
-    F..R (Link..Holders) move one column right to G..S, merged header bands
-    and column widths shift with them. Idempotent per fresh template load."""
+    """Rebuild the farm-tab layout: A..E as in the template, Risk in F,
+    the template's F..N (Link..intrinsic) shifted to G..O, and a wide
+    Risk Note column in P. The template's rating/score/pool/Holders
+    columns (old O..R) are dropped. Idempotent per fresh template load."""
     # row 1 + row 2 band merges
     for rng in [str(m) for m in list(ws.merged_cells.ranges)]:
         ws.unmerge_cells(rng)
     band = {}
-    for col in (9, 12, 15, 17):  # I2, L2, O2, Q2 band anchors
+    for col in (9, 12):  # I2 'Total APY', L2 'Breakdown' band anchors
         c = ws.cell(2, col)
         band[col] = (c.value, copy.copy(c._style))
     for c in range(1, 20):
         ws.cell(2, c).style = 'Normal'
-    for src, dst in [(9, 10), (12, 13), (15, 16), (17, 18)]:
+    for src, dst in [(9, 10), (12, 13)]:
         cell = ws.cell(2, dst)
         cell._style = band[src][1]
         cell.value = band[src][0]
-    ws.merge_cells('A1:S1')
-    for rng in ('J2:L2', 'M2:O2', 'P2:Q2', 'R2:S2'):
+    ws.merge_cells('A1:P1')
+    for rng in ('J2:L2', 'M2:O2'):
         ws.merge_cells(rng)
-    # row 3 headers: shift F..R right, insert Risk at F
+    # row 3 headers: A..E, Risk, old Link..intrinsic, Risk Note
     hdr_style = copy.copy(ws.cell(3, 1)._style)
     hdrs = [ws.cell(3, c).value for c in range(1, 19)]
-    new_hdrs = hdrs[:5] + ['Risk'] + hdrs[5:]
+    new_hdrs = hdrs[:5] + ['Risk'] + hdrs[5:14] + ['Risk Note']
+    for c in range(1, 20):
+        ws.cell(3, c).style = 'Normal'
+        ws.cell(3, c).value = None
     for c, v in enumerate(new_hdrs, start=1):
         cell = ws.cell(3, c)
         cell._style = copy.copy(hdr_style)
         cell.value = v
-    # column widths: shift template widths, Risk gets its own
+    # column widths: shift Link..intrinsic one right, Risk + Risk Note own
     old_w = {c: ws.column_dimensions[openpyxl.utils.get_column_letter(c)].width
              for c in range(1, 19)}
-    for c in range(18, 5, -1):  # shift F..R -> G..S from the right
+    for c in range(14, 5, -1):  # old F..N -> G..O
         ws.column_dimensions[openpyxl.utils.get_column_letter(c + 1)].width = old_w.get(c)
-    ws.column_dimensions['F'].width = 9
+    ws.column_dimensions['F'].width = 9.5
+    ws.column_dimensions['P'].width = 70
+    for col in ('Q', 'R', 'S'):
+        ws.column_dimensions[col].width = 4
 
 
 # ---------------------------------------------------------------------------
@@ -1169,6 +1177,57 @@ def strata_check(row):
     return round(live, 3), ok
 
 
+def load_merkl(chain_ids):
+    """Live incentive-campaign APRs from Merkl (api.merkl.xyz), indexed by
+    (chain_id, campaign identifier address). Returns {} while the domain is
+    not allowlisted — callers treat that as 'no Merkl data'."""
+    idx = {}
+    try:   # single cheap probe so a blocked domain fails fast, not per-chain
+        get('https://api.merkl.xyz/v4/opportunities?chainId=1&items=1', retries=1)
+    except Exception:
+        return {}
+    for cid in chain_ids:
+        page = 0
+        while page < 10:
+            try:
+                ops = get(f'https://api.merkl.xyz/v4/opportunities'
+                          f'?chainId={cid}&items=100&page={page}&status=LIVE',
+                          retries=1)
+            except Exception:
+                break
+            if not isinstance(ops, list) or not ops:
+                break
+            for op in ops:
+                ident = (op.get('identifier') or '').lower()
+                apr = op.get('apr')
+                if ident and apr is not None:
+                    idx[(cid, ident)] = float(apr)
+            if len(ops) < 100:
+                break
+            page += 1
+    return idx
+
+
+def merkl_reward_match(row, merkl_idx):
+    """Confirm a row's emission APR against a Merkl campaign matched on a
+    strong identity (registry vault address or the underlying token).
+    Returns the campaign APR when it corroborates DL's reward figure."""
+    cid = next((k for k, v in CHAIN_IDS.items() if v == row['chain']), None)
+    if cid is None:
+        return None
+    cands = []
+    for addr in (row.get('_registry_addr'), row.get('_underlying')):
+        if addr:
+            apr = merkl_idx.get((cid, addr.lower()))
+            if apr is not None:
+                cands.append(apr)
+    rew = row.get('rew') or 0
+    for apr in cands:
+        if abs(apr - rew) <= max(1.0, 0.35 * max(apr, rew)):
+            return apr
+    return None
+
+
 def run_verification(tabs, registry=None):
     try:
         lend, vaults, aave_res, mkt_by_id = load_yieldz_sources()
@@ -1192,6 +1251,16 @@ def run_verification(tabs, registry=None):
     except Exception as e:
         print('protocol checks unavailable:', type(e).__name__, e)
         protocol_checks = None
+    merkl_idx = {}
+    try:
+        merkl_idx = load_merkl([c for c in CHAIN_IDS if c != 0])
+        if merkl_idx:
+            print(f'merkl: {len(merkl_idx)} live campaigns')
+        else:
+            print('merkl unavailable (api.merkl.xyz not allowlisted?) — '
+                  'reward APRs unverifiable beyond yieldz/curve')
+    except Exception as e:
+        print('merkl unavailable:', type(e).__name__)
     # euler vault id -> entry (with collateral allocations), for look-through
     euler_by_id = {}
     for cands in (proto_src.get('euler') or {}).values():
@@ -1214,6 +1283,10 @@ def run_verification(tabs, registry=None):
                     if not matched:
                         flags.append(f'MISMATCH(source {src:.2f})')
                     else:
+                        # a reward-inclusive decomposition matching means the
+                        # protocol's own reward pricing agrees with DL's
+                        if matched in ('base+reward', 'total') and (row['rew'] or 0) > 0:
+                            row['_rew_confirmed'] = 'yieldz'
                         r = realized_check(row, m)
                         if r and r['flag']:
                             flags.append(r['flag'])
@@ -1231,11 +1304,6 @@ def run_verification(tabs, registry=None):
             # a live source confirming the value supersedes the staleness flag
             if src_val is not None and not any(f.startswith('MISMATCH') for f in flags):
                 flags = [f for f in flags if not f.startswith('STALE')]
-            # emissions-dominated APY that nothing independent confirmed:
-            # the headline number rests on one source's reward-token pricing
-            total = (row['base'] or 0) + (row['rew'] or 0) + (row['intr'] or 0)
-            if (src_val is None and (row['rew'] or 0) > 0.66 * total and total > 1):
-                flags.append(f'REWARD-HEAVY(emissions {row["rew"]:.1f} of {total:.1f} unverified)')
             if src_val is None and curve_idx:
                 try:
                     cv, fl, lbl = curve_check(row, curve_idx)
@@ -1243,6 +1311,9 @@ def run_verification(tabs, registry=None):
                         src_val, src_name = cv, lbl
                         if fl:
                             flags.append(fl)
+                        elif (row['rew'] or 0) > 0:
+                            # curve totals include gauge CRV + extra rewards
+                            row['_rew_confirmed'] = 'curve gauge'
                 except Exception:
                     pass
             if src_val is None and row['name'] == 'Strata Markets':
@@ -1298,6 +1369,20 @@ def run_verification(tabs, registry=None):
                         ipor_exposure(row, v, mkt_by_id, euler_by_id)
                 except Exception:
                     pass
+            # emissions-dominated APY whose reward pricing no independent
+            # source confirmed (yieldz reward decomposition, curve gauge
+            # totals, or Merkl campaign APRs all count as confirmation)
+            total = (row['base'] or 0) + (row['rew'] or 0) + (row['intr'] or 0)
+            if (row['rew'] or 0) > 0.66 * total and total > 1:
+                if not row.get('_rew_confirmed') and merkl_idx:
+                    row['_registry_addr'] = (registry.get(row['pool_id']) or {}).get('address')
+                    mk = merkl_reward_match(row, merkl_idx)
+                    if mk is not None:
+                        row['_rew_confirmed'] = 'merkl'
+                        if src_val is None:
+                            src_val, src_name = round(mk, 3), 'merkl (reward APR)'
+                if not row.get('_rew_confirmed'):
+                    flags.append(f'REWARD-HEAVY(emissions {row["rew"]:.1f} of {total:.1f} unverified)')
             row['flags'] = flags
             row['src_val'], row['src_name'] = src_val, src_name
             if any(f.startswith(RED_FLAGS) for f in flags):

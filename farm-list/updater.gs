@@ -17,9 +17,9 @@
 const FEED_BASE =
   'https://raw.githubusercontent.com/rooktc/Rook/claude/spreadsheet-data-refresh-mahsrf/farm-list/';
 const FEEDS = {
-  // farm tabs: 19 sheet columns (F = Risk), feed col 20 = hyperlink URL, col 21 = flags
-  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 19, ratingCol: 16, riskCol: 6, linkCol: 7, linkUrlIdx: 19, flagsIdx: 20, apyCol: 10, farmHeader: true },
-  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 19, ratingCol: 16, riskCol: 6, linkCol: 7, linkUrlIdx: 19, flagsIdx: 20, apyCol: 10, farmHeader: true },
+  // farm tabs: 16 sheet columns (F = Risk, P = Risk Note), feed col 17 = hyperlink URL, col 18 = flags
+  'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 16, riskCol: 6, noteCol: 16, linkCol: 7, linkUrlIdx: 16, flagsIdx: 17, apyCol: 10, farmHeader: true },
+  'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 16, riskCol: 6, noteCol: 16, linkCol: 7, linkUrlIdx: 16, flagsIdx: 17, apyCol: 10, farmHeader: true },
   // looping tab: 14 columns, risk col J, Max ROE formula in G
   'Looping': { url: FEED_BASE + 'feed_loop.csv', cols: 14, ratingCol: 10, roeFormulaCol: 7 },
   // verification annex: plain values, sheet is created if missing
@@ -27,7 +27,8 @@ const FEEDS = {
 };
 const RATING_COLORS = {
   stable: '#1e7145', mixed: '#b45f06', volatile: '#c00000',
-  'Low': '#1e7145', 'Med.': '#b45f06', 'Medium': '#b45f06', 'High': '#c00000',
+  'Low': '#1e7145', 'Med-Low': '#7f8c1e', 'Med-High': '#b45f06',
+  'Med.': '#b45f06', 'Medium': '#b45f06', 'High': '#c00000',
 };
 // red flags = wrong/stale data; orange = caution (young pool, spike, self-reported)
 const FLAG_RED = /^(MISMATCH|STALE|NOT-ACCRUING)/;
@@ -86,19 +87,26 @@ function refreshFarmTabs() {
     }
 
     // rating / risk font colors
-    sheet.getRange(4, cfg.ratingCol, values.length, 1).setFontColors(
-      values.map(r => [RATING_COLORS[r[cfg.ratingCol - 1]] || '#000000']));
+    if (cfg.ratingCol) {
+      sheet.getRange(4, cfg.ratingCol, values.length, 1).setFontColors(
+        values.map(r => [RATING_COLORS[r[cfg.ratingCol - 1]] || '#000000']));
+    }
     if (cfg.riskCol) {
       const riskRange = sheet.getRange(4, cfg.riskCol, values.length, 1);
       riskRange.setFontColors(values.map(r => [RATING_COLORS[r[cfg.riskCol - 1]] || '#000000']));
       riskRange.setFontWeight('bold').setHorizontalAlignment('center');
     }
 
-    // farm tabs: rewrite the header rows for the Risk-in-F layout (idempotent)
+    // farm tabs: rewrite the header rows for the 16-col Risk Note layout (idempotent)
     if (cfg.farmHeader) {
-      // the A1:S1 title merge spans every column, so frozen columns
+      // the A1:P1 title merge spans every column, so frozen columns
       // (which cannot cross a merge) must go; frozen rows are kept
       if (sheet.getFrozenColumns() > 0) sheet.setFrozenColumns(0);
+      // clear leftovers from the old 19-column layout
+      const maxCols = sheet.getMaxColumns();
+      if (maxCols > 16) {
+        sheet.getRange(1, 17, Math.max(sheet.getLastRow(), 3), maxCols - 16).breakApart().clear();
+      }
       sheet.getRange(3, 1, 1, nCols).setValues([rows[1].slice(0, nCols)])
         .setFontWeight('bold').setFontColor('#ffffff').setBackground('#1f3552')
         .setHorizontalAlignment('center').setVerticalAlignment('middle');
@@ -106,8 +114,6 @@ function refreshFarmTabs() {
       const bands = [
         ['J2:L2', 'Total APY (%)', '#b45f06'],
         ['M2:O2', 'Current APY Breakdown (%)', '#44546a'],
-        ['P2:Q2', '30d Stability', '#44546a'],
-        ['R2:S2', 'Reference', '#44546a'],
       ];
       for (const [rng, label, bg] of bands) {
         const range = sheet.getRange(rng);
@@ -116,7 +122,15 @@ function refreshFarmTabs() {
           .setHorizontalAlignment('center').setVerticalAlignment('middle');
       }
       sheet.getRange('A1:S1').breakApart();
-      sheet.getRange('A1:S1').merge();
+      sheet.getRange('A1:P1').merge();
+      sheet.setColumnWidth(16, 420);
+    }
+
+    // risk note column: small grey text, clipped
+    if (cfg.noteCol) {
+      sheet.getRange(4, cfg.noteCol, values.length, 1)
+        .setFontSize(8).setFontColor('#666666')
+        .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
     }
 
     // farm tabs: DefiLlama hyperlinks

@@ -391,6 +391,8 @@ def check_row(row, src):
         if c:
             ok = (tol(row.get('base') or 0, c['base'])
                   or tol(total or 0, c['base'] + c['rew']))
+            if ok and c['rew'] > 0:
+                row['_rew_confirmed'] = 'loopscale'
             return round(c['base'] + c['rew'], 3), ok, 'loopscale-api', None
 
     if row['name'] == 'Current' and 'current' in src:
