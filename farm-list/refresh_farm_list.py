@@ -939,20 +939,29 @@ def load_lagoon_books():
     """Lagoon publishes each vault's live composition (protocol-level
     repartition percentages) via GraphQL — a scoreable strategy book."""
     idx = {}
-    for skip in range(0, 200, 20):   # small pages: one vault's broken
-        q = ('query { vaults(first: 20, skip: %d, where: {isVisible_eq: true}) '
+    for skip in range(0, 200, 5):    # tiny pages: one vault's broken
+        q = ('query { vaults(first: 5, skip: %d, where: {isVisible_eq: true}) '
              '{ items { symbol chain { id } composition { compositions '
              '{ protocol repartition } } } } }' % skip)
-        try:                          # composition 500s its whole page
-            d = get_post('https://api.lagoon.finance/query', {'query': q})
-        except Exception:
+        d = None
+        for attempt in range(2):      # composition 500s its whole page;
+            try:                      # rapid paging trips rate limits
+                d = get_post('https://api.lagoon.finance/query', {'query': q})
+                break
+            except Exception:
+                time.sleep(1.0 + attempt)
+        if d is None:
             continue
         items = ((d.get('data') or {}).get('vaults') or {}).get('items') or []
+        time.sleep(0.4)
         for v in items:
             comp = (v.get('composition') or {}).get('compositions') or []
             book = [(c.get('protocol') or '?', float(c.get('repartition') or 0))
                     for c in comp]
-            cid = (v.get('chain') or {}).get('id')
+            try:   # lagoon serves chain ids as strings
+                cid = int((v.get('chain') or {}).get('id'))
+            except (TypeError, ValueError):
+                continue
             ch = CHAIN_IDS.get(cid)
             if ch and book:
                 idx[(ch, (v.get('symbol') or '').upper())] = book
@@ -965,8 +974,15 @@ def get_post(url, payload):
     req = urllib.request.Request(url, data=json.dumps(payload).encode(),
                                  headers={'User-Agent': UA,
                                           'Content-Type': 'application/json'})
-    with urllib.request.urlopen(req, timeout=45) as r:
-        return json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=45) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        # graphql errors ride on 4xx/5xx but may still carry partial data
+        try:
+            return json.loads(e.read())
+        except Exception:
+            raise
 
 
 def ipor_exposure(row, v, mkt_by_id, euler_by_id):
