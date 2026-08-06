@@ -1108,8 +1108,8 @@ def load_lagoon_books():
     idx = {}
     for skip in range(0, 200, 5):    # tiny pages: one vault's broken
         q = ('query { vaults(first: 5, skip: %d, where: {isVisible_eq: true}) '
-             '{ items { symbol chain { id } composition { compositions '
-             '{ protocol repartition } } } } }' % skip)
+             '{ items { symbol chain { id } composition { tokenCompositions '
+             '{ name repartition } } } } }' % skip)
         d = None
         for attempt in range(2):      # composition 500s its whole page;
             try:                      # rapid paging trips rate limits
@@ -1122,8 +1122,8 @@ def load_lagoon_books():
         items = ((d.get('data') or {}).get('vaults') or {}).get('items') or []
         time.sleep(0.4)
         for v in items:
-            comp = (v.get('composition') or {}).get('compositions') or []
-            book = [(c.get('protocol') or '?', float(c.get('repartition') or 0))
+            comp = (v.get('composition') or {}).get('tokenCompositions') or []
+            book = [(c.get('name') or '?', float(c.get('repartition') or 0))
                     for c in comp]
             try:   # lagoon serves chain ids as strings
                 cid = int((v.get('chain') or {}).get('id'))
