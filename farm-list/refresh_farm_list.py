@@ -569,6 +569,7 @@ def main(template, outfile, names_file=None, loops_file=None):
             print(f'risk scores: {len(risk_scores)} assets')
         except Exception:
             pass
+    _MV_BOOKS['risk'] = risk_scores
     # display names before verification: some cross-checks join on them
     for rows in tabs.values():
         for r in rows:
@@ -701,13 +702,54 @@ def main(template, outfile, names_file=None, loops_file=None):
             if len(loops) < 50:
                 print(f'looping feed too small ({len(loops)} rows), tab carried over unchanged')
             else:
-                build_looping(wb, loops, today)
+                build_looping(wb, loops, today, risk_scores)
 
     wb.save(outfile)
     print('saved', outfile)
 
 
-def build_looping(wb, loops, today):
+def loop_risk(d, risk_scores):
+    """Risk for a leveraged loop: worst of deposit asset, borrow asset and
+    venue quality, minus leverage/LLTV/utilization/exit-liquidity points.
+    A depeg on either side of the loop liquidates the position."""
+    basis, legs = [], []
+    for sym in (d['depositAsset'], d['borrowAsset']):
+        v, label = _collat_score(sym, risk_scores)
+        if v is None:
+            v, label = 3.0, f'{sym} unrated 3.0'
+        legs.append(v)
+        basis.append(label)
+    venue = next((sc for k, sc in BOOK_VENUES if k in (d.get('protocol') or '').lower()), None)
+    if venue is not None:
+        legs.append(venue)
+        basis.append(f"{d['protocol']} {venue:.1f}†")
+    score = min(legs)
+    lev = d.get('lev') or 1
+    for cut, pts in ((10, 1.5), (5, 1.0), (3, 0.5)):
+        if lev >= cut:
+            score -= pts
+            basis.append(f'-{pts:g} leverage {lev:g}x')
+            break
+    lltv = (d.get('lltv') or 0) / 100
+    if lltv >= 0.965:
+        score -= 1.0
+        basis.append(f'-1 lltv {lltv:.0%}')
+    elif lltv >= 0.945:
+        score -= 0.5
+        basis.append(f'-0.5 lltv {lltv:.0%}')
+    if (d.get('utilization') or 0) > 92:
+        score -= 1.0
+        basis.append(f"-1 util {d['utilization']:.0f}%")
+    if (d.get('liquidity') or 0) < 1_000_000:
+        score -= 1.0
+        basis.append('-1 exit liquidity <1M')
+    score = max(0.5, min(10.0, score))
+    risk = ('Low' if score >= 8 else 'Med-Low' if score >= 6 else
+            'Med-High' if score >= 4 else 'High')
+    return risk, f'score {score:.1f}; ' + '; '.join(basis) + f"; yieldz label: {d.get('risk')}"
+
+
+def build_looping(wb, loops, today, risk_scores=None):
     """Rewrite the Looping tab from scraped yieldz.io/leverage rows.
 
     Keeps the old sheet's semantics: positive-carry loops only
@@ -744,17 +786,23 @@ def build_looping(wb, loops, today):
     for i, d in enumerate(rows):
         r = 4 + i
         ws.row_dimensions[r].height = 15.0
+        try:
+            rl, rbasis = loop_risk(d, risk_scores or {})
+        except Exception:
+            rl, rbasis = d['risk'], ''
         vals = [d['asset'], d['protocol'], d['chain'], d['depositAsset'], d['borrowAsset'],
                 d['lev'], f'=(H{r}+I{r})*(F{r}-1)+H{r}', d['depApy'], d['borApy'],
-                d['risk'], d['liquidity'], d['toTarget'], d['utilization'], d['lltv']]
+                rl, d['liquidity'], d['toTarget'], d['utilization'], d['lltv'], rbasis]
         for c, v in enumerate(vals, start=1):
             cell = ws.cell(r, c)
-            cell._style = copy.copy(tmpl[c])
+            if c <= 14:
+                cell._style = copy.copy(tmpl[c])
             cell.value = v
-        if d['risk'] in RISK_COLOR:
+        if rl in RISK_COLOR:
             f = copy.copy(ws.cell(r, 10).font)
-            f.color = openpyxl.styles.Color(rgb=RISK_COLOR[d['risk']])
+            f.color = openpyxl.styles.Color(rgb=RISK_COLOR[rl])
             ws.cell(r, 10).font = f
+    ws.column_dimensions['O'].hidden = True
     last = 3 + len(rows)
     ws.cell(1, 1).value = (f'Looping Opportunities  ·  yieldz.io/leverage, {today}'
                            f'  ·  {len(rows)} positive-carry loops')
@@ -913,26 +961,115 @@ BOOK_VENUES = [('aave', 8.5), ('spark', 8.2), ('compound', 8.5), ('fluid', 8.0),
                ('spectra', 5.5), ('kiln', 6.0), ('gauntlet', 6.0)]
 
 
+def load_morpho_vault_books():
+    """Morpho curated-vault books by vault name, for resolving positions
+    like 'Morpho Vault - Steakhouse Prime ETH' inside third-party books to
+    the actual collateral rather than a generic venue score."""
+    q = '''query V($chainId: Int!, $skip: Int!) {
+      vaults(first: 100, skip: $skip,
+             where: {chainId_in: [$chainId], totalAssetsUsd_gte: 1000000}) {
+        items { name symbol state { allocation {
+          supplyAssetsUsd market { collateralAsset { symbol } } } } } } }'''
+    books = {}
+    for cid in (1, 8453, 42161, 10, 137, 143, 999):
+        skip = 0
+        while skip < 400:
+            try:
+                d = get_post('https://api.morpho.org/graphql',
+                             {'query': q, 'variables': {'chainId': cid, 'skip': skip}})
+            except Exception:
+                break
+            items = ((d.get('data') or {}).get('vaults') or {}).get('items') or []
+            for v in items:
+                book = {}
+                for a in ((v.get('state') or {}).get('allocation') or []):
+                    cs = ((a.get('market') or {}).get('collateralAsset') or {}).get('symbol')
+                    usd = float(a.get('supplyAssetsUsd') or 0)
+                    if cs and usd > 0:
+                        book[cs] = book.get(cs, 0) + usd
+                if book:
+                    for key in (v.get('name'), v.get('symbol')):
+                        if key and len(key) >= 5:
+                            books[key.lower()] = sorted(book.items(), key=lambda x: -x[1])
+            if len(items) < 100:
+                break
+            skip += 100
+    return books
+
+
+_LABEL_STOP = {'usd', 'supply', 'borrow', 'vault', 'gauge', 'market', 'lender',
+               'pool', 'main', 'core', 'prime', 'yield', 'basis', 'protocol',
+               'eth', 'btc', 'v2', 'v3', 'lp', 'the', 'and'}
+
+
+def resolve_book_position(label, risk_scores, mv_books):
+    """Score one named position inside a strategy book, deepest identity
+    first: a Morpho vault name resolves to that vault's actual collateral;
+    else asset symbols parsed from the label score directly (worst leg);
+    a recognized venue acts as a floor. Returns (score, desc) or (None,)*2."""
+    low = label.lower()
+    # 1. named morpho vault -> weighted collateral score of its real book
+    best = None
+    for name, book in mv_books.items():
+        if name in low and (best is None or len(name) > len(best[0])):
+            best = (name, book)
+    if best:
+        tot = sum(u for _, u in best[1])
+        num = den = 0.0
+        for cs, usd in best[1][:8]:
+            v, _ = _collat_score(cs, risk_scores)
+            if v is None:
+                v = 3.0 if usd / tot >= 0.10 else None
+            if v is not None:
+                num += v * usd
+                den += usd
+        if den > 0:
+            return num / den, f'{label[:22]}[{best[0][:14]}]'
+    # 2. asset symbols in the label (pairs and single tokens)
+    toks = [t for t in re.findall(r'[A-Za-z0-9+]+', label)
+            if len(t) >= 3 and t.lower() not in _LABEL_STOP]
+    scores = []
+    for t in toks:
+        v, _ = _collat_score(t, risk_scores)
+        if v is not None:
+            scores.append((v, t))
+    venue = next((sc for k, sc in BOOK_VENUES
+                  if (k in low if ' ' in k else k in set(re.findall(r'[a-z]+', low)))), None)
+    if scores:
+        worst = min(scores)
+        v = min(worst[0], venue) if venue is not None else worst[0]
+        return v, f'{label[:16]}~{worst[1]}'
+    if venue is not None:
+        return venue, f'{label[:22]}†'
+    return None, None
+
+
 def book_to_exposure(row, book, kind):
     """Convert a named-position book [(label, weight)] into an exposure
     list: known venues score at venue quality, idle/wallet entries score as
     the vault's own asset, everything else is unrated exposure."""
     out = []
     own = row['symbol'].split('-')[0]
+    mv_books = _MV_BOOKS.get('books', {})
     for label, w in book:
         if w <= 0:
             continue
-        low = label.lower()
-        if low.startswith(('wallet', 'cash', 'idle', 'other')):
+        if label.lower().startswith(('wallet', 'cash', 'idle', 'other')):
             out.append((own, w))
             continue
-        words = set(re.findall(r'[a-z]+', low))
-        venue = next((v for k, v in BOOK_VENUES
-                      if (k in low if ' ' in k else k in words)), None)
-        out.append((label[:26], w, venue))   # venue None -> unrated path
+        v, desc = resolve_book_position(label, _MV_BOOKS.get('risk', {}), mv_books)
+        if v is not None:
+            out.append((desc, w, v))
+        else:
+            out.append((label[:26], w))      # unrated path
     if out:
         row['collat'] = out
         row['collat_kind'] = kind
+
+
+# resolver context set once per run (book_to_exposure is called from deep
+# inside per-row loops where threading these through is noisy)
+_MV_BOOKS = {}
 
 
 def load_lagoon_books():
@@ -1489,6 +1626,11 @@ def run_verification(tabs, registry=None):
         print(f'lagoon: {len(lagoon_books)} vault books')
     except Exception as e:
         print('lagoon books unavailable:', type(e).__name__)
+    try:
+        _MV_BOOKS['books'] = load_morpho_vault_books()
+        print(f"morpho vault books: {len(_MV_BOOKS['books'])} names")
+    except Exception as e:
+        print('morpho vault books unavailable:', type(e).__name__)
     merkl_idx = {}
     try:
         merkl_idx = load_merkl([c for c in CHAIN_IDS if c != 0])

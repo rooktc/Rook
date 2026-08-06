@@ -21,7 +21,7 @@ const FEEDS = {
   'USD Farms': { url: FEED_BASE + 'feed_usd.csv', cols: 16, riskCol: 6, noteCol: 16, linkCol: 7, linkUrlIdx: 16, flagsIdx: 17, apyCol: 10, farmHeader: true },
   'ETH Farms': { url: FEED_BASE + 'feed_eth.csv', cols: 16, riskCol: 6, noteCol: 16, linkCol: 7, linkUrlIdx: 16, flagsIdx: 17, apyCol: 10, farmHeader: true },
   // looping tab: 14 columns, risk col J, Max ROE formula in G
-  'Looping': { url: FEED_BASE + 'feed_loop.csv', cols: 14, ratingCol: 10, roeFormulaCol: 7 },
+  'Looping': { url: FEED_BASE + 'feed_loop.csv', cols: 14, ratingCol: 10, roeFormulaCol: 7, riskNoteIdx: 14 },
   // verification annex: plain values, sheet is created if missing
   'Data Check': { url: FEED_BASE + 'feed_check.csv', cols: 12, plain: true, minRows: 0 },
 };
@@ -141,6 +141,12 @@ function refreshFarmTabs() {
         data.map(r => [r[cfg.linkUrlIdx]
           ? SpreadsheetApp.newRichTextValue().setText('DefiLlama').setLinkUrl(r[cfg.linkUrlIdx]).build()
           : SpreadsheetApp.newRichTextValue().setText('').build()]));
+    }
+
+    // looping tab: risk derivation as a hover note on the Risk cell
+    if (cfg.riskNoteIdx !== undefined && cfg.ratingCol) {
+      sheet.getRange(4, cfg.ratingCol, values.length, 1).setNotes(
+        data.map(r => [r[cfg.riskNoteIdx] || null]));
     }
 
     // looping tab: restore the Max ROE formula in G

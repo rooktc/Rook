@@ -37,12 +37,12 @@ if len(sys.argv) > 4:
     ws = wb['Looping']
     with open(sys.argv[4], 'w', newline='') as f:
         w = csv.writer(f)
-        w.writerow([ws.cell(1, 1).value] + [''] * 13)
-        w.writerow([ws.cell(3, c).value for c in range(1, 15)])
+        w.writerow([ws.cell(1, 1).value] + [''] * 14)
+        w.writerow([ws.cell(3, c).value for c in range(1, 15)] + ['Risk Note'])
         r = 4
         n = 0
         while ws.cell(r, 1).value:
-            row = [ws.cell(r, c).value for c in range(1, 15)]
+            row = [ws.cell(r, c).value for c in range(1, 16)]
             f_, h, i = row[5], row[7], row[8]
             try:
                 row[6] = round((h + i) * (f_ - 1) + h, 5)  # formula -> value for the feed
