@@ -102,6 +102,10 @@ function refreshFarmTabs() {
       // the A1:P1 title merge spans every column, so frozen columns
       // (which cannot cross a merge) must go; frozen rows are kept
       if (sheet.getFrozenColumns() > 0) sheet.setFrozenColumns(0);
+      // break the old full-width merges FIRST — a partial range across a
+      // merge (e.g. clearing Q..S through the old A1:S1 title) throws
+      sheet.getRange('A1:S1').breakApart();
+      sheet.getRange('A2:S2').breakApart().clear();
       // clear leftovers from the old 19-column layout
       const maxCols = sheet.getMaxColumns();
       if (maxCols > 16) {
@@ -110,7 +114,6 @@ function refreshFarmTabs() {
       sheet.getRange(3, 1, 1, nCols).setValues([rows[1].slice(0, nCols)])
         .setFontWeight('bold').setFontColor('#ffffff').setBackground('#1f3552')
         .setHorizontalAlignment('center').setVerticalAlignment('middle');
-      sheet.getRange('A2:S2').breakApart().clear();
       const bands = [
         ['J2:L2', 'Total APY (%)', '#b45f06'],
         ['M2:O2', 'Current APY Breakdown (%)', '#44546a'],
@@ -121,7 +124,6 @@ function refreshFarmTabs() {
           .setFontWeight('bold').setFontSize(9)
           .setHorizontalAlignment('center').setVerticalAlignment('middle');
       }
-      sheet.getRange('A1:S1').breakApart();
       sheet.getRange('A1:P1').merge();
       sheet.setColumnWidth(16, 420);
     }
