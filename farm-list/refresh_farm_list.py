@@ -236,6 +236,23 @@ OPAQUE_VAULTS = {'Fusion by IPOR', 'Lagoon', 'Ember Protocol', 'Upshift',
                  'Loopscale', 'Current', 'Project 0'}
 
 
+_PT_DATE = re.compile(r'(\d{1,2})([A-Z]{3})(\d{4})')
+_MONTHS = {'JAN': 1, 'FEB': 2, 'MAR': 3, 'APR': 4, 'MAY': 5, 'JUN': 6,
+           'JUL': 7, 'AUG': 8, 'SEP': 9, 'OCT': 10, 'NOV': 11, 'DEC': 12}
+
+
+def pt_tenor_days(row):
+    """Days to maturity parsed from the PT name (e.g. PT-sUSDe-13AUG2026)."""
+    m = _PT_DATE.search(f"{row.get('farm_disp') or ''} {row.get('meta') or ''}".upper())
+    if not m or m.group(2) not in _MONTHS:
+        return None
+    try:
+        mat = datetime.date(int(m.group(3)), _MONTHS[m.group(2)], int(m.group(1)))
+    except ValueError:
+        return None
+    return max((mat - datetime.date.today()).days, 0)
+
+
 def compute_risk(row, risk_scores):
     """Composite High/Medium/Low label from a weighted 1-10 safety score.
 
@@ -300,8 +317,6 @@ def compute_risk(row, risk_scores):
             deductions.append(('red flags', 2.0))
         if 'SELF-REPORTED(flat 30d history)' in flags:
             deductions.append(('self-reported', 2.0))
-        if row.get('rating') == 'volatile':
-            deductions.append(('volatile', 1.5))
         if (row.get('tvl') or 0) < 1_000_000:
             deductions.append(('tvl<1M', 1.0))
         if (row['name'] == 'Strata Markets'
@@ -309,25 +324,38 @@ def compute_risk(row, risk_scores):
             deductions.append(('junior tranche (first loss)', 1.5))
         if row['name'] == 'Pendle' and 'buying PT' in (row.get('meta') or ''):
             deductions.append(('PT wrapper', 0.5))
-        ct = CHAIN_TIER.get(row.get('chain'), 0.5)
-        if ct:
-            deductions.append((f'chain {row.get("chain")}', ct))
-        lltv = row.get('lltv')
-        if lltv is not None:
-            if lltv >= 0.965:
-                deductions.append((f'lltv {lltv:.0%}', 1.0))
-            elif lltv >= 0.945:
-                deductions.append((f'lltv {lltv:.0%}', 0.5))
-        orc = row.get('oracle')
-        if orc is not None and not (set(p.lower() for p in orc) & TRUSTED_ORACLES):
-            deductions.append(('exotic oracle', 0.5))
+        ftype = row.get('ftype') or ''
+        if ftype not in ('LP', 'PT', 'LP (Pendle)'):
+            # lending/vault signals: liquidation margin, oracle, utilization
+            lltv = row.get('lltv')
+            if lltv is not None:
+                if lltv >= 0.965:
+                    deductions.append((f'lltv {lltv:.0%}', 1.0))
+                elif lltv >= 0.945:
+                    deductions.append((f'lltv {lltv:.0%}', 0.5))
+            orc = row.get('oracle')
+            if orc is not None and not (set(p.lower() for p in orc) & TRUSTED_ORACLES):
+                deductions.append(('exotic oracle', 0.5))
+            util = row.get('util')
+            if util is not None:
+                u = util if util <= 1.5 else util / 100
+                if u > 0.92:
+                    deductions.append((f'util {u:.0%}', 1.0))
         if _LEVERED.search(f"{row.get('farm_disp') or ''} {row.get('meta') or ''}"):
             deductions.append(('leveraged strategy', 1.0))
-        util = row.get('util')
-        if util is not None:
-            u = util if util <= 1.5 else util / 100
-            if u > 0.92:
-                deductions.append((f'util {u:.0%}', 1.0))
+        if ftype == 'PT':
+            # fixed-rate position: longer tenor = more rate/exit risk, and
+            # exiting early depends on the AMM's liquidity
+            days = pt_tenor_days(row)
+            if days is not None:
+                if days > 365:
+                    deductions.append((f'tenor {days}d', 1.5))
+                elif days > 180:
+                    deductions.append((f'tenor {days}d', 1.0))
+                elif days > 90:
+                    deductions.append((f'tenor {days}d', 0.5))
+            if (row.get('tvl') or 0) < 5_000_000:
+                deductions.append(('PT liquidity <5M', 0.5))
         for name, pts in deductions:
             score -= pts
             basis.append(f'-{pts:g} {name}')
@@ -530,6 +558,13 @@ def main(template, outfile, names_file=None, loops_file=None):
             # score the real exposure, not the deposit ticker: Midas rows
             # carry the deposit asset as symbol with the mToken in meta;
             # Strata tranches wrap their underlying
+            r['ftype'] = farm_type(r['name'], r['symbol'],
+                                   r.get('farm_disp'), r.get('meta'))
+            if r['ftype'] in ('LP', 'LP (Pendle)'):
+                # LP risk = the pooled assets themselves; lending-style
+                # exposure legs don't apply
+                r.pop('collat', None)
+                r.pop('collat_kind', None)
             if r['name'] == 'Midas RWA' and r.get('meta'):
                 r['risk_legs'] = [r['meta']]
             elif (r['name'] == 'Strata Markets'
@@ -1121,11 +1156,21 @@ def curve_check(row, curve_idx):
             return None, None, None
         tight = 0.8 <= (m['usd'] + 1) / (row['tvl'] + 1) <= 1.25
     else:
-        # wrappers stake a fraction of the pool — identity only safe when unique
-        if len(cands) > 1:
-            return None, None, None
-        m = cands[0]
         tight = False  # wrapper boost differs; compare but never accuse
+        if len(cands) == 1:
+            m = cands[0]
+        else:
+            # several same-coin-set pools: identity too loose to accuse, but
+            # if one pool's reward-inclusive total matches, that still
+            # confirms the reward pricing
+            t = row.get('now')
+            if t is None:
+                t = (row['base'] or 0) + (row['rew'] or 0) + (row['intr'] or 0)
+            _tl = lambda a, b: abs(a - b) <= max(0.75, 0.3 * max(abs(a), abs(b)))
+            m = next((c for c in cands
+                      if any(_tl(t, x) for x in (c['total_min'], c['total_max']))), None)
+            if m is None:
+                return None, None, None
     row['_pool_addrs'] = [a for a in (m['address'], m.get('gauge'), m.get('lp')) if a]
     # reward-inclusive total comparison (Curve DEX rows only for flagging)
     total = row.get('now')
@@ -1206,6 +1251,12 @@ def load_merkl(chain_ids):
                 if not ident or apr is None:
                     continue
                 idx.setdefault('addr', {})[(cid, ident)] = float(apr)
+                proto = ((op.get('protocol') or {}).get('id') or '').lower()
+                for t in op.get('tokens') or []:
+                    ta = (t.get('address') or '').lower()
+                    if ta:
+                        idx.setdefault('contain', {}).setdefault((cid, ta), []).append(
+                            dict(apr=float(apr), proto=proto))
                 toks = frozenset((t.get('address') or '').lower()
                                  for t in op.get('tokens') or [])
                 if len(toks) >= 2:
@@ -1222,11 +1273,18 @@ def load_merkl(chain_ids):
 MERKL_PROTO = {'Uniswap V3': 'uniswap', 'Uniswap V4': 'uniswap',
                'Uniswap V2': 'uniswap', 'Aerodrome Slipstream': 'aerodrome',
                'Aerodrome V1': 'aerodrome', 'Velodrome V2': 'velodrome',
-               'Velodrome V3': 'velodrome', 'PancakeSwap AMM': 'pancakeswap',
+               'Velodrome V3': 'velodrome', 'PancakeSwap AMM': 'pancake',
                'Curve DEX': 'curve', 'Balancer V2': 'balancer',
                'Balancer V3': 'balancer', 'Camelot V2': 'camelot',
                'Camelot V3': 'camelot', 'Fluid DEX': 'fluid',
-               'Joe V2.1': 'traderjoe', 'Joe V2.2': 'traderjoe'}
+               'Joe V2.1': 'traderjoe', 'Joe V2.2': 'traderjoe',
+               'Aave V3': 'aave', 'Aave V4': 'aave', 'Morpho Blue': 'morpho',
+               'Euler V2': 'euler', 'Curvance': 'curvance', 'Mento V3': 'mento',
+               'Neverland': 'neverland', 'Sky Lending': 'sky',
+               'Dolomite': 'dolomite', 'Curve LlamaLend': 'curve',
+               'Lista Lending': 'lista', 'Fusion by IPOR': 'ipor',
+               'Compound V3': 'compound', 'SparkLend': 'spark',
+               'Upshift': 'upshift', 'Fluid Lending': 'fluid'}
 
 
 def merkl_reward_match(row, merkl_idx):
@@ -1248,8 +1306,14 @@ def merkl_reward_match(row, merkl_idx):
             apr = merkl_idx.get('addr', {}).get((cid, addr.lower()))
             if apr is not None and close(apr):
                 return apr
-    unders = [a for a in (row.get('_underlyings') or []) if a]
     fam = MERKL_PROTO.get(row['name'])
+    # lending rows: any same-family campaign involving the underlying whose
+    # APR corroborates DL's reward figure
+    if fam and row.get('_underlying'):
+        for c in merkl_idx.get('contain', {}).get((cid, row['_underlying'].lower()), []):
+            if c['proto'].startswith(fam) and close(c['apr']):
+                return c['apr']
+    unders = [a for a in (row.get('_underlyings') or []) if a]
     if fam and len(unders) >= 2:
         key = (cid, frozenset(a.lower() for a in unders))
         cands = [c for c in merkl_idx.get('pair', {}).get(key, [])
@@ -1313,6 +1377,8 @@ def run_verification(tabs, registry=None):
                 src, matched, m = cross_source(row, lend, vaults)
                 if m is not None:
                     capture_exposure(row, m, aave_res)
+                if m is not None and str(m.get('id', '')).startswith('0x'):
+                    row.setdefault('_pool_addrs', []).append(m['id'])
                 if src is not None:
                     src_val = round(src, 3)
                     src_name = f'yieldz ({matched})' if matched else 'yieldz'

@@ -121,7 +121,7 @@ def _load_curvance():
         for (t, apy), s in zip(toks, s_list):
             key = (sym_set, s.upper())
             # collisions (two managers with identical symbol pairs) are dropped
-            idx[key] = None if key in idx else apy
+            idx[key] = None if key in idx else dict(apy=apy, addr=t)
     return {k: v for k, v in idx.items() if v is not None}
 
 
@@ -234,6 +234,17 @@ def load_protocol_sources():
     except Exception as e:
         print('protocol-checks: loopscale failed:', type(e).__name__)
     try:
+        rewmap = {}
+        try:
+            cfg = _fetch('https://api.current.finance/pebbleWeb3Config/getAllMarketConfig')
+            for m in cfg.get('data') or []:
+                for sm in m.get('summaries') or []:
+                    if sm.get('rewardType') == 0:   # supply-side rewards
+                        key = (m.get('marketID'), sm.get('reserveCoinType'))
+                        rewmap[key] = rewmap.get(key, 0) + sum(
+                            (r.get('apr') or 0) for r in sm.get('rewards') or []) * 100
+        except Exception:
+            pass
         idx = {}
         for mt in ('MainMarket', 'AltCoinMarket', 'EmberMarket',
                    'MatrixGoldMarket', 'EthenaMarket'):
@@ -243,7 +254,8 @@ def load_protocol_sources():
                 key = ((p.get('name') or '').strip().lower(),
                        ('0x' + p['token']).lower())
                 idx[key] = dict(apy=float(p.get('supplyAPY') or 0) * 100
-                                + float(p.get('apy') or 0))
+                                + float(p.get('apy') or 0),
+                                rew=rewmap.get((p.get('marketID'), p.get('token'))))
         src['current'] = idx
         print(f"protocol-checks: current {len(idx)} markets")
     except Exception as e:
@@ -399,6 +411,9 @@ def check_row(row, src):
         v = src['current'].get(((row.get('meta') or '').strip().lower(),
                                 (row.get('_underlying') or '').lower()))
         if v:
+            vr, rw = v.get('rew'), row.get('rew') or 0
+            if vr is not None and rw > 0 and abs(vr - rw) <= max(1.0, 0.35 * max(vr, rw)):
+                row['_rew_confirmed'] = 'current-api'
             r = base_check(v['apy'], 'current-api')
             if r:
                 return r
@@ -416,9 +431,10 @@ def check_row(row, src):
         if '/' in meta:
             key = (frozenset(s.upper() for s in meta.split('/')),
                    row['symbol'].upper())
-            apy = src['curvance'].get(key)
-            if apy is not None:
-                r = base_check(apy, 'curvance on-chain')
+            ent = src['curvance'].get(key)
+            if ent is not None:
+                row.setdefault('_pool_addrs', []).append(ent['addr'])
+                r = base_check(ent['apy'], 'curvance on-chain')
                 if r:
                     return r
 
