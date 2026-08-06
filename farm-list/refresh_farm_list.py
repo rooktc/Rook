@@ -31,9 +31,9 @@ import urllib.request
 import openpyxl
 
 API = 'https://yields.llama.fi'
-MIN_TVL = 500_000
+MIN_TVL = 200_000
 MAX_APY = 100.0
-CUTOFF = {'USD': 6.0, 'ETH': 3.0}
+CUTOFF = {'USD': 3.0, 'ETH': 2.0}
 
 # display name -> DefiLlama project slug, from the user's defillama.com URLs
 PROTOCOLS = {
@@ -547,7 +547,7 @@ def main(template, outfile, names_file=None, loops_file=None):
                 print(f'  {done}/{len(charts_needed)} charts')
 
     # final filter + ordering (current APY desc, then blank-now rows by 7d/30d)
-    for tab, cut in [('USD Farms', 6.0), ('ETH Farms', 3.0)]:
+    for tab, cut in [('USD Farms', CUTOFF['USD']), ('ETH Farms', CUTOFF['ETH'])]:
         rows = [r for r in tabs[tab]
                 if (r['now'] is not None and cut <= r['now'] <= MAX_APY)
                 or (not r['now'] and cut <= (r['d7'] or r['d30'] or 0) <= MAX_APY)]
