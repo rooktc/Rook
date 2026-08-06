@@ -361,9 +361,10 @@ def compute_risk(row, risk_scores):
             # skew vs equal weight: LPs in a lopsided pool effectively hold
             # the heavy (usually weaker) asset
             ratio, sym, share = imb
-            if ratio >= 2.2:
+            # share tier catches extreme 2-coin skews (their ratio caps at 2x)
+            if share >= 0.85 or ratio >= 2.2:
                 deductions.append((f'pool {share:.0%} in {sym}', 1.0))
-            elif ratio >= 1.6:
+            elif ratio >= 1.5:
                 deductions.append((f'pool {share:.0%} in {sym}', 0.5))
         for name, pts in deductions:
             score -= pts
