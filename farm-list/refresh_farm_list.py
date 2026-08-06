@@ -233,7 +233,9 @@ OPAQUE_VAULTS = {'Fusion by IPOR', 'Lagoon', 'Ember Protocol', 'Upshift',
                  'ether.fi Liquid', 'D2 Finance', 'Multipli.fi', 'Re',
                  'Nest Credit', 'Tydro', 'Kai Finance', 'Pareto Credit',
                  '3Jane Lending', 'Royco V2', 'Steakhouse Financial',
-                 'Loopscale', 'Current', 'Project 0'}
+                 'Loopscale', 'Current', 'Project 0', 'Yearn Finance',
+                 'Yuzu Money', 'Yuzu Finance', 'TermMax', 'Gearbox',
+                 'Clearpool Lending', 'Scallop Lend', 'Kamino Liquidity'}
 
 
 _PT_DATE = re.compile(r'(\d{1,2})([A-Z]{3})(\d{4})')
@@ -376,9 +378,11 @@ def compute_risk(row, risk_scores):
         if score >= 8 and row.get('verdict') != 'VERIFIED':
             score = 7.9
             basis.append('capped 7.9: not VERIFIED')
-        if score > 6.9 and row['name'] in OPAQUE_VAULTS and not row.get('collat'):
-            score = 6.9
-            basis.append('capped 6.9: opaque allocation')
+        if score > 5.9 and row['name'] in OPAQUE_VAULTS and not row.get('collat'):
+            # the deposit asset's score says nothing about a vault whose
+            # book we cannot see — Med-High is the ceiling
+            score = 5.9
+            basis.append('capped 5.9: opaque allocation')
         score = max(0.5, min(10.0, score))
         risk = ('Low' if score >= 8 else 'Med-Low' if score >= 6 else
                 'Med-High' if score >= 4 else 'High')
