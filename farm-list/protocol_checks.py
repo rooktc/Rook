@@ -179,8 +179,18 @@ def load_protocol_sources():
                     apr = ((v.get('apr') or {}).get('netAPR'))
                     if apr is None or not -0.05 <= apr <= 3:  # drop broken feeds
                         continue
+                    strats = []
+                    for st in v.get('strategies') or []:
+                        det = st.get('details') or {}
+                        try:
+                            debt = float(det.get('totalDebt') or 0)
+                        except (TypeError, ValueError):
+                            debt = 0
+                        if st.get('name') and debt > 0:
+                            strats.append((st['name'], debt))
                     ent = dict(apy=apr * 100, address=v.get('address'),
-                               tvl=((v.get('tvl') or {}).get('tvl')) or 0)
+                               tvl=((v.get('tvl') or {}).get('tvl')) or 0,
+                               strats=strats)
                     if name:
                         idx[(chain, name)] = ent
                     sym = (v.get('symbol') or '').strip().upper()
@@ -356,6 +366,8 @@ def check_row(row, src):
                 # twin vault can pass the gate) — treat as no match
                 v = None
             else:
+                if v.get('strats') and not row.get('collat'):
+                    row['_strategy_book'] = v['strats']
                 return round(v['apy'], 3), ok, 'ydaemon', v.get('address')
 
     # base-only sources: comparing a ~0 base against a ~0 source says nothing

@@ -226,16 +226,18 @@ TRUSTED_ORACLES = {'chainlink', 'chronicle', 'redstone', 'pyth', 'api3',
                    'lido', 'oval', 'compound', 'uniswap', 'pendle'}
 _LEVERED = re.compile(r'lo{2,}p|\blever', re.IGNORECASE)
 
-# curated vaults with no public look-through into their allocation: their
-# score is capped — an unverifiable book cannot rate as low-risk
-OPAQUE_VAULTS = {'Fusion by IPOR', 'Lagoon', 'Ember Protocol', 'Upshift',
-                 'Makina', 'Concrete', 'Superform', 'Veda', 'Gauntlet',
-                 'ether.fi Liquid', 'D2 Finance', 'Multipli.fi', 'Re',
-                 'Nest Credit', 'Tydro', 'Kai Finance', 'Pareto Credit',
-                 '3Jane Lending', 'Royco V2', 'Steakhouse Financial',
-                 'Loopscale', 'Current', 'Project 0', 'Yearn Finance',
-                 'Yuzu Money', 'Yuzu Finance', 'TermMax', 'Gearbox',
-                 'Clearpool Lending', 'Scallop Lend', 'Kamino Liquidity'}
+# Vault taxonomy. Strategy vaults are curated allocators — risk lives in
+# the manager's book; lending vaults are passive deposit pools — risk lives
+# in borrower collateral/utilization/LTV. Either kind caps at 5.9 when the
+# relevant exposure is not visible from any source.
+STRATEGY_VAULTS = {'Fusion by IPOR', 'Lagoon', 'Ember Protocol', 'Upshift',
+                   'Makina', 'Concrete', 'Superform', 'Veda', 'Gauntlet',
+                   'ether.fi Liquid', 'D2 Finance', 'Multipli.fi', 'Re',
+                   'Nest Credit', 'Tydro', 'Kai Finance', 'Pareto Credit',
+                   '3Jane Lending', 'Royco V2', 'Steakhouse Financial',
+                   'Yearn Finance', 'Yuzu Money', 'Yuzu Finance'}
+LENDING_OPAQUE = {'Loopscale', 'Current', 'Project 0', 'TermMax', 'Gearbox',
+                  'Clearpool Lending', 'Scallop Lend'}
 
 
 _PT_DATE = re.compile(r'(\d{1,2})([A-Z]{3})(\d{4})')
@@ -378,11 +380,15 @@ def compute_risk(row, risk_scores):
         if score >= 8 and row.get('verdict') != 'VERIFIED':
             score = 7.9
             basis.append('capped 7.9: not VERIFIED')
-        if score > 5.9 and row['name'] in OPAQUE_VAULTS and not row.get('collat'):
-            # the deposit asset's score says nothing about a vault whose
-            # book we cannot see — Med-High is the ceiling
-            score = 5.9
-            basis.append('capped 5.9: opaque allocation')
+        if score > 5.9 and not row.get('collat'):
+            # the deposit asset's score says nothing about exposure we
+            # cannot see — Med-High is the ceiling either way
+            if row['name'] in STRATEGY_VAULTS:
+                score = 5.9
+                basis.append('capped 5.9: allocation not visible')
+            elif row['name'] in LENDING_OPAQUE:
+                score = 5.9
+                basis.append('capped 5.9: collateral not visible')
         score = max(0.5, min(10.0, score))
         risk = ('Low' if score >= 8 else 'Med-Low' if score >= 6 else
                 'Med-High' if score >= 4 else 'High')
@@ -880,6 +886,65 @@ VENUE_SCORE = {'aave-v3': 8.5, 'aave-v2': 7.5, 'spark': 8.2, 'spark-lend': 8.2,
                'fluid': 8.0, 'fluid-instadapp': 8.0, 'gearbox': 7.0,
                'pendle': 6.5, 'harvest': 6.0, 'yearn': 7.5, 'curve': 7.5,
                'sky': 8.0, 'liquity-zapper': 7.0, 'liquity': 7.5}
+
+
+# venue quality by name fragment, for scoring third-party books whose
+# positions are named strings ("Morpho Vault - ...", "Sturdy crvUSD lender")
+BOOK_VENUES = [('aave', 8.5), ('spark', 8.2), ('compound', 8.5), ('fluid', 8.0),
+               ('curve', 7.5), ('convex', 7.0), ('balancer', 7.5), ('sky', 8.0),
+               ('sturdy', 6.0), ('morpho', 6.5), ('euler', 6.5), ('ipor', 6.0),
+               ('gearbox', 6.5), ('silo', 6.5), ('pendle', 6.5), ('uniswap', 7.0),
+               ('aerodrome', 6.5), ('velodrome', 6.5), ('maker', 8.0),
+               ('lido', 8.5), ('stakedao', 6.5), ('stake dao', 6.5),
+               ('yearn', 6.5), ('lagoon', 5.9), ('termstructure', 5.5),
+               ('spectra', 5.5), ('kiln', 6.0), ('gauntlet', 6.0)]
+
+
+def book_to_exposure(row, book, kind):
+    """Convert a named-position book [(label, weight)] into an exposure
+    list: known venues score at venue quality, idle/wallet entries score as
+    the vault's own asset, everything else is unrated exposure."""
+    out = []
+    own = row['symbol'].split('-')[0]
+    for label, w in book:
+        if w <= 0:
+            continue
+        low = label.lower()
+        if low.startswith(('wallet', 'cash', 'idle', 'other')):
+            out.append((own, w))
+            continue
+        venue = next((v for k, v in BOOK_VENUES if k in low), None)
+        out.append((label[:26], w, venue))   # venue None -> unrated path
+    if out:
+        row['collat'] = out
+        row['collat_kind'] = kind
+
+
+def load_lagoon_books():
+    """Lagoon publishes each vault's live composition (protocol-level
+    repartition percentages) via GraphQL — a scoreable strategy book."""
+    q = '''query { vaults(first: 100, where: {isVisible_eq: true}) { items {
+      symbol chain { id }
+      composition { compositions { protocol repartition } } } } }'''
+    d = get_post('https://api.lagoon.finance/query', {'query': q})
+    idx = {}
+    for v in ((d.get('data') or {}).get('vaults') or {}).get('items', []):
+        comp = (v.get('composition') or {}).get('compositions') or []
+        book = [(c.get('protocol') or '?', float(c.get('repartition') or 0))
+                for c in comp]
+        cid = (v.get('chain') or {}).get('id')
+        ch = CHAIN_IDS.get(cid)
+        if ch and book:
+            idx[(ch, (v.get('symbol') or '').upper())] = book
+    return idx
+
+
+def get_post(url, payload):
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+                                 headers={'User-Agent': UA,
+                                          'Content-Type': 'application/json'})
+    with urllib.request.urlopen(req, timeout=45) as r:
+        return json.load(r)
 
 
 def ipor_exposure(row, v, mkt_by_id, euler_by_id):
@@ -1380,6 +1445,12 @@ def run_verification(tabs, registry=None):
     except Exception as e:
         print('protocol checks unavailable:', type(e).__name__, e)
         protocol_checks = None
+    lagoon_books = {}
+    try:
+        lagoon_books = load_lagoon_books()
+        print(f'lagoon: {len(lagoon_books)} vault books')
+    except Exception as e:
+        print('lagoon books unavailable:', type(e).__name__)
     merkl_idx = {}
     try:
         merkl_idx = load_merkl([c for c in CHAIN_IDS if c != 0])
@@ -1501,6 +1572,14 @@ def run_verification(tabs, registry=None):
                         ipor_exposure(row, v, mkt_by_id, euler_by_id)
                 except Exception:
                     pass
+            # yearn: ydaemon strategy list stashed during the cross-check
+            if not row.get('collat') and row.get('_strategy_book'):
+                book_to_exposure(row, row['_strategy_book'], 'strategy book')
+            # lagoon: composition published via graphql
+            if (not row.get('collat') and row['name'] == 'Lagoon' and lagoon_books):
+                book = lagoon_books.get((row['chain'], row['symbol'].upper()))
+                if book:
+                    book_to_exposure(row, book, 'strategy book')
             # emissions-dominated APY whose reward pricing no independent
             # source confirmed (yieldz reward decomposition, curve gauge
             # totals, or Merkl campaign APRs all count as confirmation)
