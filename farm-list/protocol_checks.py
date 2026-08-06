@@ -325,7 +325,7 @@ def check_row(row, src):
     if row['name'] == 'Yearn Finance' and 'yearn' in src:
         # DL poolMeta is usually empty for Yearn; the carried display name or
         # the vault symbol (TVL-gated: yBOLD vs ysyBOLD share a prefix) works
-        v = None
+        v, weak = None, False
         for key in (row.get('meta'), row.get('farm_disp')):
             v = src['yearn'].get((row['chain'], (key or '').strip().lower()))
             if v:
@@ -335,11 +335,16 @@ def check_row(row, src):
             cands = [c for c in cands if c['tvl']
                      and 0.5 <= (c['tvl'] + 1) / ((row.get('tvl') or 0) + 1) <= 2]
             if len(cands) == 1:
-                v = cands[0]
+                v, weak = cands[0], True
         if v:
             base = row.get('base') if row.get('base') is not None else total
             ok = tol(base or 0, v['apy']) or tol(total or 0, v['apy'])
-            return round(v['apy'], 3), ok, 'ydaemon', v.get('address')
+            if weak and not ok:
+                # a ticker+TVL pairing is too loose to accuse (yBOLD's 0%
+                # twin vault can pass the gate) — treat as no match
+                v = None
+            else:
+                return round(v['apy'], 3), ok, 'ydaemon', v.get('address')
 
     # base-only sources: comparing a ~0 base against a ~0 source says nothing
     # about a farm whose displayed APY is all emissions — skip those
