@@ -356,6 +356,15 @@ def compute_risk(row, risk_scores):
                     deductions.append((f'tenor {days}d', 0.5))
             if (row.get('tvl') or 0) < 5_000_000:
                 deductions.append(('PT liquidity <5M', 0.5))
+        imb = row.get('pool_imb')
+        if imb is not None:
+            # skew vs equal weight: LPs in a lopsided pool effectively hold
+            # the heavy (usually weaker) asset
+            ratio, sym, share = imb
+            if ratio >= 2.2:
+                deductions.append((f'pool {share:.0%} in {sym}', 1.0))
+            elif ratio >= 1.6:
+                deductions.append((f'pool {share:.0%} in {sym}', 0.5))
         for name, pts in deductions:
             score -= pts
             basis.append(f'-{pts:g} {name}')
@@ -1127,9 +1136,23 @@ def load_curve_pools():
                     continue
                 crv = p.get('gaugeCrvApy') or [0, 0]
                 rewards = sum((g.get('apy') or 0) for g in (p.get('gaugeRewards') or []))
+                # value share of the heaviest coin, vs an equal-weight pool
+                vals = []
+                for c in p.get('coins', []):
+                    try:
+                        vals.append((c.get('symbol'),
+                                     int(c['poolBalance']) / 10 ** int(c['decimals'])
+                                     * (c.get('usdPrice') or 1)))
+                    except (KeyError, TypeError, ValueError):
+                        pass
+                tot = sum(v for _, v in vals)
+                imb = None
+                if tot > 0 and len(vals) >= 2:
+                    top_sym, top_v = max(vals, key=lambda x: x[1])
+                    imb = (top_v / tot * len(vals), top_sym, top_v / tot)
                 idx.setdefault((chain, coins), []).append(dict(
                     address=p['address'], usd=p.get('usdTotal') or 0, chain_id=chain_id,
-                    gauge=p.get('gaugeAddress'), lp=p.get('lpTokenAddress'),
+                    gauge=p.get('gaugeAddress'), lp=p.get('lpTokenAddress'), imb=imb,
                     base=p.get('latestDailyApy'),
                     total_min=(p.get('latestDailyApy') or 0) + (crv[0] or 0) + rewards,
                     total_max=(p.get('latestDailyApy') or 0) + (crv[-1] or 0) + rewards))
@@ -1172,6 +1195,8 @@ def curve_check(row, curve_idx):
             if m is None:
                 return None, None, None
     row['_pool_addrs'] = [a for a in (m['address'], m.get('gauge'), m.get('lp')) if a]
+    if m.get('imb'):
+        row['pool_imb'] = m['imb']
     # reward-inclusive total comparison (Curve DEX rows only for flagging)
     total = row.get('now')
     if total is None:
