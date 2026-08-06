@@ -1032,6 +1032,63 @@ _LABEL_STOP = {'usd', 'supply', 'borrow', 'vault', 'gauge', 'market', 'lender',
                'eth', 'btc', 'v2', 'v3', 'lp', 'the', 'and'}
 
 
+def load_addr_books():
+    """Universal address -> book registry for exact position resolution:
+    every Morpho curated vault (yieldz full list) resolves to its collateral
+    allocation by vault address. Euler EVK vaults and Lagoon vaults are
+    merged in by their loaders. Enables recursive, exact look-through for
+    any strategy-vault position that carries a contract address."""
+    out = {}
+    d = get(f'{YZ}/vaults?include_unwhitelisted=true&protocol=morpho_vault')
+    for v in d.get('data', []):
+        pd_ = v.get('protocol_data') or {}
+        allocs = pd_.get('current_market_allocations') or []
+        book = []
+        for a in allocs:
+            cs = (a.get('collateral_asset') or {}).get('symbol')
+            w = float(a.get('allocation_percentage') or 0)
+            if cs and w > 0:
+                book.append((cs, w))
+        addr = (v.get('id') or '').lower()
+        if addr and book:
+            out[addr] = ('morpho_vault', book)
+    return out
+
+
+def resolve_position_addr(addr, risk_scores, depth=2):
+    """Exact-identity resolution of a position by contract address against
+    the universal registry. Returns (score, kind) or (None, None)."""
+    if not addr or depth <= 0:
+        return None, None
+    ent = _MV_BOOKS.get('addr', {}).get(addr.lower())
+    if not ent:
+        return None, None
+    kind, book = ent
+    num = den = 0.0
+    for item in book[:10]:
+        if kind == 'lagoon':
+            label, w, sub = item[0], item[1], item[2] if len(item) > 2 else None
+            v = None
+            if sub and sub != addr.lower():
+                v, _k = resolve_position_addr(sub, risk_scores, depth - 1)
+            if v is None:
+                v, _d = resolve_book_position(label, risk_scores,
+                                              _MV_BOOKS.get('books', {}))
+            if v is None:
+                v = 3.0 if (w / max(sum(i[1] for i in book), 1)) >= 0.10 else None
+        else:   # collateral-symbol books (morpho_vault, euler)
+            sym, w = item[0], item[1]
+            v, _lbl = _collat_score(sym, risk_scores)
+            if v is None:
+                v = 3.0 if (w / max(sum(i[1] for i in book), 1)) >= 0.10 else None
+        if v is not None:
+            num += v * w
+            den += w
+    if den > 0:
+        return num / den, kind
+    return None, None
+
+
 def resolve_book_position(label, risk_scores, mv_books):
     """Score one named position inside a strategy book, deepest identity
     first: a Morpho vault name resolves to that vault's actual collateral;
@@ -1081,13 +1138,21 @@ def book_to_exposure(row, book, kind):
     out = []
     own = row['symbol'].split('-')[0]
     mv_books = _MV_BOOKS.get('books', {})
-    for label, w in book:
+    rs = _MV_BOOKS.get('risk', {})
+    for item in book:
+        label, w = item[0], item[1]
+        contract = item[2] if len(item) > 2 else None
         if w <= 0:
             continue
         if label.lower().startswith(('wallet', 'cash', 'idle', 'other')):
             out.append((own, w))
             continue
-        v, desc = resolve_book_position(label, _MV_BOOKS.get('risk', {}), mv_books)
+        # exact identity first: the position's contract address
+        v, k = resolve_position_addr(contract, rs)
+        if v is not None:
+            out.append((f'{label[:20]}={k}', w, v))
+            continue
+        v, desc = resolve_book_position(label, rs, mv_books)
         if v is not None:
             out.append((desc, w, v))
         else:
@@ -1108,8 +1173,8 @@ def load_lagoon_books():
     idx = {}
     for skip in range(0, 200, 5):    # tiny pages: one vault's broken
         q = ('query { vaults(first: 5, skip: %d, where: {isVisible_eq: true}) '
-             '{ items { symbol chain { id } composition { tokenCompositions '
-             '{ name repartition } } } } }' % skip)
+             '{ items { symbol address chain { id } composition { tokenCompositions '
+             '{ name repartition contract } } } } }' % skip)
         d = None
         for attempt in range(2):      # composition 500s its whole page;
             try:                      # rapid paging trips rate limits
@@ -1123,7 +1188,8 @@ def load_lagoon_books():
         time.sleep(0.4)
         for v in items:
             comp = (v.get('composition') or {}).get('tokenCompositions') or []
-            book = [(c.get('name') or '?', float(c.get('repartition') or 0))
+            book = [(c.get('name') or '?', float(c.get('repartition') or 0),
+                     (c.get('contract') or '').lower() or None)
                     for c in comp]
             try:   # lagoon serves chain ids as strings
                 cid = int((v.get('chain') or {}).get('id'))
@@ -1132,6 +1198,9 @@ def load_lagoon_books():
             ch = CHAIN_IDS.get(cid)
             if ch and book:
                 idx[(ch, (v.get('symbol') or '').upper())] = book
+                addr = (v.get('address') or '').lower()
+                if addr:   # nested lagoon-in-lagoon resolves by address
+                    _MV_BOOKS.setdefault('addr', {})[addr] = ('lagoon', book)
         if not items and skip > 0:
             break
     return idx
@@ -1181,13 +1250,16 @@ def ipor_exposure(row, v, mkt_by_id, euler_by_id):
                 tot = sum(w for _, w in e['collat']) or 1
                 out.extend((s, bal * w / tot) for s, w in e['collat'])
             else:
-                out.append((f'euler?{mid[:8]}', bal, 6.0))
+                v, _k = resolve_position_addr(mid, _MV_BOOKS.get('risk', {}))
+                out.append((f'euler?{mid[:8]}', bal, v if v is not None else 6.0))
         elif proto in VENUE_SCORE:
             out.append((proto, bal, VENUE_SCORE[proto]))
         elif proto.endswith('erc4626'):
-            # third-party wrapper vault with no public book: scored like an
-            # opaque curated vault, not as unrated exposure
-            out.append((proto, bal, 6.0))
+            # exact resolution when the wrapper address is a known vault;
+            # otherwise scored like an opaque curated vault
+            v, k = resolve_position_addr(mid, _MV_BOOKS.get('risk', {}))
+            out.append((f'{proto}={k}' if v is not None else proto, bal,
+                        v if v is not None else 6.0))
         else:
             out.append((proto or 'unknown', bal))
     if out:
@@ -1672,12 +1744,20 @@ def run_verification(tabs, registry=None):
                   'reward APRs unverifiable beyond yieldz/curve')
     except Exception as e:
         print('merkl unavailable:', type(e).__name__)
+    try:
+        _MV_BOOKS.setdefault('addr', {}).update(load_addr_books())
+        print(f"addr books: {len(_MV_BOOKS['addr'])} contracts")
+    except Exception as e:
+        print('addr books unavailable:', type(e).__name__)
     # euler vault id -> entry (with collateral allocations), for look-through
     euler_by_id = {}
     for cands in (proto_src.get('euler') or {}).values():
         for e in cands:
             if e.get('address'):
                 euler_by_id[(e.get('chain_id'), e['address'].lower())] = e
+                if e.get('collat'):
+                    _MV_BOOKS.setdefault('addr', {})[e['address'].lower()] = (
+                        'euler', e['collat'])
     counts = collections.Counter()
     for tab, rows in tabs.items():
         cut = CUTOFF[tab.split()[0]]
