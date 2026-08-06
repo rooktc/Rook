@@ -126,6 +126,22 @@
    "url": "https://staging.tidresearch.com/reports/figure/"
   }
  ],
+ "FRAX": [
+  {
+   "source": "tid",
+   "score": 2.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/frax/"
+  },
+  {
+   "source": "pharos",
+   "score": "C",
+   "scale": "letter grade (v9)",
+   "label": "C",
+   "num": 57,
+   "url": "https://pharos.watch/stablecoin/frax-frax/"
+  }
+ ],
  "FRXUSD": [
   {
    "source": "tid",
@@ -1880,16 +1896,6 @@
    "label": "B-",
    "num": 67,
    "url": "https://pharos.watch/stablecoin/fpi-frax/"
-  }
- ],
- "FRAX": [
-  {
-   "source": "pharos",
-   "score": "C",
-   "scale": "letter grade (v9)",
-   "label": "C",
-   "num": 57,
-   "url": "https://pharos.watch/stablecoin/frax-frax/"
   }
  ],
  "FTUSD": [
