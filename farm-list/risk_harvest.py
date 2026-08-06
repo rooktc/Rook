@@ -123,10 +123,46 @@ def harvest_pharos(scores):
     return scores
 
 
+def harvest_credora(scores):
+    """Credora (RedStone) DeFi risk ratings — PD/PSL-based letter ratings on
+    assets, plus product-level vault ratings keyed by (chain_id, address).
+    Served publicly by their app's API. Blurred (paywalled) entries carry no
+    rating and are skipped."""
+    import re as _re
+    import urllib.request as _rq
+
+    def _get(path):
+        req = _rq.Request(f'https://app.credora.network/api/{path}',
+                          headers={'User-Agent': 'Mozilla/5.0 farm-list-verifier'})
+        return json.load(_rq.urlopen(req, timeout=60))
+
+    n = 0
+    for a in _get('assets'):
+        sym = _re.sub(r'[^A-Z0-9]', '', (a.get('asset_name') or '').upper())
+        rating, psl = a.get('metrics_rating'), a.get('metrics_psl')
+        if not sym or not rating or a.get('blurred'):
+            continue
+        scores.setdefault(sym, []).append(dict(
+            source='credora', score=rating, scale='PD letter (A+..D)',
+            label=rating, psl=psl, url='https://app.credora.network/'))
+        n += 1
+    vaults = {}
+    for v in _get('vaults'):
+        rating = v.get('metrics_rating')
+        addr, cid = (v.get('address') or '').lower(), v.get('chain_id')
+        if rating and addr and cid and not v.get('blurred'):
+            vaults[f'{cid}:{addr}'] = dict(
+                rating=rating, psl=v.get('metrics_psl'), name=v.get('name'),
+                curator=v.get('curator'), protocol=v.get('protocol'))
+    scores['_credora_vaults'] = vaults
+    print(f'credora: {n} asset ratings, {len(vaults)} vault ratings')
+    return scores
+
+
 def main(outfile):
     scores = {}
     for name, fn in [('tid', harvest_tid), ('yearn', harvest_yearn),
-                     ('pharos', harvest_pharos)]:
+                     ('pharos', harvest_pharos), ('credora', harvest_credora)]:
         try:
             fn(scores)
         except Exception as e:

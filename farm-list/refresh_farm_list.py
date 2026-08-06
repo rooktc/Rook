@@ -97,9 +97,12 @@ def risk_norm(leg):
 
 # composite risk score: weighted average of normalized source scores,
 # 1-10 higher = safer; buckets 1-3 High, 4-7 Medium, 8-10 Low
-SOURCE_WEIGHTS = {'tid': 0.40, 'pharos': 0.35, 'yearn': 0.25}
+SOURCE_WEIGHTS = {'tid': 0.30, 'pharos': 0.25, 'credora': 0.25, 'yearn': 0.20}
 PHAROS_LETTER = {'A+': 9.5, 'A': 9.0, 'A-': 8.5, 'B+': 7.5, 'B': 7.0, 'B-': 6.5,
                  'C+': 5.5, 'C': 5.0, 'C-': 4.5, 'D': 3.0, 'F': 1.5}
+# Credora's PD curve: A band = minimal expected loss, B moderate, C/D speculative
+CREDORA_LETTER = {'A+': 9.5, 'A': 9.0, 'A-': 8.4, 'B+': 7.4, 'B': 6.6, 'B-': 5.8,
+                  'C+': 4.8, 'C': 4.0, 'C-': 3.2, 'D+': 2.2, 'D': 1.5}
 YEARN_ANCHORS = [(1.0, 10.0), (2.5, 8.0), (3.5, 4.0), (5.0, 1.0)]
 
 
@@ -111,6 +114,8 @@ def entry_score10(e):
         if e.get('num') is not None:
             return max(0.5, min(10.0, e['num'] / 10))
         return PHAROS_LETTER.get(str(e['score']).upper())
+    if e['source'] == 'credora':
+        return CREDORA_LETTER.get(str(e['score']).upper())
     # yearn 1-5 lower = safer: piecewise-linear so their labels align with
     # the 8/4 bucket edges
     s = float(e['score'])
@@ -300,6 +305,12 @@ def compute_risk(row, risk_scores):
         if exp:
             kind = row.get('collat_kind') or 'collateral'
             basis.append(f'{kind} leg {exp[0]:.1f} ({exp[1]})')
+    cred = row.get('credora_vault')
+    cred_score = CREDORA_LETTER.get(str((cred or {}).get('rating')).upper()) if cred else None
+    if cred_score is not None:
+        leg_scores['CREDORA-VAULT'] = cred_score
+        basis.append(f"credora vault {cred['rating']} "
+                     f"(psl {100 * (cred.get('psl') or 0):.2f}%)")
 
     flags = row.get('flags') or []
     red = any(f.startswith(RED_FLAGS) for f in flags)
@@ -360,6 +371,12 @@ def compute_risk(row, risk_scores):
                     deductions.append((f'tenor {days}d', 0.5))
             if (row.get('tvl') or 0) < 5_000_000:
                 deductions.append(('PT liquidity <5M', 0.5))
+        if (row.get('collat_kind') in ('allocation', 'strategy book')
+                and row.get('collat')):
+            tw = sum(i[1] for i in row['collat'])
+            top = max(i[1] for i in row['collat'])
+            if tw > 0 and top / tw >= 0.90:
+                deductions.append((f'concentrated book {top / tw:.0%}', 0.5))
         imb = row.get('pool_imb')
         if imb is not None:
             # skew vs equal weight: LPs in a lopsided pool effectively hold
@@ -389,8 +406,9 @@ def compute_risk(row, risk_scores):
                  'USDG', 'EURC', 'SUI', 'SOL', 'BNB', 'MON', 'HYPE', 'XAUT',
                  'WSTETH', 'STETH', 'WEETH', 'CBETH', 'RETH', 'USDAI', 'USN'}
         n_sym = risk_norm(row['symbol'])
-        product_rated = (n_sym not in PLAIN and '-' not in row['symbol']
-                         and asset_score(n_sym, risk_scores) is not None)
+        product_rated = (cred_score is not None
+                         or (n_sym not in PLAIN and '-' not in row['symbol']
+                             and asset_score(n_sym, risk_scores) is not None))
         if score > 5.9 and not row.get('collat') and not product_rated:
             # the deposit asset's score says nothing about exposure we
             # cannot see — Med-High is the ceiling either way. Exception:
@@ -594,6 +612,18 @@ def main(template, outfile, names_file=None, loops_file=None):
             # Strata tranches wrap their underlying
             r['ftype'] = farm_type(r['name'], r['symbol'],
                                    r.get('farm_disp'), r.get('meta'))
+            cv = risk_scores.get('_credora_vaults') or {}
+            if cv and not r.get('credora_vault'):
+                cid = next((k for k, v in CHAIN_IDS.items() if v == r['chain']), None)
+                addrs = list(r.get('_pool_addrs') or [])
+                ent = registry.get(r['pool_id'])
+                if ent and ent.get('address'):
+                    addrs.append(ent['address'])
+                for a in addrs:
+                    hit = cv.get(f'{cid}:{str(a).lower()}')
+                    if hit:
+                        r['credora_vault'] = hit
+                        break
             if r['ftype'] in ('LP', 'LP (Pendle)'):
                 # LP risk = the pooled assets themselves; lending-style
                 # exposure legs don't apply
