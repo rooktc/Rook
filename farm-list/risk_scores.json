@@ -918,9 +918,9 @@
  "ARM": [
   {
    "source": "yearn",
-   "score": 1.5,
+   "score": 1.6,
    "scale": "1-5 lower=safer",
-   "label": "Minimal Risk",
+   "label": "Low Risk",
    "url": "https://curation.yearn.fi/report/origin-arm/"
   }
  ],
@@ -940,6 +940,23 @@
    "scale": "1-5 lower=safer",
    "label": "Elevated Risk",
    "url": "https://curation.yearn.fi/report/royco-srroyusdc/"
+  }
+ ],
+ "STUSDS": [
+  {
+   "source": "yearn",
+   "score": 2.6,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/sky-stusds/"
+  },
+  {
+   "source": "pharos",
+   "score": "B+",
+   "scale": "letter grade (v9)",
+   "label": "B+",
+   "num": 76,
+   "url": "https://pharos.watch/stablecoin/stusds-sky/"
   }
  ],
  "FINANCE": [
@@ -2801,16 +2818,6 @@
    "label": "C-",
    "num": 52,
    "url": "https://pharos.watch/stablecoin/stusd-stoneyield/"
-  }
- ],
- "STUSDS": [
-  {
-   "source": "pharos",
-   "score": "B+",
-   "scale": "letter grade (v9)",
-   "label": "B+",
-   "num": 76,
-   "url": "https://pharos.watch/stablecoin/stusds-sky/"
   }
  ],
  "SUIUSDE": [
