@@ -450,7 +450,8 @@ def main(template, outfile, names_file=None, loops_file=None):
                    tvl=p['tvlUsd'], now=now, base=base, rew=rew, intr=intr,
                    pool_id=p['pool'], d7=None, d30=round(mean30, 5) if mean30 else None,
                    rating=None, score=None,
-                   _underlying=(p.get('underlyingTokens') or [None])[0])
+                   _underlying=(p.get('underlyingTokens') or [None])[0],
+                   _underlyings=p.get('underlyingTokens') or [])
         tabs[tab].append(row)
         charts_needed.append(row)
 
@@ -1093,6 +1094,7 @@ def load_curve_pools():
                 rewards = sum((g.get('apy') or 0) for g in (p.get('gaugeRewards') or []))
                 idx.setdefault((chain, coins), []).append(dict(
                     address=p['address'], usd=p.get('usdTotal') or 0, chain_id=chain_id,
+                    gauge=p.get('gaugeAddress'), lp=p.get('lpTokenAddress'),
                     base=p.get('latestDailyApy'),
                     total_min=(p.get('latestDailyApy') or 0) + (crv[0] or 0) + rewards,
                     total_max=(p.get('latestDailyApy') or 0) + (crv[-1] or 0) + rewards))
@@ -1124,6 +1126,7 @@ def curve_check(row, curve_idx):
             return None, None, None
         m = cands[0]
         tight = False  # wrapper boost differs; compare but never accuse
+    row['_pool_addrs'] = [a for a in (m['address'], m.get('gauge'), m.get('lp')) if a]
     # reward-inclusive total comparison (Curve DEX rows only for flagging)
     total = row.get('now')
     if total is None:
@@ -1200,31 +1203,63 @@ def load_merkl(chain_ids):
             for op in ops:
                 ident = (op.get('identifier') or '').lower()
                 apr = op.get('apr')
-                if ident and apr is not None:
-                    idx[(cid, ident)] = float(apr)
+                if not ident or apr is None:
+                    continue
+                idx.setdefault('addr', {})[(cid, ident)] = float(apr)
+                toks = frozenset((t.get('address') or '').lower()
+                                 for t in op.get('tokens') or [])
+                if len(toks) >= 2:
+                    idx.setdefault('pair', {}).setdefault((cid, toks), []).append(dict(
+                        apr=float(apr), tvl=float(op.get('tvl') or 0),
+                        proto=((op.get('protocol') or {}).get('id') or '').lower()))
             if len(ops) < 100:
                 break
             page += 1
     return idx
 
 
+# row protocol -> merkl protocol-id prefix, for pair-based campaign matching
+MERKL_PROTO = {'Uniswap V3': 'uniswap', 'Uniswap V4': 'uniswap',
+               'Uniswap V2': 'uniswap', 'Aerodrome Slipstream': 'aerodrome',
+               'Aerodrome V1': 'aerodrome', 'Velodrome V2': 'velodrome',
+               'Velodrome V3': 'velodrome', 'PancakeSwap AMM': 'pancakeswap',
+               'Curve DEX': 'curve', 'Balancer V2': 'balancer',
+               'Balancer V3': 'balancer', 'Camelot V2': 'camelot',
+               'Camelot V3': 'camelot', 'Fluid DEX': 'fluid',
+               'Joe V2.1': 'traderjoe', 'Joe V2.2': 'traderjoe'}
+
+
 def merkl_reward_match(row, merkl_idx):
-    """Confirm a row's emission APR against a Merkl campaign matched on a
-    strong identity (registry vault address or the underlying token).
-    Returns the campaign APR when it corroborates DL's reward figure."""
+    """Confirm a row's emission APR against a Merkl campaign.
+
+    Identity, strongest first: exact address (registry vault, matched Curve
+    pool/gauge/LP token, underlying), then same-protocol-family campaigns on
+    the exact token pair (TVL-gated when several fee tiers exist). Returns
+    the campaign APR when it corroborates DL's reward figure."""
     cid = next((k for k, v in CHAIN_IDS.items() if v == row['chain']), None)
     if cid is None:
         return None
-    cands = []
-    for addr in (row.get('_registry_addr'), row.get('_underlying')):
-        if addr:
-            apr = merkl_idx.get((cid, addr.lower()))
-            if apr is not None:
-                cands.append(apr)
     rew = row.get('rew') or 0
-    for apr in cands:
-        if abs(apr - rew) <= max(1.0, 0.35 * max(apr, rew)):
-            return apr
+    close = lambda a: abs(a - rew) <= max(1.0, 0.35 * max(a, rew))
+    addrs = [row.get('_registry_addr'), row.get('_underlying')]
+    addrs += row.get('_pool_addrs') or []
+    for addr in addrs:
+        if addr:
+            apr = merkl_idx.get('addr', {}).get((cid, addr.lower()))
+            if apr is not None and close(apr):
+                return apr
+    unders = [a for a in (row.get('_underlyings') or []) if a]
+    fam = MERKL_PROTO.get(row['name'])
+    if fam and len(unders) >= 2:
+        key = (cid, frozenset(a.lower() for a in unders))
+        cands = [c for c in merkl_idx.get('pair', {}).get(key, [])
+                 if c['proto'].startswith(fam)]
+        if len(cands) > 1:   # several fee tiers: require the same pool size
+            cands = [c for c in cands if c['tvl']
+                     and 0.3 <= (c['tvl'] + 1) / ((row.get('tvl') or 0) + 1) <= 3]
+        for c in cands:
+            if close(c['apr']):
+                return c['apr']
     return None
 
 
@@ -1255,7 +1290,8 @@ def run_verification(tabs, registry=None):
     try:
         merkl_idx = load_merkl([c for c in CHAIN_IDS if c != 0])
         if merkl_idx:
-            print(f'merkl: {len(merkl_idx)} live campaigns')
+            print(f"merkl: {len(merkl_idx.get('addr', {}))} live campaigns, "
+                  f"{len(merkl_idx.get('pair', {}))} token-pair keys")
         else:
             print('merkl unavailable (api.merkl.xyz not allowlisted?) — '
                   'reward APRs unverifiable beyond yieldz/curve')
