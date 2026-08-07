@@ -874,5 +874,10 @@
   "address": "0xf0202EFbaF185B451b4be3b36988b258d42f8E24",
   "note": "midas-rwa USDC (MEDGE) \u2014 harvested (NAV oracle feed)",
   "selector": "0x63692905"
+ },
+ "6c6259b6-1226-40ca-9369-9940fdd25b0a": {
+  "chain_id": 8453,
+  "address": "0x6b13c060F13Af1fdB319F52315BbbF3fb1D88844",
+  "note": "morpho-blue GTWETHC (GTWETHC) \u2014 harvested"
  }
 }
