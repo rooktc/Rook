@@ -879,5 +879,25 @@
   "chain_id": 8453,
   "address": "0x6b13c060F13Af1fdB319F52315BbbF3fb1D88844",
   "note": "morpho-blue GTWETHC (GTWETHC) \u2014 harvested"
+ },
+ "2d3b68a8-33d3-47e0-a4c0-0bafef4b01d5": {
+  "chain_id": 8453,
+  "address": "0xeE8F4eC5672F09119b96Ab6fB59C27E1b7e44b61",
+  "note": "morpho-blue USDE (GTUSDCP) \u2014 harvested"
+ },
+ "812e0485-4799-5b31-8595-36b1bca01a3c": {
+  "chain_id": 999,
+  "address": "0x808F72b6Ff632fba005C88b49C2a76AB01CAB545",
+  "note": "morpho-blue WHYPE (FEUSDC2) \u2014 harvested"
+ },
+ "9ca84254-ecc7-53a7-adf1-4186812dfa37": {
+  "chain_id": 143,
+  "address": "0x32841A8511D5c2c5b253f45668780B99139e476D",
+  "note": "morpho-blue YZM (GROVE-BBQAUSD) \u2014 harvested"
+ },
+ "305edf0e-a304-42db-b2f1-7a427841bc80": {
+  "chain_id": 8453,
+  "address": "0x236919F11ff9eA9550A4287696C2FC9e18E6e890",
+  "note": "morpho-blue GTUSDCF (GTUSDCF) \u2014 harvested"
  }
 }
