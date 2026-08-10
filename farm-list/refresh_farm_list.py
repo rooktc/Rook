@@ -536,11 +536,14 @@ def main(template, outfile, names_file=None, loops_file=None):
 
     print(f"candidates: USD {len(tabs['USD Farms'])}, ETH {len(tabs['ETH Farms'])};"
           f" fetching {len(charts_needed)} charts")
+    failed = []
+
     def enrich(row):
         try:
             hist = get(f"{API}/chart/{row['pool_id']}")['data']
         except Exception as e:
             print('  chart failed', row['pool_id'], e)
+            failed.append(row)
             return
         raw = [d['apy'] for d in hist[-30:] if d.get('apy') is not None]
         row['_raw'] = raw
@@ -557,12 +560,20 @@ def main(template, outfile, names_file=None, loops_file=None):
             row['rating'] = 'stable' if score >= 2 / 3 else ('mixed' if score >= 1 / 3 else 'volatile')
 
     import concurrent.futures
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as ex:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
         done = 0
         for _ in ex.map(enrich, charts_needed):
             done += 1
             if done % 100 == 0:
                 print(f'  {done}/{len(charts_needed)} charts')
+    if failed:
+        # slow second pass: 429s under concurrency usually clear at 1 req/s
+        retry, failed = failed[:], []
+        print(f'  retrying {len(retry)} rate-limited charts slowly')
+        for row in retry:
+            time.sleep(1.0)
+            enrich(row)
+        print(f'  {len(failed)} charts still missing after retry')
 
     # final filter + ordering (current APY desc, then blank-now rows by 7d/30d)
     for tab, cut in [('USD Farms', CUTOFF['USD']), ('ETH Farms', CUTOFF['ETH'])]:
