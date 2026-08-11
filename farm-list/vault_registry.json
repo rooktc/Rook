@@ -899,5 +899,10 @@
   "chain_id": 8453,
   "address": "0x236919F11ff9eA9550A4287696C2FC9e18E6e890",
   "note": "morpho-blue GTUSDCF (GTUSDCF) \u2014 harvested"
+ },
+ "73ebf747-86eb-40be-a60a-3796e52361ed": {
+  "chain_id": 42161,
+  "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
+  "note": "morpho-blue WBTC (AUSD) \u2014 harvested"
  }
 }
