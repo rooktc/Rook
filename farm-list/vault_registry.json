@@ -904,5 +904,15 @@
   "chain_id": 42161,
   "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
   "note": "morpho-blue WBTC (AUSD) \u2014 harvested"
+ },
+ "8df840b2-2d80-432b-b98b-ebeea84d1890": {
+  "chain_id": 8453,
+  "address": "0xfce2064b4221c54651b21c868064a23695e78f09",
+  "note": "lagoon 722C-E (722C-E) \u2014 harvested"
+ },
+ "c0078374-de4d-49a7-b3f3-5940cd570d58": {
+  "chain_id": 1,
+  "address": "0x5Bcd31a28D77a1A5Ef5e0146Ab91e6f43D7100b7",
+  "note": "beefy CVXCRV-CRV (CRV-CVXCRV) \u2014 harvested"
  }
 }
