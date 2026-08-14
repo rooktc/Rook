@@ -914,5 +914,10 @@
   "chain_id": 1,
   "address": "0x5Bcd31a28D77a1A5Ef5e0146Ab91e6f43D7100b7",
   "note": "beefy CVXCRV-CRV (CRV-CVXCRV) \u2014 harvested"
+ },
+ "9bdda33e-38c4-4599-a48e-26179381ef6a": {
+  "chain_id": 1,
+  "address": "0x4fc424a840B5fB1BAf195963eC3737904440df1D",
+  "note": "beefy FRAX-USDC (FRAX-USDC) \u2014 harvested"
  }
 }
