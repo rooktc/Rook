@@ -919,5 +919,10 @@
   "chain_id": 1,
   "address": "0x4fc424a840B5fB1BAf195963eC3737904440df1D",
   "note": "beefy FRAX-USDC (FRAX-USDC) \u2014 harvested"
+ },
+ "4ce0c458-2171-463b-92ce-458afe367a4e": {
+  "chain_id": 1,
+  "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
+  "note": "morpho-blue WSTETH (ADPUSDC) \u2014 harvested"
  }
 }
