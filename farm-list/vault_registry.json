@@ -924,5 +924,10 @@
   "chain_id": 1,
   "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
   "note": "morpho-blue WSTETH (ADPUSDC) \u2014 harvested"
+ },
+ "6c97c62a-6738-4f0f-a9e1-bfeeb330332f": {
+  "chain_id": 42161,
+  "address": "0x5c0C306Aaa9F877de636f4d5822cA9F2E81563BA",
+  "note": "morpho-blue WEETH (BBQUSDC) \u2014 harvested"
  }
 }
