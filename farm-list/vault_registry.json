@@ -929,5 +929,15 @@
   "chain_id": 42161,
   "address": "0x5c0C306Aaa9F877de636f4d5822cA9F2E81563BA",
   "note": "morpho-blue WEETH (BBQUSDC) \u2014 harvested"
+ },
+ "8276be38-acc6-4005-ab0d-62680f49f4df": {
+  "chain_id": 8453,
+  "address": "0xeE8F4eC5672F09119b96Ab6fB59C27E1b7e44b61",
+  "note": "morpho-blue SIRLOINUSDC (GTUSDCP) \u2014 harvested"
+ },
+ "699f25fe-09f4-4f82-8f58-baa5b0af8fa4": {
+  "chain_id": 1,
+  "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
+  "note": "morpho-blue SENPYUSDMAIN (ADPUSDC) \u2014 harvested"
  }
 }
