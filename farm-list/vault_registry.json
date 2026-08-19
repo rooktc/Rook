@@ -939,5 +939,15 @@
   "chain_id": 1,
   "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
   "note": "morpho-blue SENPYUSDMAIN (ADPUSDC) \u2014 harvested"
+ },
+ "2e53bb82-f13f-4157-a3bf-b1a91b94b6a4": {
+  "chain_id": 1,
+  "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
+  "note": "morpho-blue SENRLUSDV2 (ADPUSDC) \u2014 harvested"
+ },
+ "689a70ef-d68f-49ac-99e2-bf876e3cf3fe": {
+  "chain_id": 999,
+  "address": "0xFc5126377F0efc0041C0969Ef9BA903Ce67d151e",
+  "note": "morpho-blue WHYPE (FEUSDT0) \u2014 harvested"
  }
 }
