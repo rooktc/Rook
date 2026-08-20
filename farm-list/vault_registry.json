@@ -949,5 +949,25 @@
   "chain_id": 999,
   "address": "0xFc5126377F0efc0041C0969Ef9BA903Ce67d151e",
   "note": "morpho-blue WHYPE (FEUSDT0) \u2014 harvested"
+ },
+ "7d8f534d-3ba8-4432-a758-175df9dca297": {
+  "chain_id": 1,
+  "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
+  "note": "morpho-blue KBTC (ADPUSDC) \u2014 harvested"
+ },
+ "caa4d20a-f61f-419a-883f-2d493264e92f": {
+  "chain_id": 1,
+  "address": "0x60a2612996ddfb1aa1c53e7bfbf179ccc1fcd734",
+  "note": "lagoon EVCBBTC (EVCBBTC) \u2014 harvested"
+ },
+ "eafdd1e6-29c2-4828-abf3-eb61f09ee2d5": {
+  "chain_id": 8453,
+  "address": "0x543257eF2161176D7C8cD90BA65C2d4CaEF5a796",
+  "note": "morpho-blue MWCBBTC (MWCBBTC) \u2014 harvested"
+ },
+ "6b89a0cb-9f6d-4bad-b086-eb823def1e3d": {
+  "chain_id": 1,
+  "address": "0xD1BeaD7CadcCC6b6a715A6272c39F1EC54F6EC99",
+  "note": "beefy USDC-WBTC-WETH (USDC-WBTC-WETH) \u2014 harvested"
  }
 }
