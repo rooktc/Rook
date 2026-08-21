@@ -969,5 +969,10 @@
   "chain_id": 1,
   "address": "0xD1BeaD7CadcCC6b6a715A6272c39F1EC54F6EC99",
   "note": "beefy USDC-WBTC-WETH (USDC-WBTC-WETH) \u2014 harvested"
+ },
+ "1eeb3784-0bb0-470c-b06e-9965f36bd7d1": {
+  "chain_id": 1,
+  "address": "0x26F44884D9744C0EDaB6283930DF325c200020A3",
+  "note": "beefy ALETH-FRXETH (ALETH-FRXETH) \u2014 harvested"
  }
 }
