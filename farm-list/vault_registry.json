@@ -974,5 +974,15 @@
   "chain_id": 1,
   "address": "0x26F44884D9744C0EDaB6283930DF325c200020A3",
   "note": "beefy ALETH-FRXETH (ALETH-FRXETH) \u2014 harvested"
+ },
+ "b77f0369-4b11-50be-8429-3ceca9a29825": {
+  "chain_id": 1,
+  "address": "0x460efc3b2f08f7aac064a0bd5f59610f4765fcd3",
+  "note": "fusion-by-ipor WBTC (TESS WBTC DEBT VAULT USDE SUSDE LOOP) \u2014 harvested"
+ },
+ "c4f5e353-8e5b-4191-a5d3-a788b551e703": {
+  "chain_id": 1,
+  "address": "0xc35ce0c1acfc448d18ddacbf641b09f2a18e1958",
+  "note": "lagoon 1212.ALPHA (1212.ALPHA) \u2014 harvested"
  }
 }
