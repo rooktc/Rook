@@ -984,5 +984,15 @@
   "chain_id": 1,
   "address": "0xc35ce0c1acfc448d18ddacbf641b09f2a18e1958",
   "note": "lagoon 1212.ALPHA (1212.ALPHA) \u2014 harvested"
+ },
+ "8b0a8a57-e1b0-4d69-ab5d-d858de1d4170": {
+  "chain_id": 42161,
+  "address": "0x7c574174DA4b2be3f705c6244B4BfA0815a8B3Ed",
+  "note": "morpho-blue GTUSDCP (GTUSDCP) \u2014 harvested"
+ },
+ "1cb597e8-27b2-466a-9a1f-a23b929ab181": {
+  "chain_id": 143,
+  "address": "0x32841A8511D5c2c5b253f45668780B99139e476D",
+  "note": "morpho-blue WMON (GROVE-BBQAUSD) \u2014 harvested"
  }
 }
