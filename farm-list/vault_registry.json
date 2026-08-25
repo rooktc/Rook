@@ -994,5 +994,15 @@
   "chain_id": 143,
   "address": "0x32841A8511D5c2c5b253f45668780B99139e476D",
   "note": "morpho-blue WMON (GROVE-BBQAUSD) \u2014 harvested"
+ },
+ "64599091-ea47-45ba-b1df-37f90a5418a4": {
+  "chain_id": 999,
+  "address": "0x08C00F8279dFF5B0CB5a04d349E7d79708Ceadf3",
+  "note": "morpho-blue UBTC (GTUSDCC) \u2014 harvested"
+ },
+ "4b52b0ea-3361-555e-bbef-31f357947f23": {
+  "chain_id": 42161,
+  "address": "0x5c0C306Aaa9F877de636f4d5822cA9F2E81563BA",
+  "note": "morpho-blue PT-USDAI-15OCT2026 (BBQUSDC) \u2014 harvested"
  }
 }
