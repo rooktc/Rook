@@ -1004,5 +1004,20 @@
   "chain_id": 42161,
   "address": "0x5c0C306Aaa9F877de636f4d5822cA9F2E81563BA",
   "note": "morpho-blue PT-USDAI-15OCT2026 (BBQUSDC) \u2014 harvested"
+ },
+ "80b2d4bf-dac4-4c69-91da-cdc740de1e3b": {
+  "chain_id": 1,
+  "address": "0x4Ff4186188f8406917293A9e01A1ca16d3cf9E59",
+  "note": "morpho-blue SBMORPHOUSDC (SBMORPHOUSDC) \u2014 harvested"
+ },
+ "225604c7-9d4c-4954-aeb8-7b1aea292496": {
+  "chain_id": 1,
+  "address": "0x78B18E07dc43017fcEaabaD0751d6464c0F56b25",
+  "note": "morpho-blue GTMSETHC (GTMSETHC) \u2014 harvested"
+ },
+ "68f41ac1-afed-41dd-90c4-9819f9804c63": {
+  "chain_id": 1,
+  "address": "0xBF7fc2A3d96d80f47b3b89BE84afe10376CE96A5",
+  "note": "beefy CRVUSD-SUSDE (CRVUSD-SUSDE) \u2014 harvested"
  }
 }
