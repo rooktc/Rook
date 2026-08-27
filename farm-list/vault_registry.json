@@ -1019,5 +1019,26 @@
   "chain_id": 1,
   "address": "0xBF7fc2A3d96d80f47b3b89BE84afe10376CE96A5",
   "note": "beefy CRVUSD-SUSDE (CRVUSD-SUSDE) \u2014 harvested"
+ },
+ "226b2164-81ff-4ce3-b44c-07a6fc74ff79": {
+  "chain_id": 1,
+  "address": "0x28663161f9fa2963eb6102b88a741e195e974df6",
+  "note": "lagoon MTPOOL-USD (MTPOOL-USD) \u2014 harvested"
+ },
+ "d9fe5f81-6a0c-4d9d-8c50-6f035076a899": {
+  "chain_id": 1,
+  "address": "0xb118de4917f4bac5c3a453ea8de915a7cd84891c",
+  "note": "lagoon MTPOOL-ETH (MTPOOL-ETH) \u2014 harvested"
+ },
+ "693674d5-a052-45e1-944f-04ecaf9db7e8": {
+  "chain_id": 143,
+  "address": "0x8Faab939BF96308846d9B273fE50DED16ae33fF2",
+  "note": "midas-rwa USDC (MHYPER) \u2014 harvested (NAV oracle feed)",
+  "selector": "0x63692905"
+ },
+ "ee11e86e-1771-4847-8b49-40c68f85cd46": {
+  "chain_id": 143,
+  "address": "0x32841A8511D5c2c5b253f45668780B99139e476D",
+  "note": "morpho-blue BBQUSDC (GROVE-BBQAUSD) \u2014 harvested"
  }
 }
