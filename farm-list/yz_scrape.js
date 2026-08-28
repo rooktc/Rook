@@ -21,12 +21,23 @@ async function extractPage(page) {
       const m = (s || '').match(/(-?[\d.]+)\s*%/);
       return m ? parseFloat(m[1]) : null;
     };
+    // column indexes come from the header row, so added/reordered columns
+    // (e.g. the 2026-08 "Leverage" and "ORACLE" additions) don't shift fields
+    const ths = [...document.querySelectorAll('table thead th')].map(c => c.innerText.trim().toUpperCase());
+    const col = (name, fallback) => {
+      const i = ths.findIndex(h => h.startsWith(name));
+      return i >= 0 ? i : fallback;
+    };
+    const iDep = col('DEPOSIT', 1), iBor = col('BORROW', 2), iApy = col('APY', 4),
+      iRisk = col('RISK', 5), iLiq = col('LIQUIDITY', 6), iTgt = col('TO TARGET', 7),
+      iUtil = col('UTILIZATION', 8), iLltv = col('LLTV', 9);
+    const need = Math.max(iDep, iBor, iApy, iRisk, iLiq, iTgt, iUtil, iLltv) + 1;
     return [...document.querySelectorAll('table tbody tr')].map((tr) => {
       const td = [...tr.querySelectorAll('td')].map((c) => c.innerText.trim());
-      if (td.length < 10) return null;
-      const dep = td[1].split('\n').map(s => s.trim()).filter(Boolean);
-      const bor = td[2].split('\n').map(s => s.trim()).filter(Boolean);
-      const apyLines = td[4].split('\n').map(s => s.trim()).filter(Boolean);
+      if (td.length < need) return null;
+      const dep = td[iDep].split('\n').map(s => s.trim()).filter(Boolean);
+      const bor = td[iBor].split('\n').map(s => s.trim()).filter(Boolean);
+      const apyLines = td[iApy].split('\n').map(s => s.trim()).filter(Boolean);
       const pcts = apyLines.filter(s => /%/.test(s));
       const roe = parsePct(pcts[0]);
       let depApy = null, borApy = null;
@@ -38,8 +49,8 @@ async function extractPage(page) {
         depositAsset: dep[0] || '', chain: dep[1] || '',
         borrowAsset: bor[0] || '', protocol: bor[1] || '',
         maxRoe: roe, depApy, borApy,
-        risk: td[5], liquidity: parseMoney(td[6]), toTarget: parseMoney(td[7]),
-        utilization: parsePct(td[8]), lltv: parsePct(td[9]),
+        risk: td[iRisk], liquidity: parseMoney(td[iLiq]), toTarget: parseMoney(td[iTgt]),
+        utilization: parsePct(td[iUtil]), lltv: parsePct(td[iLltv]),
       };
     }).filter(Boolean);
   });
