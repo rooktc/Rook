@@ -1045,5 +1045,10 @@
   "chain_id": 8453,
   "address": "0x6770216aC60F634483Ec073cBABC4011c94307Cb",
   "note": "morpho-blue GTCBBTCC (GTCBBTCC) \u2014 harvested"
+ },
+ "69c4caa5-0dc7-4608-8385-b87753fd126b": {
+  "chain_id": 1,
+  "address": "0xc825779c89120eeef746c51130b362478e181d39",
+  "note": "fusion-by-ipor USDC (TESS USDC LENDING OPTIMISER) \u2014 harvested"
  }
 }
