@@ -38,22 +38,6 @@
    "url": "https://pharos.watch/stablecoin/apyusd-apyx/"
   }
  ],
- "AUSD": [
-  {
-   "source": "tid",
-   "score": 6.0,
-   "scale": "1-10 higher=safer",
-   "url": "https://staging.tidresearch.com/reports/ausd/"
-  },
-  {
-   "source": "pharos",
-   "score": "B",
-   "scale": "letter grade (v9)",
-   "label": "B",
-   "num": 70,
-   "url": "https://pharos.watch/stablecoin/ausd-agora/"
-  }
- ],
  "AVETH": [
   {
    "source": "tid",
@@ -98,7 +82,7 @@
    "score": "B",
    "scale": "letter grade (v9)",
    "label": "B",
-   "num": 73,
+   "num": 72,
    "url": "https://pharos.watch/stablecoin/crvusd-curve/"
   }
  ],
@@ -151,10 +135,10 @@
   },
   {
    "source": "pharos",
-   "score": "B",
+   "score": "B-",
    "scale": "letter grade (v9)",
-   "label": "B",
-   "num": 70,
+   "label": "B-",
+   "num": 69,
    "url": "https://pharos.watch/stablecoin/frxusd-frax/"
   }
  ],
@@ -303,7 +287,7 @@
    "score": "D",
    "scale": "letter grade (v9)",
    "label": "D",
-   "num": 47,
+   "num": 45,
    "url": "https://pharos.watch/stablecoin/reusd-resupply/"
   }
  ],
@@ -356,10 +340,10 @@
   },
   {
    "source": "pharos",
-   "score": "D",
+   "score": "C-",
    "scale": "letter grade (v9)",
-   "label": "D",
-   "num": 44,
+   "label": "C-",
+   "num": 53,
    "url": "https://pharos.watch/stablecoin/savusd-avant/"
   }
  ],
@@ -517,7 +501,7 @@
    "score": "C+",
    "scale": "letter grade (v9)",
    "label": "C+",
-   "num": 62,
+   "num": 64,
    "url": "https://pharos.watch/stablecoin/syrupusdc-maple/"
   }
  ],
@@ -540,7 +524,7 @@
  "SYZUSD": [
   {
    "source": "tid",
-   "score": 2.5,
+   "score": 3.0,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/syzusd/"
   }
@@ -632,10 +616,10 @@
   },
   {
    "source": "pharos",
-   "score": "C+",
+   "score": "C",
    "scale": "letter grade (v9)",
-   "label": "C+",
-   "num": 60,
+   "label": "C",
+   "num": 59,
    "url": "https://pharos.watch/stablecoin/usdat-saturn/"
   }
  ],
@@ -651,7 +635,7 @@
    "score": "A+",
    "scale": "letter grade (v9)",
    "label": "A+",
-   "num": 89,
+   "num": 90,
    "url": "https://pharos.watch/stablecoin/usdc-circle/"
   },
   {
@@ -711,10 +695,10 @@
   },
   {
    "source": "pharos",
-   "score": "B-",
+   "score": "B",
    "scale": "letter grade (v9)",
-   "label": "B-",
-   "num": 69,
+   "label": "B",
+   "num": 72,
    "url": "https://pharos.watch/stablecoin/usdg-paxos/"
   }
  ],
@@ -1044,7 +1028,7 @@
    "score": "C",
    "scale": "letter grade (v9)",
    "label": "C",
-   "num": 57,
+   "num": 56,
    "url": "https://pharos.watch/stablecoin/musd-metamask/"
   }
  ],
@@ -1183,7 +1167,7 @@
    "score": "B",
    "scale": "letter grade (v9)",
    "label": "B",
-   "num": 72,
+   "num": 70,
    "url": "https://pharos.watch/stablecoin/ustb-superstate/"
   }
  ],
@@ -1335,7 +1319,7 @@
    "score": "B-",
    "scale": "letter grade (v9)",
    "label": "B-",
-   "num": 67,
+   "num": 69,
    "url": "https://pharos.watch/stablecoin/audd-novatti/"
   }
  ],
@@ -1377,6 +1361,16 @@
    "url": "https://pharos.watch/stablecoin/audx-aussie-dollar-token/"
   }
  ],
+ "AUSD": [
+  {
+   "source": "pharos",
+   "score": "B",
+   "scale": "letter grade (v9)",
+   "label": "B",
+   "num": 70,
+   "url": "https://pharos.watch/stablecoin/ausd-agora/"
+  }
+ ],
  "AUTOUSD": [
   {
    "source": "pharos",
@@ -1390,10 +1384,10 @@
  "BBQUSDC": [
   {
    "source": "pharos",
-   "score": "A-",
+   "score": "A",
    "scale": "letter grade (v9)",
-   "label": "A-",
-   "num": 82,
+   "label": "A",
+   "num": 83,
    "url": "https://pharos.watch/stablecoin/bbqusdc-steakhouse/"
   }
  ],
@@ -1523,7 +1517,7 @@
    "score": "F",
    "scale": "letter grade (v9)",
    "label": "F",
-   "num": 39,
+   "num": 15,
    "url": "https://pharos.watch/stablecoin/cadc-cad-coin/"
   }
  ],
@@ -1565,6 +1559,16 @@
    "label": "D",
    "num": 43,
    "url": "https://pharos.watch/stablecoin/cdp-enosys/"
+  }
+ ],
+ "CDXUSD": [
+  {
+   "source": "pharos",
+   "score": "F",
+   "scale": "letter grade (v9)",
+   "label": "F",
+   "num": 17,
+   "url": "https://pharos.watch/stablecoin/cdxusd-cod3x/"
   }
  ],
  "EURM": [
@@ -1640,10 +1644,10 @@
  "CTUSD": [
   {
    "source": "pharos",
-   "score": "C-",
+   "score": "D",
    "scale": "letter grade (v9)",
-   "label": "C-",
-   "num": 50,
+   "label": "D",
+   "num": 48,
    "url": "https://pharos.watch/stablecoin/ctusd-citrea/"
   }
  ],
@@ -1769,6 +1773,16 @@
    "url": "https://pharos.watch/stablecoin/dusd-standx/"
   }
  ],
+ "EEARN": [
+  {
+   "source": "pharos",
+   "score": "C-",
+   "scale": "letter grade (v9)",
+   "label": "C-",
+   "num": 54,
+   "url": "https://pharos.watch/stablecoin/eearn-ember/"
+  }
+ ],
  "EMXN": [
   {
    "source": "pharos",
@@ -1802,10 +1816,10 @@
  "EURC": [
   {
    "source": "pharos",
-   "score": "A-",
+   "score": "A",
    "scale": "letter grade (v9)",
-   "label": "A-",
-   "num": 82,
+   "label": "A",
+   "num": 84,
    "url": "https://pharos.watch/stablecoin/eurc-circle/"
   }
  ],
@@ -1842,10 +1856,10 @@
  "EUROP": [
   {
    "source": "pharos",
-   "score": "C+",
+   "score": "C",
    "scale": "letter grade (v9)",
-   "label": "C+",
-   "num": 63,
+   "label": "C",
+   "num": 59,
    "url": "https://pharos.watch/stablecoin/europ-schuman/"
   }
  ],
@@ -1872,10 +1886,10 @@
  "EURS": [
   {
    "source": "pharos",
-   "score": "D",
+   "score": "F",
    "scale": "letter grade (v9)",
-   "label": "D",
-   "num": 42,
+   "label": "F",
+   "num": 13,
    "url": "https://pharos.watch/stablecoin/eurs-stasis/"
   }
  ],
@@ -2080,10 +2094,10 @@
  "GTUSDC": [
   {
    "source": "pharos",
-   "score": "A-",
+   "score": "A",
    "scale": "letter grade (v9)",
-   "label": "A-",
-   "num": 82,
+   "label": "A",
+   "num": 83,
    "url": "https://pharos.watch/stablecoin/gtusdc-gauntlet/"
   }
  ],
@@ -2121,7 +2135,7 @@
    "score": "C-",
    "scale": "letter grade (v9)",
    "label": "C-",
-   "num": 51,
+   "num": 52,
    "url": "https://pharos.watch/stablecoin/hbd-hive/"
   }
  ],
@@ -2218,10 +2232,10 @@
  "IDRX": [
   {
    "source": "pharos",
-   "score": "B",
+   "score": "C",
    "scale": "letter grade (v9)",
-   "label": "B",
-   "num": 73,
+   "label": "C",
+   "num": 59,
    "url": "https://pharos.watch/stablecoin/idrx-idrx/"
   }
  ],
@@ -2426,10 +2440,10 @@
  "M": [
   {
    "source": "pharos",
-   "score": "B",
+   "score": "B-",
    "scale": "letter grade (v9)",
-   "label": "B",
-   "num": 71,
+   "label": "B-",
+   "num": 69,
    "url": "https://pharos.watch/stablecoin/m-m0/"
   }
  ],
@@ -2509,7 +2523,7 @@
    "score": "F",
    "scale": "letter grade (v9)",
    "label": "F",
-   "num": 15,
+   "num": 5,
    "url": "https://pharos.watch/stablecoin/msusd-metronome/"
   }
  ],
@@ -2536,10 +2550,10 @@
  "MXNE": [
   {
    "source": "pharos",
-   "score": "C",
+   "score": "C-",
    "scale": "letter grade (v9)",
-   "label": "C",
-   "num": 56,
+   "label": "C-",
+   "num": 53,
    "url": "https://pharos.watch/stablecoin/mxne-real-mxn/"
   }
  ],
@@ -2657,7 +2671,7 @@
    "score": "A",
    "scale": "letter grade (v9)",
    "label": "A",
-   "num": 83,
+   "num": 84,
    "url": "https://pharos.watch/stablecoin/paxg-paxos/"
   }
  ],
@@ -2772,11 +2786,21 @@
  "SBC": [
   {
    "source": "pharos",
-   "score": "C-",
+   "score": "B",
    "scale": "letter grade (v9)",
-   "label": "C-",
-   "num": 50,
+   "label": "B",
+   "num": 70,
    "url": "https://pharos.watch/stablecoin/sbc-brale/"
+  }
+ ],
+ "SBOLD": [
+  {
+   "source": "pharos",
+   "score": "B",
+   "scale": "letter grade (v9)",
+   "label": "B",
+   "num": 74,
+   "url": "https://pharos.watch/stablecoin/sbold-k3-capital/"
   }
  ],
  "SCRVUSD": [
@@ -2785,7 +2809,7 @@
    "score": "B",
    "scale": "letter grade (v9)",
    "label": "B",
-   "num": 71,
+   "num": 70,
    "url": "https://pharos.watch/stablecoin/scrvusd-curve/"
   }
  ],
@@ -2940,10 +2964,10 @@
  "SUSD1": [
   {
    "source": "pharos",
-   "score": "D",
+   "score": "F",
    "scale": "letter grade (v9)",
-   "label": "D",
-   "num": 44,
+   "label": "F",
+   "num": 36,
    "url": "https://pharos.watch/stablecoin/susd1plus-lorenzo/"
   }
  ],
@@ -3030,10 +3054,10 @@
  "TUSD": [
   {
    "source": "pharos",
-   "score": "B",
+   "score": "C+",
    "scale": "letter grade (v9)",
-   "label": "B",
-   "num": 73,
+   "label": "C+",
+   "num": 60,
    "url": "https://pharos.watch/stablecoin/tusd-trueusd/"
   }
  ],
@@ -3098,10 +3122,10 @@
  "USD1": [
   {
    "source": "pharos",
-   "score": "C",
+   "score": "D",
    "scale": "letter grade (v9)",
-   "label": "C",
-   "num": 56,
+   "label": "D",
+   "num": 48,
    "url": "https://pharos.watch/stablecoin/usd1-world-liberty-financial/"
   },
   {
@@ -3241,7 +3265,7 @@
    "score": "C",
    "scale": "letter grade (v9)",
    "label": "C",
-   "num": 56,
+   "num": 59,
    "url": "https://pharos.watch/stablecoin/usdk-kast/"
   }
  ],
@@ -3261,7 +3285,7 @@
    "score": "C-",
    "scale": "letter grade (v9)",
    "label": "C-",
-   "num": 52,
+   "num": 53,
    "url": "https://pharos.watch/stablecoin/usdn-noble/"
   },
   {
@@ -3335,7 +3359,7 @@
    "score": "F",
    "scale": "letter grade (v9)",
    "label": "F",
-   "num": 38,
+   "num": 18,
    "url": "https://pharos.watch/stablecoin/usdq-quill/"
   }
  ],
@@ -3431,7 +3455,7 @@
    "score": "F",
    "scale": "letter grade (v9)",
    "label": "F",
-   "num": 29,
+   "num": 28,
    "url": "https://pharos.watch/stablecoin/usdx-kava/"
   }
  ],
@@ -3461,7 +3485,7 @@
    "score": "F",
    "scale": "letter grade (v9)",
    "label": "F",
-   "num": 39,
+   "num": 15,
    "url": "https://pharos.watch/stablecoin/usdz-anzen/"
   }
  ],
@@ -3566,10 +3590,10 @@
  "VCHF": [
   {
    "source": "pharos",
-   "score": "C",
+   "score": "C+",
    "scale": "letter grade (v9)",
-   "label": "C",
-   "num": 58,
+   "label": "C+",
+   "num": 60,
    "url": "https://pharos.watch/stablecoin/vchf-vnx/"
   }
  ],
@@ -3659,7 +3683,7 @@
    "score": "B-",
    "scale": "letter grade (v9)",
    "label": "B-",
-   "num": 67,
+   "num": 65,
    "url": "https://pharos.watch/stablecoin/wm-m0/"
   }
  ],
@@ -3726,10 +3750,10 @@
  "XAUT": [
   {
    "source": "pharos",
-   "score": "B+",
+   "score": "D",
    "scale": "letter grade (v9)",
-   "label": "B+",
-   "num": 79,
+   "label": "D",
+   "num": 48,
    "url": "https://pharos.watch/stablecoin/xaut-tether/"
   }
  ],
@@ -3769,7 +3793,7 @@
    "score": "C-",
    "scale": "letter grade (v9)",
    "label": "C-",
-   "num": 50,
+   "num": 51,
    "url": "https://pharos.watch/stablecoin/xo-exodus/"
   }
  ],
@@ -3786,10 +3810,10 @@
  "XSGD": [
   {
    "source": "pharos",
-   "score": "B+",
+   "score": "A",
    "scale": "letter grade (v9)",
-   "label": "B+",
-   "num": 79,
+   "label": "A",
+   "num": 83,
    "url": "https://pharos.watch/stablecoin/xsgd-straitsx/"
   }
  ],
@@ -3865,7 +3889,7 @@
    "score": "A-",
    "scale": "letter grade (v9)",
    "label": "A-",
-   "num": 80,
+   "num": 81,
    "url": "https://pharos.watch/stablecoin/yvusdc-yearn/"
   }
  ],
@@ -4076,7 +4100,7 @@
   },
   "56:0x57134a64b7cd9f9eb72f8255a671f5bf2fe3e2d0": {
    "rating": "A-",
-   "psl": 0.006848379643,
+   "psl": 0.006848434176,
    "name": "ListaDAO WBNB",
    "curator": "Lista DAO & Gauntlet",
    "protocol": "lista"
@@ -4097,14 +4121,14 @@
   },
   "56:0xfa27f172e0b6ebcef9c51abf817e2cb142fbe627": {
    "rating": "B+",
-   "psl": 0.010518313208,
+   "psl": 0.010518313197,
    "name": "ListaDAO USD1",
    "curator": "Lista DAO & Gauntlet",
    "protocol": "lista"
   },
   "1:0xbeef047a543e45807105e51a8bbefcc5950fcfba": {
    "rating": "A-",
-   "psl": 0.004397427756,
+   "psl": 0.00424142987,
    "name": "Steakhouse USDT",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
@@ -4125,14 +4149,14 @@
   },
   "1:0xbeef050ecd6a16c4e7bffbb52ebba7846c4b8cd4": {
    "rating": "A",
-   "psl": 0.002084403557,
+   "psl": 0.002090737796,
    "name": "Steakhouse ETH",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0xdd0f28e19c1780eb6396170735d45153d261490d": {
    "rating": "A",
-   "psl": 0.00358863013,
+   "psl": 0.003631699528,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
@@ -4146,84 +4170,84 @@
   },
   "1:0x4ef53d2caa51c447fdfeeedee8f07fd1962c9ee6": {
    "rating": "A-",
-   "psl": 0.00540748544268788,
+   "psl": 0.00536694469614207,
    "name": "KPK USDC Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0xbeefb9f61cc44895d8aec381373555a64191a9c4": {
    "rating": "A",
-   "psl": 0.003857465824,
+   "psl": 0.003851684607,
    "name": "Vault Bridge USDC",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0x31a5684983eee865d943a696aac155363ba024f9": {
    "rating": "A",
-   "psl": 0.003901002628,
+   "psl": 0.003900917761,
    "name": "Vault Bridge WETH",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0x79fd640000f8563a866322483524a4b48f1ed702": {
    "rating": "A",
-   "psl": 0.002929385405,
+   "psl": 0.002919353813,
    "name": "Gauntlet USDT Frontier",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0x2371e134e3455e0593363cbf89d3b6cf53740618": {
    "rating": "A",
-   "psl": 0.002468029528,
+   "psl": 0.002468073201,
    "name": "Gauntlet WETH Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0x68aea7b82df6ccdf76235d46445ed83f85f845a3": {
    "rating": "A-",
-   "psl": 0.004919892592,
+   "psl": 0.004794168698,
    "name": "Yearn USDC",
    "curator": "Yearn",
    "protocol": "Morpho"
   },
   "1:0x8cb3649114051ca5119141a34c200d65dc0faa73": {
    "rating": "A",
-   "psl": 0.00336806918,
+   "psl": 0.003365935476,
    "name": "Gauntlet USDT Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "56:0x6d6783c146f2b0b2774c1725297f1845dc502525": {
    "rating": "A-",
-   "psl": 0.007088012772,
+   "psl": 0.007088012898,
    "name": "ListaDAO USDT",
    "curator": "Gauntlet",
    "protocol": "lista"
   },
   "1:0xc54b4e08c1dcc199fdd35c6b5ab589ffd3428a8d": {
    "rating": "A",
-   "psl": 0.003290577337,
+   "psl": 0.003291544332,
    "name": "Vault Bridge USDT",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xbb50a5341368751024ddf33385ba8cf61fe65ff9": {
    "rating": "A-",
-   "psl": 0.00658464916331813,
+   "psl": 0.00658463401120179,
    "name": "KPK ETH Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x870f0bf29a25a40e7cc087cd5c53e70c11f2c8a8": {
    "rating": "A-",
-   "psl": 0.00725578721894893,
+   "psl": 0.00725904977158687,
    "name": "KPK USDT Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x1a1985f50352b58090eb36425afdfacbac7806f4": {
    "rating": "A",
-   "psl": 0.00357936473212417,
+   "psl": 0.00357936385709778,
    "name": "KPK USDC Prime Core",
    "curator": "KPK",
    "protocol": "morpho-v2"
@@ -4237,7 +4261,7 @@
   },
   "1:0xa877d5bb0274dccba8556154a30e1ca4021a275f": {
    "rating": "A-",
-   "psl": 0.00753037774121201,
+   "psl": 0.00753037785933885,
    "name": "KPK EURC Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
