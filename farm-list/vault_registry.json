@@ -1050,5 +1050,10 @@
   "chain_id": 1,
   "address": "0xc825779c89120eeef746c51130b362478e181d39",
   "note": "fusion-by-ipor USDC (TESS USDC LENDING OPTIMISER) \u2014 harvested"
+ },
+ "4cdfc753-f347-5dc8-80bc-a2a028646606": {
+  "chain_id": 1,
+  "address": "0x7ededf832b5c9d8afa8f7365936100581a6db756",
+  "note": "lagoon DAMMBTC (DAMMBTC) \u2014 harvested"
  }
 }
