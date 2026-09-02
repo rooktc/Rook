@@ -1055,5 +1055,15 @@
   "chain_id": 1,
   "address": "0x7ededf832b5c9d8afa8f7365936100581a6db756",
   "note": "lagoon DAMMBTC (DAMMBTC) \u2014 harvested"
+ },
+ "8cb16e3d-4959-4602-ad70-665f93940058": {
+  "chain_id": 8453,
+  "address": "0x1401d1271C47648AC70cBcdfA3776D4A87CE006B",
+  "note": "morpho-blue CSCOREETH (PUSDC) \u2014 harvested"
+ },
+ "28896dc3-f2c1-5bb1-95c8-9e3fe940f797": {
+  "chain_id": 1,
+  "address": "0x9c414834a4a85aa15ec461edcd8cc9dd8ec979b9",
+  "note": "lagoon DAMMBTCALGO (DAMMBTCALGO) \u2014 harvested"
  }
 }
