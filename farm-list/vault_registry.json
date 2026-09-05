@@ -1065,5 +1065,20 @@
   "chain_id": 1,
   "address": "0x9c414834a4a85aa15ec461edcd8cc9dd8ec979b9",
   "note": "lagoon DAMMBTCALGO (DAMMBTCALGO) \u2014 harvested"
+ },
+ "fb0a056b-1672-4ff6-b695-f1ba349aec3f": {
+  "chain_id": 10,
+  "address": "0xC30ce6A5758786e0F640cC5f881Dd96e9a1C5C59",
+  "note": "morpho-blue RE7WETH (GTUSDCP) \u2014 harvested"
+ },
+ "a47531cb-9d21-4bc2-94e8-d92791a7241f": {
+  "chain_id": 10,
+  "address": "0xC30ce6A5758786e0F640cC5f881Dd96e9a1C5C59",
+  "note": "morpho-blue WSTETH (GTUSDCP) \u2014 harvested"
+ },
+ "24727d24-30cd-4a49-a45b-b5b4faeec72e": {
+  "chain_id": 8453,
+  "address": "0xc4c00d8b323f37527eeda27c87412378be9f68ec",
+  "note": "fusion-by-ipor WSTETH (IPOR WSTETH LOOPING BASE) \u2014 harvested"
  }
 }
