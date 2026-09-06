@@ -1080,5 +1080,10 @@
   "chain_id": 8453,
   "address": "0xc4c00d8b323f37527eeda27c87412378be9f68ec",
   "note": "fusion-by-ipor WSTETH (IPOR WSTETH LOOPING BASE) \u2014 harvested"
+ },
+ "ec244f9f-d63c-4a53-87b8-74888c423243": {
+  "chain_id": 999,
+  "address": "0x808F72b6Ff632fba005C88b49C2a76AB01CAB545",
+  "note": "morpho-blue KHYPE (FEUSDC2) \u2014 harvested"
  }
 }
