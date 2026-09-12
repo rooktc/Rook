@@ -1090,5 +1090,15 @@
   "chain_id": 999,
   "address": "0x2900ABd73631b2f60747e687095537B673c06A76",
   "note": "morpho-blue KHYPE (FEHYPE) \u2014 harvested"
+ },
+ "b01b6734-1ceb-4427-8a03-36fe9bd726b1": {
+  "chain_id": 1,
+  "address": "0xb9e806e8f2d94c015ffefa90cd24ecce18f1663c",
+  "note": "fusion-by-ipor WETH (RETH LIQUITY LP CARRY) \u2014 harvested"
+ },
+ "eddd84ad-dda7-49ea-9313-662e25e9e518": {
+  "chain_id": 1,
+  "address": "0xb8a451107a9f87fde481d4d686247d6e43ed715e",
+  "note": "fusion-by-ipor STETH (FUSION STETH LOOPING ETHEREUM) \u2014 harvested"
  }
 }
