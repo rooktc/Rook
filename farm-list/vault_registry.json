@@ -1110,5 +1110,10 @@
   "chain_id": 8453,
   "address": "0xBEEFE94c8aD530842bfE7d8B397938fFc1cb83b2",
   "note": "morpho-blue MGLO (STEAKUSDC) \u2014 harvested"
+ },
+ "7ad0dc44-ab47-4690-bd31-e9df6c9f6e50": {
+  "chain_id": 8453,
+  "address": "0xbeeF010f9cb27031ad51e3333f9aF9C6B1228183",
+  "note": "morpho-blue CBXRP (STEAKUSDC) \u2014 harvested"
  }
 }
