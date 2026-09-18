@@ -1,181 +1,149 @@
-"Looping Opportunities  ·  yieldz.io/leverage, 17 Sep 2026  ·  179 positive-carry loops",,,,,,,,,,,,,,
+"Looping Opportunities  ·  yieldz.io/leverage, 18 Sep 2026  ·  147 positive-carry loops",,,,,,,,,,,,,,
 Asset,Protocol,Chain,Deposit,Borrow,Max Leverage,Max ROE,Deposit APY,Borrow APY,Risk,Liquidity ($),To-Target Util ($),Utilization (%),LLTV (%),Risk Note
-ETH,Morpho,Ethereum,wstETH,WETH,29.1,13.821,2.3,-1.89,Med-High,11740000,2330000,87.52,96.5,score 4.0; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 29.1x; -1 lltv 96%; yieldz label: Low
-ETH,Morpho,Optimism,wstETH,WETH,20.25,3.07,2.3,-2.26,High,141790,86360,93.79,94.5,score 2.5; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 20.25x; -0.5 lltv 94%; -1 util 94%; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Fluid,Arbitrum,wstETH,ETH,19.65,6.5795,2.29,-2.06,Med-Low,3180000,3010000,55.66,95,score 6.0; wstETH 8.5*; ETH 8.4; Fluid 8.0†; -1.5 leverage 19.65x; -0.5 lltv 95%; yieldz label: Low
-ETH,Morpho,Base,wstETH,WETH,18.4,12.392,2.3,-1.72,High,627910,609.09,89.99,94.5,score 3.5; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.4x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Morpho,World Chain,ezETH,WETH,18.38,7.2982,0.52,-0.13,High,127140,5919.12,89.51,94.5,score 3.5; ezETH 7.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.38x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Morpho,Monad,wstETH,WETH,18.36,12.3688,2.3,-1.72,Med-High,4570000,23740,89.95,94.5,score 4.5; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.36x; -0.5 lltv 94%; yieldz label: Med.
-ETH,Morpho,Base,weETH,WETH,18.3,14.001,2.41,-1.74,High,135510,6674.07,89.48,94.5,score 3.5; weETH 7.0; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.3x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Morpho,Ethereum,weETH,WETH,18.28,11.5684,2.41,-1.88,Med-High,1900000,6151.41,90.03,94.5,score 4.5; weETH 7.0; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.28x; -0.5 lltv 94%; yieldz label: Med.
-ETH,Morpho,Ethereum,wstETH,WETH,18.15,10.189,2.3,-1.84,Med-High,3190000,216290,89.27,94.5,score 4.5; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.15x; -0.5 lltv 94%; yieldz label: Low
-ETH,Fluid,Arbitrum,weETH-ETH,wstETH,16.69,7.1601,2.61,-2.32,High,2470000,12390000,84.72,94,score 1.5; weETH-ETH unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16.69x; yieldz label: Med.
-ETH,Euler,Monad,wstETH,WETH,16.62,12.5992,2.29,-1.63,Med-High,14250000,9510000,69.94,94,score 5.0; wstETH 8.5*; WETH 9.0*; Euler 6.5†; -1.5 leverage 16.62x; yieldz label: Low
-ETH,Fluid,Arbitrum,weETH,wstETH,16.57,3.4799,2.39,-2.32,Med-High,2460000,12390000,88.65,94,score 5.5; weETH 7.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16.57x; yieldz label: Med.
-ETH,Euler,Monad,wstETH,WETH,16.46,12.6482,2.29,-1.62,Med-High,489260,381840,54.45,94,score 4.0; wstETH 8.5*; WETH 9.0*; Euler 6.5†; -1.5 leverage 16.46x; -1 exit liquidity <1M; yieldz label: Low
-ETH,Aave V3,Arbitrum,wstETH,WETH,16.29,7.0299,2.29,-1.98,Med-Low,29150000,82520000,82.14,94,score 7.0; wstETH 8.5*; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 16.29x; yieldz label: Low
-ETH,Fluid,Ethereum,weETH,wstETH,16,2.54,2.39,-2.38,Med-High,976000,134090000,90.28,94,score 4.5; weETH 7.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16x; -1 exit liquidity <1M; yieldz label: Low
-ETH,Euler,Monad,weETH,WETH,14.31,8.9119,2.39,-1.9,Med-High,3750000,1730000,81.45,93,score 5.0; weETH 7.0; WETH 9.0*; Euler 6.5†; -1.5 leverage 14.31x; yieldz label: Low
-ETH,Aave V3,Base,weETH,WETH,14.27,6.371,2.39,-2.09,Med-High,37870000,17270000,81.62,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.27x; yieldz label: Low
-ETH,Aave V3,Plasma,weETH,WETH,14.26,28.247,2.39,-0.44,Med-High,2180000,1970000,16.29,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.26x; yieldz label: Low
-ETH,Aave V3,Ethereum,weETH,WETH,14.16,6.4696,2.39,-2.08,Med-High,685940000,406710000,86.19,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.16x; yieldz label: Low
-ETH,Aave V3,Arbitrum,weETH,WETH,14.15,7.7815,2.39,-1.98,Med-High,29150000,82520000,82.14,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.15x; yieldz label: Low
-ETH,Fluid,Base,wstETH,ETH,14.1,6.22,2.29,-1.99,Med-Low,2920000,2190000,89.59,93,score 6.5; wstETH 8.5*; ETH 8.4; Fluid 8.0†; -1.5 leverage 14.1x; yieldz label: Low
-ETH,Aave V3,Base,wstETH,WETH,14.05,4.9,2.29,-2.09,Med-Low,37870000,17270000,81.62,93,score 7.0; wstETH 8.5*; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.05x; yieldz label: Low
-ETH,Aave V3,Ethereum,wstETH,WETH,13.86,4.9906,2.29,-2.08,Med-Low,685940000,406710000,86.19,93,score 7.0; wstETH 8.5*; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 13.86x; yieldz label: Low
-ETH,Venus Flux,BNB Chain,wBETH,ETH,12.5,13.29,2.25,-1.29,High,100070,83140,89.38,92,score 0.5; wBETH unrated 3.0; ETH 8.4; -1.5 leverage 12.5x; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Fluid,Plasma,weETH,WETH,12.49,15.029,2.39,-1.29,Med-High,328430,278140,88.88,92,score 4.5; weETH 7.0; WETH 9.0*; Fluid 8.0†; -1.5 leverage 12.49x; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Venus Flux,BNB Chain,ETH-wBETH,ETH,12.41,9.8529,1.98,-1.29,High,100070,83140,63.41,92,score 0.5; ETH-wBETH unrated 3.0; ETH 8.4; -1.5 leverage 12.41x; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Morpho,Katana,weETH,vbETH,11.9,5.571,2.41,-2.12,High,712300,147820,87.38,91.5,score 0.5; weETH 7.0; vbETH unrated 3.0; Morpho 6.5†; -1.5 leverage 11.9x; -1 exit liquidity <1M; yieldz label: Low
-ETH,Morpho,Ethereum,savETH,WETH,11.74,8.4486,4.26,-3.87,High,373250,6867.69,90.18,91.5,score 1.5; savETH 4.0; WETH 9.0*; Morpho 6.5†; -1.5 leverage 11.74x; -1 exit liquidity <1M; yieldz label: Med.
-ETH,Fluid,weETHs,W,wstETH,11.14,3.1598,2.45,-2.38,High,372470,134090000,82.48,91,score 0.5; W unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 11.14x; -1 exit liquidity <1M; yieldz label: Low
-ETH,Fluid,weETHs-ETH,W,wstETH,11.14,3.1598,2.45,-2.38,High,702130,134090000,84.73,91,score 0.5; W unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 11.14x; -1 exit liquidity <1M; yieldz label: Low
-USD,Morpho,Ethereum,sUSDS,USDT,28.73,21.0699,3.6,-2.97,Med-High,2360000,844170,84.43,96.5,score 4.0; sUSDS 7.5; USDT 7.6; Morpho 6.5†; -1.5 leverage 28.73x; -1 lltv 96%; yieldz label: Low
-USD,Morpho,Ethereum,sUSDS,USDT,28.63,27.9144,3.6,-2.72,Med-High,9110000,2620000,85.97,96.5,score 4.0; sUSDS 7.5; USDT 7.6; Morpho 6.5†; -1.5 leverage 28.63x; -1 lltv 96%; yieldz label: Low
-USD,Morpho,Ethereum,PT-trUSD-26NOV2026,USDC,18.21,45.8389,9.87,-7.78,High,200640,15470,90.72,94.5,score 1.8; PT-trUSD-26NOV2026→trUSD 4.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 18.21x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V4 · USDG Pendle,Ethereum,PT-USDG-24SEP2026,USDC,16.72,28.3972,4.66,-3.15,Med-High,1410000,997100,72.41,94,score 5.2; PT-USDG-24SEP2026→USDG 6.7; USDC 8.6; Aave V4 · USDG Pendle 8.5†; -1.5 leverage 16.72x; yieldz label: Low
-USD,Aave V4 · USDG Pendle,Ethereum,PT-USDG-24SEP2026,USDG,16.72,15.1924,4.66,-3.99,Med-High,3470000,55080,89.84,94,score 5.2; PT-USDG-24SEP2026→USDG 6.7; USDG 7.2; Aave V4 · USDG Pendle 8.5†; -1.5 leverage 16.72x; yieldz label: Med.
-USD,Aave V4 · USDG Pendle,Ethereum,PT-USDG-24SEP2026,USDG,16.66,23.6086,4.66,-3.45,Med-High,5190000,5190000,77.74,94,score 5.2; PT-USDG-24SEP2026→USDG 6.7; USDG 7.2; Aave V4 · USDG Pendle 8.5†; -1.5 leverage 16.66x; yieldz label: Med.
-USD,Aave V3,Plasma,GHO,USDT0,16.22,7.7006,4.2,-3.97,High,51400000,6360000,93.15,94,score 3.7; GHO 6.2; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 16.22x; -1 util 93%; yieldz label: Low
-USD,Aave V4 · Ethena Ecosystem,Ethereum,USDe,USDC,14.37,17.5467,5.38,-4.47,Med-High,260410,17980,91.4,93,score 4.3; USDe 6.8; USDC 8.6; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 14.37x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V4 · Ethena Ecosystem,Ethereum,USDe,USDT,14.36,17.2704,5.38,-4.49,Med-High,243540,5424.25,91.82,93,score 4.3; USDe 6.8; USDT 7.6; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 14.36x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V4 · Ethena Ecosystem,Ethereum,USDe,frxUSD,14.35,23.803,5.38,-4,High,410500,0,90,93,score 3.6; USDe 6.8; frxUSD 6.1; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 14.35x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Monad,PT-AUSD-8OCT2026,USDT0,14.33,20.4531,6.19,-5.12,Med-High,6110000,85620,91.89,93,score 4.5; PT-AUSD-8OCT2026→AUSD 6.0; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 14.33x; yieldz label: Med.
-USD,Aave V3,Monad,PT-AUSD-8OCT2026,GHO,14.27,38.3034,6.19,-3.77,Med-High,8160000,6110000,68.16,93,score 4.5; PT-AUSD-8OCT2026→AUSD 6.0; GHO 6.2; Aave V3 8.5†; -1.5 leverage 14.27x; yieldz label: Low
-USD,Aave V3,Monad,PT-AUSD-8OCT2026,USDC,14.26,20.6434,6.19,-5.1,Med-High,13370000,631310,91.6,93,score 4.5; PT-AUSD-8OCT2026→AUSD 6.0; USDC 8.6; Aave V3 8.5†; -1.5 leverage 14.26x; yieldz label: Low
-USD,Aave V4 · Ethena Ecosystem,Ethereum,sUSDe,USDC,12.54,11.2416,5.01,-4.47,Med-High,260410,17980,91.4,92,score 4.2; sUSDe 6.7; USDC 8.6; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 12.54x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V4 · Ethena Ecosystem,Ethereum,sUSDe,frxUSD,12.52,16.6452,5.01,-4,High,410500,0,90,92,score 3.6; sUSDe 6.7; frxUSD 6.1; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 12.52x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V4 · Ethena Ecosystem,Ethereum,sUSDe,USDT,12.52,11.0004,5.01,-4.49,Med-High,243540,5424.25,91.82,92,score 4.2; sUSDe 6.7; USDT 7.6; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 12.52x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Fluid,Ethereum,GHO-USDC,GHO-USDC,12.5,24.69,5.6,-3.94,High,740720,21420000,90.3,92,score 0.5; GHO-USDC unrated 3.0; GHO-USDC unrated 3.0; Fluid 8.0†; -1.5 leverage 12.5x; -1 exit liquidity <1M; yieldz label: Low
-USD,Fluid,Plasma,GHO-USDT0,GHO-USDT0,12.48,47.5288,12.4,-9.34,High,1290000,5740000,91.39,92,score 1.5; GHO-USDT0 unrated 3.0; GHO-USDT0 unrated 3.0; Fluid 8.0†; -1.5 leverage 12.48x; yieldz label: Low
-USD,Aave V4 · Maple SyrupUSDG,Ethereum,syrupUSDG,USDG,12.48,16.3452,4.98,-3.99,High,3470000,55080,89.84,92,score 1.5; syrupUSDG unrated 3.0; USDG 7.2; Aave V4 · Maple SyrupUSDG 8.5†; -1.5 leverage 12.48x; yieldz label: Med.
-USD,Fluid,Ethereum,GHO-sUSDe,GHO-USDC,12.41,11.2278,4.61,-4.03,High,366570,21420000,88.65,92,score 0.5; GHO-sUSDe unrated 3.0; GHO-USDC unrated 3.0; Fluid 8.0†; -1.5 leverage 12.41x; -1 exit liquidity <1M; yieldz label: Low
-USD,Morpho,Monad,earnAUSD,USDC,11.87,15.9486,7.47,-6.69,High,1460000,599200,83.03,91.5,score 1.5; earnAUSD unrated 3.0; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.87x; yieldz label: Low
-USD,Morpho,Robinhood Chain,USDe,USDG,11.83,12.4393,4.75,-4.04,Med-High,32190000,155460,90.05,91.5,score 5.0; USDe 6.8; USDG 7.2; Morpho 6.5†; -1.5 leverage 11.83x; yieldz label: Med.
-USD,Morpho,Monad,PT-earnAUSD-8OCT2026,USDC,11.8,25.836,8.88,-7.31,High,808610,36360,89.53,91.5,score 0.5; PT-earnAUSD-8OCT2026 unrated 3.0; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.8x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,savUSD,USDC,11.8,12.752,7.46,-6.97,High,1290000,561900,82.31,91.5,score 3.4; savUSD 4.9; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.8x; yieldz label: Low
-USD,Morpho,Ethereum,PT-sUSDD-26NOV2026,USDC,11.78,31.751,5.34,-2.89,High,97120,142.48,89.99,91.5,score 1.1; PT-sUSDD-26NOV2026→sUSDD 3.6; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.78x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Robinhood Chain,spUSDG,USDG,11.78,13.4176,3.5,-2.58,High,3070000,1310000,82.58,91.5,score 1.5; spUSDG unrated 3.0; USDG 7.2; Morpho 6.5†; -1.5 leverage 11.78x; yieldz label: Med.
-USD,Morpho,Arbitrum,PT-USDai-15OCT2026,USDC,11.76,52.2096,9.6,-5.64,High,249580,7933.7,89.67,91.5,score 3.2; PT-USDai-15OCT2026→USDai 5.7; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.76x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,siUSD,msUSD,11.76,50.106,5.99,-1.89,High,212050,11.31,90,91.5,score 0.5; siUSD unrated 3.0; msUSD 0.5; Morpho 6.5†; -1.5 leverage 11.76x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PT-reUSD-10DEC2026,USDT,11.76,38.308,10.87,-8.32,High,733370,9701.74,90.13,91.5,score 1.8; PT-reUSD-10DEC2026→reUSD 4.2; USDT 7.6; Morpho 6.5†; -1.5 leverage 11.76x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Monad,PT-srUSDat-14JAN2027,USDC,11.76,37.8156,10.27,-7.71,High,54200,2856.45,90.5,91.5,score 0.5; PT-srUSDat-14JAN2027 unrated 3.0; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.76x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Monad,PT-AUSD-8OCT2026,mUSD,11.76,23.406,6.19,-4.59,Med-High,1270000,667720,78.83,91.5,score 4.2; PT-AUSD-8OCT2026→AUSD 6.0; mUSD 5.7; Morpho 6.5†; -1.5 leverage 11.76x; yieldz label: Low
-USD,Morpho,Ethereum,PT-USDat-14JAN2027,USDC,11.76,16.106,6.96,-6.11,High,142750,35700,92,91.5,score 2.3; PT-USDat-14JAN2027→USDat 4.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.76x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Lista,BNB Chain,PT-sUSDai-15OCT2026-(ARB),USDT,11.75,54.1525,11.26,-7.27,High,280860,65530,86.96,91.5,score 2.2; PT-sUSDai-15OCT2026-(ARB)→sUSDai 4.7; USDT 7.6; -1.5 leverage 11.75x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PT-reUSD-10DEC2026,USDC,11.75,37.53,10.87,-8.39,High,9910000,133940,90.13,91.5,score 2.8; PT-reUSD-10DEC2026→reUSD 4.2; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.75x; yieldz label: Med.
-USD,Morpho,Ethereum,sUSDai,AUSD,11.75,18.075,6.25,-5.15,High,430290,63750,91.29,91.5,score 2.7; sUSDai 5.2; AUSD 6.5; Morpho 6.5†; -1.5 leverage 11.75x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PT-USDG-24SEP2026,USDC,11.75,17.4525,4.66,-3.47,High,314690,95460,92.33,91.5,score 3.0; PT-USDG-24SEP2026→USDG 6.7; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.75x; -1 util 92%; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,reUSD,USDC,11.75,16.8125,7.03,-6.12,High,999660,315010,85.4,91.5,score 2.2; reUSD 4.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.75x; -1 exit liquidity <1M; yieldz label: Low
-USD,Morpho,Ethereum,fxSAVE,USDC,11.74,35.2906,6.4,-3.71,Med-High,3980000,2590000,71.3,91.5,score 4.3; fxSAVE 5.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.74x; yieldz label: Low
-USD,Morpho,Monad,PT-USDat-14JAN2027,USDC,11.74,34.6218,7.02,-4.45,High,1730000,20590,90.12,91.5,score 3.3; PT-USDat-14JAN2027→USDat 4.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.74x; yieldz label: Med.
-USD,Morpho,Ethereum,PT-sUSDS-26NOV2026,USDS,11.74,15.6974,4.85,-3.84,Med-High,235390,227.88,90.01,91.5,score 4.0; PT-sUSDS-26NOV2026→sUSDS 7.0; USDS 8.3; Morpho 6.5†; -1.5 leverage 11.74x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Robinhood Chain,syrupUSDG,USDG,11.74,14.8408,4.96,-4.04,High,11250000,11410,90.01,91.5,score 1.5; syrupUSDG unrated 3.0; USDG 7.2; Morpho 6.5†; -1.5 leverage 11.74x; yieldz label: Med.
-USD,Morpho,Ethereum,syrupUSDT,USDT,11.73,21.6034,4.65,-3.07,High,58090,25720,82.06,91.5,score 3.3; syrupUSDT 5.8; USDT 7.6; Morpho 6.5†; -1.5 leverage 11.73x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Monad,PT-AUSD-8OCT2026,USDC,11.73,20.0317,6.19,-4.9,High,836120,31240,90.36,91.5,score 3.5; PT-AUSD-8OCT2026→AUSD 6.0; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.73x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,sUSDe,USDtb,11.73,16.7257,5.03,-3.94,Med-High,123450,19880,88.08,91.5,score 4.0; sUSDe 6.7; USDtb 7.2; Morpho 6.5†; -1.5 leverage 11.73x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Base,USDe,USDC,11.73,11.9391,4.75,-4.08,Med-High,36380000,145810,90.04,91.5,score 5.0; USDe 6.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.73x; yieldz label: Med.
-USD,Morpho,Ethereum,PT-sUSDS-26NOV2026,USDT,11.72,12.0324,4.85,-4.18,Med-High,980580,166020,87.96,91.5,score 4.0; PT-sUSDS-26NOV2026→sUSDS 7.0; USDT 7.6; Morpho 6.5†; -1.5 leverage 11.72x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,syrupUSDC,RLUSD,11.71,11.1918,4.98,-4.4,Med-High,635200,7892.52,89.87,91.5,score 4.0; syrupUSDC 7.1; RLUSD 8.0; Morpho 6.5†; -1.5 leverage 11.71x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,syrupUSDC,PYUSD,11.71,10.1208,4.98,-4.5,Med-High,8110000,1880000,86.97,91.5,score 5.0; syrupUSDC 7.1; PYUSD 7.8; Morpho 6.5†; -1.5 leverage 11.71x; yieldz label: Low
-USD,Morpho,Ethereum,reUSD,USDT,11.7,22.545,7.03,-5.58,High,465850,117380,86.63,91.5,score 2.2; reUSD 4.8; USDT 7.6; Morpho 6.5†; -1.5 leverage 11.7x; -1 exit liquidity <1M; yieldz label: Low
-USD,Morpho,Ethereum,PT-sUSDE-26NOV2026,USDC,11.7,18.713,4.91,-3.62,High,725940,29390,90.39,91.5,score 3.7; PT-sUSDE-26NOV2026→sUSDE 6.2; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.7x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,sUSDe,PYUSD,11.69,15.2924,5.03,-4.07,Med-High,11340000,844250,89.2,91.5,score 5.0; sUSDe 6.7; PYUSD 7.8; Morpho 6.5†; -1.5 leverage 11.69x; yieldz label: Low
-USD,Flex,Ethereum,yvcrvUSD-2,USDC,11.11,8.2885,4.75,-4.4,High,100130,,100,90.91,score 0.5; yvcrvUSD-2 unrated 3.0; USDC 8.6; -1.5 leverage 11.11x; -1 util 100%; -1 exit liquidity <1M; yieldz label: Low
-USD,Flex,Ethereum,yvUSD,USDC,10.99,23.3335,6.85,-5.2,Med-High,601720,,100,90.91,score 4.5; yvUSD 8.0; USDC 8.6; -1.5 leverage 10.99x; -1 util 100%; -1 exit liquidity <1M; yieldz label: Low
-USD,Flex,Ethereum,ysyBOLD,USDC,10.96,13.2216,3.66,-2.7,High,210530,,78.13,90.91,score 0.5; ysyBOLD unrated 3.0; USDC 8.6; -1.5 leverage 10.96x; -1 exit liquidity <1M; yieldz label: Low
-USD,Aave V3,Plasma,sUSDe,GHO,10.12,12.5796,5.01,-4.18,Med-High,1710000,326650,90.11,90.1,score 4.7; sUSDe 6.7; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10.12x; yieldz label: Med.
-USD,Aave V3,Plasma,sUSDe,USDT0,10.07,14.4428,5.01,-3.97,Med-High,51400000,6360000,93.15,90.1,score 4.2; sUSDe 6.7; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10.07x; -1 util 93%; yieldz label: Low
-USD,Aave V3,Mantle,syrupUSDT,USDC,10.07,5.9098,4.64,-4.5,High,295410,12310,90.4,90,score 3.3; syrupUSDT 5.8; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10.07x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Mantle,sUSDe,USDC,10.04,9.6204,5.01,-4.5,Med-High,295410,12310,90.4,90,score 4.2; sUSDe 6.7; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10.04x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Mantle,syrupUSDT,USDT0,10.03,10.6901,4.64,-3.97,Med-High,19530000,3880000,87.52,90,score 4.3; syrupUSDT 5.8; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10.03x; yieldz label: Low
-USD,Aave V3,Ethereum,PT-srUSDe-22OCT2026,USDC,10.03,8.422,4.81,-4.41,High,185050000,42160000,92.23,90,score 3.7; PT-srUSDe-22OCT2026→srUSDe 6.2; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10.03x; -1 util 92%; yieldz label: Low
-USD,Aave V3,Mantle,sUSDe,USDT0,10.02,14.3908,5.01,-3.97,Med-High,19530000,3880000,87.52,90,score 5.2; sUSDe 6.7; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10.02x; yieldz label: Low
-USD,Aave V3,Monad,syrupUSDC,USDT0,10.01,15.3302,6.14,-5.12,Med-High,6110000,85620,91.89,90,score 5.6; syrupUSDC 7.1; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10.01x; yieldz label: Med.
-USD,Aave V3,Plasma,sUSDe-USDe,GHO,10.01,12.4883,5.01,-4.18,High,1710000,326650,90.11,90,score 1.5; sUSDe-USDe unrated 3.0; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10.01x; yieldz label: Med.
-USD,Aave V4 · Forex,Ethereum,USDC,EURC,10,29.45,6.14,-3.55,Med-High,328620,250070,58.08,90,score 5.7; USDC 8.6; EURC 8.2; Aave V4 · Forex 8.5†; -1.5 leverage 10x; -1 exit liquidity <1M; yieldz label: Low
-USD,Aave V4 · Forex,Ethereum,USDC,USDT,10,25.76,6.14,-3.96,Med-Low,1570000,160950,91.08,90,score 6.1; USDC 8.6; USDT 7.6; Aave V4 · Forex 8.5†; -1.5 leverage 10x; yieldz label: Low
-USD,Aave V4 · Forex,Ethereum,USDC,frxUSD,10,25.4,6.14,-4,Med-High,1550000,0,90,90,score 4.6; USDC 8.6; frxUSD 6.1; Aave V4 · Forex 8.5†; -1.5 leverage 10x; yieldz label: Med.
-USD,Fluid,Plasma,USDT0-syrupUSDT,USDT0,10,14.21,7.1,-6.31,High,97640,6010000,85.39,90,score 0.5; USDT0-syrupUSDT unrated 3.0; USDT0 7.6; Fluid 8.0†; -1.5 leverage 10x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Plasma,syrupUSDT,GHO,10,8.78,4.64,-4.18,Med-High,1710000,326650,90.11,90,score 4.3; syrupUSDT 5.8; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10x; yieldz label: Med.
-USD,Fluid,Ethereum,syrupUSDC-USDC,USDC,9.99,28.8672,8.37,-6.09,High,1780000,14480000,84.96,90,score 2.0; syrupUSDC-USDC unrated 3.0; USDC 8.6; Fluid 8.0†; -1 leverage 9.99x; yieldz label: Low
-USD,Aave V3,Ethereum,sUSDe,USDtb,9.99,17.0566,5.01,-3.67,Med-High,4200000,1190000,72.1,90,score 5.7; sUSDe 6.7; USDtb 7.2; Aave V3 8.5†; -1 leverage 9.99x; yieldz label: Low
-USD,Aave V4 · Forex,Ethereum,USDC,USDG,9.98,30.2962,6.14,-3.45,Med-High,459620,459620,77.74,90,score 5.2; USDC 8.6; USDG 7.2; Aave V4 · Forex 8.5†; -1 leverage 9.98x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Monad,syrupUSDC,GHO,9.98,27.4226,6.14,-3.77,Med-High,8160000,6110000,68.16,90,score 5.2; syrupUSDC 7.1; GHO 6.2; Aave V3 8.5†; -1 leverage 9.98x; yieldz label: Low
-USD,Aave V3,Monad,sUSDe,GHO,9.98,16.1452,5.01,-3.77,Med-High,8160000,6110000,68.16,90,score 5.2; sUSDe 6.7; GHO 6.2; Aave V3 8.5†; -1 leverage 9.98x; yieldz label: Low
-USD,Fluid,Arbitrum,syrupUSDC-USDC,USDC,9.98,12.427,6.59,-5.94,High,1120000,648310,86.73,90,score 2.0; syrupUSDC-USDC unrated 3.0; USDC 8.6; Fluid 8.0†; -1 leverage 9.98x; yieldz label: Med.
-USD,Euler,Monad,PT-USDat-14JAN2027,USDC,9.97,21.0132,7.02,-5.46,High,956260,51950,89.43,90,score 2.8; PT-USDat-14JAN2027→USDat 4.8; USDC 8.6; Euler 6.5†; -1 leverage 9.97x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Mantle,sUSDe,GHO,9.97,18.6444,5.01,-3.49,Med-High,893520,736720,43.02,90,score 4.2; sUSDe 6.7; GHO 6.2; Aave V3 8.5†; -1 leverage 9.97x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Ethereum,PT-srUSDe-22OCT2026,USDT,9.97,11.1787,4.81,-4.1,Med-High,474750000,252920000,85.02,90,score 5.2; PT-srUSDe-22OCT2026→srUSDe 6.2; USDT 7.6; Aave V3 8.5†; -1 leverage 9.97x; yieldz label: Low
-USD,Aave V3,Ethereum,sUSDe,USDC,9.97,10.392,5.01,-4.41,Med-High,185050000,42160000,92.23,90,score 4.7; sUSDe 6.7; USDC 8.6; Aave V3 8.5†; -1 leverage 9.97x; -1 util 92%; yieldz label: Low
-USD,Aave V3,Ethereum,sUSDe-USDe,USDC,9.97,10.392,5.01,-4.41,High,185050000,42160000,92.23,90,score 1.0; sUSDe-USDe unrated 3.0; USDC 8.6; Aave V3 8.5†; -1 leverage 9.97x; -1 util 92%; yieldz label: Low
-USD,Aave V3,Monad,syrupUSDC,USDC,9.96,15.4584,6.14,-5.1,Med-Low,13370000,631310,91.6,90,score 6.1; syrupUSDC 7.1; USDC 8.6; Aave V3 8.5†; -1 leverage 9.96x; yieldz label: Low
-USD,Aave V3,Mantle,syrupUSDT,GHO,9.96,14.944,4.64,-3.49,High,893520,736720,43.02,90,score 3.8; syrupUSDT 5.8; GHO 6.2; Aave V3 8.5†; -1 leverage 9.96x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Plasma,sUSDe-USDe,USDT0,9.96,14.3284,5.01,-3.97,High,51400000,6360000,93.15,90,score 1.0; sUSDe-USDe unrated 3.0; USDT0 7.6; Aave V3 8.5†; -1 leverage 9.96x; -1 util 93%; yieldz label: Low
-USD,Aave V3,Monad,syrupUSDC,mUSD,9.95,15.448,6.14,-5.1,Med-High,2800000,47900,79.65,90,score 4.7; syrupUSDC 7.1; mUSD 5.7; Aave V3 8.5†; -1 leverage 9.95x; yieldz label: Med.
-USD,Aave V3,Ethereum,sUSDe,USDT,9.95,13.1545,5.01,-4.1,Med-High,474750000,252920000,85.02,90,score 5.7; sUSDe 6.7; USDT 7.6; Aave V3 8.5†; -1 leverage 9.95x; yieldz label: Low
-USD,Aave V3,Ethereum,sUSDe-USDe,USDT,9.95,13.1545,5.01,-4.1,High,474750000,252920000,85.02,90,score 2.0; sUSDe-USDe unrated 3.0; USDT 7.6; Aave V3 8.5†; -1 leverage 9.95x; yieldz label: Low
-USD,Aave V3,Plasma,syrupUSDT,USDT0,9.94,10.6298,4.64,-3.97,High,51400000,6360000,93.15,90,score 3.8; syrupUSDT 5.8; USDT0 7.6; Aave V3 8.5†; -1 leverage 9.94x; -1 util 93%; yieldz label: Low
-USD,Aave V4 · Forex,Ethereum,USDC,USDC,9.93,13.5519,6.14,-5.31,Med-Low,1590000,0,92.99,90,score 6.5; USDC 8.6; USDC 8.6; Aave V4 · Forex 8.5†; -1 leverage 9.93x; -1 util 93%; yieldz label: Med.
-USD,Aave V3,Ethereum,syrupUSDT,USDT,9.91,9.4514,4.64,-4.1,Med-High,474750000,252920000,85.02,90,score 4.8; syrupUSDT 5.8; USDT 7.6; Aave V3 8.5†; -1 leverage 9.91x; yieldz label: Low
-USD,Euler,Monad,PT-AUSD-8OCT2026,AUSD,9.9,8.771,6.19,-5.9,High,1490000,343420,93.51,90,score 4.0; PT-AUSD-8OCT2026→AUSD 6.0; AUSD 6.5; Euler 6.5†; -1 leverage 9.9x; -1 util 94%; yieldz label: Low
-USD,Aave V3,Ethereum,syrupUSDT,GHO,9.9,7.31,4.64,-4.34,High,9730000,8380000,92.81,90,score 3.8; syrupUSDT 5.8; GHO 6.2; Aave V3 8.5†; -1 leverage 9.9x; -1 util 93%; yieldz label: Med.
-USD,Aave V3,Monad,syrupUSDC,AUSD,9.87,10.9298,6.14,-5.6,Med-High,996060,14700,80.29,90,score 4.5; syrupUSDC 7.1; AUSD 6.5; Aave V3 8.5†; -1 leverage 9.87x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Base,syrupUSDC,USDC,9.77,6.9094,4.98,-4.76,Med-Low,19680000,1670000,89.07,90,score 6.1; syrupUSDC 7.1; USDC 8.6; Aave V3 8.5†; -1 leverage 9.77x; yieldz label: Low
-USD,Aave V3,Plasma,PT-sUSDE-22OCT2026,GHO,8.35,17.9575,5.83,-4.18,Med-High,1710000,326650,90.11,88.01,score 5.2; PT-sUSDE-22OCT2026→sUSDE 6.2; GHO 6.2; Aave V3 8.5†; -1 leverage 8.35x; yieldz label: Med.
-USD,Aave V3,MegaETH,stcUSD,USDm,8.34,10.9414,5.73,-5.02,High,625160,33000,90.5,88,score 2.8; stcUSD 7.4; USDm 4.8; Aave V3 8.5†; -1 leverage 8.34x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Plasma,PT-sUSDE-22OCT2026,USDT0,8.33,19.4638,5.83,-3.97,Med-High,51400000,6360000,93.15,88.01,score 4.2; PT-sUSDE-22OCT2026→sUSDE 6.2; USDT0 7.6; Aave V3 8.5†; -1 leverage 8.33x; -1 util 93%; yieldz label: Low
-USD,Fluid,Ethereum,sUSDai,USDT,8.33,10.7213,6.25,-5.64,Med-High,1040000,23010000,87.62,88,score 4.2; sUSDai 5.2; USDT 7.6; Fluid 8.0†; -1 leverage 8.33x; yieldz label: Low
-USD,Fluid,Ethereum,sUSDai,GHO,8.32,11.3008,6.25,-5.56,Med-High,8090000,6870000,39.77,88,score 4.2; sUSDai 5.2; GHO 6.2; Fluid 8.0†; -1 leverage 8.32x; yieldz label: Med.
-USD,Fluid,Arbitrum,sUSDai,USDT,8.32,8.9584,6.25,-5.88,Med-High,2280000,1030000,83.43,88,score 4.2; sUSDai 5.2; USDT 7.6; Fluid 8.0†; -1 leverage 8.32x; yieldz label: Low
-USD,Fluid,Ethereum,sUSDai,USDC,8.31,7.4196,6.25,-6.09,High,236780,14550000,85.44,88,score 3.2; sUSDai 5.2; USDC 8.6; Fluid 8.0†; -1 leverage 8.31x; -1 exit liquidity <1M; yieldz label: Low
-USD,Fluid,Ethereum,sUSDai,USDC-USDT,8.28,10.618,6.25,-5.65,High,3330000,37560000,59.89,88,score 2.0; sUSDai 5.2; USDC-USDT unrated 3.0; Fluid 8.0†; -1 leverage 8.28x; yieldz label: Low
-USD,Euler,Monad,syzUSD,USDT0,7.74,13.5434,7.41,-6.5,High,540720,2749.06,91.96,87,score 1.0; syzUSD 3.0; USDT0 7.6; Euler 6.5†; -1 leverage 7.74x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Fluid,Ethereum,reUSD,GHO-USDC,7.69,14.4997,6.94,-5.81,High,5650000,21420000,45.85,87,score 2.0; reUSD 4.8; GHO-USDC unrated 3.0; Fluid 8.0†; -1 leverage 7.69x; yieldz label: Med.
-USD,Fluid,Ethereum,reUSD,USDT,7.68,15.624,6.94,-5.64,High,753640,23010000,84.36,87,score 2.8; reUSD 4.8; USDT 7.6; Fluid 8.0†; -1 leverage 7.68x; -1 exit liquidity <1M; yieldz label: Low
-USD,Fluid,Ethereum,reUSD,USDC,7.68,12.618,6.94,-6.09,High,2260000,14550000,85.97,87,score 3.8; reUSD 4.8; USDC 8.6; Fluid 8.0†; -1 leverage 7.68x; yieldz label: Med.
-USD,Fluid,Ethereum,reUSD,USDC-USDT,7.67,15.5443,6.94,-5.65,High,740450,37560000,85.98,87,score 1.0; reUSD 4.8; USDC-USDT unrated 3.0; Fluid 8.0†; -1 leverage 7.67x; -1 exit liquidity <1M; yieldz label: Low
-USD,Morpho,Ethereum,PST,AUSD,7.16,21.502,7.95,-5.75,High,731100,97700,91.18,86,score 1.0; PST unrated 3.0; AUSD 6.5; Morpho 6.5†; -1 leverage 7.16x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PST,PYUSD,7.16,19.962,7.95,-6,High,4240000,73820,90.17,86,score 2.0; PST unrated 3.0; PYUSD 7.8; Morpho 6.5†; -1 leverage 7.16x; yieldz label: Med.
-USD,Morpho,Ethereum,PRIME,PYUSD,7.16,14.1296,6.06,-4.75,High,23580000,4860000,87.4,86,score 2.0; PRIME unrated 3.0; PYUSD 7.8; Morpho 6.5†; -1 leverage 7.16x; yieldz label: Low
-USD,Morpho,Ethereum,etrUSD,USDC,7.16,13.7744,7.06,-5.97,High,126020,3055.18,90.24,86,score 1.0; etrUSD unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.16x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PT-strUSD-26NOV2026,USDC,7.15,36.0025,11.71,-7.76,High,106060,12010,91.02,86,score 1.0; PT-strUSD-26NOV2026 unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.15x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PRIME,USDC,7.15,15.2235,6.06,-4.57,High,63360,27270,82.44,86,score 1.0; PRIME unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.15x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PRIME,AUSD,7.15,9.8115,6.06,-5.45,High,358320,163420,93.13,86,score 0.5; PRIME unrated 3.0; AUSD 6.5; Morpho 6.5†; -1 leverage 7.15x; -1 util 93%; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,PT-USD3-17DEC2026,USDC,7.14,59.616,14.18,-6.78,High,1920000,2570.09,89.99,86,score 3.4; PT-USD3-17DEC2026→USD3 4.4; USDC 8.6; Morpho 6.5†; -1 leverage 7.14x; yieldz label: Med.
-USD,Morpho,Katana,stcUSD,vbUSDC,7.14,36.1844,5.73,-0.77,High,52240,38690,61.42,86,score 1.0; stcUSD 7.4; vbUSDC unrated 3.0; Morpho 6.5†; -1 leverage 7.14x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Morpho,Ethereum,strUSD,USDC,7.14,25.4772,10.25,-7.77,High,1160000,106720,90.84,86,score 2.0; strUSD unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.14x; yieldz label: Med.
-USD,Morpho,Katana,yvvbUSDC,vbUSDT,7.14,14.467,4.95,-3.4,High,228160,126920,77.46,86,score 1.0; yvvbUSDC unrated 3.0; vbUSDT unrated 3.0; Morpho 6.5†; -1 leverage 7.14x; -1 exit liquidity <1M; yieldz label: Low
-USD,Morpho,Ethereum,PST,USDC,7.13,16.7159,7.95,-6.52,High,2730000,470000,87.92,86,score 2.0; PST unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.13x; yieldz label: Low
-USD,Fluid,Ethereum,PST-USDC,USDC-USDT,6.63,9.8932,6.29,-5.65,High,1560000,37560000,79.92,85,score 2.0; PST-USDC unrated 3.0; USDC-USDT unrated 3.0; Fluid 8.0†; -1 leverage 6.63x; yieldz label: Low
-USD,Aave V4 · Main,Ethereum,USDC,USDT,4.55,13.879,6.14,-3.96,Med-Low,1570000,160950,91.08,78,score 7.1; USDC 8.6; USDT 7.6; Aave V4 · Main 8.5†; -0.5 leverage 4.55x; yieldz label: Low
-USD,Aave V4 · Main,Ethereum,USDC,GHO,4.55,13.879,6.14,-3.96,Med-High,79580,5973.6,89.18,78,score 4.7; USDC 8.6; GHO 6.2; Aave V4 · Main 8.5†; -0.5 leverage 4.55x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V4 · Main,Ethereum,USDC,frxUSD,4.55,13.737,6.14,-4,Med-High,3200000,0,90,78,score 5.6; USDC 8.6; frxUSD 6.1; Aave V4 · Main 8.5†; -0.5 leverage 4.55x; yieldz label: Med.
-USD,Aave V4 · Main,Ethereum,USDC,USDG,4.54,15.6626,6.14,-3.45,Med-Low,11090000,8930000,77.74,78,score 6.7; USDC 8.6; USDG 7.2; Aave V4 · Main 8.5†; -0.5 leverage 4.54x; yieldz label: Low
-USD,Aave V4 · Main,Ethereum,USDC,EURC,4.54,15.3086,6.14,-3.55,Med-Low,328620,250070,58.08,78,score 6.7; USDC 8.6; EURC 8.2; Aave V4 · Main 8.5†; -0.5 leverage 4.54x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V4 · Main,Ethereum,USDC,USDC,4.52,9.0616,6.14,-5.31,Med-Low,1590000,0,92.99,78,score 7.0; USDC 8.6; USDC 8.6; Aave V4 · Main 8.5†; -0.5 leverage 4.52x; -1 util 93%; yieldz label: Med.
-USD,Morpho,MegaETH,wiTRY,USDm,4.35,15.66,10.97,-9.57,High,55630,2170.34,89.59,77,score 3.3; wiTRY 4.9; USDm 4.8; Morpho 6.5†; -0.5 leverage 4.35x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Monad,USDT0,USDT0,4.05,7.5905,5.73,-5.12,Med-Low,6110000,85620,91.89,75,score 7.1; USDT0 7.6; USDT0 7.6; Aave V3 8.5†; -0.5 leverage 4.05x; yieldz label: Med.
-USD,Aave V3,Monad,USDT0,USDC,4.02,7.6326,5.73,-5.1,Med-Low,13370000,631310,91.6,75,score 7.1; USDT0 7.6; USDC 8.6; Aave V3 8.5†; -0.5 leverage 4.02x; yieldz label: Low
-USD,Aave V3,Monad,USDC,USDT0,4.02,7.4918,5.71,-5.12,Med-Low,6110000,85620,91.89,75,score 7.1; USDC 8.6; USDT0 7.6; Aave V3 8.5†; -0.5 leverage 4.02x; yieldz label: Med.
-USD,Aave V3,Monad,USDT0,GHO,4.01,11.6296,5.73,-3.77,Med-High,8160000,6110000,68.16,75,score 5.7; USDT0 7.6; GHO 6.2; Aave V3 8.5†; -0.5 leverage 4.01x; yieldz label: Low
-USD,Aave V3,Ethereum,USDC,LUSD,4.01,8.3456,3.65,-2.09,Med-Low,1280000,899780,33.02,75,score 7.0; USDC 8.6; LUSD 7.5; Aave V3 8.5†; -0.5 leverage 4.01x; yieldz label: Low
-USD,Aave V3,Monad,USDT0,mUSD,4,7.62,5.73,-5.1,Med-High,2800000,47900,79.65,75,score 5.2; USDT0 7.6; mUSD 5.7; Aave V3 8.5†; -0.5 leverage 4x; yieldz label: Med.
-USD,Aave V3,Ethereum,USDT,LUSD,4,6.25,3.13,-2.09,Med-Low,1280000,899780,33.02,75,score 7.0; USDT 7.6; LUSD 7.5; Aave V3 8.5†; -0.5 leverage 4x; yieldz label: Low
-USD,Aave V3,Monad,USDT0,AUSD,4,6.12,5.73,-5.6,Med-High,996060,14700,80.29,75,score 5.0; USDT0 7.6; AUSD 6.5; Aave V3 8.5†; -0.5 leverage 4x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Monad,GHO,GHO,4,3.97,3.82,-3.77,Med-High,8160000,6110000,68.16,75,score 5.7; GHO 6.2; GHO 6.2; Aave V3 8.5†; -0.5 leverage 4x; yieldz label: Low
-USD,Aave V3,Monad,USDC,GHO,3.99,11.5106,5.71,-3.77,Med-High,8160000,6110000,68.16,75,score 5.7; USDC 8.6; GHO 6.2; Aave V3 8.5†; -0.5 leverage 3.99x; yieldz label: Low
-USD,Aave V3,Ethereum,USDC,crvUSD,3.99,5.7729,3.65,-2.94,Med-High,107310,70210,42.15,75,score 4.5; USDC 8.6; crvUSD 6.0; Aave V3 8.5†; -0.5 leverage 3.99x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Monad,USDC,USDC,3.98,7.5278,5.71,-5.1,Low,13370000,631310,91.6,75,score 8.0; USDC 8.6; USDC 8.6; Aave V3 8.5†; -0.5 leverage 3.98x; yieldz label: Low
-USD,Aave V3,Monad,USDC,mUSD,3.98,7.5278,5.71,-5.1,Med-High,2800000,47900,79.65,75,score 5.2; USDC 8.6; mUSD 5.7; Aave V3 8.5†; -0.5 leverage 3.98x; yieldz label: Med.
-USD,Aave V3,Ethereum,USDT,crvUSD,3.89,3.6791,3.13,-2.94,Med-High,107310,70210,42.15,75,score 4.5; USDT 7.6; crvUSD 6.0; Aave V3 8.5†; -0.5 leverage 3.89x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Monad,USDC,AUSD,3.82,6.0202,5.71,-5.6,Med-High,996060,14700,80.29,75,score 5.0; USDC 8.6; AUSD 6.5; Aave V3 8.5†; -0.5 leverage 3.82x; -1 exit liquidity <1M; yieldz label: Med.
-USD,Hyperlend,HyperEVM,USDH,USDC,2.63,17.0866,10.86,-7.04,High,20750000,10250000,80.23,62,score 3.8; USDH 3.8; USDC 8.6; yieldz label: Low
-USD,Hyperlend,HyperEVM,USDH,USD₮0,2.63,15.1632,10.86,-8.22,High,1590000,556880,69.19,62,score 3.8; USDH 3.8; USD₮0 7.6; yieldz label: Low
-USD,Aave V3,Ethereum,syrupUSDT,RLUSD,1.07,4.6498,4.64,-4.5,Med-High,1810000,885200,60.88,5,score 5.8; syrupUSDT 5.8; RLUSD 8.0; Aave V3 8.5†; yieldz label: Low
-USD,Aave V3,Ethereum,syrupUSDT,LUSD,1.05,4.7675,4.64,-2.09,Med-High,1280000,899780,33.02,5,score 5.8; syrupUSDT 5.8; LUSD 7.5; Aave V3 8.5†; yieldz label: Low
-USD,Aave V3,Ethereum,syrupUSDT,crvUSD,1.05,4.725,4.64,-2.94,Med-High,107310,70210,42.15,5,score 4.8; syrupUSDT 5.8; crvUSD 6.0; Aave V3 8.5†; -1 exit liquidity <1M; yieldz label: Med.
-USD,Aave V3,Ethereum,syrupUSDT,USDtb,1.05,4.6885,4.64,-3.67,Med-High,4200000,1190000,72.1,5,score 5.8; syrupUSDT 5.8; USDtb 7.2; Aave V3 8.5†; yieldz label: Low
-USD,Aave V3,Ethereum,syrupUSDT,EURC,1.05,4.669,4.64,-4.06,Med-High,16720000,11930000,65.1,75,score 5.8; syrupUSDT 5.8; EURC 8.2; Aave V3 8.5†; yieldz label: Low
-USD,Aave V3,Ethereum,syrupUSDT,USDG,1.05,4.6675,4.64,-4.09,Med-High,3240000,1430000,64.21,5,score 5.8; syrupUSDT 5.8; USDG 7.2; Aave V3 8.5†; yieldz label: Low
-USD,Aave V3,Ethereum,syrupUSDT,USDC,1.04,4.6492,4.64,-4.41,Med-High,185050000,42160000,92.23,5,score 4.8; syrupUSDT 5.8; USDC 8.6; Aave V3 8.5†; -1 util 92%; yieldz label: Low
+ETH,Morpho,Ethereum,wstETH,WETH,28.85,15.111,2.3,-1.84,Med-High,14550000,4690000,85.24,96.5,score 4.0; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 28.85x; -1 lltv 96%; yieldz label: Low
+ETH,Aave V4 · Etherfi,Ethereum,weETH,WETH,22.16,17.9884,2.33,-1.59,Med-High,7730000,335550,91.63,95.5,score 5.0; weETH 7.0; WETH 9.0*; Aave V4 · Etherfi 8.5†; -1.5 leverage 22.16x; -0.5 lltv 96%; yieldz label: Med.
+ETH,Fluid,Arbitrum,wstETH,ETH,19.8,6.99,2.29,-2.04,Med-Low,3210000,3050000,55.72,95,score 6.0; wstETH 8.5*; ETH 8.4; Fluid 8.0†; -1.5 leverage 19.8x; -0.5 lltv 95%; yieldz label: Low
+ETH,Morpho,Monad,wstETH,WETH,18.36,12.3688,2.3,-1.72,Med-High,4560000,5112.16,89.99,94.5,score 4.5; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.36x; -0.5 lltv 94%; yieldz label: Med.
+ETH,Morpho,Ethereum,wstETH,WETH,18.34,12.0104,2.3,-1.74,Med-High,6180000,2490000,83.22,94.5,score 4.5; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.34x; -0.5 lltv 94%; yieldz label: Low
+ETH,Morpho,World Chain,ezETH,WETH,18.18,61.7602,3.52,-0.13,High,128600,5987.25,89.51,94.5,score 3.5; ezETH 7.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.18x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
+ETH,Morpho,Ethereum,weETH,WETH,18.15,11.8225,2.39,-1.84,Med-High,2450000,294410,88.63,94.5,score 4.5; weETH 7.0; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.15x; -0.5 lltv 94%; yieldz label: Low
+ETH,Morpho,Base,wstETH,WETH,18.1,12.389,2.3,-1.71,High,633170,4298.61,89.93,94.5,score 3.5; wstETH 8.5*; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.1x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
+ETH,Morpho,Base,weETH,WETH,18.08,13.492,2.39,-1.74,High,136740,6725.63,89.48,94.5,score 3.5; weETH 7.0; WETH 9.0*; Morpho 6.5†; -1.5 leverage 18.08x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
+ETH,Fluid,Ethereum,weETH-ETH,wstETH,16.74,15.772,3.18,-2.38,High,577630,133670000,42.13,94,score 0.5; weETH-ETH unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16.74x; -1 exit liquidity <1M; yieldz label: Low
+ETH,Fluid,Ethereum,ezETH-ETH,wstETH,16.7,7.39,2.68,-2.38,High,629050,133670000,92.79,94,score 0.5; ezETH-ETH unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16.7x; -1 util 93%; -1 exit liquidity <1M; yieldz label: Low
+ETH,Fluid,Ethereum,ezETH,wstETH,16.68,10.72,2.88,-2.38,Med-High,130280,133670000,19.89,94,score 5.0; ezETH 7.5*; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16.68x; -1 exit liquidity <1M; yieldz label: Med.
+ETH,Fluid,Arbitrum,weETH-ETH,wstETH,16.68,5.9796,2.53,-2.31,High,2490000,12570000,84.68,94,score 1.5; weETH-ETH unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16.68x; yieldz label: Med.
+ETH,Euler,Monad,wstETH,WETH,16.59,11.0204,2.29,-1.73,Med-High,10120000,6190000,74.27,94,score 5.0; wstETH 8.5*; WETH 9.0*; Euler 6.5†; -1.5 leverage 16.59x; yieldz label: Low
+ETH,Fluid,Ethereum,ETH-osETH,wstETH,16.5,2.71,2.4,-2.38,High,1410000,133670000,93.65,94,score 0.5; ETH-osETH unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 16.5x; -1 util 94%; yieldz label: Low
+ETH,Euler,Monad,wstETH,WETH,16.48,12.6616,2.29,-1.62,Med-High,493140,384870,54.45,94,score 4.0; wstETH 8.5*; WETH 9.0*; Euler 6.5†; -1.5 leverage 16.48x; -1 exit liquidity <1M; yieldz label: Low
+ETH,Aave V3,Arbitrum,wstETH,WETH,16.35,7.0485,2.29,-1.98,Med-Low,29460000,83360000,82.13,94,score 7.0; wstETH 8.5*; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 16.35x; yieldz label: Low
+ETH,Fluid,Arbitrum,weETH,wstETH,14.5,2.6,2.33,-2.31,Med-High,2460000,12570000,89.98,94,score 5.5; weETH 7.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 14.5x; yieldz label: Med.
+ETH,Aave V3,Ethereum,wstETH,WETH,14.38,5.0998,2.29,-2.08,Med-Low,703600000,422700000,85.92,93,score 7.0; wstETH 8.5*; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.38x; yieldz label: Low
+ETH,Aave V3,Ethereum,weETH,WETH,14.36,5.67,2.33,-2.08,Med-High,703600000,422700000,85.92,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.36x; yieldz label: Low
+ETH,Aave V3,Plasma,weETH,WETH,14.24,27.3536,2.33,-0.44,Med-High,2200000,1990000,16.29,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.24x; yieldz label: Low
+ETH,Aave V3,Arbitrum,ezETH,WETH,14.24,14.796,2.88,-1.98,Med-Low,29460000,83360000,82.13,93,score 6.0; ezETH 7.5*; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.24x; yieldz label: Low
+ETH,Fluid,Base,wstETH,ETH,14.22,9.9576,2.29,-1.71,Med-Low,3610000,2860000,89.27,93,score 6.5; wstETH 8.5*; ETH 8.4; Fluid 8.0†; -1.5 leverage 14.22x; yieldz label: Low
+ETH,Euler,Monad,weETH,WETH,14.14,11.0024,2.33,-1.67,Med-High,8090000,5210000,71.93,93,score 5.0; weETH 7.0; WETH 9.0*; Euler 6.5†; -1.5 leverage 14.14x; yieldz label: Low
+ETH,Aave V3,Arbitrum,weETH,WETH,14.06,6.901,2.33,-1.98,Med-High,29460000,83360000,82.13,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 14.06x; yieldz label: Low
+ETH,Aave V3,Base,weETH,WETH,13.87,5.4188,2.33,-2.09,Med-High,37720000,16900000,81.88,93,score 5.5; weETH 7.0; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 13.87x; yieldz label: Low
+ETH,Aave V3,Base,wstETH,WETH,13.8,4.85,2.29,-2.09,Med-Low,37720000,16900000,81.88,93,score 7.0; wstETH 8.5*; WETH 9.0*; Aave V3 8.5†; -1.5 leverage 13.8x; yieldz label: Low
+ETH,Venus Flux,BNB Chain,wBETH,ETH,12.5,10.72,2.21,-1.47,High,91290,73960,85.39,92,score 0.5; wBETH unrated 3.0; ETH 8.4; -1.5 leverage 12.5x; -1 exit liquidity <1M; yieldz label: Med.
+ETH,Fluid,Plasma,weETH,WETH,12.48,14.1544,2.33,-1.3,Med-High,331100,280270,88.85,92,score 4.5; weETH 7.0; WETH 9.0*; Fluid 8.0†; -1.5 leverage 12.48x; -1 exit liquidity <1M; yieldz label: Med.
+ETH,Morpho,Katana,weETH,vbETH,11.75,5.4,2.39,-2.11,High,739880,171310,86.99,91.5,score 0.5; weETH 7.0; vbETH unrated 3.0; Morpho 6.5†; -1.5 leverage 11.75x; -1 exit liquidity <1M; yieldz label: Low
+ETH,Morpho,Ethereum,savETH,WETH,11.73,8.2201,4.25,-3.88,High,376630,6964.3,90.18,91.5,score 1.5; savETH 4.0; WETH 9.0*; Morpho 6.5†; -1.5 leverage 11.73x; -1 exit liquidity <1M; yieldz label: Med.
+ETH,Fluid,weETHs-ETH,W,wstETH,11.14,3.1598,2.45,-2.38,High,708270,133670000,88.81,91,score 0.5; W unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 11.14x; -1 exit liquidity <1M; yieldz label: Low
+ETH,Fluid,weETHs,W,wstETH,11.14,3.1598,2.45,-2.38,High,375720,133670000,86.46,91,score 0.5; W unrated 3.0; wstETH 8.5*; Fluid 8.0†; -1.5 leverage 11.14x; -1 exit liquidity <1M; yieldz label: Low
+USD,Morpho,Ethereum,sUSDS,USDT,28.51,25.8831,3.6,-2.79,Med-High,6660000,335700,89.47,96.5,score 4.0; sUSDS 7.5; USDT 7.6; Morpho 6.5†; -1.5 leverage 28.51x; -1 lltv 96%; yieldz label: Low
+USD,Morpho,Ethereum,sUSDS,USDT,28.51,21.4815,3.6,-2.95,Med-High,2290000,780120,84.83,96.5,score 4.0; sUSDS 7.5; USDT 7.6; Morpho 6.5†; -1.5 leverage 28.51x; -1 lltv 96%; yieldz label: Low
+USD,Morpho,Ethereum,PT-trUSD-26NOV2026,USDC,18.16,42.6856,9.91,-8,High,198960,17020,90.79,94.5,score 1.8; PT-trUSD-26NOV2026→trUSD 4.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 18.16x; -0.5 lltv 94%; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V4 · USDG Pendle,Ethereum,PT-USDG-24SEP2026,USDC,16.75,28.1075,4.64,-3.15,Med-High,1410000,997040,72.41,94,score 5.2; PT-USDG-24SEP2026→USDG 6.7; USDC 8.6; Aave V4 · USDG Pendle 8.5†; -1.5 leverage 16.75x; yieldz label: Low
+USD,Aave V4 · USDG Pendle,Ethereum,PT-USDG-24SEP2026,USDG,16.69,14.8385,4.64,-3.99,Med-High,3440000,24390,89.93,94,score 5.2; PT-USDG-24SEP2026→USDG 6.7; USDG 7.2; Aave V4 · USDG Pendle 8.5†; -1.5 leverage 16.69x; yieldz label: Med.
+USD,Aave V4 · USDG Pendle,Ethereum,PT-USDG-24SEP2026,USDG,16.68,23.7696,4.64,-3.42,Med-High,5190000,5190000,77.09,94,score 5.2; PT-USDG-24SEP2026→USDG 6.7; USDG 7.2; Aave V4 · USDG Pendle 8.5†; -1.5 leverage 16.68x; yieldz label: Med.
+USD,Fluid,Plasma,USDe,USDT0,16.67,12.3112,6.67,-6.31,High,102370,5890000,69.5,94,score 3.8; USDe 6.3; USDT0 7.6; Fluid 8.0†; -1.5 leverage 16.67x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Monad,PT-AUSD-8OCT2026,USDT0,14.3,28.401,6.19,-4.52,Med-High,15550000,8870000,81.37,93,score 4.5; PT-AUSD-8OCT2026→AUSD 6.0; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 14.3x; yieldz label: Low
+USD,Aave V3,Monad,PT-AUSD-8OCT2026,GHO,14.27,33.7916,6.19,-4.11,Med-High,6180000,4270000,74.16,93,score 4.5; PT-AUSD-8OCT2026→AUSD 6.0; GHO 6.2; Aave V3 8.5†; -1.5 leverage 14.27x; yieldz label: Low
+USD,Aave V3,Monad,PT-AUSD-8OCT2026,USDC,14.23,20.8753,6.19,-5.08,Med-High,13500000,1070000,91.31,93,score 4.5; PT-AUSD-8OCT2026→AUSD 6.0; USDC 8.6; Aave V3 8.5†; -1.5 leverage 14.23x; yieldz label: Low
+USD,Fluid,Ethereum,GHO-sUSDe,GHO-USDC,12.55,16.703,4.46,-3.4,High,366600,35060000,88.63,92,score 0.5; GHO-sUSDe unrated 3.0; GHO-USDC unrated 3.0; Fluid 8.0†; -1.5 leverage 12.55x; -1 exit liquidity <1M; yieldz label: Low
+USD,Fluid,Ethereum,GHO-USDC,GHO-USDC,12.51,30.6218,5.53,-3.35,High,755620,35060000,90.23,92,score 0.5; GHO-USDC unrated 3.0; GHO-USDC unrated 3.0; Fluid 8.0†; -1.5 leverage 12.51x; -1 exit liquidity <1M; yieldz label: Low
+USD,Aave V4 · Ethena Ecosystem,Ethereum,sUSDe,USDC,12.51,20.3383,5.03,-3.7,High,741210,496600,75.61,92,score 3.7; sUSDe 6.2; USDC 8.6; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 12.51x; -1 exit liquidity <1M; yieldz label: Low
+USD,Fluid,Plasma,GHO-USDT0,GHO-USDT0,12.5,23.925,10.47,-9.3,High,996650,5680000,91.31,92,score 0.5; GHO-USDT0 unrated 3.0; GHO-USDT0 unrated 3.0; Fluid 8.0†; -1.5 leverage 12.5x; -1 exit liquidity <1M; yieldz label: Low
+USD,Aave V4 · Ethena Ecosystem,Ethereum,sUSDe,USDT,12.5,11.93,5.03,-4.43,High,375150,56790,90.56,92,score 3.7; sUSDe 6.2; USDT 7.6; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 12.5x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V4 · Ethena Ecosystem,Ethereum,sUSDe,frxUSD,12.46,17.636,5.03,-3.93,High,982920,432220,88.53,92,score 3.6; sUSDe 6.2; frxUSD 6.1; Aave V4 · Ethena Ecosystem 8.5†; -1.5 leverage 12.46x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V4 · Maple SyrupUSDG,Ethereum,syrupUSDG,USDG,12.41,17.2687,5.06,-3.99,High,3440000,24390,89.93,92,score 1.5; syrupUSDG unrated 3.0; USDG 7.2; Aave V4 · Maple SyrupUSDG 8.5†; -1.5 leverage 12.41x; yieldz label: Med.
+USD,Morpho,Ethereum,savUSD,USDC,12.18,9.4006,7.5,-7.33,High,725240,51160,89.24,91.5,score 2.4; savUSD 4.9; USDC 8.6; Morpho 6.5†; -1.5 leverage 12.18x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,reUSD,USDT,12,8.6,7.06,-6.92,High,310670,22320,90.67,91.5,score 2.2; reUSD 4.8; USDT 7.6; Morpho 6.5†; -1.5 leverage 12x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,syrupUSDC,PYUSD,11.85,10.0695,4.97,-4.5,Med-High,7970000,1700000,87.28,91.5,score 5.0; syrupUSDC 7.1; PYUSD 7.8; Morpho 6.5†; -1.5 leverage 11.85x; yieldz label: Low
+USD,Morpho,Ethereum,PT-USDG-24SEP2026,USDC,11.82,23.575,4.64,-2.89,Med-High,361840,53050,91.28,91.5,score 4.0; PT-USDG-24SEP2026→USDG 6.7; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.82x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Robinhood Chain,USDe,USDG,11.82,10.1282,4.61,-4.1,Med-High,32820000,290270,90.09,91.5,score 4.8; USDe 6.3; USDG 7.2; Morpho 6.5†; -1.5 leverage 11.82x; yieldz label: Med.
+USD,Morpho,Ethereum,PT-USDat-14JAN2027,USDC,11.81,13.6122,6.91,-6.29,High,147480,36870,92,91.5,score 2.3; PT-USDat-14JAN2027→USDat 4.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.81x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,reUSD,USDC,11.79,19.0369,7.06,-5.95,High,1180000,474550,83.26,91.5,score 3.2; reUSD 4.8; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.79x; yieldz label: Low
+USD,Lista,BNB Chain,PT-sUSDai-15OCT2026-(ARB),USDT,11.78,56.985,11.17,-6.92,High,429880,204600,80.92,91.5,score 2.2; PT-sUSDai-15OCT2026-(ARB)→sUSDai 4.7; USDT 7.6; -1.5 leverage 11.78x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Monad,PT-AUSD-8OCT2026,USDC,11.78,27.4266,6.19,-4.22,Med-High,1460000,495670,84.85,91.5,score 4.5; PT-AUSD-8OCT2026→AUSD 6.0; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.78x; yieldz label: Low
+USD,Morpho,Ethereum,sUSDe,PYUSD,11.78,15.271,5.03,-4.08,Med-High,11120000,624300,89.41,91.5,score 4.7; sUSDe 6.2; PYUSD 7.8; Morpho 6.5†; -1.5 leverage 11.78x; yieldz label: Low
+USD,Morpho,Ethereum,siUSD,msUSD,11.77,50.0293,5.98,-1.89,High,204720,1.63,90,91.5,score 0.5; siUSD unrated 3.0; msUSD 1.0; Morpho 6.5†; -1.5 leverage 11.77x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,PT-sUSDS-26NOV2026,USDS,11.77,16.6747,4.72,-3.61,Med-High,423970,169430,83.34,91.5,score 4.0; PT-sUSDS-26NOV2026→sUSDS 7.0; USDS 8.3; Morpho 6.5†; -1.5 leverage 11.77x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,PT-sUSDE-26NOV2026,USDC,11.76,18.5652,4.9,-3.63,High,726530,28900,90.38,91.5,score 3.2; PT-sUSDE-26NOV2026→sUSDE 5.7; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.76x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Arbitrum,PT-USDai-15OCT2026,USDC,11.75,51.19,9.48,-5.6,High,271400,25330,88.97,91.5,score 3.2; PT-USDai-15OCT2026→USDai 5.7; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.75x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,PT-reUSD-10DEC2026,USDC,11.75,41.7425,10.89,-8.02,High,10930000,789440,89.22,91.5,score 2.8; PT-reUSD-10DEC2026→reUSD 4.2; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.75x; yieldz label: Low
+USD,Morpho,Ethereum,fxSAVE,USDC,11.75,30.6575,6.04,-3.75,High,3360000,2040000,74.61,91.5,score 3.5; fxSAVE 5.0; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.75x; yieldz label: Low
+USD,Morpho,Ethereum,sUSDai,AUSD,11.75,16.6675,6.24,-5.27,High,430180,63830,91.29,91.5,score 2.7; sUSDai 5.2; AUSD 6.5; Morpho 6.5†; -1.5 leverage 11.75x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,syrupUSDC,RLUSD,11.75,11.0975,4.97,-4.4,Med-High,633050,5961.48,89.9,91.5,score 4.0; syrupUSDC 7.1; RLUSD 8.0; Morpho 6.5†; -1.5 leverage 11.75x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Base,USDe,USDC,11.74,8.6986,4.51,-4.12,Med-High,36410000,248600,90.07,91.5,score 4.8; USDe 6.3; USDC 8.6; Morpho 6.5†; -1.5 leverage 11.74x; yieldz label: Med.
+USD,Morpho,Ethereum,syrupUSDT,USDT,11.73,16.7776,4.76,-3.64,High,508700,20890,90.39,91.5,score 3.5; syrupUSDT 6.0; USDT 7.6; Morpho 6.5†; -1.5 leverage 11.73x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,sUSDe,USDtb,11.69,17.0028,5.03,-3.91,High,123390,19850,88.08,91.5,score 3.7; sUSDe 6.2; USDtb 7.2; Morpho 6.5†; -1.5 leverage 11.69x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,PT-sUSDS-26NOV2026,USDT,11.68,10.7008,4.72,-4.16,Med-High,998170,181810,87.77,91.5,score 4.0; PT-sUSDS-26NOV2026→sUSDS 7.0; USDT 7.6; Morpho 6.5†; -1.5 leverage 11.68x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Flex,Ethereum,yvUSD,USDC,11.02,24.8156,6.98,-5.2,Med-High,602030,,100,90.91,score 4.5; yvUSD 8.0; USDC 8.6; -1.5 leverage 11.02x; -1 util 100%; -1 exit liquidity <1M; yieldz label: Low
+USD,Flex,Ethereum,ysyBOLD,USDC,10.97,13.1215,3.65,-2.7,High,210590,,78.11,90.91,score 0.5; ysyBOLD unrated 3.0; USDC 8.6; -1.5 leverage 10.97x; -1 exit liquidity <1M; yieldz label: Low
+USD,Flex,Ethereum,yvcrvUSD-2,USDC,10.67,5.0402,4.46,-4.4,High,100180,,100,90.91,score 0.5; yvcrvUSD-2 unrated 3.0; USDC 8.6; -1.5 leverage 10.67x; -1 util 100%; -1 exit liquidity <1M; yieldz label: Low
+USD,Aave V3,Mantle,syrupUSDT,USDC,10.21,6.9804,4.77,-4.53,High,294470,13170,90.43,90,score 3.5; syrupUSDT 6.0; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10.21x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Ethereum,PT-srUSDe-22OCT2026,USDC,10.2,6.97,4.67,-4.42,High,182150000,39240000,92.35,90,score 3.6; PT-srUSDe-22OCT2026→srUSDe 6.1; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10.2x; -1 util 92%; yieldz label: Low
+USD,Aave V3,Base,syrupUSDC,USDC,10.15,7.349,4.97,-4.71,Med-High,21660000,3490000,88.08,90,score 5.6; syrupUSDC 7.1; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10.15x; yieldz label: Low
+USD,Aave V3,Plasma,sUSDe,GHO,10.12,14.4236,5.03,-4,Med-High,2220000,859600,86.93,90.1,score 4.7; sUSDe 6.2; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10.12x; yieldz label: Med.
+USD,Aave V3,Plasma,sUSDe,USDT0,10.1,14.13,5.03,-4.03,High,46460000,501230,93.93,90.1,score 3.7; sUSDe 6.2; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10.1x; -1 util 94%; yieldz label: Low
+USD,Aave V3,Plasma,syrupUSDT,GHO,10.08,11.7616,4.77,-4,Med-High,2220000,859600,86.93,90,score 4.5; syrupUSDT 6.0; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10.08x; yieldz label: Med.
+USD,Aave V3,Ethereum,PT-srUSDe-22OCT2026,USDT,10.08,10.118,4.67,-4.07,Med-High,499240000,277150000,84.26,90,score 4.6; PT-srUSDe-22OCT2026→srUSDe 6.1; USDT 7.6; Aave V3 8.5†; -1.5 leverage 10.08x; yieldz label: Low
+USD,Aave V3,Ethereum,syrupUSDT,USDT,10.06,11.112,4.77,-4.07,Med-High,499240000,277150000,84.26,90,score 4.5; syrupUSDT 6.0; USDT 7.6; Aave V3 8.5†; -1.5 leverage 10.06x; yieldz label: Low
+USD,Aave V3,Plasma,syrupUSDT,USDT0,10.05,11.467,4.77,-4.03,High,46460000,501230,93.93,90,score 3.5; syrupUSDT 6.0; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10.05x; -1 util 94%; yieldz label: Low
+USD,Aave V3,Ethereum,syrupUSDT,GHO,10.02,8.6486,4.77,-4.34,Med-High,14370000,13020000,89.36,90,score 4.5; syrupUSDT 6.0; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10.02x; yieldz label: Med.
+USD,Fluid,Ethereum,syrupUSDC-USDC,USDC,10.01,43.2877,9.32,-5.55,High,1620000,27490000,85.55,90,score 1.5; syrupUSDC-USDC unrated 3.0; USDC 8.6; Fluid 8.0†; -1.5 leverage 10.01x; yieldz label: Low
+USD,Aave V3,Monad,syrupUSDC,mUSD,10.01,19.1945,6.13,-4.68,Med-High,3910000,1000000,73.13,90,score 4.2; syrupUSDC 7.1; mUSD 5.7; Aave V3 8.5†; -1.5 leverage 10.01x; yieldz label: Low
+USD,Venus Flux,BNB Chain,syrupUSDT,USDT,10.01,18.6454,4.77,-3.23,High,345090,212330,76.18,90,score 3.5; syrupUSDT 6.0; USDT 7.6; -1.5 leverage 10.01x; -1 exit liquidity <1M; yieldz label: Low
+USD,Aave V3,Plasma,sUSDe-USDe,GHO,10.01,14.3103,5.03,-4,High,2220000,859600,86.93,90,score 1.5; sUSDe-USDe unrated 3.0; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10.01x; yieldz label: Med.
+USD,Fluid,Plasma,USDT0-syrupUSDT,USDT0,10,38.91,9.57,-6.31,High,97650,5890000,85.41,90,score 0.5; USDT0-syrupUSDT unrated 3.0; USDT0 7.6; Fluid 8.0†; -1.5 leverage 10x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Monad,syrupUSDC,USDT0,10,20.62,6.13,-4.52,Med-High,15550000,8870000,81.37,90,score 5.6; syrupUSDC 7.1; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10x; yieldz label: Low
+USD,Aave V3,Ethereum,sUSDe,USDtb,10,16.01,5.03,-3.81,Med-High,3790000,790090,74.73,90,score 4.7; sUSDe 6.2; USDtb 7.2; Aave V3 8.5†; -1.5 leverage 10x; yieldz label: Low
+USD,Aave V3,Monad,syrupUSDC,AUSD,10,15.13,6.13,-5.13,Med-High,1020000,2871.72,80.06,90,score 5.0; syrupUSDC 7.1; AUSD 6.5; Aave V3 8.5†; -1.5 leverage 10x; yieldz label: Med.
+USD,Aave V3,Plasma,sUSDe-USDe,USDT0,10,14.03,5.03,-4.03,High,46460000,501230,93.93,90,score 0.5; sUSDe-USDe unrated 3.0; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10x; -1 util 94%; yieldz label: Low
+USD,Aave V3,Ethereum,sUSDe,USDT,10,13.67,5.03,-4.07,Med-High,499240000,277150000,84.26,90,score 4.7; sUSDe 6.2; USDT 7.6; Aave V3 8.5†; -1.5 leverage 10x; yieldz label: Low
+USD,Aave V3,Ethereum,sUSDe-USDe,USDT,10,13.67,5.03,-4.07,High,499240000,277150000,84.26,90,score 1.5; sUSDe-USDe unrated 3.0; USDT 7.6; Aave V3 8.5†; -1.5 leverage 10x; yieldz label: Low
+USD,Aave V3,Ethereum,sUSDe,USDC,10,10.52,5.03,-4.42,High,182150000,39240000,92.35,90,score 3.7; sUSDe 6.2; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10x; -1 util 92%; yieldz label: Low
+USD,Aave V3,Ethereum,sUSDe-USDe,USDC,10,10.52,5.03,-4.42,High,182150000,39240000,92.35,90,score 0.5; sUSDe-USDe unrated 3.0; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10x; -1 util 92%; yieldz label: Low
+USD,Aave V3,Monad,sUSDe,USDT0,10,9.62,5.03,-4.52,Med-High,15550000,8870000,81.37,90,score 4.7; sUSDe 6.2; USDT0 7.6; Aave V3 8.5†; -1.5 leverage 10x; yieldz label: Low
+USD,Aave V3,Mantle,sUSDe,USDC,10,9.53,5.03,-4.53,High,294470,13170,90.43,90,score 3.7; sUSDe 6.2; USDC 8.6; Aave V3 8.5†; -1.5 leverage 10x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Base,syrupUSDC,GHO,10,8.66,4.97,-4.56,High,152850,11100,89.22,90,score 3.7; syrupUSDC 7.1; GHO 6.2; Aave V3 8.5†; -1.5 leverage 10x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Venus Flux,BNB Chain,syrupUSDT,USDT-U,10,5.04,4.77,-4.74,High,3800000,215930,84.34,90,score 1.5; syrupUSDT 6.0; USDT-U unrated 3.0; -1.5 leverage 10x; yieldz label: Med.
+USD,Aave V3,Mantle,syrupUSDT,GHO,9.99,16.2772,4.77,-3.49,High,893520,736720,43.02,90,score 4.0; syrupUSDT 6.0; GHO 6.2; Aave V3 8.5†; -1 leverage 9.99x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Mantle,syrupUSDT,USDT0,9.99,14.3893,4.77,-3.7,Med-High,28510000,12830000,81.82,90,score 5.0; syrupUSDT 6.0; USDT0 7.6; Aave V3 8.5†; -1 leverage 9.99x; yieldz label: Low
+USD,Aave V3,Monad,syrupUSDC,GHO,9.98,24.2696,6.13,-4.11,Med-High,6180000,4270000,74.16,90,score 5.2; syrupUSDC 7.1; GHO 6.2; Aave V3 8.5†; -1 leverage 9.98x; yieldz label: Low
+USD,Euler,Monad,PT-USDat-14JAN2027,USDC,9.97,20.3047,6.76,-5.25,High,1260000,355940,86.06,90,score 3.8; PT-USDat-14JAN2027→USDat 4.8; USDC 8.6; Euler 6.5†; -1 leverage 9.97x; yieldz label: Low
+USD,Venus Flux,BNB Chain,USDT-syrupUSDT,USDT,9.97,10.1093,3.92,-3.23,High,345090,212330,48.62,90,score 1.0; USDT-syrupUSDT unrated 3.0; USDT 7.6; -1 leverage 9.97x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Mantle,sUSDe,GHO,9.96,18.8284,5.03,-3.49,Med-High,893520,736720,43.02,90,score 4.2; sUSDe 6.2; GHO 6.2; Aave V3 8.5†; -1 leverage 9.96x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Mantle,sUSDe,USDT0,9.96,16.9468,5.03,-3.7,Med-High,28510000,12830000,81.82,90,score 5.2; sUSDe 6.2; USDT0 7.6; Aave V3 8.5†; -1 leverage 9.96x; yieldz label: Low
+USD,Aave V3,Monad,sUSDe,GHO,9.96,13.2732,5.03,-4.11,Med-High,6180000,4270000,74.16,90,score 5.2; sUSDe 6.2; GHO 6.2; Aave V3 8.5†; -1 leverage 9.96x; yieldz label: Low
+USD,Fluid,Arbitrum,syrupUSDC-USDC,USDC,9.96,13.0712,6.62,-5.9,High,1120000,1040000,86.73,90,score 2.0; syrupUSDC-USDC unrated 3.0; USDC 8.6; Fluid 8.0†; -1 leverage 9.96x; yieldz label: Med.
+USD,Aave V3,Monad,syrupUSDC,USDC,9.94,15.517,6.13,-5.08,Med-Low,13500000,1070000,91.31,90,score 6.1; syrupUSDC 7.1; USDC 8.6; Aave V3 8.5†; -1 leverage 9.94x; yieldz label: Low
+USD,Euler,Monad,PT-AUSD-8OCT2026,AUSD,9.9,8.771,6.19,-5.9,High,1490000,343450,93.51,90,score 4.0; PT-AUSD-8OCT2026→AUSD 6.0; AUSD 6.5; Euler 6.5†; -1 leverage 9.9x; -1 util 94%; yieldz label: Low
+USD,Aave V3,MegaETH,stcUSD,USDm,8.39,8.3282,5.52,-5.14,High,617270,40180,90.61,88,score 2.8; stcUSD 7.4; USDm 4.8; Aave V3 8.5†; -1 leverage 8.39x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Plasma,PT-sUSDE-22OCT2026,GHO,8.36,19.2988,5.83,-4,Med-High,2220000,859600,86.93,88.01,score 4.7; PT-sUSDE-22OCT2026→sUSDE 5.7; GHO 6.2; Aave V3 8.5†; -1 leverage 8.36x; yieldz label: Med.
+USD,Aave V3,Plasma,PT-sUSDE-22OCT2026,USDT0,8.35,19.06,5.83,-4.03,High,46460000,501230,93.93,88.01,score 3.7; PT-sUSDE-22OCT2026→sUSDE 5.7; USDT0 7.6; Aave V3 8.5†; -1 leverage 8.35x; -1 util 94%; yieldz label: Low
+USD,Fluid,Base,sUSDai,USDC,8.35,9.18,6.24,-5.84,High,625640,617740,86.93,88,score 3.2; sUSDai 5.2; USDC 8.6; Fluid 8.0†; -1 leverage 8.35x; -1 exit liquidity <1M; yieldz label: Low
+USD,Fluid,Ethereum,sUSDai,GHO,8.34,12.112,6.24,-5.44,Med-High,8100000,7570000,39.76,88,score 4.2; sUSDai 5.2; GHO 6.2; Fluid 8.0†; -1 leverage 8.34x; yieldz label: Med.
+USD,Fluid,Ethereum,sUSDai,USDT,8.34,10.1302,6.24,-5.71,High,66480,21120000,87.41,88,score 3.2; sUSDai 5.2; USDT 7.6; Fluid 8.0†; -1 leverage 8.34x; -1 exit liquidity <1M; yieldz label: Low
+USD,Fluid,Ethereum,sUSDai,USDC-USDT,8.31,13.4769,6.24,-5.25,High,244280,48600000,75.07,88,score 1.0; sUSDai 5.2; USDC-USDT unrated 3.0; Fluid 8.0†; -1 leverage 8.31x; -1 exit liquidity <1M; yieldz label: Low
+USD,Fluid,Base,syrupUSDC-USDC,USDC,8.27,9.5615,6.29,-5.84,High,101320,617740,25.68,88,score 1.0; syrupUSDC-USDC unrated 3.0; USDC 8.6; Fluid 8.0†; -1 leverage 8.27x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Euler,Monad,syzUSD,USDT0,7.72,12.7532,7.31,-6.5,High,540730,2663.69,91.96,87,score 1.0; syzUSD 3.0; USDT0 7.6; Euler 6.5†; -1 leverage 7.72x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Fluid,Ethereum,reUSD,GHO-USDC,7.71,19.058,6.98,-5.18,High,5650000,35060000,45.87,87,score 2.0; reUSD 4.8; GHO-USDC unrated 3.0; Fluid 8.0†; -1 leverage 7.71x; yieldz label: Med.
+USD,Fluid,Ethereum,reUSD,USDC,7.69,16.5467,6.98,-5.55,High,2260000,27490000,86,87,score 3.8; reUSD 4.8; USDC 8.6; Fluid 8.0†; -1 leverage 7.69x; yieldz label: Med.
+USD,Fluid,Ethereum,reUSD,USDT,7.69,15.4763,6.98,-5.71,High,753680,21120000,84.4,87,score 2.8; reUSD 4.8; USDT 7.6; Fluid 8.0†; -1 leverage 7.69x; -1 exit liquidity <1M; yieldz label: Low
+USD,Fluid,Ethereum,reUSD,USDC-USDT,7.68,18.5364,6.98,-5.25,High,740510,48600000,86.01,87,score 1.0; reUSD 4.8; USDC-USDT unrated 3.0; Fluid 8.0†; -1 leverage 7.68x; -1 exit liquidity <1M; yieldz label: Low
+USD,Morpho,Ethereum,PRIME,AUSD,7.19,12.3719,6.12,-5.11,High,394170,131150,92.5,86,score 0.5; PRIME unrated 3.0; AUSD 6.5; Morpho 6.5†; -1 leverage 7.19x; -1 util 92%; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Katana,yvvbUSDC,vbUSDT,7.17,8.0622,3.99,-3.33,High,227160,126030,77.54,86,score 1.0; yvvbUSDC unrated 3.0; vbUSDT unrated 3.0; Morpho 6.5†; -1 leverage 7.17x; -1 exit liquidity <1M; yieldz label: Low
+USD,Morpho,Ethereum,PRIME,PYUSD,7.16,14.436,6.12,-4.77,High,21190000,2940000,88.39,86,score 2.0; PRIME unrated 3.0; PYUSD 7.8; Morpho 6.5†; -1 leverage 7.16x; yieldz label: Low
+USD,Morpho,Ethereum,PT-USD3-17DEC2026,USDC,7.15,59.557,14.17,-6.79,High,1930000,15470,89.92,86,score 3.4; PT-USD3-17DEC2026→USD3 4.4; USDC 8.6; Morpho 6.5†; -1 leverage 7.15x; yieldz label: Med.
+USD,Morpho,Ethereum,PT-strUSD-26NOV2026,USDC,7.14,35.359,11.72,-7.87,High,95380,10720,91.01,86,score 1.0; PT-strUSD-26NOV2026 unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.14x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,strUSD,USDC,7.14,25.0874,10.29,-7.88,High,1160000,107110,90.84,86,score 2.0; strUSD unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.14x; yieldz label: Med.
+USD,Morpho,Ethereum,PST,AUSD,7.12,21.404,7.94,-5.74,High,737710,91730,91.11,86,score 1.0; PST unrated 3.0; AUSD 6.5; Morpho 6.5†; -1 leverage 7.12x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,Ethereum,PST,USDC,7.12,17.3036,7.94,-6.41,High,3620000,964610,86.37,86,score 2.0; PST unrated 3.0; USDC 8.6; Morpho 6.5†; -1 leverage 7.12x; yieldz label: Low
+USD,Morpho,Ethereum,PST,PYUSD,7.11,12.5225,7.94,-7.19,High,3950000,352940,90.82,86,score 2.0; PST unrated 3.0; PYUSD 7.8; Morpho 6.5†; -1 leverage 7.11x; yieldz label: Med.
+USD,Morpho,Ethereum,sUSDai,AUSD,7.06,8.4216,6.24,-5.88,High,361680,174180,93.25,86,score 2.2; sUSDai 5.2; AUSD 6.5; Morpho 6.5†; -1 leverage 7.06x; -1 util 93%; -1 exit liquidity <1M; yieldz label: Med.
+USD,Morpho,MegaETH,wiTRY,USDm,4.35,59.7255,21.1,-9.57,High,55630,2170.34,89.59,77,score 3.3; wiTRY 4.9; USDm 4.8; Morpho 6.5†; -0.5 leverage 4.35x; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Monad,GHO,GHO,3.93,4.6602,4.25,-4.11,Med-High,6180000,4270000,74.16,75,score 5.7; GHO 6.2; GHO 6.2; Aave V3 8.5†; -0.5 leverage 3.93x; yieldz label: Low
+USD,Hyperlend,HyperEVM,USDH,USDC,2.63,17.1029,10.86,-7.03,High,20800000,10320000,80.15,62,score 3.8; USDH 3.8; USDC 8.6; yieldz label: Low
+USD,Hyperlend,HyperEVM,USDH,USD₮0,2.63,15.1306,10.86,-8.24,High,1580000,547570,69.36,62,score 3.8; USDH 3.8; USD₮0 7.6; yieldz label: Low
+USD,Hyperlend,HyperEVM,USDH,USDe,2.63,13.0116,10.86,-9.54,High,55190,3497.15,78.65,62,score 2.8; USDH 3.8; USDe 6.3; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Ethereum,syrupUSDT,RLUSD,1.07,4.7889,4.77,-4.5,Med-High,1810000,886300,60.86,5,score 6.0; syrupUSDT 6.0; RLUSD 8.0; Aave V3 8.5†; yieldz label: Low
+USD,Aave V3,Ethereum,syrupUSDT,EURC,1.06,4.8024,4.77,-4.23,Med-High,14690000,10120000,67.84,75,score 6.0; syrupUSDT 6.0; EURC 8.2; Aave V3 8.5†; yieldz label: Low
+USD,Aave V3,Ethereum,syrupUSDT,USDC,1.06,4.791,4.77,-4.42,Med-High,182150000,39240000,92.35,5,score 5.0; syrupUSDT 6.0; USDC 8.6; Aave V3 8.5†; -1 util 92%; yieldz label: Low
+USD,Aave V3,Ethereum,syrupUSDT,LUSD,1.05,4.904,4.77,-2.09,Med-High,1280000,899810,33.03,5,score 6.0; syrupUSDT 6.0; LUSD 7.5; Aave V3 8.5†; yieldz label: Low
+USD,Aave V3,Ethereum,syrupUSDT,crvUSD,1.05,4.8615,4.77,-2.94,Med-High,107310,70210,42.15,5,score 5.0; syrupUSDT 6.0; crvUSD 6.0; Aave V3 8.5†; -1 exit liquidity <1M; yieldz label: Med.
+USD,Aave V3,Ethereum,syrupUSDT,USDtb,1.05,4.818,4.77,-3.81,Med-High,3790000,790090,74.73,5,score 6.0; syrupUSDT 6.0; USDtb 7.2; Aave V3 8.5†; yieldz label: Low
