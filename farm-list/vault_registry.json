@@ -1115,5 +1115,15 @@
   "chain_id": 8453,
   "address": "0xbeeF010f9cb27031ad51e3333f9aF9C6B1228183",
   "note": "morpho-blue CBXRP (STEAKUSDC) \u2014 harvested"
+ },
+ "097b18e2-9232-4c44-bd2e-502de4ba889e": {
+  "chain_id": 8453,
+  "address": "0xBEEFE94c8aD530842bfE7d8B397938fFc1cb83b2",
+  "note": "morpho-blue CSCBUSDC (STEAKUSDC) \u2014 harvested"
+ },
+ "6238418f-6d43-5303-88d8-f8ca915e9d39": {
+  "chain_id": 1,
+  "address": "0xe6f4bc20f08125818baaac57e6f398ffadcb8d28",
+  "note": "lagoon DAMMETHALGO (DAMMETHALGO) \u2014 harvested"
  }
 }
