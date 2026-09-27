@@ -1125,5 +1125,15 @@
   "chain_id": 1,
   "address": "0xe6f4bc20f08125818baaac57e6f398ffadcb8d28",
   "note": "lagoon DAMMETHALGO (DAMMETHALGO) \u2014 harvested"
+ },
+ "d70d42b1-4ba3-4572-bf76-0ac12781bde4": {
+  "chain_id": 1,
+  "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
+  "note": "morpho-blue CBBTC (ADPUSDC) \u2014 harvested"
+ },
+ "30c079fc-209d-439e-ac91-a6c25817c435": {
+  "chain_id": 999,
+  "address": "0x2900ABd73631b2f60747e687095537B673c06A76",
+  "note": "morpho-blue KHYPE (FEHYPE) \u2014 harvested"
  }
 }
