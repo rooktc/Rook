@@ -1135,5 +1135,10 @@
   "chain_id": 999,
   "address": "0x2900ABd73631b2f60747e687095537B673c06A76",
   "note": "morpho-blue KHYPE (FEHYPE) \u2014 harvested"
+ },
+ "e69b7f18-9ea0-42f6-9f83-06010ffa0f63": {
+  "chain_id": 999,
+  "address": "0x2900ABd73631b2f60747e687095537B673c06A76",
+  "note": "morpho-blue WHYPE (FEHYPE) \u2014 harvested"
  }
 }
