@@ -1140,5 +1140,25 @@
   "chain_id": 999,
   "address": "0x2900ABd73631b2f60747e687095537B673c06A76",
   "note": "morpho-blue WHYPE (FEHYPE) \u2014 harvested"
+ },
+ "a853c219-b219-466a-9874-96cd77206d0f": {
+  "chain_id": 1,
+  "address": "0x3c63f3ce75dc83735745cf4e86b63414d95ee355",
+  "note": "lagoon DAMMETH (DAMMETH) \u2014 harvested"
+ },
+ "dc5ccbe8-aaa3-40ba-9935-d1bbd3db643b": {
+  "chain_id": 1,
+  "address": "0xca790385506b790554571cbc9da73f0130cdcfd5",
+  "note": "lagoon HUBCAP-USDC (HUBCAP-USDC) \u2014 harvested"
+ },
+ "9d1a102c-92e7-4536-bdea-b6cc693af428": {
+  "chain_id": 1,
+  "address": "0xbeEF346d7099865208Ff331e4f648f4154DDAa05",
+  "note": "morpho-blue RESERVOIRUSDC (RESERVOIRUSDC) \u2014 harvested"
+ },
+ "9001fed4-1523-54c0-a166-048ee08301ef": {
+  "chain_id": 1,
+  "address": "0x6fd4a2bd1e879803a0e083360dddf764d0bbd2df",
+  "note": "lagoon MTP-FUNDSTRAT (MTP-FUNDSTRAT) \u2014 harvested"
  }
 }
