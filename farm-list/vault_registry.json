@@ -1160,5 +1160,20 @@
   "chain_id": 1,
   "address": "0x6fd4a2bd1e879803a0e083360dddf764d0bbd2df",
   "note": "lagoon MTP-FUNDSTRAT (MTP-FUNDSTRAT) \u2014 harvested"
+ },
+ "9dfa64e7-7a2f-4252-a60c-503b99e05310": {
+  "chain_id": 999,
+  "address": "0xd19e3d00f8547f7d108abFD4bbb015486437B487",
+  "note": "morpho-blue WHYPE (MCHYPE) \u2014 harvested"
+ },
+ "545ef93e-c015-5987-a007-c67295050efd": {
+  "chain_id": 999,
+  "address": "0xd19e3d00f8547f7d108abFD4bbb015486437B487",
+  "note": "morpho-blue WSTHYPE (MCHYPE) \u2014 harvested"
+ },
+ "4ea6cebf-571e-49db-90a0-f5f8939f31d6": {
+  "chain_id": 999,
+  "address": "0xd19e3d00f8547f7d108abFD4bbb015486437B487",
+  "note": "morpho-blue WSTHYPE (MCHYPE) \u2014 harvested"
  }
 }
