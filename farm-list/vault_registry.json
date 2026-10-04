@@ -1175,5 +1175,10 @@
   "chain_id": 999,
   "address": "0xd19e3d00f8547f7d108abFD4bbb015486437B487",
   "note": "morpho-blue WSTHYPE (MCHYPE) \u2014 harvested"
+ },
+ "91d30c34-819d-593e-8386-406d373cff9f": {
+  "chain_id": 1,
+  "address": "0xA8875aaeBc4f830524e35d57F9772FfAcbdD6C45",
+  "note": "morpho-blue GTUSDCRWA (GTUSDCRWA) \u2014 harvested"
  }
 }
