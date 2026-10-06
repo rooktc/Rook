@@ -1180,5 +1180,10 @@
   "chain_id": 1,
   "address": "0xA8875aaeBc4f830524e35d57F9772FfAcbdD6C45",
   "note": "morpho-blue GTUSDCRWA (GTUSDCRWA) \u2014 harvested"
+ },
+ "56df9438-0e3a-460b-bce8-7671eb9402c5": {
+  "chain_id": 42161,
+  "address": "0x0c63BBC3712c53214b5489C68cCDC5a9e3bB4800",
+  "note": "beefy TBTC-WBTC (TBTC-WBTC) \u2014 harvested"
  }
 }

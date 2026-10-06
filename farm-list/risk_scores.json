@@ -396,13 +396,6 @@
    "url": "https://staging.tidresearch.com/reports/ousd/"
   },
   {
-   "source": "yearn",
-   "score": 2.05,
-   "scale": "1-5 lower=safer",
-   "label": "Low Risk",
-   "url": "https://curation.yearn.fi/report/origin-ousd/"
-  },
-  {
    "source": "pharos",
    "score": "C-",
    "scale": "letter grade (v9)",
@@ -449,13 +442,6 @@
    "score": 5.0,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/reusd-re/"
-  },
-  {
-   "source": "yearn",
-   "score": 3.45,
-   "scale": "1-5 lower=safer",
-   "label": "Medium Risk",
-   "url": "https://curation.yearn.fi/report/re-reusd/"
   },
   {
    "source": "pharos",
@@ -804,6 +790,13 @@
    "score": 3.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/usd3-3jane/"
+  },
+  {
+   "source": "yearn",
+   "score": 3.46,
+   "scale": "1-5 lower=safer",
+   "label": "Medium Risk",
+   "url": "https://curation.yearn.fi/report/3jane-usd3/"
   },
   {
    "source": "credora",
@@ -1294,23 +1287,6 @@
    "url": "https://curation.yearn.fi/report/kerneldao-hgeth/"
   }
  ],
- "KHYPE": [
-  {
-   "source": "yearn",
-   "score": 2.31,
-   "scale": "1-5 lower=safer",
-   "label": "Low Risk",
-   "url": "https://curation.yearn.fi/report/kinetiq-khype/"
-  },
-  {
-   "source": "credora",
-   "score": "B",
-   "scale": "PD letter (A+..D)",
-   "label": "B",
-   "psl": 0.01566,
-   "url": "https://app.credora.network/"
-  }
- ],
  "MUSD": [
   {
    "source": "yearn",
@@ -1457,23 +1433,6 @@
    "url": "https://curation.yearn.fi/report/stakedhype-sthype/"
   }
  ],
- "SRUSDE": [
-  {
-   "source": "yearn",
-   "score": 2.1,
-   "scale": "1-5 lower=safer",
-   "label": "Low Risk",
-   "url": "https://curation.yearn.fi/report/strata-srusde/"
-  },
-  {
-   "source": "pharos",
-   "score": "C-",
-   "scale": "letter grade (v9)",
-   "label": "C-",
-   "num": 52,
-   "url": "https://pharos.watch/stablecoin/srusde-strata/"
-  }
- ],
  "USCC": [
   {
    "source": "yearn",
@@ -1516,23 +1475,6 @@
    "url": "https://pharos.watch/stablecoin/ustb-superstate/"
   }
  ],
- "UBTC": [
-  {
-   "source": "yearn",
-   "score": 5.0,
-   "scale": "1-5 lower=safer",
-   "label": "High Risk",
-   "url": "https://curation.yearn.fi/report/unit-ubtc/"
-  },
-  {
-   "source": "credora",
-   "score": "B",
-   "scale": "PD letter (A+..D)",
-   "label": "B",
-   "psl": 0.01505,
-   "url": "https://app.credora.network/"
-  }
- ],
  "YVDAI": [
   {
    "source": "yearn",
@@ -1567,15 +1509,6 @@
    "scale": "1-5 lower=safer",
    "label": "Minimal Risk",
    "url": "https://curation.yearn.fi/report/yearn-yvusds/"
-  }
- ],
- "YVUSDT": [
-  {
-   "source": "yearn",
-   "score": 1.25,
-   "scale": "1-5 lower=safer",
-   "label": "Minimal Risk",
-   "url": "https://curation.yearn.fi/report/yearn-yvusdt/"
   }
  ],
  "YVWBTC": [
@@ -1956,6 +1889,16 @@
    "url": "https://app.credora.network/"
   }
  ],
+ "KHYPE": [
+  {
+   "source": "credora",
+   "score": "B",
+   "scale": "PD letter (A+..D)",
+   "label": "B",
+   "psl": 0.01566,
+   "url": "https://app.credora.network/"
+  }
+ ],
  "MFONE": [
   {
    "source": "credora",
@@ -2172,6 +2115,16 @@
    "label": "D",
    "num": 43,
    "url": "https://pharos.watch/stablecoin/u-united-stables/"
+  }
+ ],
+ "UBTC": [
+  {
+   "source": "credora",
+   "score": "B",
+   "scale": "PD letter (A+..D)",
+   "label": "B",
+   "psl": 0.01505,
+   "url": "https://app.credora.network/"
   }
  ],
  "USDINFRA": [
@@ -2440,7 +2393,7 @@
   },
   "4663:0xbeeff033f34c046626b8d0a041844c5d1a5409dd": {
    "rating": "B",
-   "psl": 0.0286446051814767,
+   "psl": 0.0286410882082879,
    "name": "Steakhouse USDG",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
@@ -2454,28 +2407,28 @@
   },
   "8453:0xbeeff2490feffa212fac2f6553682c219e6a8845": {
    "rating": "B+",
-   "psl": 0.0118895438672243,
+   "psl": 0.0119343421560469,
    "name": "Steakhouse High Yield USDC Edition",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "8453:0xee8f4ec5672f09119b96ab6fb59c27e1b7e44b61": {
    "rating": "A",
-   "psl": 0.001533376378,
+   "psl": 0.001539003039,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "56:0x57134a64b7cd9f9eb72f8255a671f5bf2fe3e2d0": {
    "rating": "B+",
-   "psl": 0.008983861893,
+   "psl": 0.009340439473,
    "name": "ListaDAO WBNB",
    "curator": "Lista DAO & Gauntlet",
    "protocol": "lista"
   },
   "8453:0xbeef0e0834849acc03f0089f01f4f1eeb06873c9": {
    "rating": "A",
-   "psl": 0.00199408636096943,
+   "psl": 0.00199367700773556,
    "name": "Steakhouse Prime USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
@@ -2510,65 +2463,65 @@
   },
   "8453:0x050ce30b927da55177a4914ec73480238bad56f0": {
    "rating": "A",
-   "psl": 0.00198882702762715,
+   "psl": 0.00198873210634676,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
   "1:0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f": {
    "rating": "A",
-   "psl": 0.00351751183082238,
+   "psl": 0.00351750359724634,
    "name": "Steakhouse Prime EURCV",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "56:0xfa27f172e0b6ebcef9c51abf817e2cb142fbe627": {
    "rating": "B",
-   "psl": 0.027918483461,
+   "psl": 0.027838591348,
    "name": "ListaDAO USD1",
    "curator": "Lista DAO & Gauntlet",
    "protocol": "lista"
   },
   "8453:0xbeef010f9cb27031ad51e3333f9af9c6b1228183": {
    "rating": "A",
-   "psl": 0.001712075805,
+   "psl": 0.001711865081,
    "name": "Steakhouse USDC",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0x8c106eedad96553e64287a5a6839c3cc78afa3d0": {
    "rating": "A",
-   "psl": 0.00311325599259649,
+   "psl": 0.00309211844471457,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
   "1:0xbeef088055857739c12cd3765f20b7679def0f51": {
    "rating": "A",
-   "psl": 0.00267670994794267,
+   "psl": 0.00307988005924753,
    "name": "Steakhouse Prime USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
-  "1:0xb0c424116172b55cbb6dd3136f5989f7959e5b91": {
-   "rating": "A",
-   "psl": 0.00318563226206248,
-   "name": "Spark Blue Chip USDT Vault",
-   "curator": "SparkDAO",
-   "protocol": "morpho-v2"
-  },
   "1:0xbeef047a543e45807105e51a8bbefcc5950fcfba": {
    "rating": "A",
-   "psl": 0.002022870733,
+   "psl": 0.001990821673,
    "name": "Steakhouse USDT",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0xbeef003c68896c7d2c3c60d363e8d71a49ab2bf9": {
    "rating": "A",
-   "psl": 0.00342942042448557,
+   "psl": 0.00331403547537856,
    "name": "Steakhouse Prime USDT",
    "curator": "Steakhouse Financial",
+   "protocol": "morpho-v2"
+  },
+  "1:0x23f5e9c35820f4bab695ac1f19c203cc3f8e1e11": {
+   "rating": "B+",
+   "psl": 0.00937606999999996,
+   "name": "sky.money USDT Savings",
+   "curator": "Sky Money",
    "protocol": "morpho-v2"
   },
   "1:0xfe6eb3b609a7c8352a241f7f3a21cea4e9209b8f": {
@@ -2578,18 +2531,11 @@
    "curator": "Spark",
    "protocol": "spark"
   },
-  "1:0x23f5e9c35820f4bab695ac1f19c203cc3f8e1e11": {
-   "rating": "B+",
-   "psl": 0.00937606999999996,
-   "name": "sky.money USDT Savings",
-   "curator": "Sky Money",
-   "protocol": "morpho-v2"
-  },
-  "4217:0x9a044ae05e5e6290dcf56afd69548565e957a626": {
+  "1:0xb0c424116172b55cbb6dd3136f5989f7959e5b91": {
    "rating": "A",
-   "psl": 0.002,
-   "name": "Sentora pathUSD",
-   "curator": "Sentora",
+   "psl": 0.00305865478380862,
+   "name": "Spark Blue Chip USDT Vault",
+   "curator": "SparkDAO",
    "protocol": "morpho-v2"
   },
   "143:0xbeef04b01e0275d4ac2e2986256bb14e3ff6ef42": {
@@ -2599,107 +2545,114 @@
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
-  "8453:0x91c056b6d4311a743614fbc03ac32d4e6a2d3a3c": {
+  "4217:0x9a044ae05e5e6290dcf56afd69548565e957a626": {
    "rating": "A",
-   "psl": 0.00277849132856667,
-   "name": "Clearstar cbAssets Vault",
-   "curator": "Clearstar",
+   "psl": 0.002,
+   "name": "Sentora pathUSD",
+   "curator": "Sentora",
    "protocol": "morpho-v2"
   },
   "1:0xbeef00a59b577423653a1526c7009bde103f542b": {
    "rating": "A",
-   "psl": 0.00335063003827407,
+   "psl": 0.00333582468513427,
    "name": "Steakhouse Confidential Prime USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
+  "8453:0x91c056b6d4311a743614fbc03ac32d4e6a2d3a3c": {
+   "rating": "A",
+   "psl": 0.0028607686355141,
+   "name": "Clearstar cbAssets Vault",
+   "curator": "Clearstar",
+   "protocol": "morpho-v2"
+  },
   "8453:0xbeeff0be997cca5b1c13a7433c2004637975739e": {
    "rating": "A",
-   "psl": 0.00333122764094807,
+   "psl": 0.00339593171392249,
    "name": "Ethena x Steakhouse USDC",
+   "curator": "Steakhouse Financial",
+   "protocol": "morpho-v2"
+  },
+  "1:0xbeef0046fcab1de47e41fb75bb3dc4dfc94108e3": {
+   "rating": "A-",
+   "psl": 0.0042650082236626,
+   "name": "Steakhouse Prime ETH",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0x4ef53d2caa51c447fdfeeedee8f07fd1962c9ee6": {
    "rating": "A",
-   "psl": 0.00355601107796721,
+   "psl": 0.00354256367990768,
    "name": "KPK USDC Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
-  "1:0xbeef0046fcab1de47e41fb75bb3dc4dfc94108e3": {
-   "rating": "A",
-   "psl": 0.00373975023657636,
-   "name": "Steakhouse Prime ETH",
-   "curator": "Steakhouse Financial",
-   "protocol": "morpho-v2"
-  },
   "1:0xbeef050ecd6a16c4e7bffbb52ebba7846c4b8cd4": {
    "rating": "A",
-   "psl": 0.002540083856,
+   "psl": 0.002778445806,
    "name": "Steakhouse ETH",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0x43fcd85e8d9d003d515f886891b7c742ac9f92da": {
    "rating": "A",
-   "psl": 0.00324535683942284,
+   "psl": 0.00324535957202965,
    "name": "Gauntlet WETH Prime",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
   "8453:0xbeeff7ae5e00aae3db302e4b0d8c883810a58100": {
-   "rating": "B+",
-   "psl": 0.00805117657306764,
+   "rating": "A-",
+   "psl": 0.00797275065573666,
    "name": "Steakhouse High Yield USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0x9a1d6bd5b8642c41f25e0958129b85f8e1176f3e": {
    "rating": "A",
-   "psl": 0.00284786348513655,
+   "psl": 0.00285066251118271,
    "name": "Gauntlet USDC Frontier",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
   "1:0xdd0f28e19c1780eb6396170735d45153d261490d": {
    "rating": "A",
-   "psl": 0.002373110321,
+   "psl": 0.002098474566,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xe05fadf242331808f504661bea65972594869826": {
    "rating": "B-",
-   "psl": 0.0316860051572172,
+   "psl": 0.0316860529445091,
    "name": "3Jane Ecosystem Vault",
    "curator": "Clearstar",
    "protocol": "morpho-v2"
   },
   "1:0xe4db1c5a1b709ce4d2ada6985d9d506e58f73829": {
    "rating": "A",
-   "psl": 0.00342942042448557,
+   "psl": 0.00331403547537856,
    "name": "Trezor Steakhouse USDT Prime",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0x6859b34a9379122d25a9fa46f0882d434fee36c3": {
    "rating": "B-",
-   "psl": 0.036838820331,
+   "psl": 0.036880314066,
    "name": "Metronome msUSD Vault",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xde6c23e561f3e55846207ec45a91b777e0f7c889": {
    "rating": "A",
-   "psl": 0.00267670994794267,
+   "psl": 0.00307988005924753,
    "name": "Trezor Steakhouse USDC Prime",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0x31a5684983eee865d943a696aac155363ba024f9": {
    "rating": "A-",
-   "psl": 0.005099694063,
+   "psl": 0.005106747218,
    "name": "Vault Bridge WETH",
    "curator": "Gauntlet",
    "protocol": "Morpho"
@@ -2720,7 +2673,7 @@
   },
   "1:0x5dc53a23adc9f2bed98de6f59f7f309a7c71ff2b": {
    "rating": "A",
-   "psl": 0.00330784003411522,
+   "psl": 0.00330780484266702,
    "name": "Wintermute USDC Prime",
    "curator": "Armitage by Wintermute",
    "protocol": "morpho-v2"
@@ -2734,21 +2687,21 @@
   },
   "8453:0xbeefe94c8ad530842bfe7d8b397938ffc1cb83b2": {
    "rating": "A",
-   "psl": 0.001533055338,
+   "psl": 0.001762484009,
    "name": "Steakhouse Prime USDC",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0xbeef3f3a04e28895f3d5163d910474901981183d": {
    "rating": "B",
-   "psl": 0.0250288173215336,
+   "psl": 0.024993741018158,
    "name": "3F x Steakhouse USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0xbeeff047c03714965a54b671a37c18bef6b96210": {
    "rating": "C",
-   "psl": 0.132542061690628,
+   "psl": 0.132542061690494,
    "name": "Waterline Reservoir USDC",
    "curator": "Waterline",
    "protocol": "morpho-v2"
@@ -2762,119 +2715,119 @@
   },
   "1:0x71ffb6a81786ec285d429d531cf655107b9d878d": {
    "rating": "A",
-   "psl": 0.00198902206773755,
+   "psl": 0.00198902135536649,
    "name": "Galaxy USDT Quality",
    "curator": "Galaxy Curation",
    "protocol": "morpho-v2"
   },
   "1:0xbeefb9f61cc44895d8aec381373555a64191a9c4": {
    "rating": "A",
-   "psl": 0.001468540933,
+   "psl": 0.001466955886,
    "name": "Vault Bridge USDC",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0xd5cce260e7a755ddf0fb9cdf06443d593aaeaa13": {
    "rating": "C+",
-   "psl": 0.0975126385196982,
+   "psl": 0.0962915590577774,
    "name": "KPK USDC Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x79fd640000f8563a866322483524a4b48f1ed702": {
-   "rating": "A-",
-   "psl": 0.007580621244,
+   "rating": "A",
+   "psl": 0.002294776606,
    "name": "Gauntlet USDT Frontier",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0x2371e134e3455e0593363cbf89d3b6cf53740618": {
    "rating": "A",
-   "psl": 0.003700415258,
+   "psl": 0.003717661833,
    "name": "Gauntlet WETH Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xb5ce3ca2c774b72955c25875022fdd91f7a7b938": {
    "rating": "B+",
-   "psl": 0.0118932817635521,
+   "psl": 0.0118931997564725,
    "name": "KPK wARS Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x68aea7b82df6ccdf76235d46445ed83f85f845a3": {
    "rating": "A",
-   "psl": 0.003205626483,
+   "psl": 0.003205579111,
    "name": "Yearn USDC",
    "curator": "Yearn",
    "protocol": "Morpho"
   },
   "1:0xc54b4e08c1dcc199fdd35c6b5ab589ffd3428a8d": {
    "rating": "A",
-   "psl": 0.002889393141,
+   "psl": 0.002886757938,
    "name": "Vault Bridge USDT",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0x8cb3649114051ca5119141a34c200d65dc0faa73": {
-   "rating": "A-",
-   "psl": 0.006838932393,
+   "rating": "A",
+   "psl": 0.002339566918,
    "name": "Gauntlet USDT Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xbb50a5341368751024ddf33385ba8cf61fe65ff9": {
    "rating": "B+",
-   "psl": 0.00899566793527173,
+   "psl": 0.00899589847973047,
    "name": "KPK ETH Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x5dbf760b4fd0cddde0366b33aeb338b2a6d77725": {
    "rating": "B-",
-   "psl": 0.0498875729870828,
+   "psl": 0.0496012168971766,
    "name": "KPK ETH Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x870f0bf29a25a40e7cc087cd5c53e70c11f2c8a8": {
-   "rating": "B+",
-   "psl": 0.0103966951057659,
+   "rating": "A-",
+   "psl": 0.00644160696133267,
    "name": "KPK USDT Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x7a72bcd2c3f7f7e4d6679170a0625bab15d7dda1": {
    "rating": "B-",
-   "psl": 0.034618260549997,
+   "psl": 0.0346185266414145,
    "name": "KPK USDC Yield RWA",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x1a1985f50352b58090eb36425afdfacbac7806f4": {
    "rating": "A",
-   "psl": 0.00198195017508573,
+   "psl": 0.00198195003881585,
    "name": "KPK USDC Prime Core",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0xa877d5bb0274dccba8556154a30e1ca4021a275f": {
    "rating": "A",
-   "psl": 0.00332426708504175,
+   "psl": 0.00332426647192285,
    "name": "KPK EURC Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "143:0x0ed3615ff949c8a34d15441970900e849a3409fc": {
    "rating": "B-",
-   "psl": 0.0334113530094626,
+   "psl": 0.033411384143408,
    "name": "Unified Labs USDC RWA",
    "curator": "Unified Labs",
    "protocol": "morpho-v2"
   },
   "42161:0x5837e4189819637853a357af36650902347f5e73": {
    "rating": "A",
-   "psl": 0.00301032725133043,
+   "psl": 0.00301032410568169,
    "name": "KPK USDC Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
@@ -2888,7 +2841,7 @@
   },
   "1:0x91393f69a308844a1b4830de1a57fb489c9d88ce": {
    "rating": "A",
-   "psl": 0.00340234253089344,
+   "psl": 0.00340233352964559,
    "name": "Unified Labs Regulated USDC",
    "curator": "Unified Labs",
    "protocol": "morpho-v2"
@@ -2908,6 +2861,16 @@
    "protocol": "morpho-v2"
   }
  },
+ "SRUSDE": [
+  {
+   "source": "pharos",
+   "score": "C-",
+   "scale": "letter grade (v9)",
+   "label": "C-",
+   "num": 52,
+   "url": "https://pharos.watch/stablecoin/srusde-strata/"
+  }
+ ],
  "A7A5": [
   {
    "source": "pharos",
