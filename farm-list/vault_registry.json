@@ -1185,5 +1185,10 @@
   "chain_id": 42161,
   "address": "0x0c63BBC3712c53214b5489C68cCDC5a9e3bB4800",
   "note": "beefy TBTC-WBTC (TBTC-WBTC) \u2014 harvested"
+ },
+ "f6915ff0-ca54-509c-bf17-bd7ad2d0b614": {
+  "chain_id": 42161,
+  "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
+  "note": "morpho-blue GTUSDGP (AUSD) \u2014 harvested"
  }
 }
