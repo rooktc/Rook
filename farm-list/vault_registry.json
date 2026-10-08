@@ -1190,5 +1190,10 @@
   "chain_id": 42161,
   "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
   "note": "morpho-blue GTUSDGP (AUSD) \u2014 harvested"
+ },
+ "06581b25-c51c-5797-b60d-fbf6df11ef50": {
+  "chain_id": 42161,
+  "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
+  "note": "morpho-blue SYRUPUSDG (AUSD) \u2014 harvested"
  }
 }
