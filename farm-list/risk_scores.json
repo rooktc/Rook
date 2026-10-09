@@ -1230,15 +1230,6 @@
    "url": "https://curation.yearn.fi/report/d2-hypeplus/"
   }
  ],
- "FLEX": [
-  {
-   "source": "yearn",
-   "score": 2.67,
-   "scale": "1-5 lower=safer",
-   "label": "Medium Risk",
-   "url": "https://curation.yearn.fi/report/flex/"
-  }
- ],
  "FLUID": [
   {
    "source": "yearn",
@@ -2445,13 +2436,6 @@
    "curator": "Spark",
    "protocol": "spark"
   },
-  "4663:0xbeeff033f34c046626b8d0a041844c5d1a5409dd": {
-   "rating": "B",
-   "psl": 0.028645673229232,
-   "name": "Steakhouse USDG",
-   "curator": "Steakhouse Financial",
-   "protocol": "morpho-v2"
-  },
   "1:0xe2e7a17dff93280dec073c995595155283e3c372": {
    "rating": "A-",
    "psl": 0.006,
@@ -2459,23 +2443,30 @@
    "curator": "Spark",
    "protocol": "spark"
   },
+  "4663:0xbeeff033f34c046626b8d0a041844c5d1a5409dd": {
+   "rating": "B",
+   "psl": 0.0286320519048784,
+   "name": "Steakhouse USDG",
+   "curator": "Steakhouse Financial",
+   "protocol": "morpho-v2"
+  },
   "8453:0xbeeff2490feffa212fac2f6553682c219e6a8845": {
    "rating": "B+",
-   "psl": 0.0117887264075461,
+   "psl": 0.0118515260530974,
    "name": "Steakhouse High Yield USDC Edition",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "8453:0xee8f4ec5672f09119b96ab6fb59c27e1b7e44b61": {
    "rating": "A",
-   "psl": 0.001539151677,
+   "psl": 0.001539202528,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "56:0x57134a64b7cd9f9eb72f8255a671f5bf2fe3e2d0": {
    "rating": "B+",
-   "psl": 0.009534600766,
+   "psl": 0.009553407319,
    "name": "ListaDAO WBNB",
    "curator": "Lista DAO & Gauntlet",
    "protocol": "lista"
@@ -2496,7 +2487,7 @@
   },
   "8453:0xbeef0e0834849acc03f0089f01f4f1eeb06873c9": {
    "rating": "A",
-   "psl": 0.00199215852084289,
+   "psl": 0.00199143316858252,
    "name": "Steakhouse Prime USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
@@ -2517,63 +2508,63 @@
   },
   "8453:0x050ce30b927da55177a4914ec73480238bad56f0": {
    "rating": "A",
-   "psl": 0.00198867634075306,
+   "psl": 0.00198865294688988,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
   "1:0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f": {
    "rating": "A",
-   "psl": 0.0034871691679309,
+   "psl": 0.00350713074494369,
    "name": "Steakhouse Prime EURCV",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "56:0xfa27f172e0b6ebcef9c51abf817e2cb142fbe627": {
    "rating": "B",
-   "psl": 0.02769594806,
+   "psl": 0.027599939645,
    "name": "ListaDAO USD1",
    "curator": "Lista DAO & Gauntlet",
    "protocol": "lista"
   },
   "8453:0xbeef010f9cb27031ad51e3333f9af9c6b1228183": {
    "rating": "A",
-   "psl": 0.001711556342,
+   "psl": 0.001711154015,
    "name": "Steakhouse USDC",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0x8c106eedad96553e64287a5a6839c3cc78afa3d0": {
    "rating": "A",
-   "psl": 0.00305827712140016,
+   "psl": 0.00301999454465262,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
   "1:0xbeef088055857739c12cd3765f20b7679def0f51": {
    "rating": "A",
-   "psl": 0.00296536953343607,
+   "psl": 0.00285645508426923,
    "name": "Steakhouse Prime USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0xb0c424116172b55cbb6dd3136f5989f7959e5b91": {
    "rating": "A",
-   "psl": 0.00335477429813647,
+   "psl": 0.00325987725077837,
    "name": "Spark Blue Chip USDT Vault",
    "curator": "SparkDAO",
    "protocol": "morpho-v2"
   },
   "1:0xbeef047a543e45807105e51a8bbefcc5950fcfba": {
    "rating": "A",
-   "psl": 0.002068895183,
+   "psl": 0.002103428955,
    "name": "Steakhouse USDT",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0xbeef003c68896c7d2c3c60d363e8d71a49ab2bf9": {
    "rating": "A",
-   "psl": 0.0032517319616866,
+   "psl": 0.00325565486306257,
    "name": "Steakhouse Prime USDT",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
@@ -2599,6 +2590,20 @@
    "curator": "Sentora",
    "protocol": "morpho-v2"
   },
+  "1:0xbeef00a59b577423653a1526c7009bde103f542b": {
+   "rating": "A",
+   "psl": 0.00324814466674917,
+   "name": "Steakhouse Confidential Prime USDC",
+   "curator": "Steakhouse Financial",
+   "protocol": "morpho-v2"
+  },
+  "8453:0xbeeff0be997cca5b1c13a7433c2004637975739e": {
+   "rating": "A",
+   "psl": 0.00342254190635183,
+   "name": "Ethena x Steakhouse USDC",
+   "curator": "Steakhouse Financial",
+   "protocol": "morpho-v2"
+  },
   "143:0xbeef04b01e0275d4ac2e2986256bb14e3ff6ef42": {
    "rating": "A-",
    "psl": 0.00570000000000004,
@@ -2606,100 +2611,86 @@
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
-  "1:0xbeef00a59b577423653a1526c7009bde103f542b": {
-   "rating": "A",
-   "psl": 0.00329415823801848,
-   "name": "Steakhouse Confidential Prime USDC",
-   "curator": "Steakhouse Financial",
-   "protocol": "morpho-v2"
-  },
-  "8453:0xbeeff0be997cca5b1c13a7433c2004637975739e": {
-   "rating": "A",
-   "psl": 0.0034202159460478,
-   "name": "Ethena x Steakhouse USDC",
-   "curator": "Steakhouse Financial",
-   "protocol": "morpho-v2"
-  },
-  "1:0xbeef0046fcab1de47e41fb75bb3dc4dfc94108e3": {
-   "rating": "A-",
-   "psl": 0.00426314013027207,
-   "name": "Steakhouse Prime ETH",
-   "curator": "Steakhouse Financial",
-   "protocol": "morpho-v2"
-  },
   "1:0x4ef53d2caa51c447fdfeeedee8f07fd1962c9ee6": {
    "rating": "A",
-   "psl": 0.00361667331467286,
+   "psl": 0.00354153717612993,
    "name": "KPK USDC Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
+  "1:0xbeef0046fcab1de47e41fb75bb3dc4dfc94108e3": {
+   "rating": "A-",
+   "psl": 0.00426314424728402,
+   "name": "Steakhouse Prime ETH",
+   "curator": "Steakhouse Financial",
+   "protocol": "morpho-v2"
+  },
+  "8453:0xbeeff7ae5e00aae3db302e4b0d8c883810a58100": {
+   "rating": "B+",
+   "psl": 0.00844205789978503,
+   "name": "Steakhouse High Yield USDC",
+   "curator": "Steakhouse Financial",
+   "protocol": "morpho-v2"
+  },
   "1:0xbeef050ecd6a16c4e7bffbb52ebba7846c4b8cd4": {
    "rating": "A",
-   "psl": 0.002914578649,
+   "psl": 0.002911012207,
    "name": "Steakhouse ETH",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0x43fcd85e8d9d003d515f886891b7c742ac9f92da": {
    "rating": "A-",
-   "psl": 0.00531063627252648,
+   "psl": 0.00522601082496432,
    "name": "Gauntlet WETH Prime",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
-  "8453:0xbeeff7ae5e00aae3db302e4b0d8c883810a58100": {
-   "rating": "B+",
-   "psl": 0.00852335080368882,
-   "name": "Steakhouse High Yield USDC",
-   "curator": "Steakhouse Financial",
-   "protocol": "morpho-v2"
-  },
   "1:0x9a1d6bd5b8642c41f25e0958129b85f8e1176f3e": {
    "rating": "A",
-   "psl": 0.00285797252052955,
+   "psl": 0.00286331588572886,
    "name": "Gauntlet USDC Frontier",
    "curator": "Gauntlet",
    "protocol": "morpho-v2"
   },
   "1:0xdd0f28e19c1780eb6396170735d45153d261490d": {
    "rating": "A",
-   "psl": 0.00241907103,
+   "psl": 0.002208918539,
    "name": "Gauntlet USDC Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xe05fadf242331808f504661bea65972594869826": {
    "rating": "B-",
-   "psl": 0.0316863933989002,
+   "psl": 0.0316391005777278,
    "name": "3Jane Ecosystem Vault",
    "curator": "Clearstar",
    "protocol": "morpho-v2"
   },
   "1:0x6859b34a9379122d25a9fa46f0882d434fee36c3": {
    "rating": "B-",
-   "psl": 0.036909274333,
+   "psl": 0.036877048554,
    "name": "Metronome msUSD Vault",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xe4db1c5a1b709ce4d2ada6985d9d506e58f73829": {
    "rating": "A",
-   "psl": 0.0032517319616866,
+   "psl": 0.00325565486306257,
    "name": "Trezor Steakhouse USDT Prime",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0xde6c23e561f3e55846207ec45a91b777e0f7c889": {
    "rating": "A",
-   "psl": 0.00296536953343607,
+   "psl": 0.00285645508426923,
    "name": "Trezor Steakhouse USDC Prime",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "1:0x31a5684983eee865d943a696aac155363ba024f9": {
    "rating": "A-",
-   "psl": 0.005143007303,
+   "psl": 0.005197512871,
    "name": "Vault Bridge WETH",
    "curator": "Gauntlet",
    "protocol": "Morpho"
@@ -2727,28 +2718,28 @@
   },
   "1:0x5dc53a23adc9f2bed98de6f59f7f309a7c71ff2b": {
    "rating": "A",
-   "psl": 0.00330797912710967,
+   "psl": 0.00330818031358904,
    "name": "Wintermute USDC Prime",
    "curator": "Armitage by Wintermute",
    "protocol": "morpho-v2"
   },
   "1:0xbeef3f3a04e28895f3d5163d910474901981183d": {
    "rating": "B",
-   "psl": 0.024988676992847,
+   "psl": 0.0249886627041705,
    "name": "3F x Steakhouse USDC",
    "curator": "Steakhouse Financial",
    "protocol": "morpho-v2"
   },
   "8453:0xbeefe94c8ad530842bfe7d8b397938ffc1cb83b2": {
    "rating": "A",
-   "psl": 0.001873465798,
+   "psl": 0.001953795655,
    "name": "Steakhouse Prime USDC",
    "curator": "Steakhouse Financial",
    "protocol": "Morpho"
   },
   "1:0xbeeff047c03714965a54b671a37c18bef6b96210": {
    "rating": "C",
-   "psl": 0.13254206169021,
+   "psl": 0.13254206169009,
    "name": "Waterline Reservoir USDC",
    "curator": "Waterline",
    "protocol": "morpho-v2"
@@ -2760,116 +2751,116 @@
    "curator": "Pangolins",
    "protocol": "Morpho"
   },
-  "1:0xbeefb9f61cc44895d8aec381373555a64191a9c4": {
-   "rating": "A",
-   "psl": 0.001466967863,
-   "name": "Vault Bridge USDC",
-   "curator": "Steakhouse Financial",
-   "protocol": "Morpho"
-  },
   "1:0x71ffb6a81786ec285d429d531cf655107b9d878d": {
    "rating": "A",
-   "psl": 0.00198997505121701,
+   "psl": 0.00198997496872533,
    "name": "Galaxy USDT Quality",
    "curator": "Galaxy Curation",
    "protocol": "morpho-v2"
   },
+  "1:0xbeefb9f61cc44895d8aec381373555a64191a9c4": {
+   "rating": "A",
+   "psl": 0.001465392128,
+   "name": "Vault Bridge USDC",
+   "curator": "Steakhouse Financial",
+   "protocol": "Morpho"
+  },
   "1:0xd5cce260e7a755ddf0fb9cdf06443d593aaeaa13": {
    "rating": "C+",
-   "psl": 0.0965056333218225,
+   "psl": 0.0999305074351984,
    "name": "KPK USDC Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x79fd640000f8563a866322483524a4b48f1ed702": {
    "rating": "A",
-   "psl": 0.0022137961,
+   "psl": 0.002391085824,
    "name": "Gauntlet USDT Frontier",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0x2371e134e3455e0593363cbf89d3b6cf53740618": {
    "rating": "A",
-   "psl": 0.003717651081,
+   "psl": 0.003516836718,
    "name": "Gauntlet WETH Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xb5ce3ca2c774b72955c25875022fdd91f7a7b938": {
    "rating": "B+",
-   "psl": 0.011888169279339,
+   "psl": 0.011888065696775,
    "name": "KPK wARS Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x68aea7b82df6ccdf76235d46445ed83f85f845a3": {
    "rating": "A",
-   "psl": 0.00320558023,
+   "psl": 0.003205580699,
    "name": "Yearn USDC",
    "curator": "Yearn",
    "protocol": "Morpho"
   },
   "1:0x8cb3649114051ca5119141a34c200d65dc0faa73": {
    "rating": "A",
-   "psl": 0.002524517349,
+   "psl": 0.002754899966,
    "name": "Gauntlet USDT Prime",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xc54b4e08c1dcc199fdd35c6b5ab589ffd3428a8d": {
    "rating": "A",
-   "psl": 0.002884044983,
+   "psl": 0.002895711941,
    "name": "Vault Bridge USDT",
    "curator": "Gauntlet",
    "protocol": "Morpho"
   },
   "1:0xbb50a5341368751024ddf33385ba8cf61fe65ff9": {
    "rating": "B+",
-   "psl": 0.0082989298274324,
+   "psl": 0.00833883845846074,
    "name": "KPK ETH Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x5dbf760b4fd0cddde0366b33aeb338b2a6d77725": {
    "rating": "B-",
-   "psl": 0.0496011661718608,
+   "psl": 0.0496011114953728,
    "name": "KPK ETH Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x870f0bf29a25a40e7cc087cd5c53e70c11f2c8a8": {
    "rating": "B+",
-   "psl": 0.0124076211459173,
+   "psl": 0.0124076464907866,
    "name": "KPK USDT Prime",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x7a72bcd2c3f7f7e4d6679170a0625bab15d7dda1": {
    "rating": "B-",
-   "psl": 0.0354355001111868,
+   "psl": 0.0351869146454857,
    "name": "KPK USDC Yield RWA",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x1a1985f50352b58090eb36425afdfacbac7806f4": {
    "rating": "A",
-   "psl": 0.0019819499927477,
+   "psl": 0.00198194993477441,
    "name": "KPK USDC Prime Core",
-   "curator": "KPK",
-   "protocol": "morpho-v2"
-  },
-  "1:0xa877d5bb0274dccba8556154a30e1ca4021a275f": {
-   "rating": "A",
-   "psl": 0.0033242651620482,
-   "name": "KPK EURC Yield",
    "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "143:0x0ed3615ff949c8a34d15441970900e849a3409fc": {
    "rating": "B-",
-   "psl": 0.0334114486798036,
+   "psl": 0.0334114821087972,
    "name": "Unified Labs USDC RWA",
    "curator": "Unified Labs",
+   "protocol": "morpho-v2"
+  },
+  "1:0xa877d5bb0274dccba8556154a30e1ca4021a275f": {
+   "rating": "A",
+   "psl": 0.002,
+   "name": "KPK EURC Yield",
+   "curator": "KPK",
    "protocol": "morpho-v2"
   },
   "1:0x80128dbb9f07b93dde62a6daeadb69ed14a7d354": {
@@ -2881,7 +2872,7 @@
   },
   "1:0x91393f69a308844a1b4830de1a57fb489c9d88ce": {
    "rating": "A",
-   "psl": 0.00340231740045483,
+   "psl": 0.00340230876386738,
    "name": "Unified Labs Regulated USDC",
    "curator": "Unified Labs",
    "protocol": "morpho-v2"
