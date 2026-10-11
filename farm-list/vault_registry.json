@@ -1195,5 +1195,20 @@
   "chain_id": 42161,
   "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
   "note": "morpho-blue SYRUPUSDG (AUSD) \u2014 harvested"
+ },
+ "f04f40c0-4075-57e9-82f5-f4e0f4703371": {
+  "chain_id": 1,
+  "address": "0x94643e86aa5E38DDAc6c7791C1297f4E40cD96c1",
+  "note": "morpho-blue SXSRLUSD (1337USDC) \u2014 harvested"
+ },
+ "081571e9-b1da-5bb5-bf2a-f1475efce79b": {
+  "chain_id": 42161,
+  "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
+  "note": "morpho-blue BBQUSDG (AUSD) \u2014 harvested"
+ },
+ "1891097d-7660-47c0-84dd-19f5e67e34e0": {
+  "chain_id": 999,
+  "address": "0x835FEBF893c6DdDee5CF762B0f8e31C5B06938ab",
+  "note": "morpho-blue UBTC (FEUSDE) \u2014 harvested"
  }
 }

@@ -585,6 +585,22 @@
    "url": "https://pharos.watch/stablecoin/sgho-aave/"
   }
  ],
+ "STETH": [
+  {
+   "source": "tid",
+   "score": 8.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/steth/"
+  },
+  {
+   "source": "credora",
+   "score": "A+",
+   "scale": "PD letter (A+..D)",
+   "label": "A+",
+   "psl": 0.00088,
+   "url": "https://app.credora.network/"
+  }
+ ],
  "STRC": [
   {
    "source": "tid",
@@ -962,6 +978,13 @@
    "score": 6.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/usdg/"
+  },
+  {
+   "source": "yearn",
+   "score": 2.16,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/paxos-usdg/"
   },
   {
    "source": "pharos",
@@ -1402,6 +1425,15 @@
    "scale": "1-5 lower=safer",
    "label": "Minimal Risk",
    "url": "https://curation.yearn.fi/report/origin-arm/"
+  }
+ ],
+ "ETHPLUS": [
+  {
+   "source": "yearn",
+   "score": 1.76,
+   "scale": "1-5 lower=safer",
+   "label": "Low Risk",
+   "url": "https://curation.yearn.fi/report/reserve-ethplus/"
   }
  ],
  "SRROYUSDC": [
@@ -2124,16 +2156,6 @@
    "scale": "PD letter (A+..D)",
    "label": "A+",
    "psl": 0.00067,
-   "url": "https://app.credora.network/"
-  }
- ],
- "STETH": [
-  {
-   "source": "credora",
-   "score": "A+",
-   "scale": "PD letter (A+..D)",
-   "label": "A+",
-   "psl": 0.00088,
    "url": "https://app.credora.network/"
   }
  ],
