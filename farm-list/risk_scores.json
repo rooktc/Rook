@@ -1290,15 +1290,6 @@
    "url": "https://pharos.watch/stablecoin/ftusd-flying-tulip/"
   }
  ],
- "GUSDA": [
-  {
-   "source": "yearn",
-   "score": 3.15,
-   "scale": "1-5 lower=safer",
-   "label": "Medium Risk",
-   "url": "https://curation.yearn.fi/report/gauntlet-gusda/"
-  }
- ],
  "INFINIFI": [
   {
    "source": "yearn",
@@ -1434,15 +1425,6 @@
    "scale": "1-5 lower=safer",
    "label": "Low Risk",
    "url": "https://curation.yearn.fi/report/reserve-ethplus/"
-  }
- ],
- "SRROYUSDC": [
-  {
-   "source": "yearn",
-   "score": 3.8,
-   "scale": "1-5 lower=safer",
-   "label": "Elevated Risk",
-   "url": "https://curation.yearn.fi/report/royco-srroyusdc/"
   }
  ],
  "STUSDS": [

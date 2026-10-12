@@ -1210,5 +1210,10 @@
   "chain_id": 999,
   "address": "0x835FEBF893c6DdDee5CF762B0f8e31C5B06938ab",
   "note": "morpho-blue UBTC (FEUSDE) \u2014 harvested"
+ },
+ "4e02b531-22ff-4f5e-a345-c2335b29ce86": {
+  "chain_id": 1,
+  "address": "0xbEef047a543E45807105E51A8BBEFCc5950fcfBa",
+  "note": "morpho-blue PT-REUSD-10DEC2026 (STEAKUSDT) \u2014 harvested"
  }
 }
