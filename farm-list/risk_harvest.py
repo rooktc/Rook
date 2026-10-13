@@ -131,10 +131,21 @@ def harvest_credora(scores):
     import re as _re
     import urllib.request as _rq
 
-    def _get(path):
-        req = _rq.Request(f'https://app.credora.network/api/{path}',
-                          headers={'User-Agent': 'Mozilla/5.0 farm-list-verifier'})
-        return json.load(_rq.urlopen(req, timeout=60))
+    def _get(path, tries=4):
+        # app.credora.network started 429ing rapid calls (2026-10); pace and
+        # back off instead of failing the whole source on the first 429
+        import time as _t
+        import urllib.error as _ue
+        for i in range(tries):
+            _t.sleep(5 + 20 * i)
+            req = _rq.Request(f'https://app.credora.network/api/{path}',
+                              headers={'User-Agent': 'Mozilla/5.0 farm-list-verifier'})
+            try:
+                return json.load(_rq.urlopen(req, timeout=60))
+            except _ue.HTTPError as e:
+                if e.code != 429 or i == tries - 1:
+                    raise
+        raise RuntimeError('unreachable')
 
     n = 0
     for a in _get('assets'):

@@ -1550,7 +1550,7 @@
  "YVUSD": [
   {
    "source": "yearn",
-   "score": 2.45,
+   "score": 2.46,
    "scale": "1-5 lower=safer",
    "label": "Low Risk",
    "url": "https://curation.yearn.fi/report/yearn-yvusd/"
