@@ -1,4 +1,12 @@
 {
+ "ALETH": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/aleth/"
+  }
+ ],
  "APXUSD": [
   {
    "source": "tid",
@@ -161,7 +169,7 @@
  "DUSD": [
   {
    "source": "tid",
-   "score": 5.0,
+   "score": 4.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/dusd-alto/"
   },
@@ -257,7 +265,7 @@
  "FXUSD": [
   {
    "source": "tid",
-   "score": 4.5,
+   "score": 5.0,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/fxusd/"
   },
@@ -312,7 +320,7 @@
  "HASTRA": [
   {
    "source": "tid",
-   "score": 5.0,
+   "score": 4.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/hastra-prime/"
   }
@@ -348,10 +356,26 @@
    "url": "https://app.credora.network/"
   }
  ],
+ "LBTC": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/lbtc/"
+  }
+ ],
+ "MSETH": [
+  {
+   "source": "tid",
+   "score": 2.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/mseth/"
+  }
+ ],
  "MSTR": [
   {
    "source": "tid",
-   "score": 4.5,
+   "score": 3.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/mstr/"
   }
@@ -370,6 +394,14 @@
    "label": "F",
    "num": 35,
    "url": "https://pharos.watch/stablecoin/msusd-metronome/"
+  }
+ ],
+ "MEZO": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/musd-mezo/"
   }
  ],
  "ONYC": [
@@ -417,6 +449,30 @@
    "label": "C",
    "num": 59,
    "url": "https://pharos.watch/stablecoin/ousd-origin-protocol/"
+  }
+ ],
+ "PST": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/pst/"
+  }
+ ],
+ "PUFETH": [
+  {
+   "source": "tid",
+   "score": 5.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/pufeth/"
+  },
+  {
+   "source": "credora",
+   "score": "A",
+   "scale": "PD letter (A+..D)",
+   "label": "A",
+   "psl": 0.00352,
+   "url": "https://app.credora.network/"
   }
  ],
  "PYUSD": [
@@ -530,6 +586,22 @@
    "url": "https://pharos.watch/stablecoin/savusd-avant/"
   }
  ],
+ "SCRVUSD": [
+  {
+   "source": "tid",
+   "score": 5.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/scrvusd/"
+  },
+  {
+   "source": "pharos",
+   "score": "C+",
+   "scale": "letter grade (v9)",
+   "label": "C+",
+   "num": 63,
+   "url": "https://pharos.watch/stablecoin/scrvusd-curve/"
+  }
+ ],
  "SDOLA": [
   {
    "source": "tid",
@@ -549,7 +621,7 @@
  "SFRXUSD": [
   {
    "source": "tid",
-   "score": 5.0,
+   "score": 4.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/sfrxusd/"
   },
@@ -585,6 +657,14 @@
    "url": "https://pharos.watch/stablecoin/sgho-aave/"
   }
  ],
+ "SIUSD": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/siusd/"
+  }
+ ],
  "STETH": [
   {
    "source": "tid",
@@ -604,7 +684,7 @@
  "STRC": [
   {
    "source": "tid",
-   "score": 4.0,
+   "score": 3.0,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/strc/"
   }
@@ -689,6 +769,30 @@
    "url": "https://pharos.watch/stablecoin/susds-sky/"
   }
  ],
+ "SUSG": [
+  {
+   "source": "tid",
+   "score": 4.0,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/susg/"
+  }
+ ],
+ "SUSN": [
+  {
+   "source": "tid",
+   "score": 3.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/susn/"
+  },
+  {
+   "source": "pharos",
+   "score": "D",
+   "scale": "letter grade (v9)",
+   "label": "D",
+   "num": 49,
+   "url": "https://pharos.watch/stablecoin/susn-noon/"
+  }
+ ],
  "SYRUPUSDC": [
   {
    "source": "tid",
@@ -760,6 +864,22 @@
    "url": "https://pharos.watch/stablecoin/syzusd-yuzu/"
   }
  ],
+ "TBTC": [
+  {
+   "source": "tid",
+   "score": 4.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/tbtc/"
+  },
+  {
+   "source": "credora",
+   "score": "A",
+   "scale": "PD letter (A+..D)",
+   "label": "A",
+   "psl": 0.00352,
+   "url": "https://app.credora.network/"
+  }
+ ],
  "THBILL": [
   {
    "source": "tid",
@@ -815,6 +935,12 @@
   }
  ],
  "USD3": [
+  {
+   "source": "tid",
+   "score": 5.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/usd3/"
+  },
   {
    "source": "tid",
    "score": 3.5,
@@ -1138,6 +1264,22 @@
    "url": "https://staging.tidresearch.com/reports/uspc/"
   }
  ],
+ "WBTC": [
+  {
+   "source": "tid",
+   "score": 5.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/wbtc/"
+  },
+  {
+   "source": "credora",
+   "score": "A+",
+   "scale": "PD letter (A+..D)",
+   "label": "A+",
+   "psl": 0.00071,
+   "url": "https://app.credora.network/"
+  }
+ ],
  "WEETH": [
   {
    "source": "tid",
@@ -1214,7 +1356,7 @@
  "STCUSD": [
   {
    "source": "yearn",
-   "score": 2.39,
+   "score": 2.45,
    "scale": "1-5 lower=safer",
    "label": "Low Risk",
    "url": "https://curation.yearn.fi/report/cap-stcusd/"
@@ -1240,7 +1382,7 @@
  "HYPEPLUS": [
   {
    "source": "yearn",
-   "score": 3.85,
+   "score": 4.1,
    "scale": "1-5 lower=safer",
    "label": "Elevated Risk",
    "url": "https://curation.yearn.fi/report/d2-hypeplus/"
@@ -2027,16 +2169,6 @@
    "url": "https://app.credora.network/"
   }
  ],
- "PUFETH": [
-  {
-   "source": "credora",
-   "score": "A",
-   "scale": "PD letter (A+..D)",
-   "label": "A",
-   "psl": 0.00352,
-   "url": "https://app.credora.network/"
-  }
- ],
  "RETH": [
   {
    "source": "credora",
@@ -2138,16 +2270,6 @@
    "scale": "PD letter (A+..D)",
    "label": "A+",
    "psl": 0.00067,
-   "url": "https://app.credora.network/"
-  }
- ],
- "TBTC": [
-  {
-   "source": "credora",
-   "score": "A",
-   "scale": "PD letter (A+..D)",
-   "label": "A",
-   "psl": 0.00352,
    "url": "https://app.credora.network/"
   }
  ],
@@ -2366,16 +2488,6 @@
    "scale": "PD letter (A+..D)",
    "label": "B",
    "psl": 0.01539,
-   "url": "https://app.credora.network/"
-  }
- ],
- "WBTC": [
-  {
-   "source": "credora",
-   "score": "A+",
-   "scale": "PD letter (A+..D)",
-   "label": "A+",
-   "psl": 0.00071,
    "url": "https://app.credora.network/"
   }
  ],
@@ -3935,16 +4047,6 @@
    "url": "https://pharos.watch/stablecoin/sbold-k3-capital/"
   }
  ],
- "SCRVUSD": [
-  {
-   "source": "pharos",
-   "score": "C+",
-   "scale": "letter grade (v9)",
-   "label": "C+",
-   "num": 63,
-   "url": "https://pharos.watch/stablecoin/scrvusd-curve/"
-  }
- ],
  "SCUSD": [
   {
    "source": "pharos",
@@ -4339,16 +4441,6 @@
    "label": "F",
    "num": 39,
    "url": "https://pharos.watch/stablecoin/susdx-axis/"
-  }
- ],
- "SUSN": [
-  {
-   "source": "pharos",
-   "score": "D",
-   "scale": "letter grade (v9)",
-   "label": "D",
-   "num": 49,
-   "url": "https://pharos.watch/stablecoin/susn-noon/"
   }
  ],
  "SXSRLUSD": [

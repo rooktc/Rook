@@ -1225,5 +1225,45 @@
   "chain_id": 1,
   "address": "0xbEef047a543E45807105E51A8BBEFCc5950fcfBa",
   "note": "morpho-blue WEETH (STEAKUSDT) \u2014 harvested"
+ },
+ "28470287-2c5b-5744-bc13-b9f1c0190b7b": {
+  "chain_id": 8453,
+  "address": "0xeE8F4eC5672F09119b96Ab6fB59C27E1b7e44b61",
+  "note": "morpho-blue GROVE-STEAKUSDC (GTUSDCP) \u2014 harvested"
+ },
+ "b8b77ffa-5104-5747-829e-a44ba696b58b": {
+  "chain_id": 8453,
+  "address": "0xbeeF010f9cb27031ad51e3333f9aF9C6B1228183",
+  "note": "morpho-blue MGLO (STEAKUSDC) \u2014 harvested"
+ },
+ "9ca5ee67-cfd6-479d-b780-eb4e5eaa6665": {
+  "chain_id": 8453,
+  "address": "0xBEEFE94c8aD530842bfE7d8B397938fFc1cb83b2",
+  "note": "morpho-blue SOL (STEAKUSDC) \u2014 harvested"
+ },
+ "a2549d64-6dc6-5d53-8347-6d6ed346f6d3": {
+  "chain_id": 1,
+  "address": "0x5f9efcc03b95609346798596494cf9dbaf176312",
+  "note": "lagoon FLEUR (FLEUR) \u2014 harvested"
+ },
+ "4c14f7e7-d802-4bce-9d0f-ac1e3bed6360": {
+  "chain_id": 42161,
+  "address": "0x749e0767C811a4AE867dDac6280aE8b2C57b75B1",
+  "note": "beefy WSTETH-WETH (WETH-WSTETH) \u2014 harvested"
+ },
+ "0a2d456a-cc99-5652-b49c-01afcad46e85": {
+  "chain_id": 1,
+  "address": "0xdE2cda87D8c9EFce4c363edcBc74FD3857E0CFD7",
+  "note": "beefy CBBTC (CBBTC) \u2014 harvested"
+ },
+ "8ce2dad7-a3c8-5b28-9e58-b56b47a87f24": {
+  "chain_id": 1,
+  "address": "0x4ef75e307f7edbf0462c679192c1ff7e911c389a",
+  "note": "lagoon FXLOOP (FXLOOP) \u2014 harvested"
+ },
+ "1977885c-d5ae-4c9e-b4df-863b7e1578e6": {
+  "chain_id": 1,
+  "address": "0x834d00dC6073E1Ba68a11b1b58d568ee1e030513",
+  "note": "beefy BOLD-LUSD (BOLD-LUSD) \u2014 harvested"
  }
 }
