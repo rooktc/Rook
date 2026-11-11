@@ -1265,5 +1265,15 @@
   "chain_id": 1,
   "address": "0x834d00dC6073E1Ba68a11b1b58d568ee1e030513",
   "note": "beefy BOLD-LUSD (BOLD-LUSD) \u2014 harvested"
+ },
+ "c037a916-a462-4c65-b217-100db0fdc0e0": {
+  "chain_id": 1,
+  "address": "0xbEef047a543E45807105E51A8BBEFCc5950fcfBa",
+  "note": "morpho-blue WBTC (STEAKUSDT) \u2014 harvested"
+ },
+ "e48c4cd4-4964-4e0b-822f-3b96c6987197": {
+  "chain_id": 42161,
+  "address": "0x749e0767C811a4AE867dDac6280aE8b2C57b75B1",
+  "note": "beefy WSTETH-WETH (WETH-WSTETH) \u2014 harvested"
  }
 }
