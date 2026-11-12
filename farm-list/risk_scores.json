@@ -796,7 +796,7 @@
  "SYRUPUSDC": [
   {
    "source": "tid",
-   "score": 6.5,
+   "score": 6.0,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/syrupusdc/"
   },
@@ -827,7 +827,7 @@
  "SYRUPUSDT": [
   {
    "source": "tid",
-   "score": 6.0,
+   "score": 5.5,
    "scale": "1-10 higher=safer",
    "url": "https://staging.tidresearch.com/reports/syrupusdt/"
   },
