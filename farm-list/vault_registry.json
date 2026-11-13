@@ -1275,5 +1275,10 @@
   "chain_id": 42161,
   "address": "0x749e0767C811a4AE867dDac6280aE8b2C57b75B1",
   "note": "beefy WSTETH-WETH (WETH-WSTETH) \u2014 harvested"
+ },
+ "ced27d62-613b-504b-90fd-a377d388ae64": {
+  "chain_id": 1,
+  "address": "0x8595f5ee036e1f7c4f3ca66327ba5f38c21cb7fb",
+  "note": "lagoon SIGMALPP (SIGMALPP) \u2014 harvested"
  }
 }
