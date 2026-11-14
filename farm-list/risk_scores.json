@@ -206,6 +206,30 @@
    "url": "https://pharos.watch/stablecoin/dusd-standx/"
   }
  ],
+ "EUSD": [
+  {
+   "source": "tid",
+   "score": 5.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/eusd/"
+  },
+  {
+   "source": "pharos",
+   "score": "D",
+   "scale": "letter grade (v9)",
+   "label": "D",
+   "num": 43,
+   "url": "https://pharos.watch/stablecoin/eusd-electronic-usd/"
+  },
+  {
+   "source": "pharos",
+   "score": "C",
+   "scale": "letter grade (v9)",
+   "label": "C",
+   "num": 55,
+   "url": "https://pharos.watch/stablecoin/eusd-telcoin/"
+  }
+ ],
  "FIGURE": [
   {
    "source": "tid",
@@ -3201,24 +3225,6 @@
    "label": "C-",
    "num": 52,
    "url": "https://pharos.watch/stablecoin/eurspkcc-spiko/"
-  }
- ],
- "EUSD": [
-  {
-   "source": "pharos",
-   "score": "D",
-   "scale": "letter grade (v9)",
-   "label": "D",
-   "num": 43,
-   "url": "https://pharos.watch/stablecoin/eusd-electronic-usd/"
-  },
-  {
-   "source": "pharos",
-   "score": "C",
-   "scale": "letter grade (v9)",
-   "label": "C",
-   "num": 55,
-   "url": "https://pharos.watch/stablecoin/eusd-telcoin/"
   }
  ],
  "EUTBL": [
