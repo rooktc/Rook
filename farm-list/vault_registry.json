@@ -1280,5 +1280,15 @@
   "chain_id": 1,
   "address": "0x8595f5ee036e1f7c4f3ca66327ba5f38c21cb7fb",
   "note": "lagoon SIGMALPP (SIGMALPP) \u2014 harvested"
+ },
+ "8384f8c9-059f-4aad-9966-0d27d821afe7": {
+  "chain_id": 1,
+  "address": "0xA0804346780b4c2e3bE118ac957D1DB82F9d7484",
+  "note": "morpho-blue DCOMP (BBQUSDT) \u2014 harvested"
+ },
+ "a020fbd0-219c-5c99-91a6-5566e39be71f": {
+  "chain_id": 42161,
+  "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
+  "note": "morpho-blue GLV[USDG-USDG] (AUSD) \u2014 harvested"
  }
 }

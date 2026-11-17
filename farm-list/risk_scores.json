@@ -206,6 +206,22 @@
    "url": "https://pharos.watch/stablecoin/dusd-standx/"
   }
  ],
+ "ETH": [
+  {
+   "source": "tid",
+   "score": 6.5,
+   "scale": "1-10 higher=safer",
+   "url": "https://staging.tidresearch.com/reports/ethplus/"
+  },
+  {
+   "source": "credora",
+   "score": "A-",
+   "scale": "PD letter (A+..D)",
+   "label": "A-",
+   "psl": 0.00537,
+   "url": "https://app.credora.network/"
+  }
+ ],
  "EUSD": [
   {
    "source": "tid",
@@ -1966,16 +1982,6 @@
    "scale": "PD letter (A+..D)",
    "label": "A+",
    "psl": 0.00101,
-   "url": "https://app.credora.network/"
-  }
- ],
- "ETH": [
-  {
-   "source": "credora",
-   "score": "A-",
-   "scale": "PD letter (A+..D)",
-   "label": "A-",
-   "psl": 0.00537,
    "url": "https://app.credora.network/"
   }
  ],
